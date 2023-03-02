@@ -1,1 +1,1 @@
-# Diversified-recommendations-based-on-Aspect
+# Diversified-recommendations
