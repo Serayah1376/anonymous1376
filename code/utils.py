@@ -37,7 +37,7 @@ class BPRLoss:
     def stageOne(self, users, pos, neg):
         loss, reg_loss1 = self.model.bpr_loss(users, pos, neg)
         reg_loss2 = sum(p.pow(2).sum()  for p in self.model.parameters())  # 模型参数正则化
-        reg_loss = reg_loss1 * 1e-1 + reg_loss2 * 1e-5  # 调整数量级，因为reg_loss1和reg_loss2不是一个数量级的  self.weight_decay
+        reg_loss = reg_loss1 * 1e-4 + reg_loss2 * 1e-9  # 调整数量级，因为reg_loss1和reg_loss2不是一个数量级的  self.weight_decay
         loss = loss + reg_loss
 
         self.opt.zero_grad()
