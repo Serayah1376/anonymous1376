@@ -1,11 +1,3 @@
-'''
-Created on Mar 1, 2020
-Pytorch Implementation of LightGCN in
-Xiangnan He et al. LightGCN: Simplifying and Powering Graph Convolution Network for Recommendation
-@author: Jianbai Ye (gusye@mail.ustc.edu.cn)
-
-Design training and test process
-'''
 import numpy as np
 import torch
 import code
@@ -14,43 +6,6 @@ import code.model as model
 import multiprocessing
 
 CORES = multiprocessing.cpu_count() // 2
-
-
-# train
-def BPR_train_original(args, dataset, recommend_model, loss_class, epoch, neg_k=1, w=None):
-    Recmodel = recommend_model
-    Recmodel.train()
-    bpr: utils.BPRLoss = loss_class
-
-    with utils.timer(name="Sample"):
-        S = utils.UniformSample_original(dataset)  # 负采样
-
-    users = torch.Tensor(S[:, 0]).long()
-    posItems = torch.Tensor(S[:, 1]).long()
-    negItems = torch.Tensor(S[:, 2]).long()
-
-    users = users.to(args.device)
-    posItems = posItems.to(args.device)
-    negItems = negItems.to(args.device)
-    users, posItems, negItems = utils.shuffle(users, posItems, negItems)
-    total_batch = len(users) // args.bpr_batch + 1
-    aver_loss = 0.
-    for (batch_i,
-         (batch_users,
-          batch_pos,
-          batch_neg)) in enumerate(utils.minibatch(users,
-                                                  posItems,
-                                                  negItems,
-                                                  batch_size=args.bpr_batch)):
-        cri = bpr.stageOne(batch_users, batch_pos, batch_neg)  # code/BPRLoss/stageOne
-        aver_loss += cri
-        if args.tensorboard:
-            w.add_scalar(f'BPRLoss/BPR', cri, epoch * int(len(users) / args.bpr_batch) + batch_i)
-    aver_loss = aver_loss / total_batch
-    time_info = utils.timer.dict()
-    utils.timer.zero()
-    return f"loss{aver_loss:.3f}-{time_info}"
-
 
 def test_one_batch(args, X):
     sorted_items = X[0].numpy()
@@ -66,7 +21,6 @@ def test_one_batch(args, X):
             'precision': np.array(pre),
             'ndcg': np.array(ndcg)}
 
-
 def Test(args, dataset, Recmodel, epoch, w=None, multicore=0):
     u_batch_size = args.testbatch
     dataset: utils.BasicDataset
@@ -79,8 +33,8 @@ def Test(args, dataset, Recmodel, epoch, w=None, multicore=0):
     if multicore == 1:
         pool = multiprocessing.Pool(CORES)
     results = {'precision': np.zeros(len(topks)),
-               'recall': np.zeros(len(topks)),
-               'ndcg': np.zeros(len(topks))}
+            'recall': np.zeros(len(topks)),
+            'ndcg': np.zeros(len(topks))}
     with torch.no_grad():
         users = list(testDict.keys())
         try:
@@ -139,12 +93,14 @@ def Test(args, dataset, Recmodel, epoch, w=None, multicore=0):
         # results['auc'] = np.mean(auc_record)
         if args.tensorboard:
             w.add_scalars(f'Test/Recall@{topks}',
-                          {str(topks[i]): results['recall'][i] for i in range(len(topks))}, epoch)
+                        {str(topks[i]): results['recall'][i] for i in range(len(topks))}, epoch)
             w.add_scalars(f'Test/Precision@{topks}',
-                          {str(topks[i]): results['precision'][i] for i in range(len(topks))}, epoch)
+                        {str(topks[i]): results['precision'][i] for i in range(len(topks))}, epoch)
             w.add_scalars(f'Test/NDCG@{topks}',
-                          {str(topks[i]): results['ndcg'][i] for i in range(len(topks))}, epoch)
+                        {str(topks[i]): results['ndcg'][i] for i in range(len(topks))}, epoch)
         if multicore == 1:
             pool.close()
         print(results)
         return results
+
+

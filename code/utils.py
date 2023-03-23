@@ -8,6 +8,10 @@ from .model import PairWiseModel, LightGCN
 from sklearn.metrics import roc_auc_score
 import os
 
+'''
+loss函数、负采样函数、辅助函数、评估指标
+'''
+
 args = parser.parse_args()
 try:
     from cppimport import imp_from_filepath
@@ -32,8 +36,8 @@ class BPRLoss:
 
     def stageOne(self, users, pos, neg):
         loss, reg_loss1 = self.model.bpr_loss(users, pos, neg)
-        reg_loss2 = sum(p.pow(2.0).sum()  for p in self.model.parameters())  # L2正则化
-        reg_loss = (reg_loss1 + reg_loss2) * self.weight_decay
+        reg_loss2 = sum(p.pow(2).sum()  for p in self.model.parameters())  # 模型参数正则化
+        reg_loss = reg_loss1 * 1e-1 + reg_loss2 * 1e-5  # 调整数量级，因为reg_loss1和reg_loss2不是一个数量级的  self.weight_decay
         loss = loss + reg_loss
 
         self.opt.zero_grad()
@@ -265,6 +269,13 @@ def AUC(all_item_scores, dataset, test_data):
     r = r_all[all_item_scores >= 0]
     test_item_scores = all_item_scores[all_item_scores >= 0]
     return roc_auc_score(r, test_item_scores)
+
+# 评估多样性的覆盖率
+def coverage(items, **kwargs):
+
+    count = kwargs['count']
+
+    return count.size
 
 def getLabel(test_data, pred_data):
     r = []
