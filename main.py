@@ -5,7 +5,8 @@ from tensorboardX import SummaryWriter
 import time
 from os.path import join
 import code.data_loader as dataloader
-import code.procedure as procedure
+import code.trainer as trainer
+from code.evaluater import Tester
 
 
 if __name__ == '__main__':
@@ -47,8 +48,9 @@ if __name__ == '__main__':
             start = time.time()
             if epoch % 10 == 0:
                 print("[TEST]")
-                procedure.Test(args, dataset, Recmodel, epoch, w, args.multicore)
-            output_information = procedure.BPR_train_original(args, dataset, Recmodel, bpr, epoch, neg_k=Neg_k, w=w)  # main
+                tester = Tester(args, dataset, Recmodel, epoch, w, args.multicore)
+                tester.test()
+            output_information = trainer.train(args, dataset, Recmodel, bpr, epoch, neg_k=Neg_k, w=w)  # main
             print(f'EPOCH[{epoch + 1}/{args.epochs}] {output_information}')
             torch.save(Recmodel.state_dict(), weight_file)
     finally:  # 无论在任何情况下最后都会执行
