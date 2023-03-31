@@ -8,6 +8,10 @@ from .model import PairWiseModel, LightGCN
 from sklearn.metrics import roc_auc_score
 import os
 
+'''
+loss函数、负采样函数、辅助函数
+'''
+
 args = parser.parse_args()
 try:
     from cppimport import imp_from_filepath
@@ -32,8 +36,8 @@ class BPRLoss:
 
     def stageOne(self, users, pos, neg):
         loss, reg_loss1 = self.model.bpr_loss(users, pos, neg)
-        reg_loss2 = sum(p.pow(2.0).sum()  for p in self.model.parameters())  # L2正则化
-        reg_loss = (reg_loss1 + reg_loss2) * self.weight_decay
+        reg_loss2 = sum(p.pow(2).sum()  for p in self.model.parameters())  # 模型参数正则化
+        reg_loss = reg_loss1 * 1e-4 + reg_loss2 * 1e-9  # 调整数量级，因为reg_loss1和reg_loss2不是一个数量级的  self.weight_decay
         loss = loss + reg_loss
 
         self.opt.zero_grad()
@@ -87,9 +91,10 @@ def UniformSample_original_python(dataset):
         sample_time1 += end - start
     total = time() - total_start
     return np.array(S)
-
 # ===================end samplers==========================
-# =====================code====================================
+
+
+# =====================utils====================================
 def choose_model(args, dataset):
     if args.model == 'lgn':
         return LightGCN(args, dataset)
@@ -207,74 +212,3 @@ class timer:
         else:
             self.tape.append(timer.time() - self.start)
 
-
-# ====================Metrics==============================
-# =========================================================
-def RecallPrecision_ATk(test_data, r, k):
-    """
-    test_data should be a list? cause users may have different amount of pos items. shape (test_batch, k)
-    pred_data : shape (test_batch, k) NOTE: pred_data should be pre-sorted
-    k : top-k
-    """
-    right_pred = r[:, :k].sum(1)
-    precis_n = k
-    recall_n = np.array([len(test_data[i]) for i in range(len(test_data))])
-    recall = np.sum(right_pred/recall_n)
-    precis = np.sum(right_pred)/precis_n
-    return {'recall': recall, 'precision': precis}
-
-
-def MRRatK_r(r, k):
-    """
-    Mean Reciprocal Rank
-    """
-    pred_data = r[:, :k]
-    scores = np.log2(1./np.arange(1, k+1))
-    pred_data = pred_data/scores
-    pred_data = pred_data.sum(1)
-    return np.sum(pred_data)
-
-def NDCGatK_r(test_data,r,k):
-    """
-    Normalized Discounted Cumulative Gain
-    rel_i = 1 or 0, so 2^{rel_i} - 1 = 1 or 0
-    """
-    assert len(r) == len(test_data)
-    pred_data = r[:, :k]
-
-    test_matrix = np.zeros((len(pred_data), k))
-    for i, items in enumerate(test_data):
-        length = k if k <= len(items) else len(items)
-        test_matrix[i, :length] = 1
-    max_r = test_matrix
-    idcg = np.sum(max_r * 1./np.log2(np.arange(2, k + 2)), axis=1)
-    dcg = pred_data*(1./np.log2(np.arange(2, k + 2)))
-    dcg = np.sum(dcg, axis=1)
-    idcg[idcg == 0.] = 1.
-    ndcg = dcg/idcg
-    ndcg[np.isnan(ndcg)] = 0.
-    return np.sum(ndcg)
-
-def AUC(all_item_scores, dataset, test_data):
-    """
-        design for a single user
-    """
-    dataset : BasicDataset
-    r_all = np.zeros((dataset.m_items, ))
-    r_all[test_data] = 1
-    r = r_all[all_item_scores >= 0]
-    test_item_scores = all_item_scores[all_item_scores >= 0]
-    return roc_auc_score(r, test_item_scores)
-
-def getLabel(test_data, pred_data):
-    r = []
-    for i in range(len(test_data)):
-        groundTrue = test_data[i]
-        predictTopK = pred_data[i]
-        pred = list(map(lambda x: x in groundTrue, predictTopK))
-        pred = np.array(pred).astype("float")
-        r.append(pred)
-    return np.array(r).astype('float')
-
-# ====================end Metrics=============================
-# =========================================================

@@ -49,32 +49,3 @@ def parse_args():
     parser.add_argument('--model', type=str, default='lgn', help='rec-model, support [lgn, ...]')
     return parser.parse_args()
 
-# os.environ['KMP_DUPLICATE_LIB_OK'] = 'True'
-args = parse_args()
-
-# 模型保存路径
-ROOT_PATH = "/Users/gus/Desktop/light-gcn"
-CODE_PATH = join(ROOT_PATH, 'code')
-DATA_PATH = join(ROOT_PATH, 'data')
-BOARD_PATH = join(CODE_PATH, 'runs')
-FILE_PATH = join(CODE_PATH, 'checkpoints')
-
-sys.path.append(join(CODE_PATH, 'sources'))
-
-
-if not os.path.exists(FILE_PATH):
-    os.makedirs(FILE_PATH, exist_ok=True)
-
-CORES = multiprocessing.cpu_count() // 2
-
-
-
-
-
-
-topks = eval(args.topks)
-
-# let pandas shut up
-from warnings import simplefilter
-simplefilter(action="ignore", category=FutureWarning)
-

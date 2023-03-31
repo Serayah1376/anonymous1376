@@ -42,6 +42,12 @@ class LightGCN(BasicModel):
     def __init_weight(self):
         self.num_users = self.dataset.n_users
         self.num_items = self.dataset.m_items
+        self.user_aspect_dic = self.dataset.user_aspect_dic
+        self.item_aspect_dic = self.dataset.item_aspect_dic
+        self.all_user = self.dataset.all_user
+        self.all_item = self.dataset.all_item
+        self.aspect_emb_384 = self.dataset.aspect_emb  # [aspect, emb_384]
+        self.aspect_emb_64 = dict()  # 转换维度后的aspect嵌入
         self.latent_dim = self.args.recdim
         self.n_layers = self.args.layer
         self.keep_prob = self.args.keepprob
@@ -63,16 +69,30 @@ class LightGCN(BasicModel):
         self.Graph = self.dataset.getSparseGraph()
         print(f"lgn is already to go(dropout:{self.args.dropout})")
 
-        self.user_aspect_emb = dict()
-        self.item_aspect_emb = dict()
+        # self.W1 = nn.Parameter(torch.ones(1, requires_grad=True))
+        # self.W2 = nn.Parameter(torch.ones(1, requires_grad=True))
 
-        self.W1 = nn.Parameter(torch.ones(1, requires_grad=True))
-        self.W2 = nn.Parameter(torch.ones(1, requires_grad=True))
+        """self.aspect_MLP_u = nn.Linear(in_features=64, out_features=384, bias=True)  
+        self.aspect_MLP_i = nn.Linear(in_features=64, out_features=384, bias=True) """
 
-        self.aspect_MLP = nn.Linear(in_features=384, out_features=64, bias=True)  # 这里不使用激活函数，保持语义
+        self.aspect_MLP = nn.Linear(in_features=384, out_features=64, bias=True)  # 统一将所有的aspect的维度进行转换
 
-        ua_emb, ia_emb = self.dataset.getAspect()
-        self.__get_ft_aspect_emb(ua_emb, ia_emb)
+        """self.aspect_MLP_user = nn.Linear(in_features=384, out_features=64, bias=True)  
+        self.aspect_MLP_item = nn.Linear(in_features=384, out_features=64, bias=True) """
+
+        # 初始化
+        torch.nn.init.xavier_uniform_(self.aspect_MLP.weight)
+        torch.nn.init.constant_(self.aspect_MLP.bias, 0)
+
+        """torch.nn.init.xavier_uniform_(self.aspect_MLP_user.weight)
+        torch.nn.init.constant_(self.aspect_MLP_user.bias, 0)
+        torch.nn.init.xavier_uniform_(self.aspect_MLP_item.weight)
+        torch.nn.init.constant_(self.aspect_MLP_item.bias, 0)"""
+
+        self.dropout = nn.Dropout(0.1)
+
+        self.get_ft_aspect_emb(self.aspect_emb_384)
+        self.user_aspect_emb, self.item_aspect_emb = self.getAspectEmbedding()
 
         # print("save_txt")
 
@@ -128,6 +148,8 @@ class LightGCN(BasicModel):
         # print(embs.size())
         light_out = torch.mean(embs, dim=1)
         users, items = torch.split(light_out, [self.num_users, self.num_items])
+        # new_users = self.dropout(self.aspect_MLP_u(users))
+        # new_items = self.dropout(self.aspect_MLP_i(items))
         return users, items
 
     def getUsersRating(self, users, items):
@@ -138,22 +160,36 @@ class LightGCN(BasicModel):
         user_aspect_emb = self.get_user_aspect_embedding(users)
         item_aspect_emb = self.get_item_aspect_embedding(items)  # item已经是按顺序的
 
-        users_emb = self.W1 * users_emb + self.W2 * user_aspect_emb
-        items_emb = self.W1 * items_emb + self.W2 * item_aspect_emb
+        users_emb = users_emb + user_aspect_emb
+        items_emb = items_emb + item_aspect_emb
 
         rating = self.f(torch.matmul(users_emb, items_emb.t()))
         return rating
 
-    def __get_ft_aspect_emb(self, user_aspect_emb, item_aspect_emb):
+    # 如果去掉了MLP，其实这个函数可以简化掉，目前先不简化，看移动MLP之后的效果
+    def get_ft_aspect_emb(self, aspect_emb_384):
+        # 将所有的aspect从384维转化为64维
+        for aspect, emb_384 in aspect_emb_384.items():
+            self.aspect_emb_64[aspect] = self.aspect_MLP(torch.tensor(np.array(emb_384)).to(torch.float32))
+
+        """# 不改变维度
+        for k, v in user_aspect_emb.items():
+            self.user_aspect_emb[k] = torch.tensor(np.array(v)).to(torch.float32)
+
+        for k, v in item_aspect_emb.items():
+            self.item_aspect_emb[k] = torch.tensor(np.array(v)).to(torch.float32)
+
+        # 改变维度
         u_key = []
         u_emb = []
         for k, v in user_aspect_emb.items():
             u_key.append(k)
             u_emb.append(v)
+            #self.user_aspect_emb[k] = v # torch.tensor(np.array(v)).to(torch.float32)
 
-        new_ua_emb = self.aspect_MLP(torch.tensor(np.array(u_emb)).to(torch.float32))
+        # new_ua_emb = self.aspect_MLP(torch.tensor(np.array(u_emb)).to(torch.float32))
 
-        for k, v in zip(u_key, new_ua_emb):
+        for k, v in zip(u_key, u_emb):
             self.user_aspect_emb[k] = v
 
         i_key = []
@@ -161,11 +197,45 @@ class LightGCN(BasicModel):
         for k, v in item_aspect_emb.items():
             i_key.append(k)
             i_emb.append(v)
+            #self.item_aspect_emb[k] = v# torch.tensor(np.array(v)).to(torch.float32)
 
-        new_ia_emb = self.aspect_MLP(torch.tensor(np.array(i_emb)).to(torch.float32))
+        # new_ia_emb = self.aspect_MLP(torch.tensor(np.array(i_emb)).to(torch.float32))
 
-        for k, v in zip(i_key, new_ia_emb):
-            self.item_aspect_emb[k] = v
+        for k, v in zip(i_key, i_emb):
+            self.item_aspect_emb[k] = v"""
+
+    def getAspectEmbedding(self):
+        user_aspect_embedding = dict()
+        item_aspect_embedding = dict()
+        for i in self.all_user:  # i: torch.tensor
+            i = int(i)
+            if i in self.user_aspect_dic.keys():
+                a_vector_list = []
+                for a in self.user_aspect_dic[i]:
+                    a_vector_list.append(self.aspect_emb_64[a])
+                if len(a_vector_list) != 0:
+                    vector_tensor = torch.stack(a_vector_list)  # [n_aspects, 384]
+                    # new_vector_tensor = self.aspect_MLP_user(vector_tensor)  # [n_aspects, 64]
+                    new_vector_tensor = torch.mean(vector_tensor, axis=0)  # 求平均)
+                    """a_vector_list = np.array(a_vector_list)
+                    a_vector_list = np.average(a_vector_list, axis=0)  # 均值"""
+                    user_aspect_embedding[i] = new_vector_tensor
+
+        for i in self.all_item:  # i: torch.tensor
+            i = int(i)
+            if i in self.item_aspect_dic.keys():
+                a_vector_list = []
+                for a in self.item_aspect_dic[i]:
+                    a_vector_list.append(self.aspect_emb_64[a])  # user 和 item 的aspect并不完全一样
+                if len(a_vector_list) != 0:
+                    vector_tensor = torch.stack(a_vector_list)
+                    # new_vector_tensor = self.aspect_MLP_item(vector_tensor)  # [n_aspects, dim] 384->64
+                    new_vector_tensor = torch.mean(vector_tensor, axis=0)
+                    """a_vector_list = np.array(a_vector_list)
+                    a_vector_list = np.average(a_vector_list, axis=0)"""
+                    item_aspect_embedding[i] = new_vector_tensor
+
+        return user_aspect_embedding, item_aspect_embedding
 
     # 计算aspect的嵌入
     def get_user_aspect_embedding(self, users):
@@ -175,7 +245,7 @@ class LightGCN(BasicModel):
             if i in self.user_aspect_emb.keys():
                 user_aspect_emb.append(self.user_aspect_emb[i].tolist())
             else:
-                user_aspect_emb.append([0 for _ in range(64)])  # 没有的加上零？？？？需要尝试
+                user_aspect_emb.append([0 for _ in range(64)])  # aspect嵌入维度，可变！！！！
 
         return torch.tensor(user_aspect_emb).to(self.args.device)
 
@@ -200,9 +270,9 @@ class LightGCN(BasicModel):
         pos_item_aspect_emb = self.get_item_aspect_embedding(pos_items)
         neg_item_aspect_emb = self.get_item_aspect_embedding(neg_items)
 
-        users_emb = self.W1 * users_emb + self.W2 * user_aspect_emb
-        pos_emb = self.W1 * pos_emb + self.W2 * pos_item_aspect_emb
-        neg_emb = self.W1 * neg_emb + self.W2 * neg_item_aspect_emb
+        users_emb = users_emb + user_aspect_emb
+        pos_emb = pos_emb + pos_item_aspect_emb
+        neg_emb = neg_emb + neg_item_aspect_emb
 
         users_emb_ego = self.embedding_user(users)
         pos_emb_ego = self.embedding_item(pos_items)
@@ -214,9 +284,9 @@ class LightGCN(BasicModel):
         (users_emb, pos_emb, neg_emb,
          userEmb0, posEmb0, negEmb0) = self.getEmbedding(users.long(), pos.long(), neg.long())
         # loss
-        reg_loss1 = (1 / 2) * (userEmb0.norm(2).pow(2) +
-                               posEmb0.norm(2).pow(2) +
-                               negEmb0.norm(2).pow(2)) / float(len(users))
+        reg_loss = (1 / 2) * (userEmb0.norm(2).pow(2) +
+                              posEmb0.norm(2).pow(2) +
+                              negEmb0.norm(2).pow(2)) / float(len(users))
 
         pos_scores = torch.mul(users_emb, pos_emb)
         pos_scores = torch.sum(pos_scores, dim=1)
@@ -225,7 +295,7 @@ class LightGCN(BasicModel):
 
         loss = torch.mean(torch.nn.functional.softplus(neg_scores - pos_scores))
 
-        return loss, reg_loss1
+        return loss, reg_loss
 
     def forward(self, users, items):
         # compute embedding

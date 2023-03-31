@@ -36,6 +36,9 @@ class BasicDataset(Dataset):
     def allPos(self):
         raise NotImplementedError
 
+    def read_category(self):
+        raise NotImplementedError
+
     def getAspect(self):
         raise NotImplementedError
 
@@ -83,19 +86,25 @@ class Loader(BasicDataset):
         self.m_item = 0
         train_file = path + '/train.txt'
         test_file = path + '/test.txt'
+
         user_aspect = path + '/user_aspect.json'
         item_aspect = path + '/item_aspect.json'
+
         aspect_embedding = path + '/aspect_all-MiniLM-L6-v2.json'
+
+        self.category_path = path + '/bussiness_category.json'
+
         self.path = path
         trainUniqueUsers, trainItem, trainUser = [], [], []
         testUniqueUsers, testItem, testUser = [], [], []
         self.user_aspect_dic = dict()
         self.item_aspect_dic = dict()
         self.aspect_emb = dict()
-        self.user_aspect_embedding = dict()
-        self.item_aspect_embedding = dict()
+
         self.traindataSize = 0
         self.testDataSize = 0
+
+        self.category_dic, self.category_num = self.read_category(self.category_path)
 
         with open(train_file) as f:
             for l in f.readlines():
@@ -149,7 +158,7 @@ class Loader(BasicDataset):
         with open(aspect_embedding) as f:
             for l in f.readlines():
                 dic = json.loads(l)
-                self.aspect_emb[dic['aspect']] = dic['embedding']
+                self.aspect_emb[dic['aspect']] = dic['embedding']  # 字典[aspect ,embedding]
 
         self.Graph = None
         print(f"{self.trainDataSize} interactions for training")
@@ -208,7 +217,24 @@ class Loader(BasicDataset):
         data = torch.FloatTensor(coo.data)
         return torch.sparse.FloatTensor(index, data, torch.Size(coo.shape))
 
+    # 得到item与类别的对应
+    def read_category(self, path):
+        dic = {}
+        all_category = []
+        f = open(path, 'r').readlines()
+        for l in f:
+            tmp = json.loads(l)
+            item = tmp['business_remap_id']
+            category = tmp['categoriesID']
+            all_category.extend(category)
+            dic[item] = category
+        all_category = list(set(all_category))
+        num = len(all_category)
+        return dic, num
+
     def getAspect(self):
+        user_aspect_embedding = dict()
+        item_aspect_embedding = dict()
         for i in self.all_user:  # i: torch.tensor
             i = int(i)
             if i in self.user_aspect_dic.keys():
@@ -218,7 +244,7 @@ class Loader(BasicDataset):
                 if len(a_vector_list) != 0:
                     a_vector_list = np.array(a_vector_list)
                     a_vector_list = np.average(a_vector_list, axis=0)  # 均值
-                    self.user_aspect_embedding[i] = a_vector_list
+                    user_aspect_embedding[i] = a_vector_list
 
         for i in self.all_item:  # i: torch.tensor
             i = int(i)
@@ -229,9 +255,9 @@ class Loader(BasicDataset):
                 if len(a_vector_list) != 0:
                     a_vector_list = np.array(a_vector_list)
                     a_vector_list = np.average(a_vector_list, axis=0)
-                    self.item_aspect_embedding[i] = a_vector_list
+                    item_aspect_embedding[i] = a_vector_list
 
-        return self.user_aspect_embedding, self.item_aspect_embedding
+        return user_aspect_embedding, item_aspect_embedding
 
     def getSparseGraph(self):
         print("loading adjacency matrix")
@@ -298,7 +324,7 @@ class Loader(BasicDataset):
         # print(self.UserItemNet[users, items])
         return np.array(self.UserItemNet[users, items]).astype('uint8').reshape((-1,))
 
-    def getUserPosItems(self, users):
+    def getUserPosItems(self, users):  # user list
         posItems = []
         for user in users:
             posItems.append(self.UserItemNet[user].nonzero()[1])
