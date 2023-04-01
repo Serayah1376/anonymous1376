@@ -3,7 +3,8 @@ from code.data_loader import BasicDataset
 from torch import nn
 import numpy as np
 import json
-from gensim.models import Word2Vec
+import math
+import torch.nn.functional as F
 
 
 class BasicModel(nn.Module):
@@ -69,8 +70,8 @@ class LightGCN(BasicModel):
         self.Graph = self.dataset.getSparseGraph()
         print(f"lgn is already to go(dropout:{self.args.dropout})")
 
-        # self.W1 = nn.Parameter(torch.ones(1, requires_grad=True))
-        # self.W2 = nn.Parameter(torch.ones(1, requires_grad=True))
+        self.W1 = nn.Parameter(torch.ones(1, requires_grad=True))
+        self.W2 = nn.Parameter(torch.ones(1, requires_grad=True))
 
         """self.aspect_MLP_u = nn.Linear(in_features=64, out_features=384, bias=True)  
         self.aspect_MLP_i = nn.Linear(in_features=64, out_features=384, bias=True) """
@@ -152,13 +153,34 @@ class LightGCN(BasicModel):
         # new_items = self.dropout(self.aspect_MLP_i(items))
         return users, items
 
+    def getEmbedding(self, users, pos_items, neg_items):
+        all_users, all_items = self.computer()
+
+        users_emb = all_users[users]
+        pos_emb = all_items[pos_items]
+        neg_emb = all_items[neg_items]
+
+        # 将user/item嵌入传进去计算attention weight
+        user_aspect_emb = self.get_user_aspect_embedding(all_users, users)
+        pos_item_aspect_emb = self.get_item_aspect_embedding(all_items, pos_items)
+        neg_item_aspect_emb = self.get_item_aspect_embedding(all_items, neg_items)
+
+        users_emb = users_emb + user_aspect_emb
+        pos_emb = pos_emb + pos_item_aspect_emb
+        neg_emb = neg_emb + neg_item_aspect_emb
+
+        users_emb_ego = self.embedding_user(users)
+        pos_emb_ego = self.embedding_item(pos_items)
+        neg_emb_ego = self.embedding_item(neg_items)
+        return users_emb, pos_emb, neg_emb, users_emb_ego, pos_emb_ego, neg_emb_ego
+
     def getUsersRating(self, users, items):
         all_users, all_items = self.computer()
         users_emb = all_users[users.long()]
         items_emb = all_items
 
-        user_aspect_emb = self.get_user_aspect_embedding(users)
-        item_aspect_emb = self.get_item_aspect_embedding(items)  # item已经是按顺序的
+        user_aspect_emb = self.get_user_aspect_embedding(all_users, users)  # user已经是按顺序的
+        item_aspect_emb = self.get_item_aspect_embedding(all_items, items)  # item已经是按顺序的
 
         users_emb = users_emb + user_aspect_emb
         items_emb = items_emb + item_aspect_emb
@@ -172,38 +194,6 @@ class LightGCN(BasicModel):
         for aspect, emb_384 in aspect_emb_384.items():
             self.aspect_emb_64[aspect] = self.aspect_MLP(torch.tensor(np.array(emb_384)).to(torch.float32))
 
-        """# 不改变维度
-        for k, v in user_aspect_emb.items():
-            self.user_aspect_emb[k] = torch.tensor(np.array(v)).to(torch.float32)
-
-        for k, v in item_aspect_emb.items():
-            self.item_aspect_emb[k] = torch.tensor(np.array(v)).to(torch.float32)
-
-        # 改变维度
-        u_key = []
-        u_emb = []
-        for k, v in user_aspect_emb.items():
-            u_key.append(k)
-            u_emb.append(v)
-            #self.user_aspect_emb[k] = v # torch.tensor(np.array(v)).to(torch.float32)
-
-        # new_ua_emb = self.aspect_MLP(torch.tensor(np.array(u_emb)).to(torch.float32))
-
-        for k, v in zip(u_key, u_emb):
-            self.user_aspect_emb[k] = v
-
-        i_key = []
-        i_emb = []
-        for k, v in item_aspect_emb.items():
-            i_key.append(k)
-            i_emb.append(v)
-            #self.item_aspect_emb[k] = v# torch.tensor(np.array(v)).to(torch.float32)
-
-        # new_ia_emb = self.aspect_MLP(torch.tensor(np.array(i_emb)).to(torch.float32))
-
-        for k, v in zip(i_key, i_emb):
-            self.item_aspect_emb[k] = v"""
-
     def getAspectEmbedding(self):
         user_aspect_embedding = dict()
         item_aspect_embedding = dict()
@@ -214,12 +204,12 @@ class LightGCN(BasicModel):
                 for a in self.user_aspect_dic[i]:
                     a_vector_list.append(self.aspect_emb_64[a])
                 if len(a_vector_list) != 0:
-                    vector_tensor = torch.stack(a_vector_list)  # [n_aspects, 384]
+                    vector_tensor = torch.stack(a_vector_list)  # [n_aspects, 64]
                     # new_vector_tensor = self.aspect_MLP_user(vector_tensor)  # [n_aspects, 64]
-                    new_vector_tensor = torch.mean(vector_tensor, axis=0)  # 求平均)
+                    # new_vector_tensor = torch.mean(vector_tensor, axis = 0)  # 求平均)
                     """a_vector_list = np.array(a_vector_list)
                     a_vector_list = np.average(a_vector_list, axis=0)  # 均值"""
-                    user_aspect_embedding[i] = new_vector_tensor
+                    user_aspect_embedding[i] = vector_tensor
 
         for i in self.all_item:  # i: torch.tensor
             i = int(i)
@@ -230,54 +220,59 @@ class LightGCN(BasicModel):
                 if len(a_vector_list) != 0:
                     vector_tensor = torch.stack(a_vector_list)
                     # new_vector_tensor = self.aspect_MLP_item(vector_tensor)  # [n_aspects, dim] 384->64
-                    new_vector_tensor = torch.mean(vector_tensor, axis=0)
+                    # new_vector_tensor = torch.mean(vector_tensor, axis = 0)
                     """a_vector_list = np.array(a_vector_list)
                     a_vector_list = np.average(a_vector_list, axis=0)"""
-                    item_aspect_embedding[i] = new_vector_tensor
+                    item_aspect_embedding[i] = vector_tensor
 
         return user_aspect_embedding, item_aspect_embedding
 
-    # 计算aspect的嵌入
-    def get_user_aspect_embedding(self, users):
+    # 计算每个batch中user对应的aspect embedding列表
+    def get_user_aspect_embedding(self, user_emb, users):
         user_aspect_emb = []
         for i in users:
             i = int(i)
             if i in self.user_aspect_emb.keys():
-                user_aspect_emb.append(self.user_aspect_emb[i].tolist())
+                aspect_emb_list = self.user_aspect_emb[i].to(self.args.device)
+                aspect_emb_user = self.attention_aspectAgg(user_emb[i], aspect_emb_list, aspect_emb_list)
+                user_aspect_emb.append(aspect_emb_user.tolist())
             else:
                 user_aspect_emb.append([0 for _ in range(64)])  # aspect嵌入维度，可变！！！！
 
         return torch.tensor(user_aspect_emb).to(self.args.device)
 
-    def get_item_aspect_embedding(self, items):
+    def get_item_aspect_embedding(self, item_emb, items):
         item_aspect_emb = []
         for i in items:
             i = int(i)
             if i in self.item_aspect_emb.keys():
-                item_aspect_emb.append(self.item_aspect_emb[i].tolist())
+                aspect_emb_list = self.item_aspect_emb[i].to(self.args.device)
+                aspect_emb_user = self.attention_aspectAgg(item_emb[i], aspect_emb_list, aspect_emb_list)
+                item_aspect_emb.append(aspect_emb_user.tolist())
             else:
                 item_aspect_emb.append([0 for _ in range(64)])
         return torch.tensor(item_aspect_emb).to(self.args.device)
 
-    def getEmbedding(self, users, pos_items, neg_items):
-        all_users, all_items = self.computer()
+    # query：user/item   key/value: aspect
+    def attention_aspectAgg(self, query, key, value, mask=None, dropout=None):
+        # query：[emb_dim]  user/item
+        # key/values: [n_aspect, emb_dim]  aspect
+        # 首先取query的最后一维的大小，对应user/item/aspect的嵌入维度  比如64
+        d_k = query.size(-1)  # 64
+        # 按照注意力公式，将query与key的转置相乘，这里面key是将最后两个维度进行转置，再除以缩放系数得到注意力得分张量scores
+        query = torch.unsqueeze(query, 0)  # [emb_dim] -> [1, emb_dim]
+        scores = (torch.matmul(query, key.transpose(-2, -1)) / math.sqrt(d_k)).to(self.args.device)  # [1, n_aspects]
 
-        users_emb = all_users[users]
-        pos_emb = all_items[pos_items]
-        neg_emb = all_items[neg_items]
+        # 对scores的最后一维进行softmax操作
+        p_attn = F.softmax(scores, dim=-1)
 
-        user_aspect_emb = self.get_user_aspect_embedding(users)
-        pos_item_aspect_emb = self.get_item_aspect_embedding(pos_items)
-        neg_item_aspect_emb = self.get_item_aspect_embedding(neg_items)
+        # 之后判断是否使用dropout进行随机置0
+        if dropout is not None:
+            p_attn = dropout(p_attn)
 
-        users_emb = users_emb + user_aspect_emb
-        pos_emb = pos_emb + pos_item_aspect_emb
-        neg_emb = neg_emb + neg_item_aspect_emb
-
-        users_emb_ego = self.embedding_user(users)
-        pos_emb_ego = self.embedding_item(pos_items)
-        neg_emb_ego = self.embedding_item(neg_items)
-        return users_emb, pos_emb, neg_emb, users_emb_ego, pos_emb_ego, neg_emb_ego
+        # 最后，根据公式将p_attn与value张量相乘获得最终的query注意力表示，返回aspect的对user/item的贡献值
+        # [emb_dim]
+        return torch.squeeze(torch.matmul(p_attn, value))  # torch.matmul(p_attn, value): [1, emb_dim]
 
     # 计算嵌入和loss
     def bpr_loss(self, users, pos, neg):

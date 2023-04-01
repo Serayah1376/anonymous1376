@@ -1,238 +1,200 @@
-import os
-from os.path import join
-import sys
 import torch
+from code.data_loader import BasicDataset
+from torch import nn
 import numpy as np
-import pandas as pd
-from torch.utils.data import Dataset, DataLoader
-from scipy.sparse import csr_matrix
-import scipy.sparse as sp
-from time import time
-from gensim.models import Word2Vec
 import json
+import math
+import torch.nn.functional as F
 
 
-class BasicDataset(Dataset):
+class BasicModel(nn.Module):
     def __init__(self):
-        print("init dataset")
+        super(BasicModel, self).__init__()
 
-    @property
-    def n_users(self):
+    def getUsersRating(self, users):
         raise NotImplementedError
 
-    @property
-    def m_items(self):
-        raise NotImplementedError
 
-    @property
-    def trainDataSize(self):
-        raise NotImplementedError
+class PairWiseModel(BasicModel):
+    def __init__(self):
+        super(PairWiseModel, self).__init__()
 
-    @property
-    def testDict(self):
-        raise NotImplementedError
-
-    @property
-    def allPos(self):
-        raise NotImplementedError
-
-    def read_category(self):
-        raise NotImplementedError
-
-    def getAspect(self):
-        raise NotImplementedError
-
-    def getUserItemFeedback(self, users, items):
-        raise NotImplementedError
-
-    def getUserPosItems(self, users):
-        raise NotImplementedError
-
-    def getUserNegItems(self, users):
+    def bpr_loss(self, users, pos, neg):
         """
-        not necessary for large dataset
-        it's stupid to return all neg items in super large dataset
-        """
-        raise NotImplementedError
-
-    def getSparseGraph(self):
-        """
-        build a graph in torch.sparse.IntTensor.
-        Details in NGCF's matrix form
-        A =
-            |I,   R|
-            |R^T, I|
+        Parameters:
+            users: users list
+            pos: positive items for corresponding users
+            neg: negative items for corresponding users
+        Return:
+            (log-loss, l2-loss)
         """
         raise NotImplementedError
 
 
-# 加载数据
-class Loader(BasicDataset):
-    """
-    Dataset type for pytorch \n
-    Incldue graph information
-    gowalla dataset
-    """
-
-    def __init__(self, args, path="../data/gowalla"):
-        # train or test
-        print(f'loading [{path}]')
+class LightGCN(BasicModel):
+    def __init__(self,
+                 args,
+                 dataset):
+        super(LightGCN, self).__init__()
         self.args = args
-        self.split = args.A_split
-        self.folds = args.a_fold
-        self.mode_dict = {'train': 0, "test": 1}
-        self.mode = self.mode_dict['train']
-        self.n_user = 0
-        self.m_item = 0
-        train_file = path + '/train.txt'
-        test_file = path + '/test.txt'
+        self.dataset = dataset
+        self.__init_weight()
 
-        user_aspect = path + '/user_aspect.json'
-        item_aspect = path + '/item_aspect.json'
+    def __init_weight(self):
+        self.num_users = self.dataset.n_users
+        self.num_items = self.dataset.m_items
+        self.user_aspect_dic = self.dataset.user_aspect_dic
+        self.item_aspect_dic = self.dataset.item_aspect_dic
+        self.all_user = self.dataset.all_user
+        self.all_item = self.dataset.all_item
+        self.aspect_emb_384 = self.dataset.aspect_emb  # [aspect, emb_384]
+        self.aspect_emb_64 = dict()  # 转换维度后的aspect嵌入
+        self.latent_dim = self.args.recdim
+        self.n_layers = self.args.layer
+        self.keep_prob = self.args.keepprob
+        self.A_split = self.args.A_split
+        self.embedding_user = torch.nn.Embedding(
+            num_embeddings=self.num_users, embedding_dim=self.latent_dim)
+        self.embedding_item = torch.nn.Embedding(
+            num_embeddings=self.num_items, embedding_dim=self.latent_dim)
 
-        aspect_embedding = path + '/aspect_all-MiniLM-L6-v2.json'
+        if self.args.pretrain == 0:  # true
+            nn.init.normal_(self.embedding_user.weight, std=0.1)
+            nn.init.normal_(self.embedding_item.weight, std=0.1)
+            print('use NORMAL distribution initilizer')
+        else:
+            self.embedding_user.weight.data.copy_(torch.from_numpy(self.config['user_emb']))
+            self.embedding_item.weight.data.copy_(torch.from_numpy(self.config['item_emb']))
+            print('use pretarined data')
+        self.f = nn.Sigmoid()
+        self.Graph = self.dataset.getSparseGraph()
+        print(f"lgn is already to go(dropout:{self.args.dropout})")
 
-        self.category_path = path + '/bussiness_category.json'
+        self.W1 = nn.Parameter(torch.ones(1, requires_grad=True))
+        self.W2 = nn.Parameter(torch.ones(1, requires_grad=True))
 
-        self.path = path
-        trainUniqueUsers, trainItem, trainUser = [], [], []
-        testUniqueUsers, testItem, testUser = [], [], []
-        self.user_aspect_dic = dict()
-        self.item_aspect_dic = dict()
-        self.aspect_emb = dict()
+        """self.aspect_MLP_u = nn.Linear(in_features=64, out_features=384, bias=True)  
+        self.aspect_MLP_i = nn.Linear(in_features=64, out_features=384, bias=True) """
 
-        self.traindataSize = 0
-        self.testDataSize = 0
+        self.aspect_MLP = nn.Linear(in_features=384, out_features=64, bias=True)  # 统一将所有的aspect的维度进行转换
 
-        self.category_dic, self.category_num = self.read_category(self.category_path)
+        """self.aspect_MLP_user = nn.Linear(in_features=384, out_features=64, bias=True)  
+        self.aspect_MLP_item = nn.Linear(in_features=384, out_features=64, bias=True) """
 
-        with open(train_file) as f:
-            for l in f.readlines():
-                if len(l) > 0:
-                    l = l.strip('\n').split(' ')
-                    items = [int(i) for i in l[1:]]
-                    uid = int(l[0])
-                    trainUniqueUsers.append(uid)
-                    trainUser.extend([uid] * len(items))  # 与item对应
-                    trainItem.extend(items)
-                    self.m_item = max(self.m_item, max(items))
-                    self.n_user = max(self.n_user, uid)
-                    self.traindataSize += len(items)
-        self.trainUniqueUsers = np.array(trainUniqueUsers)  # 所有的userID
-        self.trainUser = np.array(trainUser)
-        self.trainItem = np.array(trainItem)
+        # 初始化
+        torch.nn.init.xavier_uniform_(self.aspect_MLP.weight)
+        torch.nn.init.constant_(self.aspect_MLP.bias, 0)
 
-        with open(test_file) as f:
-            for l in f.readlines():
-                if len(l) > 0:
-                    l = l.strip('\n').split(' ')
-                    items = [int(i) for i in l[1:]]
-                    uid = int(l[0])
-                    testUniqueUsers.append(uid)
-                    testUser.extend([uid] * len(items))
-                    testItem.extend(items)
-                    self.m_item = max(self.m_item, max(items))
-                    self.n_user = max(self.n_user, uid)
-                    self.testDataSize += len(items)
-        self.m_item += 1  # 因为ID编码是从0开始的
-        self.n_user += 1
-        self.testUniqueUsers = np.array(testUniqueUsers)
-        self.testUser = np.array(testUser)
-        self.testItem = np.array(testItem)
+        """torch.nn.init.xavier_uniform_(self.aspect_MLP_user.weight)
+        torch.nn.init.constant_(self.aspect_MLP_user.bias, 0)
+        torch.nn.init.xavier_uniform_(self.aspect_MLP_item.weight)
+        torch.nn.init.constant_(self.aspect_MLP_item.bias, 0)"""
 
-        # 所有的user、item ID 去重
-        self.all_user = np.unique(np.append(self.trainUniqueUsers, self.testUniqueUsers))
-        self.all_item = np.unique(np.append(self.trainItem, self.testItem))
+        self.dropout = nn.Dropout(0.1)
 
-        with open(user_aspect) as f:
-            for l in f.readlines():
-                dic = json.loads(l)
-                self.user_aspect_dic[dic["userID"]] = dic["aspects"]  # user和aspect对应列表
+        self.get_ft_aspect_emb(self.aspect_emb_384)
+        self.user_aspect_emb, self.item_aspect_emb = self.getAspectEmbedding()
 
-        with open(item_aspect) as f:
-            for l in f.readlines():
-                dic = json.loads(l)
-                self.item_aspect_dic[dic["itemID"]] = dic["aspects"]  # item和aspect对应列表
+        # print("save_txt")
 
-        # 使用模型all-MiniLM-L6-v2处理的aspect嵌入
-        with open(aspect_embedding) as f:
-            for l in f.readlines():
-                dic = json.loads(l)
-                self.aspect_emb[dic['aspect']] = dic['embedding']  # 字典[aspect ,embedding]
+    def __dropout_x(self, x, keep_prob):
+        size = x.size()
+        index = x.indices().t()
+        values = x.values()
+        random_index = torch.rand(len(values)) + keep_prob
+        random_index = random_index.int().bool()
+        index = index[random_index]
+        values = values[random_index] / keep_prob
+        g = torch.sparse.FloatTensor(index.t(), values, size)
+        return g
 
-        self.Graph = None
-        print(f"{self.trainDataSize} interactions for training")
-        print(f"{self.testDataSize} interactions for testing")
-        print(f"{args.dataset} Sparsity : {(self.trainDataSize + self.testDataSize) / self.n_users / self.m_items}")
+    def __dropout(self, keep_prob):
+        if self.A_split:
+            graph = []
+            for g in self.Graph:
+                graph.append(self.__dropout_x(g, keep_prob))
+        else:
+            graph = self.__dropout_x(self.Graph, keep_prob)
+        return graph
 
-        # (users,items), bipartite graph  二部图
-        self.UserItemNet = csr_matrix((np.ones(len(self.trainUser)), (self.trainUser, self.trainItem)),
-                                      shape=(self.n_user, self.m_item))
-        self.users_D = np.array(self.UserItemNet.sum(axis=1)).squeeze()
-        self.users_D[self.users_D == 0.] = 1
-        self.items_D = np.array(self.UserItemNet.sum(axis=0)).squeeze()
-        self.items_D[self.items_D == 0.] = 1.
-        # pre-calculate
-        self._allPos = self.getUserPosItems(list(range(self.n_user)))
-        self.__testDict = self.__build_test()
-        print(f"{args.dataset} is ready to go")
-
-    @property
-    def n_users(self):
-        return self.n_user
-
-    @property
-    def m_items(self):
-        return self.m_item
-
-    @property
-    def trainDataSize(self):
-        return self.traindataSize
-
-    @property
-    def testDict(self):
-        return self.__testDict
-
-    @property
-    def allPos(self):
-        return self._allPos
-
-    def _split_A_hat(self, A):
-        A_fold = []
-        fold_len = (self.n_users + self.m_items) // self.folds
-        for i_fold in range(self.folds):
-            start = i_fold * fold_len
-            if i_fold == self.folds - 1:
-                end = self.n_users + self.m_items
+    def computer(self):
+        """
+        propagate methods for lightGCN
+        """
+        users_emb = self.embedding_user.weight
+        items_emb = self.embedding_item.weight
+        all_emb = torch.cat([users_emb, items_emb])
+        #   torch.split(all_emb , [self.num_users, self.num_items])
+        embs = [all_emb]
+        if self.args.dropout:
+            if self.training:
+                print("droping")
+                g_droped = self.__dropout(self.keep_prob)
             else:
-                end = (i_fold + 1) * fold_len
-            A_fold.append(self._convert_sp_mat_to_sp_tensor(A[start:end]).coalesce().to(self.args.device))
-        return A_fold
+                g_droped = self.Graph
+        else:
+            g_droped = self.Graph
 
-    def _convert_sp_mat_to_sp_tensor(self, X):
-        coo = X.tocoo().astype(np.float32)
-        row = torch.Tensor(coo.row).long()
-        col = torch.Tensor(coo.col).long()
-        index = torch.stack([row, col])
-        data = torch.FloatTensor(coo.data)
-        return torch.sparse.FloatTensor(index, data, torch.Size(coo.shape))
+        for layer in range(self.n_layers):
+            if self.A_split:
+                temp_emb = []
+                for f in range(len(g_droped)):
+                    temp_emb.append(torch.sparse.mm(g_droped[f], all_emb))
+                side_emb = torch.cat(temp_emb, dim=0)
+                all_emb = side_emb
+            else:
+                all_emb = torch.sparse.mm(g_droped, all_emb)
+            embs.append(all_emb)
+        embs = torch.stack(embs, dim=1)
+        # print(embs.size())
+        light_out = torch.mean(embs, dim=1)
+        users, items = torch.split(light_out, [self.num_users, self.num_items])
+        # new_users = self.dropout(self.aspect_MLP_u(users))
+        # new_items = self.dropout(self.aspect_MLP_i(items))
+        return users, items
 
-    # 得到item与类别的对应
-    def read_category(self, path):
-        dic = {}
-        all_category = []
-        f = open(path, 'r').readlines()
-        for l in f:
-            tmp = json.loads(l)
-            item = tmp['business_remap_id']
-            category = tmp['categoriesID']
-            all_category.extend(category)
-            dic[item] = category
-        all_category = list(set(all_category))
-        num = len(all_category)
-        return dic, num
+    def getEmbedding(self, users, pos_items, neg_items):
+        all_users, all_items = self.computer()
 
-    def getAspect(self):
+        users_emb = all_users[users]
+        pos_emb = all_items[pos_items]
+        neg_emb = all_items[neg_items]
+
+        # 将user/item嵌入传进去计算attention weight
+        user_aspect_emb = self.get_user_aspect_embedding(all_users, users)
+        pos_item_aspect_emb = self.get_item_aspect_embedding(all_items, pos_items)
+        neg_item_aspect_emb = self.get_item_aspect_embedding(all_items, neg_items)
+
+        users_emb = users_emb + user_aspect_emb
+        pos_emb = pos_emb + pos_item_aspect_emb
+        neg_emb = neg_emb + neg_item_aspect_emb
+
+        users_emb_ego = self.embedding_user(users)
+        pos_emb_ego = self.embedding_item(pos_items)
+        neg_emb_ego = self.embedding_item(neg_items)
+        return users_emb, pos_emb, neg_emb, users_emb_ego, pos_emb_ego, neg_emb_ego
+
+    def getUsersRating(self, users, items):
+        all_users, all_items = self.computer()
+        users_emb = all_users[users.long()]
+        items_emb = all_items
+
+        user_aspect_emb = self.get_user_aspect_embedding(all_users, users)  # user已经是按顺序的
+        item_aspect_emb = self.get_item_aspect_embedding(all_items, items)  # item已经是按顺序的
+
+        users_emb = users_emb + user_aspect_emb
+        items_emb = items_emb + item_aspect_emb
+
+        rating = self.f(torch.matmul(users_emb, items_emb.t()))
+        return rating
+
+    # 如果去掉了MLP，其实这个函数可以简化掉，目前先不简化，看移动MLP之后的效果
+    def get_ft_aspect_emb(self, aspect_emb_384):
+        # 将所有的aspect从384维转化为64维
+        for aspect, emb_384 in aspect_emb_384.items():
+            self.aspect_emb_64[aspect] = self.aspect_MLP(torch.tensor(np.array(emb_384)).to(torch.float32))
+
+    def getAspectEmbedding(self):
         user_aspect_embedding = dict()
         item_aspect_embedding = dict()
         for i in self.all_user:  # i: torch.tensor
@@ -240,92 +202,103 @@ class Loader(BasicDataset):
             if i in self.user_aspect_dic.keys():
                 a_vector_list = []
                 for a in self.user_aspect_dic[i]:
-                    a_vector_list.append(self.aspect_emb[a])
+                    a_vector_list.append(self.aspect_emb_64[a])
                 if len(a_vector_list) != 0:
-                    a_vector_list = np.array(a_vector_list)
-                    a_vector_list = np.average(a_vector_list, axis=0)  # 均值
-                    user_aspect_embedding[i] = a_vector_list
+                    vector_tensor = torch.stack(a_vector_list)  # [n_aspects, 64]
+                    # new_vector_tensor = self.aspect_MLP_user(vector_tensor)  # [n_aspects, 64]
+                    # new_vector_tensor = torch.mean(vector_tensor, axis = 0)  # 求平均)
+                    """a_vector_list = np.array(a_vector_list)
+                    a_vector_list = np.average(a_vector_list, axis=0)  # 均值"""
+                    user_aspect_embedding[i] = vector_tensor
 
         for i in self.all_item:  # i: torch.tensor
             i = int(i)
             if i in self.item_aspect_dic.keys():
                 a_vector_list = []
                 for a in self.item_aspect_dic[i]:
-                    a_vector_list.append(self.aspect_emb[a])  # user 和 item 的aspect并不完全一样
+                    a_vector_list.append(self.aspect_emb_64[a])  # user 和 item 的aspect并不完全一样
                 if len(a_vector_list) != 0:
-                    a_vector_list = np.array(a_vector_list)
-                    a_vector_list = np.average(a_vector_list, axis=0)
-                    item_aspect_embedding[i] = a_vector_list
+                    vector_tensor = torch.stack(a_vector_list)
+                    # new_vector_tensor = self.aspect_MLP_item(vector_tensor)  # [n_aspects, dim] 384->64
+                    # new_vector_tensor = torch.mean(vector_tensor, axis = 0)
+                    """a_vector_list = np.array(a_vector_list)
+                    a_vector_list = np.average(a_vector_list, axis=0)"""
+                    item_aspect_embedding[i] = vector_tensor
 
         return user_aspect_embedding, item_aspect_embedding
 
-    def getSparseGraph(self):
-        print("loading adjacency matrix")
-        if self.Graph is None:
-            try:
-                pre_adj_mat = sp.load_npz(self.path + '/s_pre_adj_mat.npz')
-                print("successfully loaded...")
-                norm_adj = pre_adj_mat
-            except:
-                print("generating adjacency matrix")
-                s = time()
-                adj_mat = sp.dok_matrix((self.n_users + self.m_items, self.n_users + self.m_items), dtype=np.float32)
-                adj_mat = adj_mat.tolil()
-                R = self.UserItemNet.tolil()
-                adj_mat[:self.n_users, self.n_users:] = R
-                adj_mat[self.n_users:, :self.n_users] = R.T
-                adj_mat = adj_mat.todok()
-                # adj_mat = adj_mat + sp.eye(adj_mat.shape[0])
-
-                rowsum = np.array(adj_mat.sum(axis=1))
-                d_inv = np.power(rowsum, -0.5).flatten()
-                d_inv[np.isinf(d_inv)] = 0.
-                d_mat = sp.diags(d_inv)
-
-                norm_adj = d_mat.dot(adj_mat)
-                norm_adj = norm_adj.dot(d_mat)
-                norm_adj = norm_adj.tocsr()
-                end = time()
-                print(f"costing {end - s}s, saved norm_mat...")
-                sp.save_npz(self.path + '/s_pre_adj_mat.npz', norm_adj)
-
-            if self.split == True:
-                self.Graph = self._split_A_hat(norm_adj)
-                print("done split matrix")
+    # 计算每个batch中user对应的aspect embedding列表
+    def get_user_aspect_embedding(self, user_emb, users):
+        user_aspect_emb = []
+        for i in users:
+            i = int(i)
+            if i in self.user_aspect_emb.keys():
+                aspect_emb_list = self.user_aspect_emb[i].to(self.args.device)
+                aspect_emb_user = self.attention_aspectAgg(user_emb[i], aspect_emb_list, aspect_emb_list)
+                user_aspect_emb.append(aspect_emb_user.tolist())
             else:
-                self.Graph = self._convert_sp_mat_to_sp_tensor(norm_adj)
-                self.Graph = self.Graph.coalesce().to(self.args.device)
-                print("don't split the matrix")
-        return self.Graph
+                user_aspect_emb.append([0 for _ in range(64)])  # aspect嵌入维度，可变！！！！
 
-    def __build_test(self):
-        """
-        return:
-            dict: {user: [items]}
-        """
-        test_data = {}
-        for i, item in enumerate(self.testItem):
-            user = self.testUser[i]
-            if test_data.get(user):
-                test_data[user].append(item)
+        return torch.tensor(user_aspect_emb).to(self.args.device)
+
+    def get_item_aspect_embedding(self, item_emb, items):
+        item_aspect_emb = []
+        for i in items:
+            i = int(i)
+            if i in self.item_aspect_emb.keys():
+                aspect_emb_list = self.item_aspect_emb[i].to(self.args.device)
+                aspect_emb_user = self.attention_aspectAgg(item_emb[i], aspect_emb_list, aspect_emb_list)
+                item_aspect_emb.append(aspect_emb_user.tolist())
             else:
-                test_data[user] = [item]
-        return test_data
+                item_aspect_emb.append([0 for _ in range(64)])
+        return torch.tensor(item_aspect_emb).to(self.args.device)
 
-    def getUserItemFeedback(self, users, items):
-        """
-        users:
-            shape [-1]
-        items:
-            shape [-1]
-        return:
-            feedback [-1]
-        """
-        # print(self.UserItemNet[users, items])
-        return np.array(self.UserItemNet[users, items]).astype('uint8').reshape((-1,))
+    # query：user/item   key/value: aspect
+    def attention_aspectAgg(self, query, key, value, mask=None, dropout=None):
+        # query：[emb_dim]  user/item
+        # key/values: [n_aspect, emb_dim]  aspect
+        # 首先取query的最后一维的大小，对应user/item/aspect的嵌入维度  比如64
+        d_k = query.size(-1)  # 64
+        # 按照注意力公式，将query与key的转置相乘，这里面key是将最后两个维度进行转置，再除以缩放系数得到注意力得分张量scores
+        query = torch.unsqueeze(query, 0)  # [emb_dim] -> [1, emb_dim]
+        scores = (torch.matmul(query, key.transpose(-2, -1)) / math.sqrt(d_k)).to(self.args.device)  # [1, n_aspects]
 
-    def getUserPosItems(self, users):  # user list
-        posItems = []
-        for user in users:
-            posItems.append(self.UserItemNet[user].nonzero()[1])
-        return posItems
+        # 对scores的最后一维进行softmax操作
+        p_attn = F.softmax(scores, dim=-1)
+
+        # 之后判断是否使用dropout进行随机置0
+        if dropout is not None:
+            p_attn = dropout(p_attn)
+
+        # 最后，根据公式将p_attn与value张量相乘获得最终的query注意力表示，返回aspect的对user/item的贡献值
+        # [emb_dim]
+        return torch.squeeze(torch.matmul(p_attn, value))  # torch.matmul(p_attn, value): [1, emb_dim]
+
+    # 计算嵌入和loss
+    def bpr_loss(self, users, pos, neg):
+        (users_emb, pos_emb, neg_emb,
+         userEmb0, posEmb0, negEmb0) = self.getEmbedding(users.long(), pos.long(), neg.long())
+        # loss
+        reg_loss = (1 / 2) * (userEmb0.norm(2).pow(2) +
+                              posEmb0.norm(2).pow(2) +
+                              negEmb0.norm(2).pow(2)) / float(len(users))
+
+        pos_scores = torch.mul(users_emb, pos_emb)
+        pos_scores = torch.sum(pos_scores, dim=1)
+        neg_scores = torch.mul(users_emb, neg_emb)
+        neg_scores = torch.sum(neg_scores, dim=1)
+
+        loss = torch.mean(torch.nn.functional.softplus(neg_scores - pos_scores))
+
+        return loss, reg_loss
+
+    def forward(self, users, items):
+        # compute embedding
+        all_users, all_items = self.computer()
+        # print('forward')
+        # all_users, all_items = self.computer()
+        users_emb = all_users[users]
+        items_emb = all_items[items]
+        inner_pro = torch.mul(users_emb, items_emb)
+        gamma = torch.sum(inner_pro, dim=1)
+        return gamma

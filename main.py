@@ -8,7 +8,6 @@ import code.data_loader as dataloader
 import code.trainer as trainer
 from code.evaluater import Tester
 
-
 if __name__ == '__main__':
     args = parser.parse_args()
 
@@ -41,6 +40,8 @@ if __name__ == '__main__':
     else:
         w = None
         print("not enable tensorflowboard")
+
+    utils.register(args)
 
     # train & test
     try:
