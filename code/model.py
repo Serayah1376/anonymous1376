@@ -70,25 +70,24 @@ class LightGCN(BasicModel):
         self.Graph = self.dataset.getSparseGraph()
         print(f"lgn is already to go(dropout:{self.args.dropout})")
 
-        self.W1 = nn.Parameter(torch.ones(1, requires_grad=True))
-        self.W2 = nn.Parameter(torch.ones(1, requires_grad=True))
+        self.aspect_MLP1 = nn.Linear(in_features=384, out_features=64, bias=True)  # 统一将所有的aspect的维度进行转换
+        # self.aspect_MLP2 = nn.Linear(in_features=128, out_features=64, bias=True)  # 统一将所有的aspect的维度进行转换
 
-        """self.aspect_MLP_u = nn.Linear(in_features=64, out_features=384, bias=True)  
-        self.aspect_MLP_i = nn.Linear(in_features=64, out_features=384, bias=True) """
-
-        self.aspect_MLP = nn.Linear(in_features=384, out_features=64, bias=True)  # 统一将所有的aspect的维度进行转换
-
-        """self.aspect_MLP_user = nn.Linear(in_features=384, out_features=64, bias=True)  
-        self.aspect_MLP_item = nn.Linear(in_features=384, out_features=64, bias=True) """
+        self.q = nn.Linear(64, 64, bias=True)
+        self.k = nn.Linear(64, 64, bias=True)
+        self.v = nn.Linear(64, 64, bias=True)
 
         # 初始化
-        torch.nn.init.xavier_uniform_(self.aspect_MLP.weight)
-        torch.nn.init.constant_(self.aspect_MLP.bias, 0)
-
-        """torch.nn.init.xavier_uniform_(self.aspect_MLP_user.weight)
-        torch.nn.init.constant_(self.aspect_MLP_user.bias, 0)
-        torch.nn.init.xavier_uniform_(self.aspect_MLP_item.weight)
-        torch.nn.init.constant_(self.aspect_MLP_item.bias, 0)"""
+        torch.nn.init.xavier_uniform_(self.aspect_MLP1.weight)
+        torch.nn.init.constant_(self.aspect_MLP1.bias, 0)
+        """torch.nn.init.xavier_uniform_(self.aspect_MLP2.weight)
+        torch.nn.init.constant_(self.aspect_MLP2.bias, 0) """
+        torch.nn.init.xavier_uniform_(self.q.weight)
+        torch.nn.init.constant_(self.q.bias, 0)
+        torch.nn.init.xavier_uniform_(self.k.weight)
+        torch.nn.init.constant_(self.k.bias, 0)
+        torch.nn.init.xavier_uniform_(self.v.weight)
+        torch.nn.init.constant_(self.v.bias, 0)
 
         self.dropout = nn.Dropout(0.1)
 
@@ -192,7 +191,7 @@ class LightGCN(BasicModel):
     def get_ft_aspect_emb(self, aspect_emb_384):
         # 将所有的aspect从384维转化为64维
         for aspect, emb_384 in aspect_emb_384.items():
-            self.aspect_emb_64[aspect] = self.aspect_MLP(torch.tensor(np.array(emb_384)).to(torch.float32))
+            self.aspect_emb_64[aspect] = self.aspect_MLP1(torch.tensor(np.array(emb_384)).to(torch.float32))
 
     def getAspectEmbedding(self):
         user_aspect_embedding = dict()
@@ -234,20 +233,29 @@ class LightGCN(BasicModel):
             i = int(i)
             if i in self.user_aspect_emb.keys():
                 aspect_emb_list = self.user_aspect_emb[i].to(self.args.device)
-                aspect_emb_user = self.attention_aspectAgg(user_emb[i], aspect_emb_list, aspect_emb_list)
+                # 加权重矩阵，转换为k,q,v
+                query = self.q(user_emb[i])
+                key = self.k(aspect_emb_list)
+                value = self.v(aspect_emb_list)
+                aspect_emb_user = self.attention_aspectAgg(query, key, value)
                 user_aspect_emb.append(aspect_emb_user.tolist())
             else:
-                user_aspect_emb.append([0 for _ in range(64)])  # aspect嵌入维度，可变！！！！
+                user_aspect_emb.append([0 for _ in range(64)])
 
         return torch.tensor(user_aspect_emb).to(self.args.device)
 
     def get_item_aspect_embedding(self, item_emb, items):
         item_aspect_emb = []
+        item_emb_list = []
         for i in items:
             i = int(i)
+            item_emb_list.append(item_emb[i])
             if i in self.item_aspect_emb.keys():
                 aspect_emb_list = self.item_aspect_emb[i].to(self.args.device)
-                aspect_emb_user = self.attention_aspectAgg(item_emb[i], aspect_emb_list, aspect_emb_list)
+                query = self.q(item_emb[i])
+                key = self.k(aspect_emb_list)
+                value = self.v(aspect_emb_list)
+                aspect_emb_user = self.attention_aspectAgg(query, key, value)
                 item_aspect_emb.append(aspect_emb_user.tolist())
             else:
                 item_aspect_emb.append([0 for _ in range(64)])
@@ -257,11 +265,12 @@ class LightGCN(BasicModel):
     def attention_aspectAgg(self, query, key, value, mask=None, dropout=None):
         # query：[emb_dim]  user/item
         # key/values: [n_aspect, emb_dim]  aspect
-        # 首先取query的最后一维的大小，对应user/item/aspect的嵌入维度  比如64
-        d_k = query.size(-1)  # 64
-        # 按照注意力公式，将query与key的转置相乘，这里面key是将最后两个维度进行转置，再除以缩放系数得到注意力得分张量scores
+        d_k = query.size(-1)  # 嵌入维度64
         query = torch.unsqueeze(query, 0)  # [emb_dim] -> [1, emb_dim]
         scores = (torch.matmul(query, key.transpose(-2, -1)) / math.sqrt(d_k)).to(self.args.device)  # [1, n_aspects]
+
+        if mask is not None:  # mask 将没有的地方的权重设置为0
+            scores = scores.masked_fill(mask == 0, -1e9)  # 等于0的地方填充-1e9
 
         # 对scores的最后一维进行softmax操作
         p_attn = F.softmax(scores, dim=-1)
