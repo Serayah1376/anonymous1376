@@ -156,6 +156,23 @@ def shuffle(*arrays, **kwargs):
         return result
 
 
+# 对单个user/item的aspect列表进行padding并计算mask矩阵
+def aspect_padding(aspect_emb_list, max_len):
+    # 如果没有对应的aspect列表
+    if aspect_emb_list == None:
+        res = torch.tensor([0 for i in range(args.recdim)]).repeat(max_len, 1)  # 全部设置为0
+        mask_ones = torch.zeros(max_len)  # 全部mask掉
+    elif len(aspect_emb_list) >= max_len:
+        res = aspect_emb_list[:max_len]
+        mask_ones = torch.ones(max_len)  # 没有进行padding
+    elif len(aspect_emb_list) < max_len:
+        padding_len = max_len - len(aspect_emb_list)  # padding的长度
+        padding = torch.tensor([0 for i in range(args.recdim)]).repeat(padding_len, 1).to(args.device)
+        res = torch.cat((aspect_emb_list, padding), 0)  # padding
+        mask_ones = torch.cat((torch.ones(len(aspect_emb_list)), torch.zeros(padding_len)), 0)  # padding的部分全为0
+    return res.to(args.device), mask_ones.to(args.device)  # padding之后的每个user的aspect列表，以及padding的mask矩阵
+
+
 def register(args):
     print('===========config================')
     print("layer num:", args.layer)
