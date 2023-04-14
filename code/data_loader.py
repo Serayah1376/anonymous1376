@@ -10,6 +10,8 @@ import scipy.sparse as sp
 from time import time
 from gensim.models import Word2Vec
 import json
+import code.utils as utils
+import parser
 
 
 class BasicDataset(Dataset):
@@ -82,8 +84,9 @@ class Loader(BasicDataset):
         train_file = path + '/train.txt'
         test_file = path + '/test.txt'
 
-        user_aspect = path + '/user_aspect.json'
-        item_aspect = path + '/item_aspect.json'
+        # 删除只出现一次的aspect，因为没有连接左右？
+        user_aspect = path + '/user_aspect>1.json'
+        item_aspect = path + '/item_aspect>1.json'
 
         aspect_embedding = path + '/aspect_all-MiniLM-L6-v2.json'
 
@@ -101,6 +104,7 @@ class Loader(BasicDataset):
 
         self.category_dic, self.category_num = self.read_category(self.category_path)
 
+        # 训练数据
         with open(train_file) as f:
             for l in f.readlines():
                 if len(l) > 0:
@@ -117,6 +121,7 @@ class Loader(BasicDataset):
         self.trainUser = np.array(trainUser)
         self.trainItem = np.array(trainItem)
 
+        # 测试数据
         with open(test_file) as f:
             for l in f.readlines():
                 if len(l) > 0:
@@ -139,21 +144,27 @@ class Loader(BasicDataset):
         self.all_user = np.unique(np.append(self.trainUniqueUsers, self.testUniqueUsers))
         self.all_item = np.unique(np.append(self.trainItem, self.testItem))
 
-        with open(user_aspect) as f:
-            for l in f.readlines():
-                dic = json.loads(l)
-                self.user_aspect_dic[dic["userID"]] = dic["aspects"]  # user和aspect对应列表
-
-        with open(item_aspect) as f:
-            for l in f.readlines():
-                dic = json.loads(l)
-                self.item_aspect_dic[dic["itemID"]] = dic["aspects"]  # item和aspect对应列表
-
         # 使用模型all-MiniLM-L6-v2处理的aspect嵌入
         with open(aspect_embedding) as f:
             for l in f.readlines():
                 dic = json.loads(l)
-                self.aspect_emb[dic['aspect']] = dic['embedding']  # 字典[aspect ,embedding]
+                self.aspect_emb[dic['aspect']] = dic['embedding']
+
+        # user和aspect字符列表的对应
+        with open(user_aspect) as f:
+            for l in f.readlines():
+                dic = json.loads(l)
+                self.user_aspect_dic[int(dic["userID"])] = dic["aspects"]  # user和aspect对应列表 asepct: list
+
+        # item和aspect字符列表的对应
+        with open(item_aspect) as f:
+            for l in f.readlines():
+                dic = json.loads(l)
+                self.item_aspect_dic[int(dic["itemID"])] = dic["aspect"]  # item和aspect对应列表
+
+        # user/item对应的aspect的嵌入 key: user   value: [n_aspect, aspect_emb]
+        self.user_aspect_embedding = dict()
+        self.item_aspect_embedding = dict()
 
         self.Graph = None
         print(f"{self.trainDataSize} interactions for training")
@@ -297,3 +308,4 @@ class Loader(BasicDataset):
         for user in users:
             posItems.append(self.UserItemNet[user].nonzero()[1])
         return posItems
+

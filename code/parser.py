@@ -30,7 +30,7 @@ def parse_args():
                         help="the batch size for bpr loss training procedure")
     parser.add_argument('--a_fold', type=int, default=100,
                         help="the fold num used to split large adj matrix, like gowalla")
-    parser.add_argument('--testbatch', type=int, default=1024,
+    parser.add_argument('--testbatch', type=int, default=100,
                         help="the batch size of users for testing")
     parser.add_argument('--dataset', type=str, default='yelp2018',
                         help="available datasets: [yelp2018, amazon-beauty]")
@@ -49,6 +49,6 @@ def parse_args():
     parser.add_argument('--pretrain', type=int, default=0, help='whether we use pretrained weight or not')  # 0
     parser.add_argument('--seed', type=int, default=2023, help='random seed')
     parser.add_argument('--model', type=str, default='lgn', help='rec-model, support [lgn, ...]')
-    parser.add_argument('--max_len', type=int, default=128, help='Maximum length of aspect list')
+    parser.add_argument('--max_len', type=int, default=64, help='Maximum length of aspect list')
     return parser.parse_args()
 

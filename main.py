@@ -7,6 +7,7 @@ from os.path import join
 import code.data_loader as dataloader
 import code.trainer as trainer
 from code.evaluater import Tester
+import copy
 
 if __name__ == '__main__':
     args = parser.parse_args()
@@ -17,8 +18,11 @@ if __name__ == '__main__':
     dataset = dataloader.Loader(args, path="./datasets/" + args.dataset)
 
     # Initialize the model
-    Recmodel = utils.choose_model(args, dataset)  # 使用什么model
+    deepcopy_dataset = copy.deepcopy(dataset)  # 对数据集进行深拷贝
+    Recmodel = utils.choose_model(args, deepcopy_dataset)  # 使用什么model
     Recmodel = Recmodel.to(args.device)
+    Recmodel.aspect_init()  # 初始化aspect的处理
+
     bpr = utils.BPRLoss(args, Recmodel)
 
     # 权重
@@ -47,7 +51,7 @@ if __name__ == '__main__':
     try:
         for epoch in range(args.epochs):
             start = time.time()
-            if epoch % 10 == 0:
+            if epoch % 10 == 0:  # epoch != 0:
                 print("[TEST]")
                 tester = Tester(args, dataset, Recmodel, epoch, w, args.multicore)
                 tester.test()

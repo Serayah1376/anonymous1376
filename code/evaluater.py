@@ -7,6 +7,7 @@ import multiprocessing
 from .data_loader import BasicDataset
 from sklearn.metrics import roc_auc_score
 from collections import Counter
+import time
 
 CORES = multiprocessing.cpu_count() // 2
 
@@ -67,6 +68,7 @@ class Tester(object):
             # auc_record = []
             # ratings = []
             total_batch = len(users) // self.u_batch_size + 1  # batch数
+
             for batch_users in utils.minibatch(users, batch_size=self.u_batch_size):  # batch_users: 100
                 allPos = self.dataset.getUserPosItems(batch_users)  # 交互items
                 all_items = self.dataset.all_item
@@ -74,7 +76,9 @@ class Tester(object):
                 batch_users_gpu = torch.Tensor(batch_users).long()
                 batch_users_gpu = batch_users_gpu.to(self.args.device)
 
+                # 加aspect是4s左右，不加aspect的话是0.0004
                 rating = self.Recmodel.getUsersRating(batch_users_gpu, all_items)
+
                 # rating = rating.cpu()
                 exclude_index = []
                 exclude_items = []
@@ -88,6 +92,7 @@ class Tester(object):
                 users_list.append(batch_users)
                 rating_list.append(rating_K.cpu())
                 groundTrue_list.append(groundTrue)
+
             assert total_batch == len(users_list)
             X = zip(rating_list, groundTrue_list)  # 预测和真值
             if self.multicore == 1:
@@ -232,8 +237,3 @@ class Tester(object):
         r = r_all[all_item_scores >= 0]
         test_item_scores = all_item_scores[all_item_scores >= 0]
         return roc_auc_score(r, test_item_scores)
-
-
-
-
-

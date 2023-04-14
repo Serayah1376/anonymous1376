@@ -3,6 +3,7 @@ import torch
 import code
 import code.utils as utils
 import code.model as model
+import time
 
 
 # train
@@ -30,14 +31,14 @@ def train(args, dataset, recommend_model, loss_class, epoch, neg_k=1, w=None):
                                                    posItems,
                                                    negItems,
                                                    batch_size=args.bpr_batch)):
+
         cri = bpr.stageOne(batch_users, batch_pos, batch_neg)
+
         aver_loss += cri
         if args.tensorboard:
             w.add_scalar(f'BPRLoss/BPR', cri, epoch * int(len(users) / args.bpr_batch) + batch_i)
+
     aver_loss = aver_loss / total_batch
     time_info = utils.timer.dict()
     utils.timer.zero()
     return f"loss{aver_loss:.3f}-{time_info}"
-
-
-

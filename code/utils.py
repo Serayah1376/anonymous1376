@@ -7,6 +7,8 @@ from time import time
 from .model import PairWiseModel, LightGCN
 from sklearn.metrics import roc_auc_score
 import os
+from collections import defaultdict
+import time as Time
 
 '''
 loss函数、负采样函数、辅助函数
@@ -36,15 +38,25 @@ class BPRLoss:
         self.opt = optim.Adam(recmodel.parameters(), lr=self.lr)  # 优化器
 
     def stageOne(self, users, pos, neg):
-        loss, reg_loss1 = self.model.bpr_loss(users, pos, neg)
-        reg_loss2 = sum(p.pow(2).sum() for p in self.model.parameters())  # 模型参数正则化
-        reg_loss = reg_loss1 * 1e-4 + reg_loss2 * 1e-9  # 调整数量级，因为reg_loss1和reg_loss2不是一个数量级的  self.weight_decay
+        """loss, reg_loss1 = self.model.bpr_loss(users, pos, neg)
+        reg_loss2 = sum(p.pow(2).sum()  for p in self.model.parameters())  # 模型参数正则化
+        reg_loss1 = reg_loss1 * 1e-4 # + reg_loss2 * 1e-9  # 调整数量级，因为reg_loss1和reg_loss2不是一个数量级的  self.weight_decay
+        reg_loss2 = reg_loss2 * 1e-9
+        loss = loss + reg_loss1"""
+
+        loss = self.model.bpr_loss(users, pos, neg)
+        reg_loss = sum(p.pow(2).sum() for p in self.model.parameters())  # 模型参数正则化
+        reg_loss = reg_loss * 1e-9  # + reg_loss2 * 1e-9  # 调整数量级，因为reg_loss1和reg_loss2不是一个数量级的  self.weight_decay
         loss = loss + reg_loss
 
         self.opt.zero_grad()
-        loss.backward()
-        self.opt.step()
 
+        # 14s
+        # 0.03597068786621094
+        loss.backward(retain_graph=True)  # retain_graph=True
+        # 0.0009493827819824219
+
+        self.opt.step()
         return loss.cpu().item()
 
 
@@ -156,31 +168,67 @@ def shuffle(*arrays, **kwargs):
         return result
 
 
-# 对单个user/item的aspect列表进行padding并计算mask矩阵
+# 对单个user/item的aspect列表进行padding, padding的是0，所以不需要mask
 def aspect_padding(aspect_emb_list, max_len):
     # 如果没有对应的aspect列表
     if aspect_emb_list == None:
-        res = torch.tensor([0 for i in range(args.recdim)]).repeat(max_len, 1)  # 全部设置为0
-        mask_ones = torch.zeros(max_len)  # 全部mask掉
+        res = torch.tensor([0 for i in range(args.recdim)]).repeat(max_len, 1).to(args.device)  # 全部设置为0
+    # 费时间
     elif len(aspect_emb_list) >= max_len:
-        res = aspect_emb_list[:max_len]
-        mask_ones = torch.ones(max_len)  # 没有进行padding
+        res = aspect_emb_list[:max_len][:]
     elif len(aspect_emb_list) < max_len:
         padding_len = max_len - len(aspect_emb_list)  # padding的长度
         padding = torch.tensor([0 for i in range(args.recdim)]).repeat(padding_len, 1).to(args.device)
         res = torch.cat((aspect_emb_list, padding), 0)  # padding
-        mask_ones = torch.cat((torch.ones(len(aspect_emb_list)), torch.zeros(padding_len)), 0)  # padding的部分全为0
-    return res.to(args.device), mask_ones.to(args.device)  # padding之后的每个user的aspect列表，以及padding的mask矩阵
+    return res.to(torch.float32)  # padding之后的每个user的aspect列表，以及padding的mask矩阵
 
 
 def register(args):
     print('===========config================')
+    print("dataset:", args.dataset)
     print("layer num:", args.layer)
     print("recdim:", args.recdim)
     print("model:", args.model)
-    print("dataset:", args.dataset)
+    print("testbatch", args.testbatch)
+    print("topks", args.topks)
+    print("epochs", args.epochs)
+    print("max_len", args.max_len)
     print("using bpr loss")
     print('===========end===================')
+
+
+# 很对下一步预测的分训练集和测试集的方法，参考CARCA，可以修改成Top-k预测的训练集和测试集
+def data_partition(fname):
+    usernum = 0
+    itemnum = 0
+    User = defaultdict(list)
+    user_train = {}
+    user_valid = {}
+    user_test = {}
+    # assume user/item index starting from 1
+    # txt文件中第一维是user，第二维是item
+    f = open('./Data/%s.txt' % fname, 'r')
+    for line in f:
+        u, i = line.rstrip().split(' ')
+        u = int(u)
+        i = int(i)
+        usernum = max(u, usernum)
+        itemnum = max(i, itemnum)
+        User[u].append(i)
+
+    for user in User:
+        nfeedback = len(User[user])
+        if nfeedback < 3:
+            user_train[user] = User[user]
+            user_valid[user] = []
+            user_test[user] = []
+        else:
+            user_train[user] = User[user][:-2]
+            user_valid[user] = []
+            user_valid[user].append(User[user][-2])
+            user_test[user] = []
+            user_test[user].append(User[user][-1])
+    return [user_train, user_valid, user_test, usernum, itemnum]
 
 
 class timer:
