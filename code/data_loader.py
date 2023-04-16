@@ -84,9 +84,8 @@ class Loader(BasicDataset):
         train_file = path + '/train.txt'
         test_file = path + '/test.txt'
 
-        # 删除只出现一次的aspect，因为没有连接左右？
-        user_aspect = path + '/user_aspect>1.json'
-        item_aspect = path + '/item_aspect>1.json'
+        user_aspect = path + '/user_aspect.json'
+        item_aspect = path + '/item_aspect.json'
 
         aspect_embedding = path + '/aspect_all-MiniLM-L6-v2.json'
 
@@ -160,7 +159,7 @@ class Loader(BasicDataset):
         with open(item_aspect) as f:
             for l in f.readlines():
                 dic = json.loads(l)
-                self.item_aspect_dic[int(dic["itemID"])] = dic["aspect"]  # item和aspect对应列表
+                self.item_aspect_dic[int(dic["itemID"])] = dic["aspects"]  # item和aspect对应列表
 
         # user/item对应的aspect的嵌入 key: user   value: [n_aspect, aspect_emb]
         self.user_aspect_embedding = dict()

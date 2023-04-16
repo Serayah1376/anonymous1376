@@ -83,7 +83,7 @@ class LightGCN(BasicModel):
         torch.nn.init.xavier_uniform_(self.aspect_MLP.weight)
         torch.nn.init.constant_(self.aspect_MLP.bias, 0)
 
-        self.attention = nn.MultiheadAttention(embed_dim=self.latent_dim, num_heads=1, batch_first=True)
+        self.attention = nn.MultiheadAttention(embed_dim=self.latent_dim, num_heads=1, batch_first=True)  # head_num
 
     def aspect_init(self):
         # deepcopy_aspect_emb384 = copy.deepcopy(self.aspect_emb_384) # 在进入之前进行深拷贝
@@ -122,17 +122,17 @@ class LightGCN(BasicModel):
         all_emb = torch.cat([users_emb, items_emb])
         #   torch.split(all_emb , [self.num_users, self.num_items])
         embs = [all_emb]
-        if self.args.dropout:
+        if self.args.dropout:  # 0
             if self.training:
                 print("droping")
                 g_droped = self.__dropout(self.keep_prob)
-            else:
+            else:  # True
                 g_droped = self.Graph
         else:
             g_droped = self.Graph
 
         for layer in range(self.n_layers):
-            if self.A_split:
+            if self.A_split:  # False
                 temp_emb = []
                 for f in range(len(g_droped)):
                     temp_emb.append(torch.sparse.mm(g_droped[f], all_emb))
@@ -140,6 +140,11 @@ class LightGCN(BasicModel):
                 all_emb = side_emb
             else:
                 all_emb = torch.sparse.mm(g_droped, all_emb)
+                user_aspect_emb = self.get_user_aspect_embedding(all_emb[self.all_user],
+                                                                 torch.tensor(self.all_user).to(self.args.device))
+                item_aspect_emb = self.get_item_aspect_embedding(all_emb[self.all_item],
+                                                                 torch.tensor(self.all_item).to(self.args.device))
+                all_emb = all_emb + torch.cat([user_aspect_emb, item_aspect_emb])
             embs.append(all_emb)
         embs = torch.stack(embs, dim=1)
         light_out = torch.mean(embs, dim=1)
@@ -155,15 +160,15 @@ class LightGCN(BasicModel):
 
         # 将user/item嵌入传进去计算attention weight
         # 0.6s左右
-        user_aspect_emb = self.get_user_aspect_embedding(all_users, users)
+        """user_aspect_emb = self.get_user_aspect_embedding(all_users, users)
         # 0.6s左右
         pos_item_aspect_emb = self.get_item_aspect_embedding(all_items, pos_items)
         # 0.4s左右
-        neg_item_aspect_emb = self.get_item_aspect_embedding(all_items, neg_items)
+        neg_item_aspect_emb = self.get_item_aspect_embedding(all_items, neg_items)"""
 
-        users_emb = users_emb + user_aspect_emb
-        pos_emb = pos_emb + pos_item_aspect_emb
-        neg_emb = neg_emb + neg_item_aspect_emb
+        # users_emb = users_emb  + user_aspect_emb
+        # pos_emb = pos_emb  + pos_item_aspect_emb
+        # neg_emb = neg_emb  + neg_item_aspect_emb
 
         users_emb_ego = self.embedding_user(users)
         pos_emb_ego = self.embedding_item(pos_items)
@@ -175,11 +180,11 @@ class LightGCN(BasicModel):
         users_emb = all_users[users.long()]
         items_emb = all_items
 
-        user_aspect_emb = self.get_user_aspect_embedding(all_users, users)  # user已经是按顺序的
-        item_aspect_emb = self.get_item_aspect_embedding(all_items, items)  # item已经是按顺序的
+        """user_aspect_emb = self.get_user_aspect_embedding(all_users, users)  # user已经是按顺序的
+        item_aspect_emb = self.get_item_aspect_embedding(all_items, items)  # item已经是按顺序的"""
 
-        users_emb = users_emb + user_aspect_emb
-        items_emb = items_emb + item_aspect_emb
+        # users_emb = users_emb + user_aspect_emb
+        # items_emb = items_emb + item_aspect_emb
 
         rating = self.f(torch.matmul(users_emb, items_emb.t()))
         return rating
@@ -193,9 +198,7 @@ class LightGCN(BasicModel):
             new_emb_384_list.append(new_emb_384)
 
         new_emb_384_tensor = torch.stack(new_emb_384_list)
-        print("new_emb_384_tensor.shape:", new_emb_384_tensor.shape)
         emb_64 = self.aspect_MLP(new_emb_384_tensor)
-
         self.aspect_emb_64 = dict(zip(list(aspect_emb_384.keys()), emb_64.tolist()))
 
     def getAspectEmbedding(self):
@@ -223,7 +226,6 @@ class LightGCN(BasicModel):
 
         return user_aspect_embedding, item_aspect_embedding
 
-    # 在前面  不费时间
     def aspect_padding(self):  # entity: user/item
         for i in self.all_user:
             if i in self.user_aspect_emb.keys():
@@ -273,19 +275,6 @@ class LightGCN(BasicModel):
         aspect_emb_item, _ = self.attention(batch_item_emb, batch_pad_aspect, batch_pad_aspect)
 
         aspect_emb_item = torch.squeeze(aspect_emb_item)
-
-        """item_aspect_emb = []
-        # 6s左右 时间很长
-        for i in items:
-            if i in self.item_aspect_emb.keys():
-                aspect_emb_list = self.item_aspect_emb[i].to(self.args.device)
-                # 0.002s左右
-                aspect_emb_item, _ = self.attention(torch.unsqueeze(item_emb[i], 0), aspect_emb_list, aspect_emb_list)
-                aspect_emb_item = torch.squeeze(aspect_emb_item)
-                item_aspect_emb.append(aspect_emb_item)
-            else:
-                item_aspect_emb.append(torch.tensor([0 for i in range(self.args.recdim)]).to(self.args.device))
-"""
         # return torch.stack(item_aspect_emb).to(self.args.device)
         return aspect_emb_item.to(self.args.device)
 
@@ -317,9 +306,9 @@ class LightGCN(BasicModel):
         (users_emb, pos_emb, neg_emb,
          userEmb0, posEmb0, negEmb0) = self.getEmbedding(users.long(), pos.long(), neg.long())
         # loss
-        """reg_loss = (1 / 2) * (userEmb0.norm(2).pow(2) +
+        reg_loss = (1 / 2) * (userEmb0.norm(2).pow(2) +
                               posEmb0.norm(2).pow(2) +
-                              negEmb0.norm(2).pow(2)) / float(len(users))"""
+                              negEmb0.norm(2).pow(2)) / float(len(users))
 
         pos_scores = torch.mul(users_emb, pos_emb)
         pos_scores = torch.sum(pos_scores, dim=1)
@@ -328,7 +317,7 @@ class LightGCN(BasicModel):
 
         loss = torch.mean(torch.nn.functional.softplus(neg_scores - pos_scores))
 
-        return loss  # , reg_loss
+        return loss, reg_loss
 
     def forward(self, users, items):
         # compute embedding

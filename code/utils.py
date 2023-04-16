@@ -33,31 +33,49 @@ class BPRLoss:
                  args,
                  recmodel: PairWiseModel):
         self.model = recmodel
-        self.weight_decay = args.decay
+        self.args = args
         self.lr = args.lr  # 学习率
         self.opt = optim.Adam(recmodel.parameters(), lr=self.lr)  # 优化器
 
     def stageOne(self, users, pos, neg):
-        """loss, reg_loss1 = self.model.bpr_loss(users, pos, neg)
-        reg_loss2 = sum(p.pow(2).sum()  for p in self.model.parameters())  # 模型参数正则化
-        reg_loss1 = reg_loss1 * 1e-4 # + reg_loss2 * 1e-9  # 调整数量级，因为reg_loss1和reg_loss2不是一个数量级的  self.weight_decay
-        reg_loss2 = reg_loss2 * 1e-9
-        loss = loss + reg_loss1"""
+        loss, reg_loss1 = self.model.bpr_loss(users, pos, neg)
 
-        loss = self.model.bpr_loss(users, pos, neg)
-        reg_loss = sum(p.pow(2).sum() for p in self.model.parameters())  # 模型参数正则化
-        reg_loss = reg_loss * 1e-9  # + reg_loss2 * 1e-9  # 调整数量级，因为reg_loss1和reg_loss2不是一个数量级的  self.weight_decay
+        # 计算模型的L2正则化
+        reg_loss2 = torch.tensor(0.).to(args.device)
+        for name, para in self.model.named_parameters():
+            if name != 'embedding_user.weight' and name != 'embedding_item.weight':
+                reg_loss2 += para.pow(2).sum()
+
+        # reg_loss2 = sum(p.pow(2).sum()  for p in self.model.parameters())  # 模型参数正则化
+        reg_loss = reg_loss1 * self.args.regloss1_decay + reg_loss2 * self.args.regloss2_decay  # 调整数量级，因为reg_loss1和reg_loss2不是一个数量级的  self.weight_decay
         loss = loss + reg_loss
+        """for name, para in self.model.named_parameters():
+            if name == 'embedding_user.weight' or name == 'embedding_item.weight':
+                print(name, ":", para)
+                print()
+
+        print("loss:", loss)
+        print("regloss1: ", reg_loss1)
+        print("regloss2:", reg_loss2)"""
+
+        """loss = self.model.bpr_loss(users, pos, neg)
+        # reg_loss
+        for name, para in self.model.named_parameters():
+            if name != '****':
+                reg_loss += para.pow(2).sum()
+        reg_loss = sum(p.pow(2).sum()  for p in self.model.parameters())  # 模型参数正则化
+        reg_loss = reg_loss * 1e-9 # + reg_loss2 * 1e-9  # 调整数量级，因为reg_loss1和reg_loss2不是一个数量级的  self.weight_decay
+        loss = loss + reg_loss"""
 
         self.opt.zero_grad()
 
         # 14s
         # 0.03597068786621094
-        loss.backward(retain_graph=True)  # retain_graph=True
+        loss.backward()  # retain_graph=True
         # 0.0009493827819824219
 
         self.opt.step()
-        return loss.cpu().item()
+        return loss.cpu().item(), reg_loss1, reg_loss2
 
 
 # 负采样
@@ -193,6 +211,8 @@ def register(args):
     print("topks", args.topks)
     print("epochs", args.epochs)
     print("max_len", args.max_len)
+    print("regloss1_decay", args.regloss1_decay)
+    print("regloss2_decay", args.regloss2_decay)
     print("using bpr loss")
     print('===========end===================')
 

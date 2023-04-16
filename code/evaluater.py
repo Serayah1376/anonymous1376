@@ -237,3 +237,8 @@ class Tester(object):
         r = r_all[all_item_scores >= 0]
         test_item_scores = all_item_scores[all_item_scores >= 0]
         return roc_auc_score(r, test_item_scores)
+
+
+
+
+
