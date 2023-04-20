@@ -1,0 +1,49 @@
+nohup: ignoring input
+Cpp extension not loaded
+>>SEED: 2020
+loading [./datasets/yelp2018]
+1237259 interactions for training
+324147 interactions for testing
+yelp2018 Sparsity : 0.0012958757851778647
+yelp2018 is ready to go
+use NORMAL distribution initilizer
+loading adjacency matrix
+successfully loaded...
+don't split the matrix
+lgn is already to go(dropout:0)
+load and save to ./checkpoints\lgn-yelp2018-3-64.pth.tar
+[TEST]
+{'precision': array([0.00038209]), 'recall': array([0.00074522]), 'ndcg': array([0.00057064])}
+EPOCH[1/1000] loss0.742-|Sample:25.70|
+EPOCH[2/1000] loss0.675-|Sample:17.85|
+EPOCH[3/1000] loss0.675-|Sample:17.83|
+EPOCH[4/1000] loss0.675-|Sample:18.20|
+EPOCH[5/1000] loss0.675-|Sample:17.86|
+EPOCH[6/1000] loss0.675-|Sample:18.46|
+EPOCH[7/1000] loss0.675-|Sample:17.89|
+EPOCH[8/1000] loss0.675-|Sample:18.55|
+EPOCH[9/1000] loss0.675-|Sample:18.47|
+EPOCH[10/1000] loss0.675-|Sample:18.53|
+[TEST]
+{'precision': array([0.00537293]), 'recall': array([0.01295718]), 'ndcg': array([0.01007337])}
+EPOCH[11/1000] loss0.675-|Sample:17.82|
+EPOCH[12/1000] loss0.675-|Sample:18.08|
+EPOCH[13/1000] loss0.675-|Sample:18.66|
+EPOCH[14/1000] loss0.675-|Sample:28.49|
+EPOCH[15/1000] loss0.675-|Sample:18.14|
+EPOCH[16/1000] loss0.675-|Sample:18.00|
+EPOCH[17/1000] loss0.675-|Sample:17.92|
+EPOCH[18/1000] loss0.675-|Sample:18.80|
+EPOCH[19/1000] loss0.675-|Sample:18.73|
+Traceback (most recent call last):
+  File "main.py", line 52, in <module>
+    output_information = trainer.train(args, dataset, Recmodel, bpr, epoch, neg_k=Neg_k, w=w)  # main
+  File "D:\AResearch\CIKM 2023\CodeBase\anonymous1376\code\trainer.py", line 33, in train
+    cri = bpr.stageOne(batch_users, batch_pos, batch_neg)
+  File "D:\AResearch\CIKM 2023\CodeBase\anonymous1376\code\utils.py", line 44, in stageOne
+    loss.backward()
+  File "C:\ProgramData\Anaconda3\envs\pytorch_wym\lib\site-packages\torch\_tensor.py", line 307, in backward
+    torch.autograd.backward(self, gradient, retain_graph, create_graph, inputs=inputs)
+  File "C:\ProgramData\Anaconda3\envs\pytorch_wym\lib\site-packages\torch\autograd\__init__.py", line 156, in backward
+    allow_unreachable=True, accumulate_grad=True)  # allow_unreachable flag
+KeyboardInterrupt

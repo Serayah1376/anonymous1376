@@ -1,0 +1,149 @@
+nohup: ignoring input
+Cpp extension not loaded
+>>SEED: 2023
+loading [./datasets/yelp2018]
+1237259 interactions for training
+324147 interactions for testing
+yelp2018 Sparsity : 0.0012958757851778647
+yelp2018 is ready to go
+use NORMAL distribution initilizer
+loading adjacency matrix
+successfully loaded...
+don't split the matrix
+lgn is already to go(dropout:0)
+load and save to ./checkpoints/lgn-yelp2018-4-64.pth.tar
+===========config================
+layer num: 4
+recdim: 64
+model: lgn
+dataset: yelp2018
+using bpr loss
+===========end===================
+[TEST]
+/root/autodl-tmp/anonymous1376/code/evaluater.py:36: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray.
+  self.cate = np.array(list(dataset.category_dic.values()))  # 对于yelp2018来说是二维数组，因为每个item有多种类别
+users_emb.shape:  torch.Size([1024, 64])
+users_emb.shape:  torch.Size([1024, 64])
+users_emb.shape:  torch.Size([1024, 64])
+users_emb.shape:  torch.Size([1024, 64])
+users_emb.shape:  torch.Size([1024, 64])
+users_emb.shape:  torch.Size([1024, 64])
+users_emb.shape:  torch.Size([1024, 64])
+users_emb.shape:  torch.Size([1024, 64])
+users_emb.shape:  torch.Size([1024, 64])
+users_emb.shape:  torch.Size([1024, 64])
+users_emb.shape:  torch.Size([1024, 64])
+users_emb.shape:  torch.Size([1024, 64])
+users_emb.shape:  torch.Size([1024, 64])
+users_emb.shape:  torch.Size([1024, 64])
+users_emb.shape:  torch.Size([1024, 64])
+users_emb.shape:  torch.Size([1024, 64])
+users_emb.shape:  torch.Size([1024, 64])
+users_emb.shape:  torch.Size([1024, 64])
+users_emb.shape:  torch.Size([1024, 64])
+users_emb.shape:  torch.Size([1024, 64])
+users_emb.shape:  torch.Size([1024, 64])
+users_emb.shape:  torch.Size([1024, 64])
+users_emb.shape:  torch.Size([1024, 64])
+users_emb.shape:  torch.Size([1024, 64])
+users_emb.shape:  torch.Size([1024, 64])
+users_emb.shape:  torch.Size([1024, 64])
+users_emb.shape:  torch.Size([1024, 64])
+users_emb.shape:  torch.Size([1024, 64])
+users_emb.shape:  torch.Size([1024, 64])
+users_emb.shape:  torch.Size([1024, 64])
+users_emb.shape:  torch.Size([948, 64])
+{'precision': array([0.00026841]), 'recall': array([0.00054657]), 'ndcg': array([0.00044083]), 'coverage': array([0.87523683]), 'ILD': array([0.29680966])}
+EPOCH[1/1000] loss0.351-|Sample:18.90|
+EPOCH[2/1000] loss0.159-|Sample:22.49|
+EPOCH[3/1000] loss0.149-|Sample:19.80|
+EPOCH[4/1000] loss0.143-|Sample:19.51|
+EPOCH[5/1000] loss0.136-|Sample:17.53|
+EPOCH[6/1000] loss0.130-|Sample:18.68|
+EPOCH[7/1000] loss0.124-|Sample:18.87|
+EPOCH[8/1000] loss0.119-|Sample:17.96|
+EPOCH[9/1000] loss0.113-|Sample:17.42|
+EPOCH[10/1000] loss0.110-|Sample:18.72|
+[TEST]
+users_emb.shape:  torch.Size([1024, 64])
+users_emb.shape:  torch.Size([1024, 64])
+users_emb.shape:  torch.Size([1024, 64])
+users_emb.shape:  torch.Size([1024, 64])
+users_emb.shape:  torch.Size([1024, 64])
+users_emb.shape:  torch.Size([1024, 64])
+users_emb.shape:  torch.Size([1024, 64])
+users_emb.shape:  torch.Size([1024, 64])
+users_emb.shape:  torch.Size([1024, 64])
+users_emb.shape:  torch.Size([1024, 64])
+users_emb.shape:  torch.Size([1024, 64])
+users_emb.shape:  torch.Size([1024, 64])
+users_emb.shape:  torch.Size([1024, 64])
+users_emb.shape:  torch.Size([1024, 64])
+users_emb.shape:  torch.Size([1024, 64])
+users_emb.shape:  torch.Size([1024, 64])
+users_emb.shape:  torch.Size([1024, 64])
+users_emb.shape:  torch.Size([1024, 64])
+users_emb.shape:  torch.Size([1024, 64])
+users_emb.shape:  torch.Size([1024, 64])
+users_emb.shape:  torch.Size([1024, 64])
+users_emb.shape:  torch.Size([1024, 64])
+users_emb.shape:  torch.Size([1024, 64])
+users_emb.shape:  torch.Size([1024, 64])
+users_emb.shape:  torch.Size([1024, 64])
+users_emb.shape:  torch.Size([1024, 64])
+users_emb.shape:  torch.Size([1024, 64])
+users_emb.shape:  torch.Size([1024, 64])
+users_emb.shape:  torch.Size([1024, 64])
+users_emb.shape:  torch.Size([1024, 64])
+users_emb.shape:  torch.Size([948, 64])
+{'precision': array([0.01788398]), 'recall': array([0.03958279]), 'ndcg': array([0.03155053]), 'coverage': array([0.21343312]), 'ILD': array([0.25640477])}
+EPOCH[11/1000] loss0.107-|Sample:18.70|
+EPOCH[12/1000] loss0.104-|Sample:17.91|
+EPOCH[13/1000] loss0.101-|Sample:17.13|
+EPOCH[14/1000] loss0.099-|Sample:18.51|
+EPOCH[15/1000] loss0.097-|Sample:18.70|
+EPOCH[16/1000] loss0.096-|Sample:16.80|
+EPOCH[17/1000] loss0.093-|Sample:18.53|
+EPOCH[18/1000] loss0.092-|Sample:17.82|
+EPOCH[19/1000] loss0.091-|Sample:18.18|
+EPOCH[20/1000] loss0.089-|Sample:17.72|
+[TEST]
+users_emb.shape:  torch.Size([1024, 64])
+users_emb.shape:  torch.Size([1024, 64])
+users_emb.shape:  torch.Size([1024, 64])
+users_emb.shape:  torch.Size([1024, 64])
+users_emb.shape:  torch.Size([1024, 64])
+users_emb.shape:  torch.Size([1024, 64])
+users_emb.shape:  torch.Size([1024, 64])
+users_emb.shape:  torch.Size([1024, 64])
+users_emb.shape:  torch.Size([1024, 64])
+users_emb.shape:  torch.Size([1024, 64])
+users_emb.shape:  torch.Size([1024, 64])
+users_emb.shape:  torch.Size([1024, 64])
+users_emb.shape:  torch.Size([1024, 64])
+users_emb.shape:  torch.Size([1024, 64])
+users_emb.shape:  torch.Size([1024, 64])
+users_emb.shape:  torch.Size([1024, 64])
+users_emb.shape:  torch.Size([1024, 64])
+users_emb.shape:  torch.Size([1024, 64])
+users_emb.shape:  torch.Size([1024, 64])
+users_emb.shape:  torch.Size([1024, 64])
+users_emb.shape:  torch.Size([1024, 64])
+users_emb.shape:  torch.Size([1024, 64])
+users_emb.shape:  torch.Size([1024, 64])
+users_emb.shape:  torch.Size([1024, 64])
+users_emb.shape:  torch.Size([1024, 64])
+users_emb.shape:  torch.Size([1024, 64])
+users_emb.shape:  torch.Size([1024, 64])
+users_emb.shape:  torch.Size([1024, 64])
+users_emb.shape:  torch.Size([1024, 64])
+users_emb.shape:  torch.Size([1024, 64])
+users_emb.shape:  torch.Size([948, 64])
+{'precision': array([0.01911551]), 'recall': array([0.04203]), 'ndcg': array([0.03377114]), 'coverage': array([0.22363269]), 'ILD': array([0.24947747])}
+EPOCH[21/1000] loss0.088-|Sample:18.53|
+EPOCH[22/1000] loss0.087-|Sample:16.74|
+EPOCH[23/1000] loss0.085-|Sample:18.48|
+EPOCH[24/1000] loss0.084-|Sample:18.23|
+EPOCH[25/1000] loss0.082-|Sample:17.72|
+EPOCH[26/1000] loss0.081-|Sample:16.71|
+EPOCH[27/1000] loss0.080-|Sample:18.40|
