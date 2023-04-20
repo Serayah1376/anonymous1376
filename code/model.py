@@ -60,6 +60,7 @@ class LightGCN(BasicModel):
         self.n_layers = self.args.layer
         self.keep_prob = self.args.keepprob
         self.A_split = self.args.A_split
+        self.head_num = self.args.head_num
         self.embedding_user = torch.nn.Embedding(
             num_embeddings=self.num_users, embedding_dim=self.latent_dim)
         self.embedding_item = torch.nn.Embedding(
@@ -83,7 +84,8 @@ class LightGCN(BasicModel):
         torch.nn.init.xavier_uniform_(self.aspect_MLP.weight)
         torch.nn.init.constant_(self.aspect_MLP.bias, 0)
 
-        self.attention = nn.MultiheadAttention(embed_dim=self.latent_dim, num_heads=1, batch_first=True)  # head_num
+        self.attention = nn.MultiheadAttention(embed_dim=self.latent_dim, num_heads=self.head_num,
+                                               batch_first=True)  # head_num
 
     def aspect_init(self):
         # deepcopy_aspect_emb384 = copy.deepcopy(self.aspect_emb_384) # 在进入之前进行深拷贝
@@ -139,12 +141,13 @@ class LightGCN(BasicModel):
                 side_emb = torch.cat(temp_emb, dim=0)
                 all_emb = side_emb
             else:
+                new_item_list = self.all_item + len(self.all_user)
                 all_emb = torch.sparse.mm(g_droped, all_emb)
                 user_aspect_emb = self.get_user_aspect_embedding(all_emb[self.all_user],
                                                                  torch.tensor(self.all_user).to(self.args.device))
-                item_aspect_emb = self.get_item_aspect_embedding(all_emb[self.all_item],
+                item_aspect_emb = self.get_item_aspect_embedding(all_emb[new_item_list],
                                                                  torch.tensor(self.all_item).to(self.args.device))
-                all_emb = all_emb + torch.cat([user_aspect_emb, item_aspect_emb])
+                all_emb = (all_emb + torch.cat([user_aspect_emb, item_aspect_emb])) / 2
             embs.append(all_emb)
         embs = torch.stack(embs, dim=1)
         light_out = torch.mean(embs, dim=1)
@@ -265,7 +268,7 @@ class LightGCN(BasicModel):
         return aspect_emb_user.to(self.args.device)
 
     def get_item_aspect_embedding(self, item_emb, items):
-        items = torch.tensor(items).to(self.args.device)  # items本来是numpy类型
+        # items = torch.tensor(items).to(self.args.device) # items本来是numpy类型
         batch_pad_aspect = torch.index_select(self.item_padding_aspect, 0, items)
         batch_item_emb = torch.index_select(item_emb, 0, items)
 
@@ -278,30 +281,7 @@ class LightGCN(BasicModel):
         # return torch.stack(item_aspect_emb).to(self.args.device)
         return aspect_emb_item.to(self.args.device)
 
-    # query：user/item   key/value: aspect
-    def attention_aspectAgg(self, query, key, value, mask=None, dropout=None):
-        # query：[batch_size, 1, emb_dim]  user/item
-        # key/values: [batch_size, n_aspect, emb_dim]  aspect
-        # 首先取query的最后一维的大小，对应user/item/aspect的嵌入维度  比如64
-        d_k = query.size(-1)  # 64
-        # 按照注意力公式，将query与key的转置相乘，这里面key是将最后两个维度进行转置，再除以缩放系数得到注意力得分张量scores
-        # query = torch.unsqueeze(query, 0)  # [emb_dim] -> [1, emb_dim]
-        scores = (torch.matmul(query, key.transpose(-2, -1)) / math.sqrt(d_k)).to(
-            self.args.device)  # [batch_size, 1, n_aspects]
-
-        # 对scores的最后一维进行softmax操作
-        p_attn = F.softmax(scores, dim=-1)
-
-        # 之后判断是否使用dropout进行随机置0
-        if dropout is not None:
-            p_attn = dropout(p_attn)
-
-        # 最后，根据公式将p_attn与value张量相乘获得最终的query注意力表示，返回aspect的对user/item的贡献值
-        # [batch_size, 1, emb_dim]
-        return torch.matmul(p_attn, value)
-
-        # 计算嵌入和loss
-
+    # 计算嵌入和loss
     def bpr_loss(self, users, pos, neg):
         (users_emb, pos_emb, neg_emb,
          userEmb0, posEmb0, negEmb0) = self.getEmbedding(users.long(), pos.long(), neg.long())
@@ -317,7 +297,7 @@ class LightGCN(BasicModel):
 
         loss = torch.mean(torch.nn.functional.softplus(neg_scores - pos_scores))
 
-        return loss, reg_loss
+        return users_emb, pos_emb, neg_emb, reg_loss, loss
 
     def forward(self, users, items):
         # compute embedding

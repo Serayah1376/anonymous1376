@@ -9,6 +9,8 @@ from sklearn.metrics import roc_auc_score
 import os
 from collections import defaultdict
 import time as Time
+import torch.nn.functional as F
+import pandas as pd
 
 '''
 loss函数、负采样函数、辅助函数
@@ -37,8 +39,28 @@ class BPRLoss:
         self.lr = args.lr  # 学习率
         self.opt = optim.Adam(recmodel.parameters(), lr=self.lr)  # 优化器
 
+    def alignment(self, x, y):
+        x, y = F.normalize(x, dim=-1), F.normalize(y, dim=-1)
+        return (x - y).norm(p=2, dim=1).pow(2).mean()
+
+    def uniformity(self, x):
+        x = F.normalize(x, dim=-1)  # x = x / ||x||
+        return torch.pdist(x, p=2).pow(2).mul(-2).exp().mean().log()
+
+    # 传入user/item 处理好的嵌入
+    def ali_uni_loss(self, user_e, item_e):  # [batch_size, dim]
+        align = self.alignment(user_e, item_e)
+        print("align", align)
+        uniform = (self.uniformity(user_e) + self.uniformity(item_e)) / 2
+        print("uniform", uniform)
+        loss = align + args.gamma * uniform  # 原论文中gama的范围为[0.2, 0.5, 1, 2, 5, 10]
+        return loss
+
     def stageOne(self, users, pos, neg):
-        loss, reg_loss1 = self.model.bpr_loss(users, pos, neg)
+        # [batch_size, emb_dim]
+        users_emb, pos_emb, neg_emb, reg_loss1, loss = self.model.bpr_loss(users, pos, neg)
+
+        # au_loss = self.ali_uni_loss(users_emb, pos_emb)  # 计算alignment和uniformity loss
 
         # 计算模型的L2正则化
         reg_loss2 = torch.tensor(0.).to(args.device)
@@ -46,39 +68,22 @@ class BPRLoss:
             if name != 'embedding_user.weight' and name != 'embedding_item.weight':
                 reg_loss2 += para.pow(2).sum()
 
+        # au_loss = self.ali_uni_loss(users_emb, pos_emb)
+
         # reg_loss2 = sum(p.pow(2).sum()  for p in self.model.parameters())  # 模型参数正则化
         reg_loss = reg_loss1 * self.args.regloss1_decay + reg_loss2 * self.args.regloss2_decay  # 调整数量级，因为reg_loss1和reg_loss2不是一个数量级的  self.weight_decay
-        loss = loss + reg_loss
-        """for name, para in self.model.named_parameters():
-            if name == 'embedding_user.weight' or name == 'embedding_item.weight':
-                print(name, ":", para)
-                print()
-
-        print("loss:", loss)
-        print("regloss1: ", reg_loss1)
-        print("regloss2:", reg_loss2)"""
-
-        """loss = self.model.bpr_loss(users, pos, neg)
-        # reg_loss
-        for name, para in self.model.named_parameters():
-            if name != '****':
-                reg_loss += para.pow(2).sum()
-        reg_loss = sum(p.pow(2).sum()  for p in self.model.parameters())  # 模型参数正则化
-        reg_loss = reg_loss * 1e-9 # + reg_loss2 * 1e-9  # 调整数量级，因为reg_loss1和reg_loss2不是一个数量级的  self.weight_decay
-        loss = loss + reg_loss"""
+        # au_loss = au_loss * 1
+        # print(au_loss)  # 先看看数量级
+        loss = loss + reg_loss  # + au_loss
 
         self.opt.zero_grad()
-
-        # 14s
-        # 0.03597068786621094
         loss.backward()  # retain_graph=True
-        # 0.0009493827819824219
-
         self.opt.step()
-        return loss.cpu().item(), reg_loss1, reg_loss2
+        return loss.cpu().item(), reg_loss1, reg_loss2,
+
+    # 负采样
 
 
-# 负采样
 def UniformSample_original(dataset, neg_ratio=1):
     dataset: BasicDataset
     allPos = dataset.allPos  # 得到与user交互的所有item
@@ -213,11 +218,13 @@ def register(args):
     print("max_len", args.max_len)
     print("regloss1_decay", args.regloss1_decay)
     print("regloss2_decay", args.regloss2_decay)
+    print("head_num", args.head_num)
+    print("gamma", args.gamma)
     print("using bpr loss")
     print('===========end===================')
 
 
-# 很对下一步预测的分训练集和测试集的方法，参考CARCA，可以修改成Top-k预测的训练集和测试集
+# 下一步预测的分训练集和测试集的方法，参考CARCA，可以修改成Top-k预测的训练集和测试集
 def data_partition(fname):
     usernum = 0
     itemnum = 0

@@ -18,14 +18,15 @@ def parse_args():
                         help="the embedding size of lightGCN")
     parser.add_argument('--aspect_LMdim', type=int, default=384,
                         help="the embedding size of the pre-treated aspect")
-    parser.add_argument('--layer', type=int, default=2,  # 2层
+    parser.add_argument('--layer', type=int, default=4,  # 2层
                         help="the layer num of lightGCN")
     parser.add_argument('--lr', type=float, default=0.001,
                         help="the learning rate")
     parser.add_argument('--regloss1_decay', type=float, default=1e-4,
                         help="the weight decay for l2 normalizaton of user/item weight")
-    parser.add_argument('--regloss2_decay', type=float, default=1e-5,
+    parser.add_argument('--regloss2_decay', type=float, default=1e-6,
                         help="the weight decay for l2 normalizaton of the model")
+    parser.add_argument('--au_loss', type=float, default=1, help='The weight 𝛾 of 𝑙_uniform')
     parser.add_argument('--dropout', type=int, default=0,
                         help="using the dropout or not")
     parser.add_argument('--keepprob', type=float, default=0.6,
@@ -52,5 +53,7 @@ def parse_args():
     parser.add_argument('--seed', type=int, default=2023, help='random seed')
     parser.add_argument('--model', type=str, default='lgn', help='rec-model, support [lgn, ...]')
     parser.add_argument('--max_len', type=int, default=64, help='Maximum length of aspect list')
+    parser.add_argument('--head_num', type=int, default=1, help='The number of heads of MultiheadAttention')
+    parser.add_argument('--gamma', type=int, default=1, help='The weight 𝛾 of 𝑙_uniform')
     return parser.parse_args()
 
