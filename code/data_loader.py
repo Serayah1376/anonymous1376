@@ -12,6 +12,7 @@ from gensim.models import Word2Vec
 import json
 import code.utils as utils
 import parser
+import dgl
 
 
 class BasicDataset(Dataset):
@@ -68,10 +69,10 @@ class BasicDataset(Dataset):
         raise NotImplementedError
 
 
-# 加载数据
+# 加载数据 dataset
 class Loader(BasicDataset):
 
-    def __init__(self, args, path="../data/gowalla"):
+    def __init__(self, args, path="../data/yelp2018"):
         # train or test
         print(f'loading [{path}]')
         self.args = args
@@ -79,8 +80,8 @@ class Loader(BasicDataset):
         self.folds = args.a_fold
         self.mode_dict = {'train': 0, "test": 1}
         self.mode = self.mode_dict['train']
-        self.n_user = 0
-        self.m_item = 0
+        self.n_user = 0  # user数量
+        self.m_item = 0  # item数量
         train_file = path + '/train.txt'
         test_file = path + '/test.txt'
 
@@ -111,7 +112,7 @@ class Loader(BasicDataset):
                     items = [int(i) for i in l[1:]]
                     uid = int(l[0])
                     trainUniqueUsers.append(uid)
-                    trainUser.extend([uid] * len(items))  # 与item对应
+                    trainUser.extend([uid] * len(items))  # 与交互的item对应
                     trainItem.extend(items)
                     self.m_item = max(self.m_item, max(items))
                     self.n_user = max(self.n_user, uid)
@@ -170,15 +171,16 @@ class Loader(BasicDataset):
         print(f"{self.testDataSize} interactions for testing")
         print(f"{args.dataset} Sparsity : {(self.trainDataSize + self.testDataSize) / self.n_users / self.m_items}")
 
-        # (users,items), bipartite graph  二部图
+        # (users,items), bipartite graph， 交互稀疏矩阵
         self.UserItemNet = csr_matrix((np.ones(len(self.trainUser)), (self.trainUser, self.trainItem)),
                                       shape=(self.n_user, self.m_item))
+        # ?
         self.users_D = np.array(self.UserItemNet.sum(axis=1)).squeeze()
         self.users_D[self.users_D == 0.] = 1
         self.items_D = np.array(self.UserItemNet.sum(axis=0)).squeeze()
         self.items_D[self.items_D == 0.] = 1.
         # pre-calculate
-        self._allPos = self.getUserPosItems(list(range(self.n_user)))
+        self._allPos = self.getUserPosItems(list(range(self.n_user)))  # 每个user交互过的item
         self.__testDict = self.__build_test()
         print(f"{args.dataset} is ready to go")
 
@@ -214,14 +216,6 @@ class Loader(BasicDataset):
             A_fold.append(self._convert_sp_mat_to_sp_tensor(A[start:end]).coalesce().to(self.args.device))
         return A_fold
 
-    def _convert_sp_mat_to_sp_tensor(self, X):
-        coo = X.tocoo().astype(np.float32)
-        row = torch.Tensor(coo.row).long()
-        col = torch.Tensor(coo.col).long()
-        index = torch.stack([row, col])
-        data = torch.FloatTensor(coo.data)
-        return torch.sparse.FloatTensor(index, data, torch.Size(coo.shape))
-
     # 得到item与类别的对应
     def read_category(self, path):
         dic = {}
@@ -237,43 +231,32 @@ class Loader(BasicDataset):
         num = len(all_category)
         return dic, num
 
+        # 获得稀疏交互矩阵
+
     def getSparseGraph(self):
         print("loading adjacency matrix")
-        if self.Graph is None:
-            try:
+        if self.Graph is None:  # True
+            try:  # 无
                 pre_adj_mat = sp.load_npz(self.path + '/s_pre_adj_mat.npz')
                 print("successfully loaded...")
                 norm_adj = pre_adj_mat
             except:
                 print("generating adjacency matrix")
                 s = time()
+                # n_nodes, 双向交互矩阵
                 adj_mat = sp.dok_matrix((self.n_users + self.m_items, self.n_users + self.m_items), dtype=np.float32)
-                adj_mat = adj_mat.tolil()
+                adj_mat = adj_mat.tolil()  # 转换成列表
                 R = self.UserItemNet.tolil()
                 adj_mat[:self.n_users, self.n_users:] = R
                 adj_mat[self.n_users:, :self.n_users] = R.T
                 adj_mat = adj_mat.todok()
-                # adj_mat = adj_mat + sp.eye(adj_mat.shape[0])
+                edge_src, edge_dst = adj_mat.nonzero()  # 双向的
 
-                rowsum = np.array(adj_mat.sum(axis=1))
-                d_inv = np.power(rowsum, -0.5).flatten()
-                d_inv[np.isinf(d_inv)] = 0.
-                d_mat = sp.diags(d_inv)
+                self.Graph = dgl.graph(data=(edge_src, edge_dst),
+                                       idtype=torch.int32,
+                                       num_nodes=adj_mat.shape[0],
+                                       device=self.args.device)
 
-                norm_adj = d_mat.dot(adj_mat)
-                norm_adj = norm_adj.dot(d_mat)
-                norm_adj = norm_adj.tocsr()
-                end = time()
-                print(f"costing {end - s}s, saved norm_mat...")
-                sp.save_npz(self.path + '/s_pre_adj_mat.npz', norm_adj)
-
-            if self.split == True:
-                self.Graph = self._split_A_hat(norm_adj)
-                print("done split matrix")
-            else:
-                self.Graph = self._convert_sp_mat_to_sp_tensor(norm_adj)
-                self.Graph = self.Graph.coalesce().to(self.args.device)
-                print("don't split the matrix")
         return self.Graph
 
     def __build_test(self):
@@ -305,6 +288,6 @@ class Loader(BasicDataset):
     def getUserPosItems(self, users):  # user list
         posItems = []
         for user in users:
-            posItems.append(self.UserItemNet[user].nonzero()[1])
+            posItems.append(self.UserItemNet[user].nonzero()[1])  # 不为0的col和raw
         return posItems
 

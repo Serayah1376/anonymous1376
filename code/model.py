@@ -7,60 +7,45 @@ import math
 import torch.nn.functional as F
 import time
 import code.utils as utils
+import dgl.function as fn
 import copy
 
 
-class BasicModel(nn.Module):
-    def __init__(self):
-        super(BasicModel, self).__init__()
-
-    def getUsersRating(self, users):
-        raise NotImplementedError
-
-
-class PairWiseModel(BasicModel):
-    def __init__(self):
-        super(PairWiseModel, self).__init__()
-
-    def bpr_loss(self, users, pos, neg):
-        """
-        Parameters:
-            users: users list
-            pos: positive items for corresponding users
-            neg: negative items for corresponding users
-        Return:
-            (log-loss, l2-loss)
-        """
-        raise NotImplementedError
-
-
-class LightGCN(BasicModel):
+class Model(nn.Module):
     def __init__(self,
                  args,
                  dataset):
-        super(LightGCN, self).__init__()
+        super(Model, self).__init__()
         self.args = args
         self.dataset = dataset
-        self.__init_weight()
-
-    def __init_weight(self):
+        self.latent_dim = self.args.recdim
+        self.n_layers = self.args.layer
+        self.keep_prob = self.args.keepprob
+        self.A_split = self.args.A_split
+        self.head_num = self.args.head_num
         self.num_users = self.dataset.n_users
         self.num_items = self.dataset.m_items
-        self.user_aspect_dic = self.dataset.user_aspect_dic  # copy.deepcopy
-        self.item_aspect_dic = self.dataset.item_aspect_dic  # copy.deepcopy
         self.all_user = self.dataset.all_user
         self.all_item = self.dataset.all_item
+
+        # aspect init
+        self.user_aspect_dic = self.dataset.user_aspect_dic
+        self.item_aspect_dic = self.dataset.item_aspect_dic
         self.aspect_emb_384 = self.dataset.aspect_emb  # [aspect, emb_384]  copy.deepcopy
         self.aspect_emb_64 = dict()  # 转换维度后的aspect嵌入
         self.user_aspect_emb = dict()
         self.item_aspect_emb = dict()
         self.user_padding_aspect = []  # padding后的aspect表示
         self.item_padding_aspect = []
-        self.latent_dim = self.args.recdim
-        self.n_layers = self.args.layer
-        self.keep_prob = self.args.keepprob
-        self.A_split = self.args.A_split
-        self.head_num = self.args.head_num
+
+        self.layers = nn.ModuleList()
+        for i in range(self.n_layers):
+            self.layers.append(GCNLayer())
+
+        self.__init_weight()
+
+    def __init_weight(self):
+        # user/item embedding weight init
         self.embedding_user = torch.nn.Embedding(
             num_embeddings=self.num_users, embedding_dim=self.latent_dim)
         self.embedding_item = torch.nn.Embedding(
@@ -74,84 +59,52 @@ class LightGCN(BasicModel):
             self.embedding_user.weight.data.copy_(torch.from_numpy(self.config['user_emb']))
             self.embedding_item.weight.data.copy_(torch.from_numpy(self.config['item_emb']))
             print('use pretarined data')
+
+        # model weight init
         self.f = nn.Sigmoid()
-        self.Graph = self.dataset.getSparseGraph()
+        self.Graph = self.dataset.getSparseGraph()  # 交互稀疏矩阵 dgl.graph生成
         print(f"lgn is already to go(dropout:{self.args.dropout})")
 
         self.aspect_MLP = nn.Linear(in_features=384, out_features=64, bias=True)  # 统一将所有的aspect的维度进行转换
 
-        # 初始化
-        torch.nn.init.xavier_uniform_(self.aspect_MLP.weight)
-        torch.nn.init.constant_(self.aspect_MLP.bias, 0)
-
         self.attention = nn.MultiheadAttention(embed_dim=self.latent_dim, num_heads=self.head_num,
                                                batch_first=True)  # head_num
 
+        torch.nn.init.xavier_uniform_(self.aspect_MLP.weight)
+        torch.nn.init.constant_(self.aspect_MLP.bias, 0)
+        torch.nn.init.xavier_uniform_(self.attention.in_proj_weight)
+        torch.nn.init.constant_(self.attention.in_proj_bias, 0)
+        torch.nn.init.xavier_uniform_(self.attention.out_proj.weight)
+        torch.nn.init.constant_(self.attention.out_proj.bias, 0)
+
+    # aspect pre-train weight
     def aspect_init(self):
         # deepcopy_aspect_emb384 = copy.deepcopy(self.aspect_emb_384) # 在进入之前进行深拷贝
         self.get_ft_aspect_emb(self.aspect_emb_384)
-        self.user_aspect_emb, self.item_aspect_emb = self.getAspectEmbedding()
+        self.user_aspect_emb, self.item_aspect_emb = self.get_Pretrain_Aspect()
         self.aspect_padding()
 
-        # print("save_txt")
-
-    def __dropout_x(self, x, keep_prob):
-        size = x.size()
-        index = x.indices().t()
-        values = x.values()
-        random_index = torch.rand(len(values)) + keep_prob
-        random_index = random_index.int().bool()
-        index = index[random_index]
-        values = values[random_index] / keep_prob
-        g = torch.sparse.FloatTensor(index.t(), values, size)
-        return g
-
-    def __dropout(self, keep_prob):
-        if self.A_split:
-            graph = []
-            for g in self.Graph:
-                graph.append(self.__dropout_x(g, keep_prob))
-        else:
-            graph = self.__dropout_x(self.Graph, keep_prob)
-        return graph
-
     def computer(self):
-        """
-        propagate methods for lightGCN
-        """
         users_emb = self.embedding_user.weight
         items_emb = self.embedding_item.weight
         all_emb = torch.cat([users_emb, items_emb])
-        #   torch.split(all_emb , [self.num_users, self.num_items])
         embs = [all_emb]
-        if self.args.dropout:  # 0
-            if self.training:
-                print("droping")
-                g_droped = self.__dropout(self.keep_prob)
-            else:  # True
-                g_droped = self.Graph
-        else:
-            g_droped = self.Graph
+        for layer in self.layers:
+            all_emb = layer(self.Graph, all_emb)
 
-        for layer in range(self.n_layers):
-            if self.A_split:  # False
-                temp_emb = []
-                for f in range(len(g_droped)):
-                    temp_emb.append(torch.sparse.mm(g_droped[f], all_emb))
-                side_emb = torch.cat(temp_emb, dim=0)
-                all_emb = side_emb
-            else:
-                new_item_list = self.all_item + len(self.all_user)
-                all_emb = torch.sparse.mm(g_droped, all_emb)
-                user_aspect_emb = self.get_user_aspect_embedding(all_emb[self.all_user],
-                                                                 torch.tensor(self.all_user).to(self.args.device))
-                item_aspect_emb = self.get_item_aspect_embedding(all_emb[new_item_list],
-                                                                 torch.tensor(self.all_item).to(self.args.device))
-                all_emb = (all_emb + torch.cat([user_aspect_emb, item_aspect_emb])) / 2
+            new_item_list = self.all_item + len(self.all_user)
+            user_aspect_emb = self.get_aspect_embedding(all_emb[self.all_user],
+                                                        torch.tensor(self.all_user).to(self.args.device), is_user=True)
+            item_aspect_emb = self.get_aspect_embedding(all_emb[new_item_list],
+                                                        torch.tensor(self.all_item).to(self.args.device), is_user=False)
+            all_emb = (all_emb + torch.cat([user_aspect_emb, item_aspect_emb])) / 2
+
             embs.append(all_emb)
+
         embs = torch.stack(embs, dim=1)
         light_out = torch.mean(embs, dim=1)
         users, items = torch.split(light_out, [self.num_users, self.num_items])
+
         return users, items
 
     def getEmbedding(self, users, pos_items, neg_items):
@@ -160,18 +113,6 @@ class LightGCN(BasicModel):
         users_emb = all_users[users]
         pos_emb = all_items[pos_items]
         neg_emb = all_items[neg_items]
-
-        # 将user/item嵌入传进去计算attention weight
-        # 0.6s左右
-        """user_aspect_emb = self.get_user_aspect_embedding(all_users, users)
-        # 0.6s左右
-        pos_item_aspect_emb = self.get_item_aspect_embedding(all_items, pos_items)
-        # 0.4s左右
-        neg_item_aspect_emb = self.get_item_aspect_embedding(all_items, neg_items)"""
-
-        # users_emb = users_emb  + user_aspect_emb
-        # pos_emb = pos_emb  + pos_item_aspect_emb
-        # neg_emb = neg_emb  + neg_item_aspect_emb
 
         users_emb_ego = self.embedding_user(users)
         pos_emb_ego = self.embedding_item(pos_items)
@@ -183,16 +124,10 @@ class LightGCN(BasicModel):
         users_emb = all_users[users.long()]
         items_emb = all_items
 
-        """user_aspect_emb = self.get_user_aspect_embedding(all_users, users)  # user已经是按顺序的
-        item_aspect_emb = self.get_item_aspect_embedding(all_items, items)  # item已经是按顺序的"""
-
-        # users_emb = users_emb + user_aspect_emb
-        # items_emb = items_emb + item_aspect_emb
-
         rating = self.f(torch.matmul(users_emb, items_emb.t()))
         return rating
 
-    # 如果去掉了MLP，其实这个函数可以简化掉，目前先不简化，看移动MLP之后的效果
+    # 转化aspect维度
     def get_ft_aspect_emb(self, aspect_emb_384):
         # 将所有的aspect从384维转化为64维
         new_emb_384_list = []
@@ -204,7 +139,7 @@ class LightGCN(BasicModel):
         emb_64 = self.aspect_MLP(new_emb_384_tensor)
         self.aspect_emb_64 = dict(zip(list(aspect_emb_384.keys()), emb_64.tolist()))
 
-    def getAspectEmbedding(self):
+    def get_Pretrain_Aspect(self):
         user_aspect_embedding = dict()
         item_aspect_embedding = dict()
         for i in self.all_user:  # i: torch.tensor
@@ -252,33 +187,18 @@ class LightGCN(BasicModel):
         self.user_padding_aspect = torch.stack(self.user_padding_aspect).to(self.args.device)
         self.item_padding_aspect = torch.stack(self.item_padding_aspect).to(self.args.device)
 
-    # 计算每个batch中user对应的aspect embedding列表
-    def get_user_aspect_embedding(self, user_emb, users):
-        # 主要是遍历的时间
-        batch_pad_aspect = torch.index_select(self.user_padding_aspect, 0, users)
-        batch_user_emb = torch.index_select(user_emb, 0, users)
+    # 计算user/item对应的aspect embedding列表
+    def get_aspect_embedding(self, emb, index, is_user=True):
+        if is_user:
+            batch_pad_aspect = torch.index_select(self.user_padding_aspect, 0, index)
+        else:
+            batch_pad_aspect = torch.index_select(self.item_padding_aspect, 0, index)
 
-        batch_user_emb = torch.unsqueeze(batch_user_emb, 1)  # 扩展维度到3维
-
-        # 0.0006s的时间
-        aspect_emb_user, _ = self.attention(batch_user_emb, batch_pad_aspect, batch_pad_aspect)
-        aspect_emb_user = torch.squeeze(aspect_emb_user)
-
-        # return torch.stack(user_aspect_emb).to(self.args.device)
-        return aspect_emb_user.to(self.args.device)
-
-    def get_item_aspect_embedding(self, item_emb, items):
-        # items = torch.tensor(items).to(self.args.device) # items本来是numpy类型
-        batch_pad_aspect = torch.index_select(self.item_padding_aspect, 0, items)
-        batch_item_emb = torch.index_select(item_emb, 0, items)
-
-        batch_item_emb = torch.unsqueeze(batch_item_emb, 1)  # 扩展维度到3维
-
-        # 0.0006s的时间
-        aspect_emb_item, _ = self.attention(batch_item_emb, batch_pad_aspect, batch_pad_aspect)
-
+        batch_emb = torch.index_select(emb, 0, index)
+        batch_emb = torch.unsqueeze(batch_emb, 1)
+        aspect_emb_item, _ = self.attention(batch_emb, batch_pad_aspect, batch_pad_aspect)
         aspect_emb_item = torch.squeeze(aspect_emb_item)
-        # return torch.stack(item_aspect_emb).to(self.args.device)
+
         return aspect_emb_item.to(self.args.device)
 
     # 计算嵌入和loss
@@ -299,13 +219,29 @@ class LightGCN(BasicModel):
 
         return users_emb, pos_emb, neg_emb, reg_loss, loss
 
-    def forward(self, users, items):
-        # compute embedding
-        all_users, all_items = self.computer()
-        # print('forward')
-        # all_users, all_items = self.computer()
-        users_emb = all_users[users]
-        items_emb = all_items[items]
-        inner_pro = torch.mul(users_emb, items_emb)
-        gamma = torch.sum(inner_pro, dim=1)
-        return gamma
+
+# 基于DGL框架的lightGCN，GraphConv不是lightGCN
+class GCNLayer(nn.Module):
+    def __init__(self):
+        super(GCNLayer, self).__init__()
+
+    def forward(self, graph, node_f):  # graph： dgl.graph生成的
+        with graph.local_scope():  # 不改变graph中的值
+            # D^-1/2
+            degs = graph.out_degrees().to(node_f.device).float().clamp(min=1)  # 出度
+            norm = torch.pow(degs, -0.5).view(-1, 1)
+
+            node_f = node_f * norm  # 归一化
+
+            graph.ndata['n_f'] = node_f  # 特征赋值
+
+            # 更新，可以选择更新的方式
+            graph.update_all(message_func=fn.copy_u('n_f', 'm'), reduce_func=fn.sum('m', 'n_f'))
+
+            rst = graph.ndata['n_f']
+
+            degs = graph.in_degrees().to(node_f.device).float().clamp(min=1)  # 入度
+            norm = torch.pow(degs, -0.5).view(-1, 1)
+            rst = rst * norm
+
+            return rst

@@ -4,7 +4,7 @@ import numpy as np
 import code.parser as parser
 from .data_loader import BasicDataset
 from time import time
-from .model import PairWiseModel, LightGCN
+from .model import Model
 from sklearn.metrics import roc_auc_score
 import os
 from collections import defaultdict
@@ -33,7 +33,7 @@ except:
 class BPRLoss:
     def __init__(self,
                  args,
-                 recmodel: PairWiseModel):
+                 recmodel):
         self.model = recmodel
         self.args = args
         self.lr = args.lr  # 学习率
@@ -137,7 +137,7 @@ def UniformSample_original_python(dataset):
 # =====================utils====================================
 def choose_model(args, dataset):
     if args.model == 'lgn':
-        return LightGCN(args, dataset)
+        return Model(args, dataset)
 
 
 def set_seed(seed):
