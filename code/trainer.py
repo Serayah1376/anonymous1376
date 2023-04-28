@@ -36,15 +36,14 @@ def train(args, dataset, recommend_model, loss_class, epoch, neg_k=1, w=None):
                                                    negItems,
                                                    batch_size=args.bpr_batch)):
 
-        cri, reg_loss1, reg_loss2 = bpr.stageOne(batch_users, batch_pos, batch_neg)
+        cri, reg_loss1, reg_loss2, au_loss1 = bpr.stageOne(batch_users, batch_pos, batch_neg)
         aver_loss += cri
         if args.tensorboard:
             w.add_scalar(f'BPRLoss/BPR', cri, epoch * int(len(users) / args.bpr_batch) + batch_i)
 
-    # 观察loss的变化
-    if epoch % 100 == 0 and epoch != 0:
-        print("reg_loss1:", reg_loss1, "reg_loss2:", reg_loss2)
-        print()
+    # loss
+    if epoch % 10 == 0 and epoch != 0:
+        print("reg_loss1:", reg_loss1, "reg_loss2:", reg_loss2, "au_loss:", au_loss1)
 
     aver_loss = aver_loss / total_batch
     time_info = utils.timer.dict()

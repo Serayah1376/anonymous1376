@@ -18,7 +18,7 @@ def parse_args():
                         help="the embedding size of lightGCN")
     parser.add_argument('--aspect_LMdim', type=int, default=384,
                         help="the embedding size of the pre-treated aspect")
-    parser.add_argument('--layer', type=int, default=4,  # 2层
+    parser.add_argument('--layer', type=int, default=4,
                         help="the layer num of lightGCN")
     parser.add_argument('--lr', type=float, default=0.001,
                         help="the learning rate")
@@ -35,8 +35,8 @@ def parse_args():
                         help="the fold num used to split large adj matrix, like gowalla")
     parser.add_argument('--testbatch', type=int, default=100,
                         help="the batch size of users for testing")
-    parser.add_argument('--dataset', type=str, default='yelp2018',
-                        help="available datasets: [yelp2018, amazon-beauty]")
+    parser.add_argument('--dataset', type=str, default='beauty',
+                        help="available datasets: [yelp2018, beauty]")
     parser.add_argument('--path', type=str, default="./checkpoints",
                         help="path to save weights")
     parser.add_argument('--runs_path', type=str, default="./runs",
@@ -53,7 +53,11 @@ def parse_args():
     parser.add_argument('--seed', type=int, default=2023, help='random seed')
     parser.add_argument('--model', type=str, default='lgn', help='rec-model, support [lgn, ...]')
     parser.add_argument('--max_len', type=int, default=64, help='Maximum length of aspect list')
-    parser.add_argument('--head_num', type=int, default=1, help='The number of heads of MultiheadAttention')
+    parser.add_argument('--head_num', type=int, default=1, help='The number of heads of MultiheadAttention') # 1 best
     parser.add_argument('--gamma', type=int, default=1, help='The weight 𝛾 of 𝑙_uniform')
+    parser.add_argument('--sigma', default = 1.0, type = float, help = 'sigma for gaussian kernel')
+    parser.add_argument('--gamma2', default = 2.0, type = float, help = 'gamma for gaussian kernel')
+    parser.add_argument('--k', default = 20, type = int, help = 'neighbor number in each GNN aggregation(for diversity)')
+    parser.add_argument('--loss', default = 'au', type = str, help = 'loss function')
     return parser.parse_args()
 

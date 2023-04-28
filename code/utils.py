@@ -2,7 +2,6 @@ import torch
 from torch import optim
 import numpy as np
 import code.parser as parser
-from .data_loader import BasicDataset
 from time import time
 from .model import Model
 from sklearn.metrics import roc_auc_score
@@ -13,7 +12,7 @@ import torch.nn.functional as F
 import pandas as pd
 
 '''
-loss函数、负采样函数、辅助函数
+loss function、negative sampling、utils
 '''
 
 args = parser.parse_args()
@@ -36,8 +35,8 @@ class BPRLoss:
                  recmodel):
         self.model = recmodel
         self.args = args
-        self.lr = args.lr  # 学习率
-        self.opt = optim.Adam(recmodel.parameters(), lr=self.lr)  # 优化器
+        self.lr = args.lr  # learning rate
+        self.opt = optim.Adam(recmodel.parameters(), lr=self.lr)
 
     def alignment(self, x, y):
         x, y = F.normalize(x, dim=-1), F.normalize(y, dim=-1)
@@ -47,48 +46,40 @@ class BPRLoss:
         x = F.normalize(x, dim=-1)  # x = x / ||x||
         return torch.pdist(x, p=2).pow(2).mul(-2).exp().mean().log()
 
-    # 传入user/item 处理好的嵌入
+    # input: the user/item embedding  form the model
     def ali_uni_loss(self, user_e, item_e):  # [batch_size, dim]
         align = self.alignment(user_e, item_e)
-        print("align", align)
         uniform = (self.uniformity(user_e) + self.uniformity(item_e)) / 2
-        print("uniform", uniform)
-        loss = align + args.gamma * uniform  # 原论文中gama的范围为[0.2, 0.5, 1, 2, 5, 10]
+        loss = align + args.gamma * uniform  # gama: [0.2, 0.5, 1, 2, 5, 10]
         return loss
 
     def stageOne(self, users, pos, neg):
         # [batch_size, emb_dim]
-        users_emb, pos_emb, neg_emb, reg_loss1, loss = self.model.bpr_loss(users, pos, neg)
+        users_emb, pos_emb, neg_emb, reg_loss1 = self.model.bpr_loss(users, pos, neg)
 
-        # au_loss = self.ali_uni_loss(users_emb, pos_emb)  # 计算alignment和uniformity loss
+        au_loss1 = self.ali_uni_loss(users_emb, pos_emb)
 
-        # 计算模型的L2正则化
+        # MLP for dimensional transformation of aspect and attention
         reg_loss2 = torch.tensor(0.).to(args.device)
         for name, para in self.model.named_parameters():
-            if name != 'embedding_user.weight' and name != 'embedding_item.weight':
+            if name != 'embedding_item' and name != 'embedding_user':  # regloss1
                 reg_loss2 += para.pow(2).sum()
 
-        # au_loss = self.ali_uni_loss(users_emb, pos_emb)
-
-        # reg_loss2 = sum(p.pow(2).sum()  for p in self.model.parameters())  # 模型参数正则化
-        reg_loss = reg_loss1 * self.args.regloss1_decay + reg_loss2 * self.args.regloss2_decay  # 调整数量级，因为reg_loss1和reg_loss2不是一个数量级的  self.weight_decay
-        # au_loss = au_loss * 1
-        # print(au_loss)  # 先看看数量级
-        loss = loss + reg_loss  # + au_loss
+        reg_loss = reg_loss1 * self.args.regloss1_decay + reg_loss2 * self.args.regloss2_decay  # regularization weight
+        loss = au_loss1 + reg_loss
 
         self.opt.zero_grad()
         loss.backward()  # retain_graph=True
         self.opt.step()
-        return loss.cpu().item(), reg_loss1, reg_loss2,
-
-    # 负采样
+        return loss.cpu().item(), reg_loss1, reg_loss2, au_loss1
 
 
+# negative sampling
 def UniformSample_original(dataset, neg_ratio=1):
-    dataset: BasicDataset
-    allPos = dataset.allPos  # 得到与user交互的所有item
+    # dataset : BasicDataset
+    allPos = dataset.allPos
     start = time()
-    if sample_ext:  # 负采样  一个正样本对应一个负样本
+    if sample_ext:  # pos : neg = 1 : 1
         S = sampling.sample_negative(dataset.n_users, dataset.m_items,
                                      dataset.trainDataSize, allPos, neg_ratio)
     else:
@@ -103,7 +94,7 @@ def UniformSample_original_python(dataset):
         np.array
     """
     total_start = time()
-    dataset: BasicDataset
+    # dataset : BasicDataset
     user_num = dataset.trainDataSize
     users = np.random.randint(0, dataset.n_users, user_num)
     allPos = dataset.allPos
@@ -133,7 +124,6 @@ def UniformSample_original_python(dataset):
 
 # ===================end samplers==========================
 
-
 # =====================utils====================================
 def choose_model(args, dataset):
     if args.model == 'lgn':
@@ -148,7 +138,7 @@ def set_seed(seed):
     torch.manual_seed(seed)
 
 
-# 获得save和load模型的path
+# save model
 def getFileName():
     if args.model == 'mf':
         file = f"mf-{args.dataset}-{args.recdim}.pth.tar"
@@ -157,7 +147,6 @@ def getFileName():
     return os.path.join(args.path, file)
 
 
-# 分成多个batch
 def minibatch(*tensors, **kwargs):
     batch_size = kwargs.get('batch_size', args.bpr_batch)
 
@@ -191,19 +180,19 @@ def shuffle(*arrays, **kwargs):
         return result
 
 
-# 对单个user/item的aspect列表进行padding, padding的是0，所以不需要mask
+# Padding is applied to the aspect list of a single user/item, the padding is 0, so no mask is needed
 def aspect_padding(aspect_emb_list, max_len):
-    # 如果没有对应的aspect列表
+    # no aspect list
     if aspect_emb_list == None:
         res = torch.tensor([0 for i in range(args.recdim)]).repeat(max_len, 1).to(args.device)  # 全部设置为0
-    # 费时间
+
     elif len(aspect_emb_list) >= max_len:
         res = aspect_emb_list[:max_len][:]
     elif len(aspect_emb_list) < max_len:
-        padding_len = max_len - len(aspect_emb_list)  # padding的长度
+        padding_len = max_len - len(aspect_emb_list)  # paddind length
         padding = torch.tensor([0 for i in range(args.recdim)]).repeat(padding_len, 1).to(args.device)
         res = torch.cat((aspect_emb_list, padding), 0)  # padding
-    return res.to(torch.float32)  # padding之后的每个user的aspect列表，以及padding的mask矩阵
+    return res.to(torch.float32)  # after padding
 
 
 def register(args):
@@ -220,42 +209,11 @@ def register(args):
     print("regloss2_decay", args.regloss2_decay)
     print("head_num", args.head_num)
     print("gamma", args.gamma)
-    print("using bpr loss")
+    print("gamma2(submodular)", args.gamma2)
+    print("sigma(submodular)", args.sigma)
+    print("k(number of aggregated neighbors)", args.k)
+    print("loss function", args.loss)
     print('===========end===================')
-
-
-# 下一步预测的分训练集和测试集的方法，参考CARCA，可以修改成Top-k预测的训练集和测试集
-def data_partition(fname):
-    usernum = 0
-    itemnum = 0
-    User = defaultdict(list)
-    user_train = {}
-    user_valid = {}
-    user_test = {}
-    # assume user/item index starting from 1
-    # txt文件中第一维是user，第二维是item
-    f = open('./Data/%s.txt' % fname, 'r')
-    for line in f:
-        u, i = line.rstrip().split(' ')
-        u = int(u)
-        i = int(i)
-        usernum = max(u, usernum)
-        itemnum = max(i, itemnum)
-        User[u].append(i)
-
-    for user in User:
-        nfeedback = len(User[user])
-        if nfeedback < 3:
-            user_train[user] = User[user]
-            user_valid[user] = []
-            user_test[user] = []
-        else:
-            user_train[user] = User[user][:-2]
-            user_valid[user] = []
-            user_valid[user].append(User[user][-2])
-            user_test[user] = []
-            user_test[user].append(User[user][-1])
-    return [user_train, user_valid, user_test, usernum, itemnum]
 
 
 class timer:

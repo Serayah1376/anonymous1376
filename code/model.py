@@ -31,79 +31,83 @@ class Model(nn.Module):
         # aspect init
         self.user_aspect_dic = self.dataset.user_aspect_dic
         self.item_aspect_dic = self.dataset.item_aspect_dic
-        self.aspect_emb_384 = self.dataset.aspect_emb  # [aspect, emb_384]  copy.deepcopy
-        self.aspect_emb_64 = dict()  # 转换维度后的aspect嵌入
+        self.aspect_emb_384 = self.dataset.aspect_emb  # [aspect, emb_384]
+        self.aspect_emb_64 = dict()
         self.user_aspect_emb = dict()
         self.item_aspect_emb = dict()
-        self.user_padding_aspect = []  # padding后的aspect表示
+        self.user_padding_aspect = []  # user/item aspect padding
         self.item_padding_aspect = []
+
+        self.f = nn.Sigmoid()
+        self.Graph = self.dataset.getSparseGraph()  # dgl.heterograph
+        print(f"lgn is already to go(dropout:{self.args.dropout})")
 
         self.layers = nn.ModuleList()
         for i in range(self.n_layers):
-            self.layers.append(GCNLayer())
+            self.layers.append(GCNLayer(args))
 
         self.__init_weight()
 
     def __init_weight(self):
         # user/item embedding weight init
-        self.embedding_user = torch.nn.Embedding(
-            num_embeddings=self.num_users, embedding_dim=self.latent_dim)
-        self.embedding_item = torch.nn.Embedding(
-            num_embeddings=self.num_items, embedding_dim=self.latent_dim)
+        self.embedding_user = torch.nn.Parameter(torch.randn(self.num_users, self.latent_dim))
+        self.embedding_item = torch.nn.Parameter(torch.randn(self.num_items, self.latent_dim))
 
-        if self.args.pretrain == 0:  # true
+        # embedding init
+        """if self.args.pretrain == 0:  # true
             nn.init.normal_(self.embedding_user.weight, std=0.1)
             nn.init.normal_(self.embedding_item.weight, std=0.1)
             print('use NORMAL distribution initilizer')
         else:
             self.embedding_user.weight.data.copy_(torch.from_numpy(self.config['user_emb']))
             self.embedding_item.weight.data.copy_(torch.from_numpy(self.config['item_emb']))
-            print('use pretarined data')
+            print('use pretarined data')"""
 
-        # model weight init
-        self.f = nn.Sigmoid()
-        self.Graph = self.dataset.getSparseGraph()  # 交互稀疏矩阵 dgl.graph生成
-        print(f"lgn is already to go(dropout:{self.args.dropout})")
-
-        self.aspect_MLP = nn.Linear(in_features=384, out_features=64, bias=True)  # 统一将所有的aspect的维度进行转换
+        # convert the dim of aspect
+        self.aspect_MLP = nn.Linear(in_features=self.args.aspect_LMdim, out_features=self.args.recdim, bias=True)
 
         self.attention = nn.MultiheadAttention(embed_dim=self.latent_dim, num_heads=self.head_num,
                                                batch_first=True)  # head_num
 
-        torch.nn.init.xavier_uniform_(self.aspect_MLP.weight)
-        torch.nn.init.constant_(self.aspect_MLP.bias, 0)
-        torch.nn.init.xavier_uniform_(self.attention.in_proj_weight)
-        torch.nn.init.constant_(self.attention.in_proj_bias, 0)
-        torch.nn.init.xavier_uniform_(self.attention.out_proj.weight)
-        torch.nn.init.constant_(self.attention.out_proj.bias, 0)
+        nn.init.xavier_normal_(self.aspect_MLP.weight)
+        nn.init.constant_(self.aspect_MLP.bias, 0)
 
     # aspect pre-train weight
     def aspect_init(self):
-        # deepcopy_aspect_emb384 = copy.deepcopy(self.aspect_emb_384) # 在进入之前进行深拷贝
         self.get_ft_aspect_emb(self.aspect_emb_384)
         self.user_aspect_emb, self.item_aspect_emb = self.get_Pretrain_Aspect()
         self.aspect_padding()
 
     def computer(self):
-        users_emb = self.embedding_user.weight
-        items_emb = self.embedding_item.weight
-        all_emb = torch.cat([users_emb, items_emb])
-        embs = [all_emb]
+        user_embed = [self.embedding_user]
+        item_embed = [self.embedding_item]
+        h = {'user': self.embedding_user, 'item': self.embedding_item}
         for layer in self.layers:
-            all_emb = layer(self.Graph, all_emb)
+            h_item = layer(self.Graph, h, ('user', 'rate', 'item'))
+            h_user = layer(self.Graph, h, ('item', 'rated by', 'user'))
 
-            new_item_list = self.all_item + len(self.all_user)
-            user_aspect_emb = self.get_aspect_embedding(all_emb[self.all_user],
-                                                        torch.tensor(self.all_user).to(self.args.device), is_user=True)
-            item_aspect_emb = self.get_aspect_embedding(all_emb[new_item_list],
-                                                        torch.tensor(self.all_item).to(self.args.device), is_user=False)
-            all_emb = (all_emb + torch.cat([user_aspect_emb, item_aspect_emb])) / 2
+            user_aspect_emb = self.get_aspect_embedding(h_user, torch.tensor(self.all_user).to(self.args.device),
+                                                        is_user=True)
+            item_aspect_emb = self.get_aspect_embedding(h_item, torch.tensor(self.all_item).to(self.args.device),
+                                                        is_user=False)
 
-            embs.append(all_emb)
+            h_user = (h_user + user_aspect_emb) / 2
+            h_item = (h_item + item_aspect_emb) / 2
 
-        embs = torch.stack(embs, dim=1)
-        light_out = torch.mean(embs, dim=1)
-        users, items = torch.split(light_out, [self.num_users, self.num_items])
+            h = {'user': h_user, 'item': h_item}
+
+            user_embed.append(h_user)
+            item_embed.append(h_item)
+
+        user_embed = torch.stack(user_embed, dim=1)
+        users = torch.mean(user_embed, dim=1)
+
+        item_embed = torch.stack(item_embed, dim=1)
+        items = torch.mean(item_embed, dim=1)
+
+        """all_aspect_emb = torch.stack(all_aspect_emb, dim=1)
+        aspect_out = torch.mean(all_aspect_emb, dim=1)
+        user_aspect, item_aspect = torch.split(aspect_out, [self.num_users, self.num_items])"""
 
         return users, items
 
@@ -114,22 +118,20 @@ class Model(nn.Module):
         pos_emb = all_items[pos_items]
         neg_emb = all_items[neg_items]
 
-        users_emb_ego = self.embedding_user(users)
-        pos_emb_ego = self.embedding_item(pos_items)
-        neg_emb_ego = self.embedding_item(neg_items)
+        users_emb_ego = self.embedding_user[users]
+        pos_emb_ego = self.embedding_item[pos_items]
+        neg_emb_ego = self.embedding_item[neg_items]
         return users_emb, pos_emb, neg_emb, users_emb_ego, pos_emb_ego, neg_emb_ego
 
     def getUsersRating(self, users, items):
         all_users, all_items = self.computer()
-        users_emb = all_users[users.long()]
+        users_emb = all_users[users]
         items_emb = all_items
 
         rating = self.f(torch.matmul(users_emb, items_emb.t()))
         return rating
 
-    # 转化aspect维度
     def get_ft_aspect_emb(self, aspect_emb_384):
-        # 将所有的aspect从384维转化为64维
         new_emb_384_list = []
         for emb_384 in aspect_emb_384.values():
             new_emb_384 = torch.tensor(np.array(emb_384)).to(torch.float32).to(self.args.device)
@@ -196,52 +198,109 @@ class Model(nn.Module):
 
         batch_emb = torch.index_select(emb, 0, index)
         batch_emb = torch.unsqueeze(batch_emb, 1)
-        aspect_emb_item, _ = self.attention(batch_emb, batch_pad_aspect, batch_pad_aspect)
-        aspect_emb_item = torch.squeeze(aspect_emb_item)
+        aspect_emb, _ = self.attention(batch_emb, batch_pad_aspect, batch_pad_aspect)
+        aspect_emb = torch.squeeze(aspect_emb)
 
-        return aspect_emb_item.to(self.args.device)
+        if torch.count_nonzero(aspect_emb) == 0:
+            aspect_emb = emb  # self
 
-    # 计算嵌入和loss
+        return aspect_emb.to(self.args.device)
+
     def bpr_loss(self, users, pos, neg):
         (users_emb, pos_emb, neg_emb,
          userEmb0, posEmb0, negEmb0) = self.getEmbedding(users.long(), pos.long(), neg.long())
         # loss
+        # regloss1
         reg_loss = (1 / 2) * (userEmb0.norm(2).pow(2) +
                               posEmb0.norm(2).pow(2) +
                               negEmb0.norm(2).pow(2)) / float(len(users))
 
-        pos_scores = torch.mul(users_emb, pos_emb)
+        """pos_scores = torch.mul(users_emb, pos_emb)
         pos_scores = torch.sum(pos_scores, dim=1)
         neg_scores = torch.mul(users_emb, neg_emb)
         neg_scores = torch.sum(neg_scores, dim=1)
 
-        loss = torch.mean(torch.nn.functional.softplus(neg_scores - pos_scores))
+        loss = torch.mean(torch.nn.functional.softplus(neg_scores - pos_scores))"""  # bpr loss
 
-        return users_emb, pos_emb, neg_emb, reg_loss, loss
+        return users_emb, pos_emb, neg_emb, reg_loss  # , loss
 
 
-# 基于DGL框架的lightGCN，GraphConv不是lightGCN
 class GCNLayer(nn.Module):
-    def __init__(self):
+    def __init__(self, args):
         super(GCNLayer, self).__init__()
+        self.args = args
+        self.sigma = args.sigma
+        self.gamma = args.gamma2
+        self.k = args.k  # number of aggregated neighbors
 
-    def forward(self, graph, node_f):  # graph： dgl.graph生成的
-        with graph.local_scope():  # 不改变graph中的值
-            # D^-1/2
-            degs = graph.out_degrees().to(node_f.device).float().clamp(min=1)  # 出度
-            norm = torch.pow(degs, -0.5).view(-1, 1)
+    def similarity_matrix(self, X, sigma=1.0, gamma=2.0):
+        dists = torch.cdist(X, X)  # formula 7
+        # formula 8
+        sims = torch.exp(-dists / (sigma * dists.mean(dim=-1).mean(dim=-1).reshape(-1, 1, 1)))
+        return sims
 
-            node_f = node_f * norm  # 归一化
+    # submodular
+    def submodular_selection_feature(self, nodes):
+        device = nodes.mailbox['m'].device
+        feature = nodes.mailbox['m']
+        sims = self.similarity_matrix(feature, self.sigma, self.gamma)  # 所有节点的相似性计算
 
-            graph.ndata['n_f'] = node_f  # 特征赋值
+        batch_num, neighbor_num, feature_size = feature.shape
+        nodes_selected = []
+        cache = torch.zeros((batch_num, 1, neighbor_num), device=device)
 
-            # 更新，可以选择更新的方式
-            graph.update_all(message_func=fn.copy_u('n_f', 'm'), reduce_func=fn.sum('m', 'n_f'))
+        # use the greedy algorithm to pick k neighbors
+        for i in range(self.k):
+            gain = torch.sum(torch.maximum(sims, cache) - cache, dim=-1)
 
-            rst = graph.ndata['n_f']
+            selected = torch.argmax(gain, dim=1)
+            cache = torch.maximum(sims[torch.arange(batch_num, device=device), selected].unsqueeze(1), cache)
 
-            degs = graph.in_degrees().to(node_f.device).float().clamp(min=1)  # 入度
-            norm = torch.pow(degs, -0.5).view(-1, 1)
+            nodes_selected.append(selected)
+
+        return torch.stack(nodes_selected).t()
+
+    def sub_reduction(self, nodes):
+        # -1 indicate user-> node, which does not include category information
+        mail = nodes.mailbox['m']
+        batch_size, neighbor_size, feature_size = mail.shape
+
+        if (-1 in nodes.mailbox['c']) or nodes.mailbox['m'].shape[1] <= self.k:
+            mail = mail.sum(dim=1)
+        else:
+            neighbors = self.submodular_selection_feature(nodes)
+            mail = mail[torch.arange(batch_size, dtype=torch.long, device=mail.device).unsqueeze(-1), neighbors]
+            mail = mail.sum(dim=1)
+        return {'h': mail}
+
+    def category_aggregation(self, edges):
+        return {'c': edges.src['category'], 'm': edges.src['h']}
+
+    def forward(self, graph, node_f, etype):
+        with graph.local_scope():
+            src, _, dst = etype  # user / item
+            feat_src = node_f[src]
+            feat_dst = node_f[dst]
+
+            # D^(-1/2)
+            degs = graph.out_degrees(etype=etype).float().clamp(min=1)
+            norm = torch.pow(degs, -0.5).to(self.args.device)
+            shp = norm.shape + (1,) * (feat_src.dim() - 1)  # feat_src.dim(): 2
+            norm = torch.reshape(norm, shp)
+            print("out_degree:", norm)
+            feat_src = feat_src * norm
+
+            graph.nodes[src].data['h'] = feat_src
+            graph.update_all(self.category_aggregation, self.sub_reduction, etype=etype)
+            # graph.update_all(message_func=fn.copy_u('n_f', 'm'), reduce_func=fn.sum('m', 'n_f'))
+
+            # norm
+            rst = graph.nodes[dst].data['h']
+            degs = graph.in_degrees(etype=etype).float().clamp(min=1)
+            norm = torch.pow(degs, -0.5).to(self.args.device)
+            shp = norm.shape + (1,) * (feat_dst.dim() - 1)
+            norm = torch.reshape(norm, shp)
+            print("in_degree:", norm)
             rst = rst * norm
 
             return rst

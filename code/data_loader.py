@@ -1,6 +1,4 @@
-import os
 from os.path import join
-import sys
 import torch
 import numpy as np
 import pandas as pd
@@ -10,8 +8,6 @@ import scipy.sparse as sp
 from time import time
 from gensim.models import Word2Vec
 import json
-import code.utils as utils
-import parser
 import dgl
 
 
@@ -69,10 +65,10 @@ class BasicDataset(Dataset):
         raise NotImplementedError
 
 
-# 加载数据 dataset
+# load data
 class Loader(BasicDataset):
 
-    def __init__(self, args, path="../data/yelp2018"):
+    def __init__(self, args, dataname='yelp2018', path="../data/yelp2018"):
         # train or test
         print(f'loading [{path}]')
         self.args = args
@@ -80,8 +76,9 @@ class Loader(BasicDataset):
         self.folds = args.a_fold
         self.mode_dict = {'train': 0, "test": 1}
         self.mode = self.mode_dict['train']
-        self.n_user = 0  # user数量
-        self.m_item = 0  # item数量
+        self.n_user = 0  # Number of users
+        self.m_item = 0  # Number of items
+
         train_file = path + '/train.txt'
         test_file = path + '/test.txt'
 
@@ -90,7 +87,7 @@ class Loader(BasicDataset):
 
         aspect_embedding = path + '/aspect_all-MiniLM-L6-v2.json'
 
-        self.category_path = path + '/bussiness_category.json'
+        self.category_path = path + '/item_category.json'
 
         self.path = path
         trainUniqueUsers, trainItem, trainUser = [], [], []
@@ -102,9 +99,13 @@ class Loader(BasicDataset):
         self.traindataSize = 0
         self.testDataSize = 0
 
-        self.category_dic, self.category_num = self.read_category(self.category_path)
+        # category procassing
+        if dataname == 'yelp2018':
+            self.category_dic, self.category_num = self.read_category_yelp(self.category_path)
+        else:
+            self.category_dic, self.category_num = self.read_category_beauty(self.category_path)
 
-        # 训练数据
+        # train_data：[user1, user2,...]  [item1, item2, ...]
         with open(train_file) as f:
             for l in f.readlines():
                 if len(l) > 0:
@@ -112,7 +113,7 @@ class Loader(BasicDataset):
                     items = [int(i) for i in l[1:]]
                     uid = int(l[0])
                     trainUniqueUsers.append(uid)
-                    trainUser.extend([uid] * len(items))  # 与交互的item对应
+                    trainUser.extend([uid] * len(items))  # correspond to the item
                     trainItem.extend(items)
                     self.m_item = max(self.m_item, max(items))
                     self.n_user = max(self.n_user, uid)
@@ -121,7 +122,7 @@ class Loader(BasicDataset):
         self.trainUser = np.array(trainUser)
         self.trainItem = np.array(trainItem)
 
-        # 测试数据
+        # test data: [user1, user2,...]  [item1, item2, ...]
         with open(test_file) as f:
             for l in f.readlines():
                 if len(l) > 0:
@@ -140,29 +141,28 @@ class Loader(BasicDataset):
         self.testUser = np.array(testUser)
         self.testItem = np.array(testItem)
 
-        # 所有的user、item ID 去重
         self.all_user = np.unique(np.append(self.trainUniqueUsers, self.testUniqueUsers))
         self.all_item = np.unique(np.append(self.trainItem, self.testItem))
 
-        # 使用模型all-MiniLM-L6-v2处理的aspect嵌入
+        # use sentence-transformer/all-MiniLM-L6-v2
         with open(aspect_embedding) as f:
             for l in f.readlines():
                 dic = json.loads(l)
                 self.aspect_emb[dic['aspect']] = dic['embedding']
 
-        # user和aspect字符列表的对应
+        # {userID: [aspect_list]}
         with open(user_aspect) as f:
             for l in f.readlines():
                 dic = json.loads(l)
-                self.user_aspect_dic[int(dic["userID"])] = dic["aspects"]  # user和aspect对应列表 asepct: list
+                self.user_aspect_dic[int(dic["userID"])] = dic["aspects"]
 
-        # item和aspect字符列表的对应
+                # {itemID: [aspect_list]}
         with open(item_aspect) as f:
             for l in f.readlines():
                 dic = json.loads(l)
-                self.item_aspect_dic[int(dic["itemID"])] = dic["aspects"]  # item和aspect对应列表
+                self.item_aspect_dic[int(dic["itemID"])] = dic["aspects"]
 
-        # user/item对应的aspect的嵌入 key: user   value: [n_aspect, aspect_emb]
+                # shape: [n_aspect, aspect_emb]  value: {aspect: embedding}
         self.user_aspect_embedding = dict()
         self.item_aspect_embedding = dict()
 
@@ -171,14 +171,10 @@ class Loader(BasicDataset):
         print(f"{self.testDataSize} interactions for testing")
         print(f"{args.dataset} Sparsity : {(self.trainDataSize + self.testDataSize) / self.n_users / self.m_items}")
 
-        # (users,items), bipartite graph， 交互稀疏矩阵
+        # (users,items), bipartite graph
         self.UserItemNet = csr_matrix((np.ones(len(self.trainUser)), (self.trainUser, self.trainItem)),
                                       shape=(self.n_user, self.m_item))
-        # ?
-        self.users_D = np.array(self.UserItemNet.sum(axis=1)).squeeze()
-        self.users_D[self.users_D == 0.] = 1
-        self.items_D = np.array(self.UserItemNet.sum(axis=0)).squeeze()
-        self.items_D[self.items_D == 0.] = 1.
+
         # pre-calculate
         self._allPos = self.getUserPosItems(list(range(self.n_user)))  # 每个user交互过的item
         self.__testDict = self.__build_test()
@@ -216,53 +212,54 @@ class Loader(BasicDataset):
             A_fold.append(self._convert_sp_mat_to_sp_tensor(A[start:end]).coalesce().to(self.args.device))
         return A_fold
 
-    # 得到item与类别的对应
-    def read_category(self, path):
+    # dic: {item: category}  num: number of category
+    def read_category_yelp(self, path):
         dic = {}
         all_category = []
         f = open(path, 'r').readlines()
         for l in f:
             tmp = json.loads(l)
-            item = tmp['business_remap_id']
+            item = tmp['itemID']
             category = tmp['categoriesID']
-            all_category.extend(category)
+            all_category.extend(category)  # list
             dic[item] = category
         all_category = list(set(all_category))
         num = len(all_category)
         return dic, num
 
-        # 获得稀疏交互矩阵
+    def read_category_beauty(self, path):
+        dic = {}
+        all_category = []
+        f = open(path, 'r').readlines()
+        for l in f:
+            tmp = json.loads(l)
+            item = tmp['itemID']
+            category = tmp['categoriesID']
+            all_category.append(category)  # [1]
+            dic[item] = category
+        all_category = list(set(all_category))
+        num = len(all_category)
+        return dic, num
 
     def getSparseGraph(self):
         print("loading adjacency matrix")
-        if self.Graph is None:  # True
-            try:  # 无
-                pre_adj_mat = sp.load_npz(self.path + '/s_pre_adj_mat.npz')
-                print("successfully loaded...")
-                norm_adj = pre_adj_mat
-            except:
-                print("generating adjacency matrix")
-                s = time()
-                # n_nodes, 双向交互矩阵
-                adj_mat = sp.dok_matrix((self.n_users + self.m_items, self.n_users + self.m_items), dtype=np.float32)
-                adj_mat = adj_mat.tolil()  # 转换成列表
-                R = self.UserItemNet.tolil()
-                adj_mat[:self.n_users, self.n_users:] = R
-                adj_mat[self.n_users:, :self.n_users] = R.T
-                adj_mat = adj_mat.todok()
-                edge_src, edge_dst = adj_mat.nonzero()  # 双向的
+        if self.Graph is None:
+            # heterograph for submodular
+            graph_data = {
+                ('user', 'rate', 'item'): (torch.tensor(self.trainUser).long(), torch.tensor(self.trainItem).long()),
+                ('item', 'rated by', 'user'): (torch.tensor(self.trainItem).long(), torch.tensor(self.trainUser).long())
+            }
+            self.Graph = dgl.heterograph(graph_data)
+            # distinguish between user and item
+            category_tensor = torch.tensor(list(self.category_dic.values()), dtype=torch.long).unsqueeze(
+                1)  # [category, 1]
+            self.Graph.ndata['category'] = {'item': category_tensor, 'user': torch.zeros(self.n_user, 1) - 1}
 
-                self.Graph = dgl.graph(data=(edge_src, edge_dst),
-                                       idtype=torch.int32,
-                                       num_nodes=adj_mat.shape[0],
-                                       device=self.args.device)
-
-        return self.Graph
+        return self.Graph.to(self.args.device)
 
     def __build_test(self):
         """
-        return:
-            dict: {user: [items]}
+        return: dict: {user: [items]}
         """
         test_data = {}
         for i, item in enumerate(self.testItem):
@@ -275,12 +272,9 @@ class Loader(BasicDataset):
 
     def getUserItemFeedback(self, users, items):
         """
-        users:
-            shape [-1]
-        items:
-            shape [-1]
-        return:
-            feedback [-1]
+        users: shape [-1]
+        items: shape [-1]
+        return: feedback [-1]
         """
         # print(self.UserItemNet[users, items])
         return np.array(self.UserItemNet[users, items]).astype('uint8').reshape((-1,))
@@ -288,6 +282,6 @@ class Loader(BasicDataset):
     def getUserPosItems(self, users):  # user list
         posItems = []
         for user in users:
-            posItems.append(self.UserItemNet[user].nonzero()[1])  # 不为0的col和raw
+            posItems.append(self.UserItemNet[user].nonzero()[1])
         return posItems
 

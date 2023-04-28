@@ -32,27 +32,34 @@ class Tester(object):
                         'recall': np.zeros(len(self.topks)),
                         'ndcg': np.zeros(len(self.topks)),
                         'coverage': np.zeros(len(self.topks)),
-                        'ILD': np.zeros(len(self.topks))}  # 待确定
+                        'Acoverage': np.zeros(len(self.topks)),
+                        'ILD': np.zeros(len(self.topks)),
+                        'F1': np.zeros(len(self.topks))}
 
-        self.cate = np.array(list(dataset.category_dic.values()))  # 对于yelp2018来说是二维数组，因为每个item有多种类别
+        # 对于yelp2018来说是二维数组  # [n_items, n_categories]  每个item对应多个category
+        # 对于beauty来说是一维数组    # [n_items]
+        self.cate = np.array(list(dataset.category_dic.values()))
+        self.aspect = np.array(list(dataset.item_aspect_dic.values()))  # item-aspect列表  按顺序
 
     def test_one_batch(self, X):
-        sorted_items = X[0].numpy()
+        sorted_items = X[0].numpy()  # 推荐了100个
         groundTrue = X[1]
         r = self.getLabel(groundTrue, sorted_items)  # 进行对比
-        stat = self.stat(sorted_items)
-        pre, recall, ndcg, coverage, ILD = [], [], [], [], []
+        cate, aspect = self.stat(sorted_items)
+        pre, recall, ndcg, coverage, Acoverage, ILD = [], [], [], [], [], []
         for k in self.topks:
             ret = self.RecallPrecision_ATk(groundTrue, r, k)
             pre.append(ret['precision'])
             recall.append(ret['recall'])
             ndcg.append(self.NDCGatK_r(groundTrue, r, k))
-            coverage.append(self.coverage_cate(stat, k))
-            ILD.append(self.ILD(stat))
+            coverage.append(self.coverage(cate, k))
+            Acoverage.append(self.coverage(aspect, k, is_cate=False))
+            ILD.append(self.ILD(cate))
         return {'recall': np.array(recall),
                 'precision': np.array(pre),
                 'ndcg': np.array(ndcg),
                 'coverage': np.array(coverage),
+                'Acoverage': np.array(Acoverage),
                 'ILD': np.array(ILD)}
 
     def test(self):
@@ -107,13 +114,15 @@ class Tester(object):
                 self.results['precision'] += result['precision']
                 self.results['ndcg'] += result['ndcg']
                 self.results['coverage'] += result['coverage']
+                self.results['Acoverage'] += result['Acoverage']
                 self.results['ILD'] += result['ILD']
             self.results['recall'] /= float(len(users))
             self.results['precision'] /= float(len(users))
             self.results['ndcg'] /= float(len(users))
             self.results['coverage'] /= float(len(users))
+            self.results['Acoverage'] /= float(len(users))
             self.results['ILD'] /= float(len(users))
-            # results['auc'] = np.mean(auc_record)
+            self.results['F1'] = self.F1(self.results['recall'], self.results['ILD'])
             if self.args.tensorboard:
                 self.w.add_scalars(f'Test/Recall@{self.topks}',
                                    {str(self.topks[i]): self.results['recall'][i] for i in range(len(self.topks))},
@@ -127,8 +136,14 @@ class Tester(object):
                 self.w.add_scalars(f'Test/coverage@{self.topks}',
                                    {str(self.topks[i]): self.results['coverage'][i] for i in range(len(self.topks))},
                                    self.epoch)
+                self.w.add_scalars(f'Test/Acoverage@{self.topks}',
+                                   {str(self.topks[i]): self.results['Acoverage'][i] for i in range(len(self.topks))},
+                                   self.epoch)
                 self.w.add_scalars(f'Test/ILD@{self.topks}',
                                    {str(self.topks[i]): self.results['ILD'][i] for i in range(len(self.topks))},
+                                   self.epoch)
+                self.w.add_scalars(f'Test/F1@{self.topks}',
+                                   {str(self.topks[i]): self.results['F1'][i] for i in range(len(self.topks))},
                                    self.epoch)
             if self.multicore == 1:
                 self.pool.close()
@@ -147,40 +162,47 @@ class Tester(object):
 
     # ====================Metrics=============================
     # diversity
-    # top-k 商品中的种类数量
-    def coverage_cate(self, cate, k):
-        cate_list = []
-        # 计算每个user前k个推荐的item的种类数
-        for u in range(len(cate)):  # [0,100)
-            for i in range(k):  # [0, 20)
-                tmp = cate[u]
-                cate_list.extend(tmp[i])
-        num = np.unique(np.array(cate_list)).size
-        return num
 
-    # aspect的覆盖率
-    def coverage_aspect(self):
-        pass
-
-    # 针对多标签情况, 进行计算coverage_cate前的预处理
+    # category和aspect的预处理
     def stat(self, items):  # items是二维的  [100,20] = [test_batch, rec_num]  每个用户推20个商品
         cate = [list(self.cate[item]) for item in items]  # 每个位置对应一个user的item列表
-        return cate
+        aspect = [list(self.aspect[item]) for item in items]
+        return cate, aspect
+
+    # top-k 商品中的种类数量  aspect 和 cate
+    def coverage(self, cate, k, is_cate=True):
+        cate_list = []
+        # 计算每个user前k个推荐的item的种类数的平均数
+        num = 0
+        for u in range(len(cate)):  # [0,100)
+            tmp = cate[u]
+            for i in range(k):  # [0, 20)
+                if is_cate:
+                    cate_list.extend([tmp[i].tolist()])
+                else:
+                    cate_list.extend(tmp[i])
+            num += np.unique(np.array(cate_list)).size  # 每个user top-k里面的推荐个数
+        return num
 
     # 看给一个user推荐的item列表的种类数的重叠程度
-    def ILD(self, stat):
-        K = len(stat[0])  # 20
+    def ILD(self, cate):
+        K = len(cate[0])  # 20
         num = 0
-        for u in range(len(stat)):
-            sorted_cate = stat[u]  # 每个user的推荐item 列表对应的种类列表  二维
+        for u in range(len(cate)):  # 100
+            sorted_cate = cate[u]  # 每个user的推荐item 列表对应的种类列表 对于yelp二维，对于beauty一维
             tmp = []
             for i in sorted_cate:
-                tmp.extend(i)  # 一个user涉及的所有种类
+                tmp.extend([i.tolist()])  # 一个user涉及的所有种类
             tmp2 = Counter(tmp)  # 返回字典，种类以及对应的个数
             tmp3 = list(tmp2.values())
             num += len(tmp3) - tmp3.count(0)
         num = 2 * num / (K * (K - 1))
         return num
+
+    # accuracy and diversity trade-off
+    def F1(self, Recall, ILD):
+        result = 2 * Recall * ILD / (Recall + ILD)
+        return result
 
     # Accuracy
     def RecallPrecision_ATk(self, test_data, r, k):
