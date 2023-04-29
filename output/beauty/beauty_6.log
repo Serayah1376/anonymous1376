@@ -1,0 +1,1297 @@
+nohup: ignoring input
+Cpp extension not loaded
+>>SEED: 2023
+loading [./datasets/beauty]
+82167 interactions for training
+16399 interactions for testing
+beauty Sparsity : 0.0020608405216870815
+beauty is ready to go
+loading adjacency matrix
+successfully loaded...
+lgn is already to go(dropout:0)
+load and save to ./checkpoints/lgn-beauty-4-64.pth.tar
+===========config================
+dataset: beauty
+layer num: 4
+recdim: 64
+model: lgn
+testbatch 100
+topks [20]
+epochs 1000
+max_len 64
+regloss1_decay 0.0001
+regloss2_decay 1e-06
+head_num 1
+gamma 1
+using bpr loss
+===========end===================
+[TEST]
+/root/autodl-tmp/anonymous1376/code/evaluater.py:42: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray.
+  self.aspect = np.array(list(dataset.item_aspect_dic.values()))  #item-aspect列表  按顺序
+{'precision': array([0.00027466]), 'recall': array([0.00276401]), 'ndcg': array([0.00096812]), 'coverage': array([34.00661673]), 'Acoverage': array([1050.66691635]), 'ILD': array([0.06012813]), 'F1': array([0.00528507])}
+EPOCH[1/1000] loss-1.163-|Sample:1.56|
+EPOCH[2/1000] loss-1.193-|Sample:1.48|
+EPOCH[3/1000] loss-1.225-|Sample:1.56|
+EPOCH[4/1000] loss-1.289-|Sample:1.55|
+EPOCH[5/1000] loss-1.329-|Sample:1.38|
+EPOCH[6/1000] loss-1.355-|Sample:1.56|
+EPOCH[7/1000] loss-1.390-|Sample:1.56|
+EPOCH[8/1000] loss-1.422-|Sample:0.97|
+EPOCH[9/1000] loss-1.452-|Sample:1.91|
+EPOCH[10/1000] loss-1.479-|Sample:1.62|
+[TEST]
+{'precision': array([0.00416355]), 'recall': array([0.02839419]), 'ndcg': array([0.01570005]), 'coverage': array([31.61885144]), 'Acoverage': array([883.71585518]), 'ILD': array([0.04854655]), 'F1': array([0.03583122])}
+reg_loss1: tensor(77.7874, device='cuda:0', grad_fn=<DivBackward0>) reg_loss2: tensor(710784.1250, device='cuda:0', grad_fn=<AddBackward0>) au_loss: tensor(-2.2361, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[11/1000] loss-1.506-|Sample:1.54|
+EPOCH[12/1000] loss-1.533-|Sample:1.55|
+EPOCH[13/1000] loss-1.559-|Sample:1.55|
+EPOCH[14/1000] loss-1.587-|Sample:1.57|
+EPOCH[15/1000] loss-1.612-|Sample:1.38|
+EPOCH[16/1000] loss-1.636-|Sample:1.56|
+EPOCH[17/1000] loss-1.661-|Sample:1.54|
+EPOCH[18/1000] loss-1.685-|Sample:0.98|
+EPOCH[19/1000] loss-1.709-|Sample:1.55|
+EPOCH[20/1000] loss-1.733-|Sample:1.53|
+[TEST]
+{'precision': array([0.00590512]), 'recall': array([0.04702845]), 'ndcg': array([0.02383758]), 'coverage': array([30.22309613]), 'Acoverage': array([738.82009988]), 'ILD': array([0.04484]), 'F1': array([0.04590816])}
+reg_loss1: tensor(65.2846, device='cuda:0', grad_fn=<DivBackward0>) reg_loss2: tensor(584168.3750, device='cuda:0', grad_fn=<AddBackward0>) au_loss: tensor(-2.3328, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[21/1000] loss-1.754-|Sample:1.54|
+EPOCH[22/1000] loss-1.780-|Sample:1.93|
+EPOCH[23/1000] loss-1.802-|Sample:1.54|
+EPOCH[24/1000] loss-1.823-|Sample:1.78|
+EPOCH[25/1000] loss-1.847-|Sample:1.57|
+EPOCH[26/1000] loss-1.870-|Sample:1.56|
+EPOCH[27/1000] loss-1.890-|Sample:1.94|
+EPOCH[28/1000] loss-1.912-|Sample:0.98|
+EPOCH[29/1000] loss-1.928-|Sample:1.58|
+EPOCH[30/1000] loss-1.948-|Sample:1.55|
+[TEST]
+{'precision': array([0.00627965]), 'recall': array([0.05087792]), 'ndcg': array([0.02681001]), 'coverage': array([30.82384519]), 'Acoverage': array([845.00499376]), 'ILD': array([0.04489257]), 'F1': array([0.04769821])}
+reg_loss1: tensor(55.5934, device='cuda:0', grad_fn=<DivBackward0>) reg_loss2: tensor(483371.4688, device='cuda:0', grad_fn=<AddBackward0>) au_loss: tensor(-2.4682, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[31/1000] loss-1.970-|Sample:1.54|
+EPOCH[32/1000] loss-1.989-|Sample:1.53|
+EPOCH[33/1000] loss-2.008-|Sample:1.54|
+EPOCH[34/1000] loss-2.027-|Sample:1.53|
+EPOCH[35/1000] loss-2.043-|Sample:1.37|
+EPOCH[36/1000] loss-2.064-|Sample:1.71|
+EPOCH[37/1000] loss-2.079-|Sample:2.36|
+EPOCH[38/1000] loss-2.099-|Sample:0.98|
+EPOCH[39/1000] loss-2.114-|Sample:1.59|
+EPOCH[40/1000] loss-2.132-|Sample:1.59|
+[TEST]
+{'precision': array([0.00801498]), 'recall': array([0.06433141]), 'ndcg': array([0.03327103]), 'coverage': array([30.24082397]), 'Acoverage': array([826.72921348]), 'ILD': array([0.04374532]), 'F1': array([0.05207778])}
+reg_loss1: tensor(47.4908, device='cuda:0', grad_fn=<DivBackward0>) reg_loss2: tensor(402844.0312, device='cuda:0', grad_fn=<AddBackward0>) au_loss: tensor(-2.5455, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[41/1000] loss-2.148-|Sample:1.54|
+EPOCH[42/1000] loss-2.167-|Sample:1.55|
+EPOCH[43/1000] loss-2.181-|Sample:1.54|
+EPOCH[44/1000] loss-2.195-|Sample:1.54|
+EPOCH[45/1000] loss-2.210-|Sample:1.37|
+EPOCH[46/1000] loss-2.228-|Sample:1.54|
+EPOCH[47/1000] loss-2.241-|Sample:1.56|
+EPOCH[48/1000] loss-2.256-|Sample:0.97|
+EPOCH[49/1000] loss-2.270-|Sample:1.55|
+EPOCH[50/1000] loss-2.287-|Sample:1.56|
+[TEST]
+{'precision': array([0.00918227]), 'recall': array([0.07481921]), 'ndcg': array([0.03895798]), 'coverage': array([29.8980025]), 'Acoverage': array([832.18002497]), 'ILD': array([0.04269991]), 'F1': array([0.05437028])}
+reg_loss1: tensor(40.7814, device='cuda:0', grad_fn=<DivBackward0>) reg_loss2: tensor(338215.7812, device='cuda:0', grad_fn=<AddBackward0>) au_loss: tensor(-2.6595, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[51/1000] loss-2.298-|Sample:1.55|
+EPOCH[52/1000] loss-2.315-|Sample:1.52|
+EPOCH[53/1000] loss-2.327-|Sample:1.56|
+EPOCH[54/1000] loss-2.343-|Sample:1.51|
+EPOCH[55/1000] loss-2.356-|Sample:1.49|
+EPOCH[56/1000] loss-2.368-|Sample:1.56|
+EPOCH[57/1000] loss-2.378-|Sample:1.56|
+EPOCH[58/1000] loss-2.393-|Sample:0.98|
+EPOCH[59/1000] loss-2.406-|Sample:1.55|
+EPOCH[60/1000] loss-2.421-|Sample:1.53|
+[TEST]
+{'precision': array([0.01058052]), 'recall': array([0.08945486]), 'ndcg': array([0.04681771]), 'coverage': array([29.68102372]), 'Acoverage': array([826.30786517]), 'ILD': array([0.04149681]), 'F1': array([0.05669407])}
+reg_loss1: tensor(35.2124, device='cuda:0', grad_fn=<DivBackward0>) reg_loss2: tensor(286075.6562, device='cuda:0', grad_fn=<AddBackward0>) au_loss: tensor(-2.6753, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[61/1000] loss-2.431-|Sample:1.55|
+EPOCH[62/1000] loss-2.444-|Sample:1.54|
+EPOCH[63/1000] loss-2.452-|Sample:1.49|
+EPOCH[64/1000] loss-2.467-|Sample:1.54|
+EPOCH[65/1000] loss-2.477-|Sample:1.49|
+EPOCH[66/1000] loss-2.486-|Sample:1.54|
+EPOCH[67/1000] loss-2.500-|Sample:1.47|
+EPOCH[68/1000] loss-2.512-|Sample:0.98|
+EPOCH[69/1000] loss-2.520-|Sample:1.54|
+EPOCH[70/1000] loss-2.533-|Sample:1.57|
+[TEST]
+{'precision': array([0.01194757]), 'recall': array([0.10095798]), 'ndcg': array([0.05360905]), 'coverage': array([29.5772784]), 'Acoverage': array([822.88589263]), 'ILD': array([0.04094816]), 'F1': array([0.05826447])}
+reg_loss1: tensor(29.4199, device='cuda:0', grad_fn=<DivBackward0>) reg_loss2: tensor(243602.1719, device='cuda:0', grad_fn=<AddBackward0>) au_loss: tensor(-2.7849, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[71/1000] loss-2.541-|Sample:1.57|
+EPOCH[72/1000] loss-2.548-|Sample:1.48|
+EPOCH[73/1000] loss-2.559-|Sample:1.54|
+EPOCH[74/1000] loss-2.571-|Sample:1.52|
+EPOCH[75/1000] loss-2.581-|Sample:1.52|
+EPOCH[76/1000] loss-2.592-|Sample:1.55|
+EPOCH[77/1000] loss-2.599-|Sample:1.55|
+EPOCH[78/1000] loss-2.607-|Sample:1.02|
+EPOCH[79/1000] loss-2.618-|Sample:1.54|
+EPOCH[80/1000] loss-2.628-|Sample:1.52|
+[TEST]
+{'precision': array([0.01305868]), 'recall': array([0.11015827]), 'ndcg': array([0.05997787]), 'coverage': array([29.31810237]), 'Acoverage': array([814.46803995]), 'ILD': array([0.04061371]), 'F1': array([0.05934705])}
+reg_loss1: tensor(25.4141, device='cuda:0', grad_fn=<DivBackward0>) reg_loss2: tensor(208696.8438, device='cuda:0', grad_fn=<AddBackward0>) au_loss: tensor(-2.8557, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[81/1000] loss-2.636-|Sample:1.55|
+EPOCH[82/1000] loss-2.644-|Sample:1.51|
+EPOCH[83/1000] loss-2.652-|Sample:1.51|
+EPOCH[84/1000] loss-2.661-|Sample:1.53|
+EPOCH[85/1000] loss-2.668-|Sample:1.42|
+EPOCH[86/1000] loss-2.677-|Sample:1.53|
+EPOCH[87/1000] loss-2.683-|Sample:1.54|
+EPOCH[88/1000] loss-2.693-|Sample:0.97|
+EPOCH[89/1000] loss-2.698-|Sample:1.55|
+EPOCH[90/1000] loss-2.705-|Sample:1.55|
+[TEST]
+{'precision': array([0.01390762]), 'recall': array([0.11700452]), 'ndcg': array([0.06424285]), 'coverage': array([29.31510612]), 'Acoverage': array([805.35655431]), 'ILD': array([0.0402464]), 'F1': array([0.05989168])}
+reg_loss1: tensor(22.6820, device='cuda:0', grad_fn=<DivBackward0>) reg_loss2: tensor(179813.5156, device='cuda:0', grad_fn=<AddBackward0>) au_loss: tensor(-2.9281, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[91/1000] loss-2.716-|Sample:1.56|
+EPOCH[92/1000] loss-2.720-|Sample:1.54|
+EPOCH[93/1000] loss-2.729-|Sample:1.55|
+EPOCH[94/1000] loss-2.732-|Sample:1.56|
+EPOCH[95/1000] loss-2.741-|Sample:1.47|
+EPOCH[96/1000] loss-2.745-|Sample:1.52|
+EPOCH[97/1000] loss-2.755-|Sample:1.51|
+EPOCH[98/1000] loss-2.759-|Sample:0.97|
+EPOCH[99/1000] loss-2.767-|Sample:1.56|
+EPOCH[100/1000] loss-2.772-|Sample:1.56|
+[TEST]
+{'precision': array([0.01488764]), 'recall': array([0.12444144]), 'ndcg': array([0.0694872]), 'coverage': array([29.08714107]), 'Acoverage': array([801.01735331]), 'ILD': array([0.04015967]), 'F1': array([0.06072288])}
+reg_loss1: tensor(19.4036, device='cuda:0', grad_fn=<DivBackward0>) reg_loss2: tensor(155768.1875, device='cuda:0', grad_fn=<AddBackward0>) au_loss: tensor(-2.9785, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[101/1000] loss-2.776-|Sample:1.56|
+EPOCH[102/1000] loss-2.784-|Sample:1.56|
+EPOCH[103/1000] loss-2.790-|Sample:1.56|
+EPOCH[104/1000] loss-2.797-|Sample:1.54|
+EPOCH[105/1000] loss-2.800-|Sample:1.42|
+EPOCH[106/1000] loss-2.804-|Sample:1.54|
+EPOCH[107/1000] loss-2.812-|Sample:1.53|
+EPOCH[108/1000] loss-2.816-|Sample:0.97|
+EPOCH[109/1000] loss-2.821-|Sample:1.53|
+EPOCH[110/1000] loss-2.826-|Sample:1.54|
+[TEST]
+{'precision': array([0.01570537]), 'recall': array([0.13166259]), 'ndcg': array([0.07386124]), 'coverage': array([28.80087391]), 'Acoverage': array([793.88114856]), 'ILD': array([0.03970892]), 'F1': array([0.06101573])}
+reg_loss1: tensor(17.9517, device='cuda:0', grad_fn=<DivBackward0>) reg_loss2: tensor(135660.3906, device='cuda:0', grad_fn=<AddBackward0>) au_loss: tensor(-2.9325, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[111/1000] loss-2.832-|Sample:1.54|
+EPOCH[112/1000] loss-2.833-|Sample:1.54|
+EPOCH[113/1000] loss-2.840-|Sample:1.58|
+EPOCH[114/1000] loss-2.844-|Sample:1.52|
+EPOCH[115/1000] loss-2.848-|Sample:1.51|
+EPOCH[116/1000] loss-2.853-|Sample:1.51|
+EPOCH[117/1000] loss-2.856-|Sample:1.55|
+EPOCH[118/1000] loss-2.863-|Sample:0.98|
+EPOCH[119/1000] loss-2.865-|Sample:1.56|
+EPOCH[120/1000] loss-2.868-|Sample:1.51|
+[TEST]
+{'precision': array([0.01639825]), 'recall': array([0.13662321]), 'ndcg': array([0.07717689]), 'coverage': array([28.63620474]), 'Acoverage': array([788.44731586]), 'ILD': array([0.03943623]), 'F1': array([0.06120552])}
+reg_loss1: tensor(15.4948, device='cuda:0', grad_fn=<DivBackward0>) reg_loss2: tensor(118783.6562, device='cuda:0', grad_fn=<AddBackward0>) au_loss: tensor(-2.9840, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[121/1000] loss-2.874-|Sample:1.56|
+EPOCH[122/1000] loss-2.878-|Sample:1.55|
+EPOCH[123/1000] loss-2.879-|Sample:1.56|
+EPOCH[124/1000] loss-2.885-|Sample:1.54|
+EPOCH[125/1000] loss-2.890-|Sample:1.52|
+EPOCH[126/1000] loss-2.893-|Sample:1.56|
+EPOCH[127/1000] loss-2.896-|Sample:1.55|
+EPOCH[128/1000] loss-2.901-|Sample:0.98|
+EPOCH[129/1000] loss-2.903-|Sample:1.57|
+EPOCH[130/1000] loss-2.904-|Sample:1.54|
+[TEST]
+{'precision': array([0.0169226]), 'recall': array([0.14145962]), 'ndcg': array([0.0798878]), 'coverage': array([28.54307116]), 'Acoverage': array([782.23670412]), 'ILD': array([0.0392897]), 'F1': array([0.0614985])}
+reg_loss1: tensor(13.6888, device='cuda:0', grad_fn=<DivBackward0>) reg_loss2: tensor(104605.8047, device='cuda:0', grad_fn=<AddBackward0>) au_loss: tensor(-3.0386, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[131/1000] loss-2.911-|Sample:1.55|
+EPOCH[132/1000] loss-2.911-|Sample:1.57|
+EPOCH[133/1000] loss-2.913-|Sample:1.56|
+EPOCH[134/1000] loss-2.918-|Sample:1.58|
+EPOCH[135/1000] loss-2.920-|Sample:1.51|
+EPOCH[136/1000] loss-2.923-|Sample:1.55|
+EPOCH[137/1000] loss-2.927-|Sample:1.55|
+EPOCH[138/1000] loss-2.931-|Sample:0.98|
+EPOCH[139/1000] loss-2.932-|Sample:1.51|
+EPOCH[140/1000] loss-2.935-|Sample:1.55|
+[TEST]
+{'precision': array([0.01739076]), 'recall': array([0.14480539]), 'ndcg': array([0.08265817]), 'coverage': array([28.51660424]), 'Acoverage': array([782.0144819]), 'ILD': array([0.03926802]), 'F1': array([0.0617821])}
+reg_loss1: tensor(12.2059, device='cuda:0', grad_fn=<DivBackward0>) reg_loss2: tensor(92676.8281, device='cuda:0', grad_fn=<AddBackward0>) au_loss: tensor(-3.0491, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[141/1000] loss-2.938-|Sample:1.61|
+EPOCH[142/1000] loss-2.939-|Sample:1.63|
+EPOCH[143/1000] loss-2.943-|Sample:1.55|
+EPOCH[144/1000] loss-2.942-|Sample:1.56|
+EPOCH[145/1000] loss-2.945-|Sample:1.99|
+EPOCH[146/1000] loss-2.950-|Sample:1.67|
+EPOCH[147/1000] loss-2.955-|Sample:1.58|
+EPOCH[148/1000] loss-2.953-|Sample:0.98|
+EPOCH[149/1000] loss-2.955-|Sample:1.61|
+EPOCH[150/1000] loss-2.957-|Sample:1.59|
+[TEST]
+{'precision': array([0.0177965]), 'recall': array([0.14799839]), 'ndcg': array([0.08421863]), 'coverage': array([28.39338327]), 'Acoverage': array([778.4815231]), 'ILD': array([0.03907418]), 'F1': array([0.06182538])}
+reg_loss1: tensor(11.5762, device='cuda:0', grad_fn=<DivBackward0>) reg_loss2: tensor(82591.1875, device='cuda:0', grad_fn=<AddBackward0>) au_loss: tensor(-3.0271, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[151/1000] loss-2.958-|Sample:1.57|
+EPOCH[152/1000] loss-2.964-|Sample:1.55|
+EPOCH[153/1000] loss-2.963-|Sample:1.56|
+EPOCH[154/1000] loss-2.969-|Sample:1.55|
+EPOCH[155/1000] loss-2.967-|Sample:1.52|
+EPOCH[156/1000] loss-2.972-|Sample:1.54|
+EPOCH[157/1000] loss-2.974-|Sample:1.59|
+EPOCH[158/1000] loss-2.977-|Sample:1.06|
+EPOCH[159/1000] loss-2.978-|Sample:1.56|
+EPOCH[160/1000] loss-2.981-|Sample:1.54|
+[TEST]
+{'precision': array([0.01802747]), 'recall': array([0.14950727]), 'ndcg': array([0.08549727]), 'coverage': array([28.45830212]), 'Acoverage': array([777.99900125]), 'ILD': array([0.03924831]), 'F1': array([0.06217466])}
+reg_loss1: tensor(10.4038, device='cuda:0', grad_fn=<DivBackward0>) reg_loss2: tensor(74047.9141, device='cuda:0', grad_fn=<AddBackward0>) au_loss: tensor(-3.0817, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[161/1000] loss-2.980-|Sample:1.55|
+EPOCH[162/1000] loss-2.982-|Sample:1.57|
+EPOCH[163/1000] loss-2.984-|Sample:1.56|
+EPOCH[164/1000] loss-2.986-|Sample:1.59|
+EPOCH[165/1000] loss-2.988-|Sample:1.51|
+EPOCH[166/1000] loss-2.989-|Sample:1.55|
+EPOCH[167/1000] loss-2.992-|Sample:1.56|
+EPOCH[168/1000] loss-2.992-|Sample:0.97|
+EPOCH[169/1000] loss-2.993-|Sample:1.55|
+EPOCH[170/1000] loss-2.998-|Sample:1.62|
+[TEST]
+{'precision': array([0.01824594]), 'recall': array([0.15099618]), 'ndcg': array([0.08658528]), 'coverage': array([28.43957553]), 'Acoverage': array([777.982397]), 'ILD': array([0.03919311]), 'F1': array([0.06223285])}
+reg_loss1: tensor(9.1289, device='cuda:0', grad_fn=<DivBackward0>) reg_loss2: tensor(66806.7344, device='cuda:0', grad_fn=<AddBackward0>) au_loss: tensor(-3.0386, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[171/1000] loss-2.998-|Sample:1.56|
+EPOCH[172/1000] loss-3.000-|Sample:1.55|
+EPOCH[173/1000] loss-2.999-|Sample:1.56|
+EPOCH[174/1000] loss-3.002-|Sample:1.66|
+EPOCH[175/1000] loss-3.002-|Sample:1.48|
+EPOCH[176/1000] loss-3.004-|Sample:1.58|
+EPOCH[177/1000] loss-3.004-|Sample:1.54|
+EPOCH[178/1000] loss-3.005-|Sample:0.99|
+EPOCH[179/1000] loss-3.008-|Sample:1.55|
+EPOCH[180/1000] loss-3.007-|Sample:1.63|
+[TEST]
+{'precision': array([0.01850187]), 'recall': array([0.15213868]), 'ndcg': array([0.08712975]), 'coverage': array([28.41772784]), 'Acoverage': array([776.71822722]), 'ILD': array([0.03912872]), 'F1': array([0.06224785])}
+reg_loss1: tensor(8.5122, device='cuda:0', grad_fn=<DivBackward0>) reg_loss2: tensor(60591.3320, device='cuda:0', grad_fn=<AddBackward0>) au_loss: tensor(-3.1097, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[181/1000] loss-3.010-|Sample:1.56|
+EPOCH[182/1000] loss-3.011-|Sample:1.54|
+EPOCH[183/1000] loss-3.013-|Sample:1.63|
+EPOCH[184/1000] loss-3.017-|Sample:1.52|
+EPOCH[185/1000] loss-3.015-|Sample:1.51|
+EPOCH[186/1000] loss-3.016-|Sample:1.59|
+EPOCH[187/1000] loss-3.017-|Sample:1.56|
+EPOCH[188/1000] loss-3.019-|Sample:1.07|
+EPOCH[189/1000] loss-3.019-|Sample:1.56|
+EPOCH[190/1000] loss-3.024-|Sample:1.54|
+[TEST]
+{'precision': array([0.01850811]), 'recall': array([0.15230692]), 'ndcg': array([0.08721892]), 'coverage': array([28.38139825]), 'Acoverage': array([775.14956305]), 'ILD': array([0.0392102]), 'F1': array([0.06236502])}
+reg_loss1: tensor(7.4917, device='cuda:0', grad_fn=<DivBackward0>) reg_loss2: tensor(55261.1562, device='cuda:0', grad_fn=<AddBackward0>) au_loss: tensor(-3.1015, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[191/1000] loss-3.023-|Sample:1.55|
+EPOCH[192/1000] loss-3.024-|Sample:1.66|
+EPOCH[193/1000] loss-3.022-|Sample:1.55|
+EPOCH[194/1000] loss-3.024-|Sample:1.55|
+EPOCH[195/1000] loss-3.025-|Sample:1.38|
+EPOCH[196/1000] loss-3.025-|Sample:1.56|
+EPOCH[197/1000] loss-3.026-|Sample:1.56|
+EPOCH[198/1000] loss-3.028-|Sample:0.97|
+EPOCH[199/1000] loss-3.031-|Sample:1.56|
+EPOCH[200/1000] loss-3.031-|Sample:1.56|
+[TEST]
+{'precision': array([0.01872035]), 'recall': array([0.15420429]), 'ndcg': array([0.08785635]), 'coverage': array([28.48377029]), 'Acoverage': array([773.87752809]), 'ILD': array([0.03922005]), 'F1': array([0.06253505])}
+reg_loss1: tensor(7.0164, device='cuda:0', grad_fn=<DivBackward0>) reg_loss2: tensor(50654.3008, device='cuda:0', grad_fn=<AddBackward0>) au_loss: tensor(-3.0918, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[201/1000] loss-3.031-|Sample:1.56|
+EPOCH[202/1000] loss-3.032-|Sample:1.57|
+EPOCH[203/1000] loss-3.031-|Sample:1.61|
+EPOCH[204/1000] loss-3.034-|Sample:1.55|
+EPOCH[205/1000] loss-3.031-|Sample:1.41|
+EPOCH[206/1000] loss-3.035-|Sample:1.56|
+EPOCH[207/1000] loss-3.033-|Sample:1.55|
+EPOCH[208/1000] loss-3.039-|Sample:0.99|
+EPOCH[209/1000] loss-3.040-|Sample:1.56|
+EPOCH[210/1000] loss-3.040-|Sample:1.57|
+[TEST]
+{'precision': array([0.01890137]), 'recall': array([0.15588455]), 'ndcg': array([0.08861598]), 'coverage': array([28.37852684]), 'Acoverage': array([773.20274657]), 'ILD': array([0.0392148]), 'F1': array([0.06266531])}
+reg_loss1: tensor(6.8789, device='cuda:0', grad_fn=<DivBackward0>) reg_loss2: tensor(46644.7266, device='cuda:0', grad_fn=<AddBackward0>) au_loss: tensor(-3.0848, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[211/1000] loss-3.039-|Sample:1.60|
+EPOCH[212/1000] loss-3.040-|Sample:1.59|
+EPOCH[213/1000] loss-3.040-|Sample:1.55|
+EPOCH[214/1000] loss-3.040-|Sample:1.55|
+EPOCH[215/1000] loss-3.040-|Sample:1.42|
+EPOCH[216/1000] loss-3.043-|Sample:1.61|
+EPOCH[217/1000] loss-3.042-|Sample:1.55|
+EPOCH[218/1000] loss-3.043-|Sample:0.98|
+EPOCH[219/1000] loss-3.044-|Sample:1.59|
+EPOCH[220/1000] loss-3.044-|Sample:1.53|
+[TEST]
+{'precision': array([0.01884519]), 'recall': array([0.15499375]), 'ndcg': array([0.08845101]), 'coverage': array([28.42858926]), 'Acoverage': array([774.08539326]), 'ILD': array([0.03938038]), 'F1': array([0.06280376])}
+reg_loss1: tensor(6.1203, device='cuda:0', grad_fn=<DivBackward0>) reg_loss2: tensor(43140.8008, device='cuda:0', grad_fn=<AddBackward0>) au_loss: tensor(-3.0896, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[221/1000] loss-3.046-|Sample:1.54|
+EPOCH[222/1000] loss-3.047-|Sample:1.57|
+EPOCH[223/1000] loss-3.047-|Sample:1.57|
+EPOCH[224/1000] loss-3.050-|Sample:1.55|
+EPOCH[225/1000] loss-3.048-|Sample:1.49|
+EPOCH[226/1000] loss-3.051-|Sample:1.59|
+EPOCH[227/1000] loss-3.049-|Sample:1.58|
+EPOCH[228/1000] loss-3.051-|Sample:0.99|
+EPOCH[229/1000] loss-3.055-|Sample:1.59|
+EPOCH[230/1000] loss-3.052-|Sample:1.55|
+[TEST]
+{'precision': array([0.01897628]), 'recall': array([0.1574709]), 'ndcg': array([0.0894295]), 'coverage': array([28.3093633]), 'Acoverage': array([770.22771536]), 'ILD': array([0.03902227]), 'F1': array([0.06254541])}
+reg_loss1: tensor(5.7035, device='cuda:0', grad_fn=<DivBackward0>) reg_loss2: tensor(40075.9766, device='cuda:0', grad_fn=<AddBackward0>) au_loss: tensor(-3.0762, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[231/1000] loss-3.050-|Sample:1.54|
+EPOCH[232/1000] loss-3.053-|Sample:1.61|
+EPOCH[233/1000] loss-3.053-|Sample:1.55|
+EPOCH[234/1000] loss-3.050-|Sample:1.56|
+EPOCH[235/1000] loss-3.055-|Sample:1.39|
+EPOCH[236/1000] loss-3.057-|Sample:1.73|
+EPOCH[237/1000] loss-3.055-|Sample:1.64|
+EPOCH[238/1000] loss-3.055-|Sample:0.98|
+EPOCH[239/1000] loss-3.057-|Sample:1.60|
+EPOCH[240/1000] loss-3.056-|Sample:1.68|
+[TEST]
+{'precision': array([0.01916979]), 'recall': array([0.15770954]), 'ndcg': array([0.08932273]), 'coverage': array([28.33158552]), 'Acoverage': array([770.55093633]), 'ILD': array([0.03921677]), 'F1': array([0.06281394])}
+reg_loss1: tensor(5.4902, device='cuda:0', grad_fn=<DivBackward0>) reg_loss2: tensor(37367.6914, device='cuda:0', grad_fn=<AddBackward0>) au_loss: tensor(-3.0594, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[241/1000] loss-3.056-|Sample:1.61|
+EPOCH[242/1000] loss-3.057-|Sample:1.60|
+EPOCH[243/1000] loss-3.056-|Sample:1.60|
+EPOCH[244/1000] loss-3.056-|Sample:1.61|
+EPOCH[245/1000] loss-3.060-|Sample:1.52|
+EPOCH[246/1000] loss-3.059-|Sample:1.62|
+EPOCH[247/1000] loss-3.061-|Sample:1.65|
+EPOCH[248/1000] loss-3.063-|Sample:1.07|
+EPOCH[249/1000] loss-3.061-|Sample:1.61|
+EPOCH[250/1000] loss-3.062-|Sample:1.60|
+[TEST]
+{'precision': array([0.01919476]), 'recall': array([0.15917099]), 'ndcg': array([0.08936702]), 'coverage': array([28.24406991]), 'Acoverage': array([768.83620474]), 'ILD': array([0.03911886]), 'F1': array([0.06280289])}
+reg_loss1: tensor(5.0931, device='cuda:0', grad_fn=<DivBackward0>) reg_loss2: tensor(34973.4453, device='cuda:0', grad_fn=<AddBackward0>) au_loss: tensor(-3.1058, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[251/1000] loss-3.062-|Sample:1.74|
+EPOCH[252/1000] loss-3.062-|Sample:1.67|
+EPOCH[253/1000] loss-3.062-|Sample:1.60|
+EPOCH[254/1000] loss-3.061-|Sample:1.66|
+EPOCH[255/1000] loss-3.063-|Sample:1.70|
+EPOCH[256/1000] loss-3.065-|Sample:1.64|
+EPOCH[257/1000] loss-3.064-|Sample:1.63|
+EPOCH[258/1000] loss-3.064-|Sample:1.06|
+EPOCH[259/1000] loss-3.066-|Sample:1.76|
+EPOCH[260/1000] loss-3.064-|Sample:1.63|
+[TEST]
+{'precision': array([0.01917603]), 'recall': array([0.15798768]), 'ndcg': array([0.08910773]), 'coverage': array([28.24357054]), 'Acoverage': array([768.84132335]), 'ILD': array([0.03915172]), 'F1': array([0.06275244])}
+reg_loss1: tensor(4.6779, device='cuda:0', grad_fn=<DivBackward0>) reg_loss2: tensor(32834.4961, device='cuda:0', grad_fn=<AddBackward0>) au_loss: tensor(-3.1227, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[261/1000] loss-3.065-|Sample:1.69|
+EPOCH[262/1000] loss-3.067-|Sample:1.64|
+EPOCH[263/1000] loss-3.067-|Sample:1.65|
+EPOCH[264/1000] loss-3.069-|Sample:1.65|
+EPOCH[265/1000] loss-3.066-|Sample:1.77|
+EPOCH[266/1000] loss-3.067-|Sample:1.64|
+EPOCH[267/1000] loss-3.066-|Sample:1.64|
+EPOCH[268/1000] loss-3.069-|Sample:1.01|
+EPOCH[269/1000] loss-3.070-|Sample:1.61|
+EPOCH[270/1000] loss-3.072-|Sample:1.61|
+[TEST]
+{'precision': array([0.01933208]), 'recall': array([0.15953837]), 'ndcg': array([0.09025279]), 'coverage': array([28.23146067]), 'Acoverage': array([768.4835206]), 'ILD': array([0.0392897]), 'F1': array([0.06305161])}
+reg_loss1: tensor(4.1790, device='cuda:0', grad_fn=<DivBackward0>) reg_loss2: tensor(30924.6914, device='cuda:0', grad_fn=<AddBackward0>) au_loss: tensor(-3.1286, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[271/1000] loss-3.070-|Sample:1.59|
+EPOCH[272/1000] loss-3.071-|Sample:1.76|
+EPOCH[273/1000] loss-3.070-|Sample:1.62|
+EPOCH[274/1000] loss-3.071-|Sample:1.63|
+EPOCH[275/1000] loss-3.070-|Sample:1.60|
+EPOCH[276/1000] loss-3.072-|Sample:1.62|
+EPOCH[277/1000] loss-3.073-|Sample:1.60|
+EPOCH[278/1000] loss-3.073-|Sample:1.02|
+EPOCH[279/1000] loss-3.071-|Sample:1.66|
+EPOCH[280/1000] loss-3.072-|Sample:1.63|
+[TEST]
+{'precision': array([0.01951311]), 'recall': array([0.16046175]), 'ndcg': array([0.09085238]), 'coverage': array([28.25493134]), 'Acoverage': array([770.06991261]), 'ILD': array([0.03913661]), 'F1': array([0.06292565])}
+reg_loss1: tensor(4.3173, device='cuda:0', grad_fn=<DivBackward0>) reg_loss2: tensor(29215.8926, device='cuda:0', grad_fn=<AddBackward0>) au_loss: tensor(-3.0523, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[281/1000] loss-3.072-|Sample:1.68|
+EPOCH[282/1000] loss-3.074-|Sample:1.61|
+EPOCH[283/1000] loss-3.073-|Sample:1.63|
+EPOCH[284/1000] loss-3.075-|Sample:1.61|
+EPOCH[285/1000] loss-3.073-|Sample:1.68|
+EPOCH[286/1000] loss-3.075-|Sample:1.65|
+EPOCH[287/1000] loss-3.073-|Sample:1.60|
+EPOCH[288/1000] loss-3.074-|Sample:1.07|
+EPOCH[289/1000] loss-3.076-|Sample:1.66|
+EPOCH[290/1000] loss-3.076-|Sample:1.59|
+[TEST]
+{'precision': array([0.01935081]), 'recall': array([0.1589758]), 'ndcg': array([0.09052621]), 'coverage': array([28.23995006]), 'Acoverage': array([766.69388265]), 'ILD': array([0.03907418]), 'F1': array([0.06273012])}
+reg_loss1: tensor(3.9950, device='cuda:0', grad_fn=<DivBackward0>) reg_loss2: tensor(27679.8945, device='cuda:0', grad_fn=<AddBackward0>) au_loss: tensor(-3.1358, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[291/1000] loss-3.073-|Sample:1.67|
+EPOCH[292/1000] loss-3.074-|Sample:1.69|
+EPOCH[293/1000] loss-3.074-|Sample:1.75|
+EPOCH[294/1000] loss-3.076-|Sample:1.63|
+EPOCH[295/1000] loss-3.076-|Sample:1.44|
+EPOCH[296/1000] loss-3.077-|Sample:1.62|
+EPOCH[297/1000] loss-3.075-|Sample:1.63|
+EPOCH[298/1000] loss-3.076-|Sample:1.07|
+EPOCH[299/1000] loss-3.078-|Sample:1.63|
+EPOCH[300/1000] loss-3.078-|Sample:1.62|
+[TEST]
+{'precision': array([0.0194382]), 'recall': array([0.15996379]), 'ndcg': array([0.09064641]), 'coverage': array([28.11660424]), 'Acoverage': array([769.59138577]), 'ILD': array([0.03923779]), 'F1': array([0.06301784])}
+reg_loss1: tensor(3.5367, device='cuda:0', grad_fn=<DivBackward0>) reg_loss2: tensor(26288.1211, device='cuda:0', grad_fn=<AddBackward0>) au_loss: tensor(-3.1418, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[301/1000] loss-3.079-|Sample:1.67|
+EPOCH[302/1000] loss-3.078-|Sample:1.71|
+EPOCH[303/1000] loss-3.078-|Sample:1.70|
+EPOCH[304/1000] loss-3.079-|Sample:1.67|
+EPOCH[305/1000] loss-3.078-|Sample:1.54|
+EPOCH[306/1000] loss-3.078-|Sample:1.70|
+EPOCH[307/1000] loss-3.080-|Sample:1.67|
+EPOCH[308/1000] loss-3.082-|Sample:1.02|
+EPOCH[309/1000] loss-3.079-|Sample:1.63|
+EPOCH[310/1000] loss-3.082-|Sample:1.64|
+[TEST]
+{'precision': array([0.01931336]), 'recall': array([0.15830723]), 'ndcg': array([0.09005742]), 'coverage': array([28.18601748]), 'Acoverage': array([769.25543071]), 'ILD': array([0.03940206]), 'F1': array([0.06309902])}
+reg_loss1: tensor(3.5559, device='cuda:0', grad_fn=<DivBackward0>) reg_loss2: tensor(25034.2070, device='cuda:0', grad_fn=<AddBackward0>) au_loss: tensor(-3.0900, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[311/1000] loss-3.079-|Sample:1.67|
+EPOCH[312/1000] loss-3.082-|Sample:1.65|
+EPOCH[313/1000] loss-3.081-|Sample:1.63|
+EPOCH[314/1000] loss-3.081-|Sample:1.69|
+EPOCH[315/1000] loss-3.080-|Sample:1.50|
+EPOCH[316/1000] loss-3.083-|Sample:1.62|
+EPOCH[317/1000] loss-3.081-|Sample:1.69|
+EPOCH[318/1000] loss-3.082-|Sample:1.03|
+EPOCH[319/1000] loss-3.083-|Sample:1.65|
+EPOCH[320/1000] loss-3.084-|Sample:1.66|
+[TEST]
+{'precision': array([0.01935705]), 'recall': array([0.1587616]), 'ndcg': array([0.09003833]), 'coverage': array([28.08813983]), 'Acoverage': array([769.46142322]), 'ILD': array([0.03942835]), 'F1': array([0.06316877])}
+reg_loss1: tensor(3.3153, device='cuda:0', grad_fn=<DivBackward0>) reg_loss2: tensor(23888.1016, device='cuda:0', grad_fn=<AddBackward0>) au_loss: tensor(-3.1053, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[321/1000] loss-3.082-|Sample:1.68|
+EPOCH[322/1000] loss-3.081-|Sample:1.65|
+EPOCH[323/1000] loss-3.084-|Sample:1.64|
+EPOCH[324/1000] loss-3.084-|Sample:1.71|
+EPOCH[325/1000] loss-3.083-|Sample:1.53|
+EPOCH[326/1000] loss-3.083-|Sample:1.75|
+EPOCH[327/1000] loss-3.082-|Sample:1.59|
+EPOCH[328/1000] loss-3.084-|Sample:1.04|
+EPOCH[329/1000] loss-3.084-|Sample:1.72|
+EPOCH[330/1000] loss-3.082-|Sample:1.60|
+[TEST]
+{'precision': array([0.01939451]), 'recall': array([0.15941095]), 'ndcg': array([0.09050942]), 'coverage': array([28.01747815]), 'Acoverage': array([766.37403246]), 'ILD': array([0.03922203]), 'F1': array([0.0629545])}
+reg_loss1: tensor(3.3519, device='cuda:0', grad_fn=<DivBackward0>) reg_loss2: tensor(22852.0684, device='cuda:0', grad_fn=<AddBackward0>) au_loss: tensor(-3.0829, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[331/1000] loss-3.082-|Sample:1.62|
+EPOCH[332/1000] loss-3.084-|Sample:1.66|
+EPOCH[333/1000] loss-3.087-|Sample:1.62|
+EPOCH[334/1000] loss-3.088-|Sample:1.61|
+EPOCH[335/1000] loss-3.086-|Sample:1.52|
+EPOCH[336/1000] loss-3.084-|Sample:1.61|
+EPOCH[337/1000] loss-3.087-|Sample:1.61|
+EPOCH[338/1000] loss-3.086-|Sample:1.03|
+EPOCH[339/1000] loss-3.087-|Sample:1.72|
+EPOCH[340/1000] loss-3.086-|Sample:1.64|
+[TEST]
+{'precision': array([0.01950062]), 'recall': array([0.1601099]), 'ndcg': array([0.0904982]), 'coverage': array([28.20337079]), 'Acoverage': array([768.99925094]), 'ILD': array([0.03933373]), 'F1': array([0.06315287])}
+reg_loss1: tensor(3.1519, device='cuda:0', grad_fn=<DivBackward0>) reg_loss2: tensor(21900.2031, device='cuda:0', grad_fn=<AddBackward0>) au_loss: tensor(-3.1499, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[341/1000] loss-3.087-|Sample:1.70|
+EPOCH[342/1000] loss-3.088-|Sample:1.64|
+EPOCH[343/1000] loss-3.087-|Sample:1.72|
+EPOCH[344/1000] loss-3.086-|Sample:1.66|
+EPOCH[345/1000] loss-3.087-|Sample:1.48|
+EPOCH[346/1000] loss-3.087-|Sample:1.68|
+EPOCH[347/1000] loss-3.086-|Sample:1.67|
+EPOCH[348/1000] loss-3.089-|Sample:1.10|
+EPOCH[349/1000] loss-3.087-|Sample:1.62|
+EPOCH[350/1000] loss-3.086-|Sample:1.72|
+[TEST]
+{'precision': array([0.01951311]), 'recall': array([0.16049526]), 'ndcg': array([0.0907367]), 'coverage': array([28.24881398]), 'Acoverage': array([770.42446941]), 'ILD': array([0.03936527]), 'F1': array([0.06322348])}
+reg_loss1: tensor(2.9968, device='cuda:0', grad_fn=<DivBackward0>) reg_loss2: tensor(21040.1680, device='cuda:0', grad_fn=<AddBackward0>) au_loss: tensor(-3.1397, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[351/1000] loss-3.089-|Sample:1.61|
+EPOCH[352/1000] loss-3.089-|Sample:1.64|
+EPOCH[353/1000] loss-3.088-|Sample:1.80|
+EPOCH[354/1000] loss-3.090-|Sample:1.62|
+EPOCH[355/1000] loss-3.089-|Sample:1.49|
+EPOCH[356/1000] loss-3.090-|Sample:1.67|
+EPOCH[357/1000] loss-3.089-|Sample:1.71|
+EPOCH[358/1000] loss-3.087-|Sample:1.13|
+EPOCH[359/1000] loss-3.089-|Sample:1.68|
+EPOCH[360/1000] loss-3.089-|Sample:1.62|
+[TEST]
+{'precision': array([0.01950687]), 'recall': array([0.16057207]), 'ndcg': array([0.09083365]), 'coverage': array([28.24694132]), 'Acoverage': array([770.48789014]), 'ILD': array([0.03946383]), 'F1': array([0.06335651])}
+reg_loss1: tensor(2.9730, device='cuda:0', grad_fn=<DivBackward0>) reg_loss2: tensor(20244.2500, device='cuda:0', grad_fn=<AddBackward0>) au_loss: tensor(-3.1131, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[361/1000] loss-3.089-|Sample:1.62|
+EPOCH[362/1000] loss-3.088-|Sample:1.69|
+EPOCH[363/1000] loss-3.089-|Sample:1.61|
+EPOCH[364/1000] loss-3.090-|Sample:1.68|
+EPOCH[365/1000] loss-3.087-|Sample:1.58|
+EPOCH[366/1000] loss-3.087-|Sample:1.65|
+EPOCH[367/1000] loss-3.091-|Sample:1.77|
+EPOCH[368/1000] loss-3.090-|Sample:1.09|
+EPOCH[369/1000] loss-3.091-|Sample:1.63|
+EPOCH[370/1000] loss-3.090-|Sample:1.65|
+[TEST]
+{'precision': array([0.01947566]), 'recall': array([0.1601332]), 'ndcg': array([0.09075326]), 'coverage': array([28.14282147]), 'Acoverage': array([770.06966292]), 'ILD': array([0.0393127]), 'F1': array([0.06312758])}
+reg_loss1: tensor(2.6337, device='cuda:0', grad_fn=<DivBackward0>) reg_loss2: tensor(19513.0293, device='cuda:0', grad_fn=<AddBackward0>) au_loss: tensor(-3.1189, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[371/1000] loss-3.090-|Sample:1.63|
+EPOCH[372/1000] loss-3.089-|Sample:1.75|
+EPOCH[373/1000] loss-3.091-|Sample:1.61|
+EPOCH[374/1000] loss-3.090-|Sample:1.65|
+EPOCH[375/1000] loss-3.091-|Sample:1.44|
+EPOCH[376/1000] loss-3.092-|Sample:1.63|
+EPOCH[377/1000] loss-3.090-|Sample:1.56|
+EPOCH[378/1000] loss-3.092-|Sample:0.99|
+EPOCH[379/1000] loss-3.091-|Sample:1.62|
+EPOCH[380/1000] loss-3.090-|Sample:1.57|
+[TEST]
+{'precision': array([0.01971286]), 'recall': array([0.16205943]), 'ndcg': array([0.09107602]), 'coverage': array([28.25955056]), 'Acoverage': array([772.84481898]), 'ILD': array([0.03945594]), 'F1': array([0.06346124])}
+reg_loss1: tensor(2.5348, device='cuda:0', grad_fn=<DivBackward0>) reg_loss2: tensor(18844.8027, device='cuda:0', grad_fn=<AddBackward0>) au_loss: tensor(-3.0986, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[381/1000] loss-3.091-|Sample:1.61|
+EPOCH[382/1000] loss-3.090-|Sample:1.58|
+EPOCH[383/1000] loss-3.091-|Sample:1.58|
+EPOCH[384/1000] loss-3.090-|Sample:1.59|
+EPOCH[385/1000] loss-3.090-|Sample:1.41|
+EPOCH[386/1000] loss-3.093-|Sample:1.60|
+EPOCH[387/1000] loss-3.091-|Sample:1.60|
+EPOCH[388/1000] loss-3.090-|Sample:0.98|
+EPOCH[389/1000] loss-3.093-|Sample:1.57|
+EPOCH[390/1000] loss-3.092-|Sample:1.63|
+[TEST]
+{'precision': array([0.01955056]), 'recall': array([0.16056408]), 'ndcg': array([0.09102619]), 'coverage': array([28.37952559]), 'Acoverage': array([772.27178527]), 'ILD': array([0.03936264]), 'F1': array([0.06322543])}
+reg_loss1: tensor(2.6278, device='cuda:0', grad_fn=<DivBackward0>) reg_loss2: tensor(18228.2598, device='cuda:0', grad_fn=<AddBackward0>) au_loss: tensor(-3.0917, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[391/1000] loss-3.091-|Sample:1.57|
+EPOCH[392/1000] loss-3.092-|Sample:1.58|
+EPOCH[393/1000] loss-3.091-|Sample:1.57|
+EPOCH[394/1000] loss-3.092-|Sample:1.57|
+EPOCH[395/1000] loss-3.096-|Sample:1.40|
+EPOCH[396/1000] loss-3.093-|Sample:1.56|
+EPOCH[397/1000] loss-3.093-|Sample:1.59|
+EPOCH[398/1000] loss-3.094-|Sample:0.98|
+EPOCH[399/1000] loss-3.094-|Sample:1.57|
+EPOCH[400/1000] loss-3.094-|Sample:1.58|
+[TEST]
+{'precision': array([0.01968789]), 'recall': array([0.16218515]), 'ndcg': array([0.09154448]), 'coverage': array([28.30099875]), 'Acoverage': array([769.83645443]), 'ILD': array([0.03927656]), 'F1': array([0.06323857])}
+reg_loss1: tensor(2.5385, device='cuda:0', grad_fn=<DivBackward0>) reg_loss2: tensor(17660.3379, device='cuda:0', grad_fn=<AddBackward0>) au_loss: tensor(-3.1116, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[401/1000] loss-3.094-|Sample:1.55|
+EPOCH[402/1000] loss-3.095-|Sample:1.61|
+EPOCH[403/1000] loss-3.096-|Sample:1.58|
+EPOCH[404/1000] loss-3.093-|Sample:1.64|
+EPOCH[405/1000] loss-3.095-|Sample:1.53|
+EPOCH[406/1000] loss-3.094-|Sample:1.57|
+EPOCH[407/1000] loss-3.095-|Sample:1.51|
+EPOCH[408/1000] loss-3.095-|Sample:1.00|
+EPOCH[409/1000] loss-3.095-|Sample:1.61|
+EPOCH[410/1000] loss-3.095-|Sample:1.58|
+[TEST]
+{'precision': array([0.01966916]), 'recall': array([0.16165536]), 'ndcg': array([0.09193194]), 'coverage': array([28.3463171]), 'Acoverage': array([771.33158552]), 'ILD': array([0.03935475]), 'F1': array([0.06329937])}
+reg_loss1: tensor(2.3855, device='cuda:0', grad_fn=<DivBackward0>) reg_loss2: tensor(17128.7246, device='cuda:0', grad_fn=<AddBackward0>) au_loss: tensor(-3.1274, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[411/1000] loss-3.095-|Sample:1.57|
+EPOCH[412/1000] loss-3.094-|Sample:1.55|
+EPOCH[413/1000] loss-3.095-|Sample:1.57|
+EPOCH[414/1000] loss-3.093-|Sample:1.61|
+EPOCH[415/1000] loss-3.095-|Sample:1.40|
+EPOCH[416/1000] loss-3.096-|Sample:1.58|
+EPOCH[417/1000] loss-3.097-|Sample:1.62|
+EPOCH[418/1000] loss-3.096-|Sample:1.00|
+EPOCH[419/1000] loss-3.096-|Sample:1.61|
+EPOCH[420/1000] loss-3.093-|Sample:1.60|
+[TEST]
+{'precision': array([0.01957553]), 'recall': array([0.1614072]), 'ndcg': array([0.0917819]), 'coverage': array([28.25205993]), 'Acoverage': array([774.21598002]), 'ILD': array([0.03948288]), 'F1': array([0.06344586])}
+reg_loss1: tensor(2.4437, device='cuda:0', grad_fn=<DivBackward0>) reg_loss2: tensor(16643.5078, device='cuda:0', grad_fn=<AddBackward0>) au_loss: tensor(-3.0968, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[421/1000] loss-3.095-|Sample:1.57|
+EPOCH[422/1000] loss-3.093-|Sample:1.58|
+EPOCH[423/1000] loss-3.095-|Sample:1.54|
+EPOCH[424/1000] loss-3.093-|Sample:1.57|
+EPOCH[425/1000] loss-3.095-|Sample:1.54|
+EPOCH[426/1000] loss-3.094-|Sample:1.57|
+EPOCH[427/1000] loss-3.095-|Sample:1.58|
+EPOCH[428/1000] loss-3.095-|Sample:1.06|
+EPOCH[429/1000] loss-3.096-|Sample:1.60|
+EPOCH[430/1000] loss-3.096-|Sample:1.57|
+[TEST]
+{'precision': array([0.01970662]), 'recall': array([0.16151379]), 'ndcg': array([0.09194011]), 'coverage': array([28.25430712]), 'Acoverage': array([772.18851436]), 'ILD': array([0.03938301]), 'F1': array([0.06332504])}
+reg_loss1: tensor(2.2920, device='cuda:0', grad_fn=<DivBackward0>) reg_loss2: tensor(16192.6934, device='cuda:0', grad_fn=<AddBackward0>) au_loss: tensor(-3.1031, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[431/1000] loss-3.096-|Sample:1.58|
+EPOCH[432/1000] loss-3.095-|Sample:1.63|
+EPOCH[433/1000] loss-3.097-|Sample:1.56|
+EPOCH[434/1000] loss-3.095-|Sample:1.54|
+EPOCH[435/1000] loss-3.095-|Sample:1.40|
+EPOCH[436/1000] loss-3.095-|Sample:1.55|
+EPOCH[437/1000] loss-3.096-|Sample:1.56|
+EPOCH[438/1000] loss-3.094-|Sample:0.98|
+EPOCH[439/1000] loss-3.097-|Sample:1.55|
+EPOCH[440/1000] loss-3.098-|Sample:1.56|
+[TEST]
+{'precision': array([0.01961298]), 'recall': array([0.16137708]), 'ndcg': array([0.09215448]), 'coverage': array([28.22446941]), 'Acoverage': array([773.08601748]), 'ILD': array([0.03944017]), 'F1': array([0.06338838])}
+reg_loss1: tensor(2.1268, device='cuda:0', grad_fn=<DivBackward0>) reg_loss2: tensor(15768.5137, device='cuda:0', grad_fn=<AddBackward0>) au_loss: tensor(-3.1315, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[441/1000] loss-3.096-|Sample:1.55|
+EPOCH[442/1000] loss-3.097-|Sample:1.55|
+EPOCH[443/1000] loss-3.096-|Sample:1.57|
+EPOCH[444/1000] loss-3.097-|Sample:1.55|
+EPOCH[445/1000] loss-3.096-|Sample:1.37|
+EPOCH[446/1000] loss-3.098-|Sample:1.54|
+EPOCH[447/1000] loss-3.098-|Sample:1.54|
+EPOCH[448/1000] loss-3.096-|Sample:0.98|
+EPOCH[449/1000] loss-3.099-|Sample:1.55|
+EPOCH[450/1000] loss-3.098-|Sample:1.55|
+[TEST]
+{'precision': array([0.0196005]), 'recall': array([0.16104839]), 'ndcg': array([0.09111383]), 'coverage': array([28.23345818]), 'Acoverage': array([776.48626717]), 'ILD': array([0.03934555]), 'F1': array([0.06324082])}
+reg_loss1: tensor(2.0924, device='cuda:0', grad_fn=<DivBackward0>) reg_loss2: tensor(15377.0215, device='cuda:0', grad_fn=<AddBackward0>) au_loss: tensor(-3.1381, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[451/1000] loss-3.098-|Sample:1.56|
+EPOCH[452/1000] loss-3.096-|Sample:1.56|
+EPOCH[453/1000] loss-3.096-|Sample:1.54|
+EPOCH[454/1000] loss-3.099-|Sample:1.55|
+EPOCH[455/1000] loss-3.099-|Sample:1.38|
+EPOCH[456/1000] loss-3.099-|Sample:1.55|
+EPOCH[457/1000] loss-3.096-|Sample:1.56|
+EPOCH[458/1000] loss-3.098-|Sample:0.97|
+EPOCH[459/1000] loss-3.099-|Sample:1.55|
+EPOCH[460/1000] loss-3.098-|Sample:1.56|
+[TEST]
+{'precision': array([0.01978777]), 'recall': array([0.16243624]), 'ndcg': array([0.09240324]), 'coverage': array([28.2082397]), 'Acoverage': array([776.88489388]), 'ILD': array([0.03917472]), 'F1': array([0.06312547])}
+reg_loss1: tensor(2.0140, device='cuda:0', grad_fn=<DivBackward0>) reg_loss2: tensor(15009.5977, device='cuda:0', grad_fn=<AddBackward0>) au_loss: tensor(-3.1216, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[461/1000] loss-3.095-|Sample:1.55|
+EPOCH[462/1000] loss-3.099-|Sample:1.55|
+EPOCH[463/1000] loss-3.096-|Sample:1.55|
+EPOCH[464/1000] loss-3.099-|Sample:1.52|
+EPOCH[465/1000] loss-3.097-|Sample:1.48|
+EPOCH[466/1000] loss-3.097-|Sample:1.57|
+EPOCH[467/1000] loss-3.096-|Sample:1.60|
+EPOCH[468/1000] loss-3.099-|Sample:0.97|
+EPOCH[469/1000] loss-3.099-|Sample:1.48|
+EPOCH[470/1000] loss-3.099-|Sample:1.54|
+[TEST]
+{'precision': array([0.0197191]), 'recall': array([0.16239669]), 'ndcg': array([0.09288613]), 'coverage': array([28.20524345]), 'Acoverage': array([778.94918851]), 'ILD': array([0.03932913]), 'F1': array([0.06332278])}
+reg_loss1: tensor(2.0231, device='cuda:0', grad_fn=<DivBackward0>) reg_loss2: tensor(14669.0186, device='cuda:0', grad_fn=<AddBackward0>) au_loss: tensor(-3.1477, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[471/1000] loss-3.100-|Sample:1.55|
+EPOCH[472/1000] loss-3.098-|Sample:1.55|
+EPOCH[473/1000] loss-3.099-|Sample:1.51|
+EPOCH[474/1000] loss-3.098-|Sample:1.55|
+EPOCH[475/1000] loss-3.100-|Sample:1.52|
+EPOCH[476/1000] loss-3.099-|Sample:1.54|
+EPOCH[477/1000] loss-3.097-|Sample:1.51|
+EPOCH[478/1000] loss-3.101-|Sample:1.00|
+EPOCH[479/1000] loss-3.098-|Sample:1.48|
+EPOCH[480/1000] loss-3.100-|Sample:1.53|
+[TEST]
+{'precision': array([0.01973159]), 'recall': array([0.16178977]), 'ndcg': array([0.09215755]), 'coverage': array([28.12721598]), 'Acoverage': array([778.21373283]), 'ILD': array([0.03941652]), 'F1': array([0.06338956])}
+reg_loss1: tensor(2.0638, device='cuda:0', grad_fn=<DivBackward0>) reg_loss2: tensor(14347.3906, device='cuda:0', grad_fn=<AddBackward0>) au_loss: tensor(-3.0972, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[481/1000] loss-3.098-|Sample:1.55|
+EPOCH[482/1000] loss-3.099-|Sample:1.53|
+EPOCH[483/1000] loss-3.099-|Sample:1.55|
+EPOCH[484/1000] loss-3.097-|Sample:1.57|
+EPOCH[485/1000] loss-3.099-|Sample:1.51|
+EPOCH[486/1000] loss-3.098-|Sample:1.51|
+EPOCH[487/1000] loss-3.100-|Sample:1.53|
+EPOCH[488/1000] loss-3.099-|Sample:0.97|
+EPOCH[489/1000] loss-3.100-|Sample:1.54|
+EPOCH[490/1000] loss-3.099-|Sample:1.54|
+[TEST]
+{'precision': array([0.01961923]), 'recall': array([0.16167409]), 'ndcg': array([0.09211409]), 'coverage': array([28.31710362]), 'Acoverage': array([779.917603]), 'ILD': array([0.03935344]), 'F1': array([0.06329911])}
+reg_loss1: tensor(2.0236, device='cuda:0', grad_fn=<DivBackward0>) reg_loss2: tensor(14055.8516, device='cuda:0', grad_fn=<AddBackward0>) au_loss: tensor(-3.1306, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[491/1000] loss-3.097-|Sample:1.53|
+EPOCH[492/1000] loss-3.102-|Sample:1.51|
+EPOCH[493/1000] loss-3.099-|Sample:1.55|
+EPOCH[494/1000] loss-3.102-|Sample:1.55|
+EPOCH[495/1000] loss-3.098-|Sample:1.49|
+EPOCH[496/1000] loss-3.100-|Sample:1.54|
+EPOCH[497/1000] loss-3.102-|Sample:1.55|
+EPOCH[498/1000] loss-3.100-|Sample:0.98|
+EPOCH[499/1000] loss-3.100-|Sample:1.46|
+EPOCH[500/1000] loss-3.098-|Sample:1.53|
+[TEST]
+{'precision': array([0.01970037]), 'recall': array([0.16354713]), 'ndcg': array([0.09216982]), 'coverage': array([28.26579276]), 'Acoverage': array([780.67278402]), 'ILD': array([0.03934818]), 'F1': array([0.06343451])}
+reg_loss1: tensor(1.7801, device='cuda:0', grad_fn=<DivBackward0>) reg_loss2: tensor(13776.5605, device='cuda:0', grad_fn=<AddBackward0>) au_loss: tensor(-3.1042, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[501/1000] loss-3.101-|Sample:1.55|
+EPOCH[502/1000] loss-3.098-|Sample:1.52|
+EPOCH[503/1000] loss-3.098-|Sample:1.55|
+EPOCH[504/1000] loss-3.099-|Sample:1.53|
+EPOCH[505/1000] loss-3.098-|Sample:1.45|
+EPOCH[506/1000] loss-3.100-|Sample:1.52|
+EPOCH[507/1000] loss-3.099-|Sample:1.51|
+EPOCH[508/1000] loss-3.100-|Sample:0.98|
+EPOCH[509/1000] loss-3.098-|Sample:1.53|
+EPOCH[510/1000] loss-3.098-|Sample:1.53|
+[TEST]
+{'precision': array([0.01970662]), 'recall': array([0.16288518]), 'ndcg': array([0.09234303]), 'coverage': array([28.15068664]), 'Acoverage': array([782.2928839]), 'ILD': array([0.03924897]), 'F1': array([0.06325576])}
+reg_loss1: tensor(1.9664, device='cuda:0', grad_fn=<DivBackward0>) reg_loss2: tensor(13511.3154, device='cuda:0', grad_fn=<AddBackward0>) au_loss: tensor(-3.1022, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[511/1000] loss-3.101-|Sample:1.55|
+EPOCH[512/1000] loss-3.098-|Sample:1.54|
+EPOCH[513/1000] loss-3.102-|Sample:1.52|
+EPOCH[514/1000] loss-3.100-|Sample:1.48|
+EPOCH[515/1000] loss-3.100-|Sample:1.42|
+EPOCH[516/1000] loss-3.101-|Sample:1.56|
+EPOCH[517/1000] loss-3.101-|Sample:1.59|
+EPOCH[518/1000] loss-3.100-|Sample:0.97|
+EPOCH[519/1000] loss-3.101-|Sample:1.57|
+EPOCH[520/1000] loss-3.100-|Sample:1.58|
+[TEST]
+{'precision': array([0.01998127]), 'recall': array([0.16620211]), 'ndcg': array([0.0932899]), 'coverage': array([28.33333333]), 'Acoverage': array([784.65780275]), 'ILD': array([0.0392332]), 'F1': array([0.0634812])}
+reg_loss1: tensor(1.7302, device='cuda:0', grad_fn=<DivBackward0>) reg_loss2: tensor(13269.4404, device='cuda:0', grad_fn=<AddBackward0>) au_loss: tensor(-3.1319, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[521/1000] loss-3.103-|Sample:1.56|
+EPOCH[522/1000] loss-3.100-|Sample:1.60|
+EPOCH[523/1000] loss-3.102-|Sample:1.57|
+EPOCH[524/1000] loss-3.101-|Sample:1.55|
+EPOCH[525/1000] loss-3.099-|Sample:1.50|
+EPOCH[526/1000] loss-3.099-|Sample:1.56|
+EPOCH[527/1000] loss-3.101-|Sample:1.55|
+EPOCH[528/1000] loss-3.101-|Sample:1.03|
+EPOCH[529/1000] loss-3.101-|Sample:1.56|
+EPOCH[530/1000] loss-3.098-|Sample:1.54|
+[TEST]
+{'precision': array([0.01988764]), 'recall': array([0.16501837]), 'ndcg': array([0.0929619]), 'coverage': array([28.47265918]), 'Acoverage': array([787.49113608]), 'ILD': array([0.03927393]), 'F1': array([0.06344753])}
+reg_loss1: tensor(1.7797, device='cuda:0', grad_fn=<DivBackward0>) reg_loss2: tensor(13041.7100, device='cuda:0', grad_fn=<AddBackward0>) au_loss: tensor(-3.1685, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[531/1000] loss-3.103-|Sample:1.57|
+EPOCH[532/1000] loss-3.100-|Sample:1.55|
+EPOCH[533/1000] loss-3.100-|Sample:1.55|
+EPOCH[534/1000] loss-3.099-|Sample:1.56|
+EPOCH[535/1000] loss-3.103-|Sample:1.37|
+EPOCH[536/1000] loss-3.100-|Sample:1.55|
+EPOCH[537/1000] loss-3.098-|Sample:1.56|
+EPOCH[538/1000] loss-3.099-|Sample:0.97|
+EPOCH[539/1000] loss-3.103-|Sample:1.55|
+EPOCH[540/1000] loss-3.103-|Sample:1.54|
+[TEST]
+{'precision': array([0.0198377]), 'recall': array([0.16463153]), 'ndcg': array([0.0926688]), 'coverage': array([28.37191011]), 'Acoverage': array([786.29350811]), 'ILD': array([0.03923451]), 'F1': array([0.06336747])}
+reg_loss1: tensor(1.7126, device='cuda:0', grad_fn=<DivBackward0>) reg_loss2: tensor(12829.8467, device='cuda:0', grad_fn=<AddBackward0>) au_loss: tensor(-3.1589, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[541/1000] loss-3.103-|Sample:1.57|
+EPOCH[542/1000] loss-3.101-|Sample:1.66|
+EPOCH[543/1000] loss-3.100-|Sample:1.54|
+EPOCH[544/1000] loss-3.102-|Sample:1.53|
+EPOCH[545/1000] loss-3.100-|Sample:1.37|
+EPOCH[546/1000] loss-3.101-|Sample:1.55|
+EPOCH[547/1000] loss-3.101-|Sample:1.58|
+EPOCH[548/1000] loss-3.102-|Sample:0.97|
+EPOCH[549/1000] loss-3.100-|Sample:1.55|
+EPOCH[550/1000] loss-3.102-|Sample:1.55|
+[TEST]
+{'precision': array([0.01993758]), 'recall': array([0.16442474]), 'ndcg': array([0.09313009]), 'coverage': array([28.38801498]), 'Acoverage': array([787.97203496]), 'ILD': array([0.03929365]), 'F1': array([0.0634292])}
+reg_loss1: tensor(1.7205, device='cuda:0', grad_fn=<DivBackward0>) reg_loss2: tensor(12623.9443, device='cuda:0', grad_fn=<AddBackward0>) au_loss: tensor(-3.1043, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[551/1000] loss-3.099-|Sample:1.54|
+EPOCH[552/1000] loss-3.100-|Sample:1.55|
+EPOCH[553/1000] loss-3.100-|Sample:1.56|
+EPOCH[554/1000] loss-3.101-|Sample:1.54|
+EPOCH[555/1000] loss-3.102-|Sample:1.48|
+EPOCH[556/1000] loss-3.103-|Sample:1.51|
+EPOCH[557/1000] loss-3.102-|Sample:1.56|
+EPOCH[558/1000] loss-3.102-|Sample:0.97|
+EPOCH[559/1000] loss-3.098-|Sample:1.56|
+EPOCH[560/1000] loss-3.103-|Sample:1.51|
+[TEST]
+{'precision': array([0.01987516]), 'recall': array([0.16484352]), 'ndcg': array([0.09364166]), 'coverage': array([28.38277154]), 'Acoverage': array([789.88826467]), 'ILD': array([0.03939878]), 'F1': array([0.06359734])}
+reg_loss1: tensor(1.7892, device='cuda:0', grad_fn=<DivBackward0>) reg_loss2: tensor(12433.0127, device='cuda:0', grad_fn=<AddBackward0>) au_loss: tensor(-3.1380, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[561/1000] loss-3.101-|Sample:1.54|
+EPOCH[562/1000] loss-3.102-|Sample:1.56|
+EPOCH[563/1000] loss-3.101-|Sample:1.55|
+EPOCH[564/1000] loss-3.102-|Sample:1.56|
+EPOCH[565/1000] loss-3.102-|Sample:1.51|
+EPOCH[566/1000] loss-3.101-|Sample:1.53|
+EPOCH[567/1000] loss-3.102-|Sample:1.52|
+EPOCH[568/1000] loss-3.102-|Sample:0.97|
+EPOCH[569/1000] loss-3.103-|Sample:1.53|
+EPOCH[570/1000] loss-3.101-|Sample:1.62|
+[TEST]
+{'precision': array([0.01996255]), 'recall': array([0.16598941]), 'ndcg': array([0.09401396]), 'coverage': array([28.44581773]), 'Acoverage': array([788.35418227]), 'ILD': array([0.03941455]), 'F1': array([0.06370274])}
+reg_loss1: tensor(1.5640, device='cuda:0', grad_fn=<DivBackward0>) reg_loss2: tensor(12251.1543, device='cuda:0', grad_fn=<AddBackward0>) au_loss: tensor(-3.1251, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[571/1000] loss-3.102-|Sample:1.56|
+EPOCH[572/1000] loss-3.101-|Sample:1.64|
+EPOCH[573/1000] loss-3.104-|Sample:1.55|
+EPOCH[574/1000] loss-3.103-|Sample:1.54|
+EPOCH[575/1000] loss-3.103-|Sample:1.55|
+EPOCH[576/1000] loss-3.099-|Sample:1.55|
+EPOCH[577/1000] loss-3.103-|Sample:1.56|
+EPOCH[578/1000] loss-3.102-|Sample:0.97|
+EPOCH[579/1000] loss-3.101-|Sample:1.54|
+EPOCH[580/1000] loss-3.101-|Sample:1.53|
+[TEST]
+{'precision': array([0.01980025]), 'recall': array([0.16472739]), 'ndcg': array([0.09335005]), 'coverage': array([28.44394507]), 'Acoverage': array([793.77191011]), 'ILD': array([0.03939418]), 'F1': array([0.0635827])}
+reg_loss1: tensor(1.6947, device='cuda:0', grad_fn=<DivBackward0>) reg_loss2: tensor(12080.7500, device='cuda:0', grad_fn=<AddBackward0>) au_loss: tensor(-3.0884, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[581/1000] loss-3.103-|Sample:1.56|
+EPOCH[582/1000] loss-3.103-|Sample:1.56|
+EPOCH[583/1000] loss-3.104-|Sample:1.62|
+EPOCH[584/1000] loss-3.101-|Sample:1.55|
+EPOCH[585/1000] loss-3.102-|Sample:1.45|
+EPOCH[586/1000] loss-3.100-|Sample:1.55|
+EPOCH[587/1000] loss-3.105-|Sample:1.53|
+EPOCH[588/1000] loss-3.103-|Sample:1.01|
+EPOCH[589/1000] loss-3.102-|Sample:1.52|
+EPOCH[590/1000] loss-3.101-|Sample:1.54|
+[TEST]
+{'precision': array([0.01987516]), 'recall': array([0.16499092]), 'ndcg': array([0.09334813]), 'coverage': array([28.58114856]), 'Acoverage': array([791.90661673]), 'ILD': array([0.0393081]), 'F1': array([0.06349007])}
+reg_loss1: tensor(1.6816, device='cuda:0', grad_fn=<DivBackward0>) reg_loss2: tensor(11923.7334, device='cuda:0', grad_fn=<AddBackward0>) au_loss: tensor(-3.1074, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[591/1000] loss-3.102-|Sample:1.54|
+EPOCH[592/1000] loss-3.104-|Sample:1.55|
+EPOCH[593/1000] loss-3.100-|Sample:1.53|
+EPOCH[594/1000] loss-3.103-|Sample:1.57|
+EPOCH[595/1000] loss-3.100-|Sample:1.48|
+EPOCH[596/1000] loss-3.106-|Sample:1.54|
+EPOCH[597/1000] loss-3.101-|Sample:1.54|
+EPOCH[598/1000] loss-3.102-|Sample:0.99|
+EPOCH[599/1000] loss-3.103-|Sample:1.53|
+EPOCH[600/1000] loss-3.102-|Sample:1.50|
+[TEST]
+{'precision': array([0.01968789]), 'recall': array([0.16376052]), 'ndcg': array([0.09328557]), 'coverage': array([28.50973783]), 'Acoverage': array([796.2309613]), 'ILD': array([0.03928445]), 'F1': array([0.06336765])}
+reg_loss1: tensor(1.6363, device='cuda:0', grad_fn=<DivBackward0>) reg_loss2: tensor(11771.7705, device='cuda:0', grad_fn=<AddBackward0>) au_loss: tensor(-3.1142, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[601/1000] loss-3.104-|Sample:1.55|
+EPOCH[602/1000] loss-3.104-|Sample:1.55|
+EPOCH[603/1000] loss-3.103-|Sample:1.53|
+EPOCH[604/1000] loss-3.102-|Sample:1.54|
+EPOCH[605/1000] loss-3.101-|Sample:1.48|
+EPOCH[606/1000] loss-3.102-|Sample:1.51|
+EPOCH[607/1000] loss-3.102-|Sample:1.55|
+EPOCH[608/1000] loss-3.105-|Sample:0.99|
+EPOCH[609/1000] loss-3.103-|Sample:1.47|
+EPOCH[610/1000] loss-3.100-|Sample:1.53|
+[TEST]
+{'precision': array([0.01980025]), 'recall': array([0.16520099]), 'ndcg': array([0.093647]), 'coverage': array([28.38002497]), 'Acoverage': array([795.77178527]), 'ILD': array([0.03921283]), 'F1': array([0.06338121])}
+reg_loss1: tensor(1.7135, device='cuda:0', grad_fn=<DivBackward0>) reg_loss2: tensor(11625.2080, device='cuda:0', grad_fn=<AddBackward0>) au_loss: tensor(-3.0721, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[611/1000] loss-3.101-|Sample:1.56|
+EPOCH[612/1000] loss-3.103-|Sample:1.53|
+EPOCH[613/1000] loss-3.105-|Sample:1.56|
+EPOCH[614/1000] loss-3.103-|Sample:1.56|
+EPOCH[615/1000] loss-3.102-|Sample:1.51|
+EPOCH[616/1000] loss-3.101-|Sample:1.47|
+EPOCH[617/1000] loss-3.103-|Sample:1.54|
+EPOCH[618/1000] loss-3.102-|Sample:0.97|
+EPOCH[619/1000] loss-3.101-|Sample:1.50|
+EPOCH[620/1000] loss-3.103-|Sample:1.55|
+[TEST]
+{'precision': array([0.0199563]), 'recall': array([0.16473439]), 'ndcg': array([0.09349101]), 'coverage': array([28.45730337]), 'Acoverage': array([798.66404494]), 'ILD': array([0.03923845]), 'F1': array([0.06338023])}
+reg_loss1: tensor(1.5932, device='cuda:0', grad_fn=<DivBackward0>) reg_loss2: tensor(11490.1631, device='cuda:0', grad_fn=<AddBackward0>) au_loss: tensor(-3.1011, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[621/1000] loss-3.104-|Sample:1.58|
+EPOCH[622/1000] loss-3.101-|Sample:1.49|
+EPOCH[623/1000] loss-3.103-|Sample:1.56|
+EPOCH[624/1000] loss-3.102-|Sample:1.80|
+EPOCH[625/1000] loss-3.103-|Sample:1.38|
+EPOCH[626/1000] loss-3.101-|Sample:1.55|
+EPOCH[627/1000] loss-3.103-|Sample:1.56|
+EPOCH[628/1000] loss-3.103-|Sample:0.99|
+EPOCH[629/1000] loss-3.103-|Sample:1.55|
+EPOCH[630/1000] loss-3.103-|Sample:1.57|
+[TEST]
+{'precision': array([0.02]), 'recall': array([0.16582824]), 'ndcg': array([0.09436925]), 'coverage': array([28.48826467]), 'Acoverage': array([795.2948814]), 'ILD': array([0.03934884]), 'F1': array([0.06360505])}
+reg_loss1: tensor(1.6360, device='cuda:0', grad_fn=<DivBackward0>) reg_loss2: tensor(11366.4854, device='cuda:0', grad_fn=<AddBackward0>) au_loss: tensor(-3.1503, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[631/1000] loss-3.105-|Sample:1.64|
+EPOCH[632/1000] loss-3.103-|Sample:1.56|
+EPOCH[633/1000] loss-3.101-|Sample:1.37|
+EPOCH[634/1000] loss-3.101-|Sample:1.56|
+EPOCH[635/1000] loss-3.105-|Sample:1.37|
+EPOCH[636/1000] loss-3.102-|Sample:1.56|
+EPOCH[637/1000] loss-3.103-|Sample:1.56|
+EPOCH[638/1000] loss-3.102-|Sample:0.97|
+EPOCH[639/1000] loss-3.105-|Sample:1.56|
+EPOCH[640/1000] loss-3.103-|Sample:1.55|
+[TEST]
+{'precision': array([0.0199563]), 'recall': array([0.16515593]), 'ndcg': array([0.09414797]), 'coverage': array([28.50774032]), 'Acoverage': array([799.00249688]), 'ILD': array([0.03927328]), 'F1': array([0.06345683])}
+reg_loss1: tensor(1.4807, device='cuda:0', grad_fn=<DivBackward0>) reg_loss2: tensor(11247.6172, device='cuda:0', grad_fn=<AddBackward0>) au_loss: tensor(-3.1357, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[641/1000] loss-3.103-|Sample:1.65|
+EPOCH[642/1000] loss-3.104-|Sample:1.58|
+EPOCH[643/1000] loss-3.103-|Sample:1.58|
+EPOCH[644/1000] loss-3.104-|Sample:1.55|
+EPOCH[645/1000] loss-3.104-|Sample:1.42|
+EPOCH[646/1000] loss-3.103-|Sample:1.56|
+EPOCH[647/1000] loss-3.102-|Sample:1.63|
+EPOCH[648/1000] loss-3.105-|Sample:1.04|
+EPOCH[649/1000] loss-3.103-|Sample:1.60|
+EPOCH[650/1000] loss-3.101-|Sample:1.56|
+[TEST]
+{'precision': array([0.01981898]), 'recall': array([0.16343323]), 'ndcg': array([0.0933597]), 'coverage': array([28.62047441]), 'Acoverage': array([801.10574282]), 'ILD': array([0.03931336]), 'F1': array([0.06338069])}
+reg_loss1: tensor(1.5942, device='cuda:0', grad_fn=<DivBackward0>) reg_loss2: tensor(11133.7119, device='cuda:0', grad_fn=<AddBackward0>) au_loss: tensor(-3.1092, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[651/1000] loss-3.104-|Sample:1.57|
+EPOCH[652/1000] loss-3.105-|Sample:1.57|
+EPOCH[653/1000] loss-3.101-|Sample:1.57|
+EPOCH[654/1000] loss-3.104-|Sample:1.57|
+EPOCH[655/1000] loss-3.105-|Sample:1.42|
+EPOCH[656/1000] loss-3.106-|Sample:1.59|
+EPOCH[657/1000] loss-3.104-|Sample:1.55|
+EPOCH[658/1000] loss-3.104-|Sample:0.97|
+EPOCH[659/1000] loss-3.101-|Sample:1.60|
+EPOCH[660/1000] loss-3.103-|Sample:1.57|
+[TEST]
+{'precision': array([0.01980025]), 'recall': array([0.1638014]), 'ndcg': array([0.09365357]), 'coverage': array([28.74993758]), 'Acoverage': array([802.94069913]), 'ILD': array([0.03938826]), 'F1': array([0.06350572])}
+reg_loss1: tensor(1.5032, device='cuda:0', grad_fn=<DivBackward0>) reg_loss2: tensor(11029.8887, device='cuda:0', grad_fn=<AddBackward0>) au_loss: tensor(-3.1181, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[661/1000] loss-3.105-|Sample:1.55|
+EPOCH[662/1000] loss-3.106-|Sample:1.56|
+EPOCH[663/1000] loss-3.103-|Sample:1.56|
+EPOCH[664/1000] loss-3.104-|Sample:1.59|
+EPOCH[665/1000] loss-3.105-|Sample:1.41|
+EPOCH[666/1000] loss-3.104-|Sample:1.56|
+EPOCH[667/1000] loss-3.103-|Sample:1.58|
+EPOCH[668/1000] loss-3.104-|Sample:1.01|
+EPOCH[669/1000] loss-3.104-|Sample:1.52|
+EPOCH[670/1000] loss-3.103-|Sample:1.55|
+[TEST]
+{'precision': array([0.01990637]), 'recall': array([0.16486205]), 'ndcg': array([0.09378657]), 'coverage': array([28.7505618]), 'Acoverage': array([802.13283396]), 'ILD': array([0.03940469]), 'F1': array([0.06360642])}
+reg_loss1: tensor(1.4792, device='cuda:0', grad_fn=<DivBackward0>) reg_loss2: tensor(10932.1797, device='cuda:0', grad_fn=<AddBackward0>) au_loss: tensor(-3.0955, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[671/1000] loss-3.101-|Sample:1.55|
+EPOCH[672/1000] loss-3.103-|Sample:1.61|
+EPOCH[673/1000] loss-3.103-|Sample:1.58|
+EPOCH[674/1000] loss-3.103-|Sample:1.58|
+EPOCH[675/1000] loss-3.103-|Sample:1.45|
+EPOCH[676/1000] loss-3.103-|Sample:1.55|
+EPOCH[677/1000] loss-3.105-|Sample:1.57|
+EPOCH[678/1000] loss-3.103-|Sample:0.98|
+EPOCH[679/1000] loss-3.102-|Sample:1.55|
+EPOCH[680/1000] loss-3.104-|Sample:1.58|
+[TEST]
+{'precision': array([0.01978152]), 'recall': array([0.16355495]), 'ndcg': array([0.09322755]), 'coverage': array([28.73945069]), 'Acoverage': array([803.3031211]), 'ILD': array([0.03938564]), 'F1': array([0.06348376])}
+reg_loss1: tensor(1.5432, device='cuda:0', grad_fn=<DivBackward0>) reg_loss2: tensor(10839.1006, device='cuda:0', grad_fn=<AddBackward0>) au_loss: tensor(-3.1402, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[681/1000] loss-3.105-|Sample:1.60|
+EPOCH[682/1000] loss-3.105-|Sample:1.59|
+EPOCH[683/1000] loss-3.104-|Sample:1.62|
+EPOCH[684/1000] loss-3.104-|Sample:1.67|
+EPOCH[685/1000] loss-3.105-|Sample:1.48|
+EPOCH[686/1000] loss-3.104-|Sample:1.66|
+EPOCH[687/1000] loss-3.106-|Sample:1.59|
+EPOCH[688/1000] loss-3.105-|Sample:1.06|
+EPOCH[689/1000] loss-3.105-|Sample:1.62|
+EPOCH[690/1000] loss-3.104-|Sample:1.59|
+[TEST]
+{'precision': array([0.01996879]), 'recall': array([0.1661816]), 'ndcg': array([0.09412566]), 'coverage': array([28.48089888]), 'Acoverage': array([800.63982522]), 'ILD': array([0.0391688]), 'F1': array([0.06339539])}
+reg_loss1: tensor(1.5115, device='cuda:0', grad_fn=<DivBackward0>) reg_loss2: tensor(10752.5381, device='cuda:0', grad_fn=<AddBackward0>) au_loss: tensor(-3.0908, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[691/1000] loss-3.102-|Sample:1.67|
+EPOCH[692/1000] loss-3.106-|Sample:1.60|
+EPOCH[693/1000] loss-3.105-|Sample:1.66|
+EPOCH[694/1000] loss-3.106-|Sample:1.61|
+EPOCH[695/1000] loss-3.102-|Sample:1.64|
+EPOCH[696/1000] loss-3.105-|Sample:1.60|
+EPOCH[697/1000] loss-3.104-|Sample:1.63|
+EPOCH[698/1000] loss-3.106-|Sample:1.09|
+EPOCH[699/1000] loss-3.104-|Sample:1.60|
+EPOCH[700/1000] loss-3.105-|Sample:1.62|
+[TEST]
+{'precision': array([0.0200437]), 'recall': array([0.16587794]), 'ndcg': array([0.09459515]), 'coverage': array([28.61235955]), 'Acoverage': array([802.29138577]), 'ILD': array([0.03930482]), 'F1': array([0.06355117])}
+reg_loss1: tensor(1.4730, device='cuda:0', grad_fn=<DivBackward0>) reg_loss2: tensor(10672.1436, device='cuda:0', grad_fn=<AddBackward0>) au_loss: tensor(-3.1604, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[701/1000] loss-3.106-|Sample:1.57|
+EPOCH[702/1000] loss-3.103-|Sample:1.72|
+EPOCH[703/1000] loss-3.105-|Sample:1.64|
+EPOCH[704/1000] loss-3.103-|Sample:1.64|
+EPOCH[705/1000] loss-3.103-|Sample:1.49|
+EPOCH[706/1000] loss-3.104-|Sample:1.60|
+EPOCH[707/1000] loss-3.106-|Sample:1.58|
+EPOCH[708/1000] loss-3.106-|Sample:1.00|
+EPOCH[709/1000] loss-3.106-|Sample:1.61|
+EPOCH[710/1000] loss-3.105-|Sample:1.60|
+[TEST]
+{'precision': array([0.01984395]), 'recall': array([0.16314605]), 'ndcg': array([0.09384406]), 'coverage': array([28.65268414]), 'Acoverage': array([802.51735331]), 'ILD': array([0.03928313]), 'F1': array([0.0633198])}
+reg_loss1: tensor(1.4102, device='cuda:0', grad_fn=<DivBackward0>) reg_loss2: tensor(10596.3340, device='cuda:0', grad_fn=<AddBackward0>) au_loss: tensor(-3.1008, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[711/1000] loss-3.104-|Sample:1.61|
+EPOCH[712/1000] loss-3.104-|Sample:1.61|
+EPOCH[713/1000] loss-3.107-|Sample:1.56|
+EPOCH[714/1000] loss-3.103-|Sample:1.55|
+EPOCH[715/1000] loss-3.103-|Sample:1.47|
+EPOCH[716/1000] loss-3.106-|Sample:1.59|
+EPOCH[717/1000] loss-3.104-|Sample:1.58|
+EPOCH[718/1000] loss-3.106-|Sample:0.99|
+EPOCH[719/1000] loss-3.104-|Sample:1.57|
+EPOCH[720/1000] loss-3.104-|Sample:1.58|
+[TEST]
+{'precision': array([0.0198377]), 'recall': array([0.16328098]), 'ndcg': array([0.09370094]), 'coverage': array([28.66329588]), 'Acoverage': array([803.37877653]), 'ILD': array([0.03933438]), 'F1': array([0.06339654])}
+reg_loss1: tensor(1.3744, device='cuda:0', grad_fn=<DivBackward0>) reg_loss2: tensor(10524.1455, device='cuda:0', grad_fn=<AddBackward0>) au_loss: tensor(-3.1368, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[721/1000] loss-3.104-|Sample:1.59|
+EPOCH[722/1000] loss-3.106-|Sample:1.56|
+EPOCH[723/1000] loss-3.105-|Sample:1.57|
+EPOCH[724/1000] loss-3.106-|Sample:1.55|
+EPOCH[725/1000] loss-3.104-|Sample:1.39|
+EPOCH[726/1000] loss-3.106-|Sample:1.54|
+EPOCH[727/1000] loss-3.103-|Sample:1.56|
+EPOCH[728/1000] loss-3.105-|Sample:0.98|
+EPOCH[729/1000] loss-3.105-|Sample:1.56|
+EPOCH[730/1000] loss-3.104-|Sample:1.62|
+[TEST]
+{'precision': array([0.02008115]), 'recall': array([0.16498819]), 'ndcg': array([0.09483608]), 'coverage': array([28.56054931]), 'Acoverage': array([804.16466916]), 'ILD': array([0.03926408]), 'F1': array([0.06343243])}
+reg_loss1: tensor(1.4439, device='cuda:0', grad_fn=<DivBackward0>) reg_loss2: tensor(10453.5947, device='cuda:0', grad_fn=<AddBackward0>) au_loss: tensor(-3.1103, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[731/1000] loss-3.104-|Sample:1.56|
+EPOCH[732/1000] loss-3.104-|Sample:1.52|
+EPOCH[733/1000] loss-3.104-|Sample:1.51|
+EPOCH[734/1000] loss-3.104-|Sample:1.56|
+EPOCH[735/1000] loss-3.104-|Sample:1.54|
+EPOCH[736/1000] loss-3.104-|Sample:1.56|
+EPOCH[737/1000] loss-3.104-|Sample:1.54|
+EPOCH[738/1000] loss-3.104-|Sample:0.98|
+EPOCH[739/1000] loss-3.106-|Sample:1.47|
+EPOCH[740/1000] loss-3.105-|Sample:1.52|
+[TEST]
+{'precision': array([0.01997503]), 'recall': array([0.16492415]), 'ndcg': array([0.09432207]), 'coverage': array([28.70586767]), 'Acoverage': array([804.88164794]), 'ILD': array([0.03926342]), 'F1': array([0.06342684])}
+reg_loss1: tensor(1.4309, device='cuda:0', grad_fn=<DivBackward0>) reg_loss2: tensor(10388.5781, device='cuda:0', grad_fn=<AddBackward0>) au_loss: tensor(-3.1204, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[741/1000] loss-3.106-|Sample:1.57|
+EPOCH[742/1000] loss-3.105-|Sample:1.53|
+EPOCH[743/1000] loss-3.106-|Sample:1.60|
+EPOCH[744/1000] loss-3.107-|Sample:1.56|
+EPOCH[745/1000] loss-3.107-|Sample:1.37|
+EPOCH[746/1000] loss-3.103-|Sample:1.55|
+EPOCH[747/1000] loss-3.105-|Sample:1.55|
+EPOCH[748/1000] loss-3.105-|Sample:0.97|
+EPOCH[749/1000] loss-3.105-|Sample:1.56|
+EPOCH[750/1000] loss-3.105-|Sample:1.53|
+[TEST]
+{'precision': array([0.01991261]), 'recall': array([0.16378243]), 'ndcg': array([0.09436539]), 'coverage': array([28.81598002]), 'Acoverage': array([807.02372035]), 'ILD': array([0.03932059]), 'F1': array([0.0634163])}
+reg_loss1: tensor(1.4039, device='cuda:0', grad_fn=<DivBackward0>) reg_loss2: tensor(10324.2617, device='cuda:0', grad_fn=<AddBackward0>) au_loss: tensor(-3.1151, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[751/1000] loss-3.105-|Sample:1.58|
+EPOCH[752/1000] loss-3.106-|Sample:1.50|
+EPOCH[753/1000] loss-3.104-|Sample:1.61|
+EPOCH[754/1000] loss-3.104-|Sample:1.52|
+EPOCH[755/1000] loss-3.105-|Sample:1.41|
+EPOCH[756/1000] loss-3.106-|Sample:1.54|
+EPOCH[757/1000] loss-3.106-|Sample:1.56|
+EPOCH[758/1000] loss-3.104-|Sample:0.97|
+EPOCH[759/1000] loss-3.106-|Sample:1.54|
+EPOCH[760/1000] loss-3.106-|Sample:1.55|
+[TEST]
+{'precision': array([0.01988764]), 'recall': array([0.16397633]), 'ndcg': array([0.09447019]), 'coverage': array([28.71697878]), 'Acoverage': array([807.50212235]), 'ILD': array([0.03929627]), 'F1': array([0.06339919])}
+reg_loss1: tensor(1.4379, device='cuda:0', grad_fn=<DivBackward0>) reg_loss2: tensor(10265.4658, device='cuda:0', grad_fn=<AddBackward0>) au_loss: tensor(-3.0966, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[761/1000] loss-3.104-|Sample:1.55|
+EPOCH[762/1000] loss-3.105-|Sample:1.55|
+EPOCH[763/1000] loss-3.106-|Sample:1.55|
+EPOCH[764/1000] loss-3.106-|Sample:1.56|
+EPOCH[765/1000] loss-3.105-|Sample:1.37|
+EPOCH[766/1000] loss-3.104-|Sample:1.56|
+EPOCH[767/1000] loss-3.108-|Sample:1.56|
+EPOCH[768/1000] loss-3.106-|Sample:1.00|
+EPOCH[769/1000] loss-3.105-|Sample:1.55|
+EPOCH[770/1000] loss-3.105-|Sample:1.55|
+[TEST]
+{'precision': array([0.01986891]), 'recall': array([0.16385376]), 'ndcg': array([0.09467087]), 'coverage': array([28.80299625]), 'Acoverage': array([809.91435705]), 'ILD': array([0.03933307]), 'F1': array([0.06343789])}
+reg_loss1: tensor(1.3245, device='cuda:0', grad_fn=<DivBackward0>) reg_loss2: tensor(10211.0059, device='cuda:0', grad_fn=<AddBackward0>) au_loss: tensor(-3.1090, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[771/1000] loss-3.104-|Sample:1.56|
+EPOCH[772/1000] loss-3.104-|Sample:1.51|
+EPOCH[773/1000] loss-3.104-|Sample:1.57|
+EPOCH[774/1000] loss-3.104-|Sample:1.54|
+EPOCH[775/1000] loss-3.105-|Sample:1.52|
+EPOCH[776/1000] loss-3.104-|Sample:1.56|
+EPOCH[777/1000] loss-3.105-|Sample:1.56|
+EPOCH[778/1000] loss-3.104-|Sample:0.97|
+EPOCH[779/1000] loss-3.105-|Sample:1.57|
+EPOCH[780/1000] loss-3.105-|Sample:1.56|
+[TEST]
+{'precision': array([0.02006242]), 'recall': array([0.16573727]), 'ndcg': array([0.09478752]), 'coverage': array([28.64706617]), 'Acoverage': array([810.89263421]), 'ILD': array([0.03925094]), 'F1': array([0.06347041])}
+reg_loss1: tensor(1.3864, device='cuda:0', grad_fn=<DivBackward0>) reg_loss2: tensor(10160.5273, device='cuda:0', grad_fn=<AddBackward0>) au_loss: tensor(-3.0906, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[781/1000] loss-3.105-|Sample:1.54|
+EPOCH[782/1000] loss-3.107-|Sample:1.64|
+EPOCH[783/1000] loss-3.104-|Sample:1.49|
+EPOCH[784/1000] loss-3.106-|Sample:1.55|
+EPOCH[785/1000] loss-3.106-|Sample:1.48|
+EPOCH[786/1000] loss-3.107-|Sample:1.52|
+EPOCH[787/1000] loss-3.106-|Sample:1.55|
+EPOCH[788/1000] loss-3.105-|Sample:1.00|
+EPOCH[789/1000] loss-3.105-|Sample:1.51|
+EPOCH[790/1000] loss-3.102-|Sample:1.54|
+[TEST]
+{'precision': array([0.0200437]), 'recall': array([0.16545131]), 'ndcg': array([0.0944889]), 'coverage': array([28.77228464]), 'Acoverage': array([810.79438202]), 'ILD': array([0.03907484]), 'F1': array([0.06321914])}
+reg_loss1: tensor(1.4420, device='cuda:0', grad_fn=<DivBackward0>) reg_loss2: tensor(10111.7686, device='cuda:0', grad_fn=<AddBackward0>) au_loss: tensor(-3.0858, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[791/1000] loss-3.104-|Sample:1.58|
+EPOCH[792/1000] loss-3.105-|Sample:1.60|
+EPOCH[793/1000] loss-3.102-|Sample:1.59|
+EPOCH[794/1000] loss-3.102-|Sample:1.59|
+EPOCH[795/1000] loss-3.106-|Sample:1.52|
+EPOCH[796/1000] loss-3.105-|Sample:1.58|
+EPOCH[797/1000] loss-3.105-|Sample:1.58|
+EPOCH[798/1000] loss-3.106-|Sample:0.98|
+EPOCH[799/1000] loss-3.107-|Sample:1.58|
+EPOCH[800/1000] loss-3.105-|Sample:1.64|
+[TEST]
+{'precision': array([0.02021223]), 'recall': array([0.16661842]), 'ndcg': array([0.09521606]), 'coverage': array([28.77865169]), 'Acoverage': array([809.57902622]), 'ILD': array([0.03926605]), 'F1': array([0.06355455])}
+reg_loss1: tensor(1.3847, device='cuda:0', grad_fn=<DivBackward0>) reg_loss2: tensor(10068.1143, device='cuda:0', grad_fn=<AddBackward0>) au_loss: tensor(-3.0965, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[801/1000] loss-3.105-|Sample:1.58|
+EPOCH[802/1000] loss-3.107-|Sample:1.59|
+EPOCH[803/1000] loss-3.104-|Sample:1.60|
+EPOCH[804/1000] loss-3.108-|Sample:1.67|
+EPOCH[805/1000] loss-3.105-|Sample:1.61|
+EPOCH[806/1000] loss-3.106-|Sample:1.58|
+EPOCH[807/1000] loss-3.104-|Sample:1.64|
+EPOCH[808/1000] loss-3.105-|Sample:0.99|
+EPOCH[809/1000] loss-3.107-|Sample:1.61|
+EPOCH[810/1000] loss-3.105-|Sample:1.57|
+[TEST]
+{'precision': array([0.02003121]), 'recall': array([0.1647945]), 'ndcg': array([0.09504446]), 'coverage': array([28.78302122]), 'Acoverage': array([812.70262172]), 'ILD': array([0.03914909]), 'F1': array([0.06326803])}
+reg_loss1: tensor(1.3266, device='cuda:0', grad_fn=<DivBackward0>) reg_loss2: tensor(10023.9814, device='cuda:0', grad_fn=<AddBackward0>) au_loss: tensor(-3.1176, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[811/1000] loss-3.106-|Sample:1.59|
+EPOCH[812/1000] loss-3.104-|Sample:1.64|
+EPOCH[813/1000] loss-3.105-|Sample:1.56|
+EPOCH[814/1000] loss-3.106-|Sample:1.57|
+EPOCH[815/1000] loss-3.105-|Sample:1.46|
+EPOCH[816/1000] loss-3.105-|Sample:1.70|
+EPOCH[817/1000] loss-3.105-|Sample:1.66|
+EPOCH[818/1000] loss-3.107-|Sample:1.01|
+EPOCH[819/1000] loss-3.104-|Sample:1.61|
+EPOCH[820/1000] loss-3.106-|Sample:1.59|
+[TEST]
+{'precision': array([0.02001248]), 'recall': array([0.16534597]), 'ndcg': array([0.09490011]), 'coverage': array([28.92971286]), 'Acoverage': array([815.70686642]), 'ILD': array([0.03927656]), 'F1': array([0.06347513])}
+reg_loss1: tensor(1.3700, device='cuda:0', grad_fn=<DivBackward0>) reg_loss2: tensor(9983.0908, device='cuda:0', grad_fn=<AddBackward0>) au_loss: tensor(-3.1228, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[821/1000] loss-3.105-|Sample:1.63|
+EPOCH[822/1000] loss-3.106-|Sample:1.66|
+EPOCH[823/1000] loss-3.105-|Sample:1.66|
+EPOCH[824/1000] loss-3.105-|Sample:1.59|
+EPOCH[825/1000] loss-3.106-|Sample:1.52|
+EPOCH[826/1000] loss-3.107-|Sample:1.60|
+EPOCH[827/1000] loss-3.107-|Sample:1.59|
+EPOCH[828/1000] loss-3.108-|Sample:1.00|
+EPOCH[829/1000] loss-3.106-|Sample:1.64|
+EPOCH[830/1000] loss-3.105-|Sample:1.64|
+[TEST]
+{'precision': array([0.02006866]), 'recall': array([0.16573695]), 'ndcg': array([0.0945502]), 'coverage': array([28.96541823]), 'Acoverage': array([813.19925094]), 'ILD': array([0.03911624]), 'F1': array([0.06329416])}
+reg_loss1: tensor(1.3078, device='cuda:0', grad_fn=<DivBackward0>) reg_loss2: tensor(9944.0977, device='cuda:0', grad_fn=<AddBackward0>) au_loss: tensor(-3.0970, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[831/1000] loss-3.105-|Sample:1.75|
+EPOCH[832/1000] loss-3.107-|Sample:1.62|
+EPOCH[833/1000] loss-3.105-|Sample:1.60|
+EPOCH[834/1000] loss-3.104-|Sample:1.70|
+EPOCH[835/1000] loss-3.106-|Sample:1.59|
+EPOCH[836/1000] loss-3.103-|Sample:1.63|
+EPOCH[837/1000] loss-3.106-|Sample:1.61|
+EPOCH[838/1000] loss-3.104-|Sample:1.01|
+EPOCH[839/1000] loss-3.104-|Sample:1.59|
+EPOCH[840/1000] loss-3.105-|Sample:1.63|
+[TEST]
+{'precision': array([0.02014357]), 'recall': array([0.16593613]), 'ndcg': array([0.09506467]), 'coverage': array([28.97028714]), 'Acoverage': array([815.59962547]), 'ILD': array([0.03924042]), 'F1': array([0.06347123])}
+reg_loss1: tensor(1.2812, device='cuda:0', grad_fn=<DivBackward0>) reg_loss2: tensor(9905.6592, device='cuda:0', grad_fn=<AddBackward0>) au_loss: tensor(-3.0899, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[841/1000] loss-3.104-|Sample:1.64|
+EPOCH[842/1000] loss-3.107-|Sample:1.55|
+EPOCH[843/1000] loss-3.105-|Sample:1.69|
+EPOCH[844/1000] loss-3.105-|Sample:1.69|
+EPOCH[845/1000] loss-3.109-|Sample:1.52|
+EPOCH[846/1000] loss-3.104-|Sample:1.67|
+EPOCH[847/1000] loss-3.107-|Sample:1.73|
+EPOCH[848/1000] loss-3.106-|Sample:1.01|
+EPOCH[849/1000] loss-3.105-|Sample:1.60|
+EPOCH[850/1000] loss-3.105-|Sample:1.62|
+[TEST]
+{'precision': array([0.02029338]), 'recall': array([0.16726102]), 'ndcg': array([0.09605087]), 'coverage': array([28.93158552]), 'Acoverage': array([813.31672909]), 'ILD': array([0.03940338]), 'F1': array([0.06378118])}
+reg_loss1: tensor(1.3113, device='cuda:0', grad_fn=<DivBackward0>) reg_loss2: tensor(9870.8213, device='cuda:0', grad_fn=<AddBackward0>) au_loss: tensor(-3.1050, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[851/1000] loss-3.106-|Sample:1.60|
+EPOCH[852/1000] loss-3.105-|Sample:1.61|
+EPOCH[853/1000] loss-3.104-|Sample:1.62|
+EPOCH[854/1000] loss-3.107-|Sample:1.64|
+EPOCH[855/1000] loss-3.107-|Sample:1.73|
+EPOCH[856/1000] loss-3.105-|Sample:1.63|
+EPOCH[857/1000] loss-3.106-|Sample:1.62|
+EPOCH[858/1000] loss-3.105-|Sample:1.07|
+EPOCH[859/1000] loss-3.105-|Sample:1.60|
+EPOCH[860/1000] loss-3.105-|Sample:1.69|
+[TEST]
+{'precision': array([0.02]), 'recall': array([0.16524625]), 'ndcg': array([0.09498447]), 'coverage': array([29.05405743]), 'Acoverage': array([819.10012484]), 'ILD': array([0.03937447]), 'F1': array([0.06359554])}
+reg_loss1: tensor(1.3294, device='cuda:0', grad_fn=<DivBackward0>) reg_loss2: tensor(9841.3096, device='cuda:0', grad_fn=<AddBackward0>) au_loss: tensor(-3.0805, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[861/1000] loss-3.105-|Sample:1.66|
+EPOCH[862/1000] loss-3.106-|Sample:1.63|
+EPOCH[863/1000] loss-3.105-|Sample:1.63|
+EPOCH[864/1000] loss-3.105-|Sample:1.60|
+EPOCH[865/1000] loss-3.105-|Sample:1.53|
+EPOCH[866/1000] loss-3.106-|Sample:1.59|
+EPOCH[867/1000] loss-3.108-|Sample:1.65|
+EPOCH[868/1000] loss-3.105-|Sample:1.05|
+EPOCH[869/1000] loss-3.107-|Sample:1.71|
+EPOCH[870/1000] loss-3.105-|Sample:1.70|
+[TEST]
+{'precision': array([0.0199563]), 'recall': array([0.16348771]), 'ndcg': array([0.0951655]), 'coverage': array([28.96604245]), 'Acoverage': array([818.14794007]), 'ILD': array([0.03920757]), 'F1': array([0.06324721])}
+reg_loss1: tensor(1.2726, device='cuda:0', grad_fn=<DivBackward0>) reg_loss2: tensor(9809.6094, device='cuda:0', grad_fn=<AddBackward0>) au_loss: tensor(-3.1212, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[871/1000] loss-3.105-|Sample:1.67|
+EPOCH[872/1000] loss-3.107-|Sample:1.60|
+EPOCH[873/1000] loss-3.105-|Sample:1.59|
+EPOCH[874/1000] loss-3.107-|Sample:1.61|
+EPOCH[875/1000] loss-3.106-|Sample:1.42|
+EPOCH[876/1000] loss-3.105-|Sample:1.58|
+EPOCH[877/1000] loss-3.106-|Sample:1.72|
+EPOCH[878/1000] loss-3.106-|Sample:1.00|
+EPOCH[879/1000] loss-3.104-|Sample:1.70|
+EPOCH[880/1000] loss-3.106-|Sample:1.63|
+[TEST]
+{'precision': array([0.01995006]), 'recall': array([0.1640677]), 'ndcg': array([0.09440734]), 'coverage': array([29.01660424]), 'Acoverage': array([820.24157303]), 'ILD': array([0.03922071]), 'F1': array([0.06330761])}
+reg_loss1: tensor(1.3412, device='cuda:0', grad_fn=<DivBackward0>) reg_loss2: tensor(9780.1221, device='cuda:0', grad_fn=<AddBackward0>) au_loss: tensor(-3.1221, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[881/1000] loss-3.106-|Sample:1.73|
+EPOCH[882/1000] loss-3.106-|Sample:1.61|
+EPOCH[883/1000] loss-3.106-|Sample:1.58|
+EPOCH[884/1000] loss-3.108-|Sample:1.60|
+EPOCH[885/1000] loss-3.106-|Sample:1.56|
+EPOCH[886/1000] loss-3.107-|Sample:1.67|
+EPOCH[887/1000] loss-3.105-|Sample:1.65|
+EPOCH[888/1000] loss-3.104-|Sample:1.13|
+EPOCH[889/1000] loss-3.106-|Sample:1.59|
+EPOCH[890/1000] loss-3.106-|Sample:1.63|
+[TEST]
+{'precision': array([0.01998127]), 'recall': array([0.16421488]), 'ndcg': array([0.09469826]), 'coverage': array([29.04344569]), 'Acoverage': array([818.49737828]), 'ILD': array([0.03914449]), 'F1': array([0.06321919])}
+reg_loss1: tensor(1.2998, device='cuda:0', grad_fn=<DivBackward0>) reg_loss2: tensor(9750.7188, device='cuda:0', grad_fn=<AddBackward0>) au_loss: tensor(-3.1331, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[891/1000] loss-3.107-|Sample:1.59|
+EPOCH[892/1000] loss-3.107-|Sample:1.58|
+EPOCH[893/1000] loss-3.107-|Sample:1.59|
+EPOCH[894/1000] loss-3.107-|Sample:1.59|
+EPOCH[895/1000] loss-3.103-|Sample:1.59|
+EPOCH[896/1000] loss-3.108-|Sample:1.61|
+EPOCH[897/1000] loss-3.109-|Sample:1.70|
+EPOCH[898/1000] loss-3.107-|Sample:1.00|
+EPOCH[899/1000] loss-3.108-|Sample:1.60|
+EPOCH[900/1000] loss-3.108-|Sample:1.68|
+[TEST]
+{'precision': array([0.01998127]), 'recall': array([0.16558291]), 'ndcg': array([0.09503941]), 'coverage': array([28.94357054]), 'Acoverage': array([821.51485643]), 'ILD': array([0.03928642]), 'F1': array([0.06350545])}
+reg_loss1: tensor(1.3137, device='cuda:0', grad_fn=<DivBackward0>) reg_loss2: tensor(9723.6016, device='cuda:0', grad_fn=<AddBackward0>) au_loss: tensor(-3.0857, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[901/1000] loss-3.105-|Sample:1.74|
+EPOCH[902/1000] loss-3.106-|Sample:1.46|
+EPOCH[903/1000] loss-3.107-|Sample:1.89|
+EPOCH[904/1000] loss-3.108-|Sample:1.60|
+EPOCH[905/1000] loss-3.103-|Sample:1.64|
+EPOCH[906/1000] loss-3.104-|Sample:1.62|
+EPOCH[907/1000] loss-3.107-|Sample:1.61|
+EPOCH[908/1000] loss-3.107-|Sample:0.98|
+EPOCH[909/1000] loss-3.107-|Sample:1.58|
+EPOCH[910/1000] loss-3.104-|Sample:1.64|
+[TEST]
+{'precision': array([0.01998127]), 'recall': array([0.16428643]), 'ndcg': array([0.09497681]), 'coverage': array([29.03745318]), 'Acoverage': array([822.93570537]), 'ILD': array([0.03920363]), 'F1': array([0.06330161])}
+reg_loss1: tensor(1.2522, device='cuda:0', grad_fn=<DivBackward0>) reg_loss2: tensor(9696.7822, device='cuda:0', grad_fn=<AddBackward0>) au_loss: tensor(-3.1086, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[911/1000] loss-3.107-|Sample:1.66|
+EPOCH[912/1000] loss-3.106-|Sample:1.70|
+EPOCH[913/1000] loss-3.107-|Sample:1.70|
+EPOCH[914/1000] loss-3.107-|Sample:1.61|
+EPOCH[915/1000] loss-3.109-|Sample:1.61|
+EPOCH[916/1000] loss-3.105-|Sample:1.59|
+EPOCH[917/1000] loss-3.105-|Sample:1.69|
+EPOCH[918/1000] loss-3.105-|Sample:1.03|
+EPOCH[919/1000] loss-3.105-|Sample:1.67|
+EPOCH[920/1000] loss-3.109-|Sample:1.65|
+[TEST]
+{'precision': array([0.02014981]), 'recall': array([0.16609176]), 'ndcg': array([0.09535063]), 'coverage': array([29.06379526]), 'Acoverage': array([822.92559301]), 'ILD': array([0.03937972]), 'F1': array([0.06366477])}
+reg_loss1: tensor(1.2421, device='cuda:0', grad_fn=<DivBackward0>) reg_loss2: tensor(9672.9932, device='cuda:0', grad_fn=<AddBackward0>) au_loss: tensor(-3.1139, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[921/1000] loss-3.105-|Sample:1.60|
+EPOCH[922/1000] loss-3.106-|Sample:1.62|
+EPOCH[923/1000] loss-3.103-|Sample:1.62|
+EPOCH[924/1000] loss-3.105-|Sample:1.61|
+EPOCH[925/1000] loss-3.107-|Sample:1.41|
+EPOCH[926/1000] loss-3.106-|Sample:1.67|
+EPOCH[927/1000] loss-3.107-|Sample:1.76|
+EPOCH[928/1000] loss-3.109-|Sample:1.13|
+EPOCH[929/1000] loss-3.105-|Sample:1.78|
+EPOCH[930/1000] loss-3.107-|Sample:1.76|
+[TEST]
+{'precision': array([0.02001873]), 'recall': array([0.16496589]), 'ndcg': array([0.0950566]), 'coverage': array([28.95243446]), 'Acoverage': array([823.35493134]), 'ILD': array([0.03928313]), 'F1': array([0.06345565])}
+reg_loss1: tensor(1.2841, device='cuda:0', grad_fn=<DivBackward0>) reg_loss2: tensor(9649.2822, device='cuda:0', grad_fn=<AddBackward0>) au_loss: tensor(-3.0966, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[931/1000] loss-3.106-|Sample:1.64|
+EPOCH[932/1000] loss-3.105-|Sample:1.64|
+EPOCH[933/1000] loss-3.107-|Sample:1.75|
+EPOCH[934/1000] loss-3.106-|Sample:1.65|
+EPOCH[935/1000] loss-3.105-|Sample:1.70|
+EPOCH[936/1000] loss-3.106-|Sample:1.67|
+EPOCH[937/1000] loss-3.105-|Sample:1.74|
+EPOCH[938/1000] loss-3.105-|Sample:1.01|
+EPOCH[939/1000] loss-3.107-|Sample:1.89|
+EPOCH[940/1000] loss-3.107-|Sample:1.58|
+[TEST]
+{'precision': array([0.01999376]), 'recall': array([0.16555041]), 'ndcg': array([0.09451704]), 'coverage': array([29.0866417]), 'Acoverage': array([826.29612984]), 'ILD': array([0.03931533]), 'F1': array([0.06354082])}
+reg_loss1: tensor(1.2151, device='cuda:0', grad_fn=<DivBackward0>) reg_loss2: tensor(9625.5244, device='cuda:0', grad_fn=<AddBackward0>) au_loss: tensor(-3.1417, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[941/1000] loss-3.108-|Sample:1.57|
+EPOCH[942/1000] loss-3.106-|Sample:1.64|
+EPOCH[943/1000] loss-3.108-|Sample:1.56|
+EPOCH[944/1000] loss-3.107-|Sample:1.62|
+EPOCH[945/1000] loss-3.107-|Sample:1.49|
+EPOCH[946/1000] loss-3.104-|Sample:1.72|
+EPOCH[947/1000] loss-3.106-|Sample:1.56|
+EPOCH[948/1000] loss-3.106-|Sample:0.97|
+EPOCH[949/1000] loss-3.106-|Sample:1.55|
+EPOCH[950/1000] loss-3.106-|Sample:1.57|
+[TEST]
+{'precision': array([0.01993134]), 'recall': array([0.16599958]), 'ndcg': array([0.09526584]), 'coverage': array([28.95006242]), 'Acoverage': array([824.83133583]), 'ILD': array([0.03925094]), 'F1': array([0.06348962])}
+reg_loss1: tensor(1.2188, device='cuda:0', grad_fn=<DivBackward0>) reg_loss2: tensor(9604.0137, device='cuda:0', grad_fn=<AddBackward0>) au_loss: tensor(-3.1230, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[951/1000] loss-3.107-|Sample:1.56|
+EPOCH[952/1000] loss-3.107-|Sample:1.65|
+EPOCH[953/1000] loss-3.105-|Sample:1.61|
+EPOCH[954/1000] loss-3.105-|Sample:1.55|
+EPOCH[955/1000] loss-3.108-|Sample:1.38|
+EPOCH[956/1000] loss-3.108-|Sample:1.56|
+EPOCH[957/1000] loss-3.105-|Sample:1.56|
+EPOCH[958/1000] loss-3.106-|Sample:0.98|
+EPOCH[959/1000] loss-3.104-|Sample:1.59|
+EPOCH[960/1000] loss-3.108-|Sample:1.56|
+[TEST]
+{'precision': array([0.01998752]), 'recall': array([0.16576064]), 'ndcg': array([0.09513445]), 'coverage': array([29.17028714]), 'Acoverage': array([823.88739076]), 'ILD': array([0.03925619]), 'F1': array([0.063479])}
+reg_loss1: tensor(1.2554, device='cuda:0', grad_fn=<DivBackward0>) reg_loss2: tensor(9587.3633, device='cuda:0', grad_fn=<AddBackward0>) au_loss: tensor(-3.0846, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[961/1000] loss-3.106-|Sample:1.56|
+EPOCH[962/1000] loss-3.106-|Sample:1.57|
+EPOCH[963/1000] loss-3.109-|Sample:1.57|
+EPOCH[964/1000] loss-3.107-|Sample:1.57|
+EPOCH[965/1000] loss-3.107-|Sample:1.57|
+EPOCH[966/1000] loss-3.105-|Sample:1.59|
+EPOCH[967/1000] loss-3.108-|Sample:1.58|
+EPOCH[968/1000] loss-3.104-|Sample:1.03|
+EPOCH[969/1000] loss-3.106-|Sample:1.62|
+EPOCH[970/1000] loss-3.105-|Sample:1.57|
+[TEST]
+{'precision': array([0.01996255]), 'recall': array([0.16506751]), 'ndcg': array([0.09460943]), 'coverage': array([29.10749064]), 'Acoverage': array([827.07640449]), 'ILD': array([0.03926342]), 'F1': array([0.06343743])}
+reg_loss1: tensor(1.2249, device='cuda:0', grad_fn=<DivBackward0>) reg_loss2: tensor(9566.8076, device='cuda:0', grad_fn=<AddBackward0>) au_loss: tensor(-3.0993, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[971/1000] loss-3.105-|Sample:1.72|
+EPOCH[972/1000] loss-3.106-|Sample:1.68|
+EPOCH[973/1000] loss-3.110-|Sample:1.81|
+EPOCH[974/1000] loss-3.106-|Sample:1.60|
+EPOCH[975/1000] loss-3.105-|Sample:1.42|
