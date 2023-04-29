@@ -55,23 +55,23 @@ class BPRLoss:
 
     def stageOne(self, users, pos, neg):
         # [batch_size, emb_dim]
-        users_emb, pos_emb, neg_emb, reg_loss1 = self.model.bpr_loss(users, pos, neg)
+        users_emb, pos_emb, neg_emb = self.model.bpr_loss(users, pos, neg)
 
         au_loss1 = self.ali_uni_loss(users_emb, pos_emb)
 
         # MLP for dimensional transformation of aspect and attention
         reg_loss2 = torch.tensor(0.).to(args.device)
         for name, para in self.model.named_parameters():
-            if name != 'embedding_item' and name != 'embedding_user':  # regloss1
-                reg_loss2 += para.pow(2).sum()
+            # if name != 'embedding_item' and name != 'embedding_user': # regloss1
+            reg_loss2 += para.pow(2).sum()
 
-        reg_loss = reg_loss1 * self.args.regloss1_decay + reg_loss2 * self.args.regloss2_decay  # regularization weight
+        reg_loss = reg_loss2 * self.args.regloss2_decay  # + reg_loss1 * self.args.regloss1_decay # regularization weight
         loss = au_loss1 + reg_loss
 
         self.opt.zero_grad()
         loss.backward()  # retain_graph=True
         self.opt.step()
-        return loss.cpu().item(), reg_loss1, reg_loss2, au_loss1
+        return loss.cpu().item(), reg_loss2, au_loss1
 
 
 # negative sampling
@@ -139,7 +139,8 @@ def set_seed(seed):
 
 
 # save model
-def getFileName():
+def getFileName(args):
+    # path = f"model_{args.model}_dataset_{args.dataset}_embed_size_{args.embed_size}_regloss_weight_decay_{args.regloss2_decay}_layers_{args.layer}_sigma_{args.sigma}_gamma_{args.gamma}_beta_class_{args.beta_class}"
     if args.model == 'mf':
         file = f"mf-{args.dataset}-{args.recdim}.pth.tar"
     elif args.model == 'lgn':
@@ -214,6 +215,64 @@ def register(args):
     print("k(number of aggregated neighbors)", args.k)
     print("loss function", args.loss)
     print('===========end===================')
+
+
+class EarlyStopping:
+    """Early stops the training if train loss doesn't improve after a given patience."""
+
+    def __init__(self, save_path, patience=10, verbose=False, delta=0):
+        """
+        Args:
+            save_path : model save folder
+            patience (int): How long to wait after last time validation loss improved.
+                            Default: 10
+            verbose (bool): If True, prints a message for each validation loss improvement.
+                            Default: False
+            delta (float): Minimum change in the monitored quantity to qualify as an improvement.
+                            Default: 0
+        """
+        self.save_path = save_path
+        self.patience = patience
+        self.verbose = verbose
+        self.counter = 0
+        self.best_score = None
+        self.early_stop = False
+        self.train_loss_min = np.Inf
+        self.delta = delta
+
+    def __call__(self, train_loss, model):
+
+        score = -train_loss
+
+        if self.best_score is None:
+            self.best_score = score
+            self.save_checkpoint(train_loss, model)
+        elif score < self.best_score + self.delta:
+            self.counter += 1
+            print(f'loss: {train_loss}, EarlyStopping counter: {self.counter} out of {self.patience}')
+            if self.counter >= self.patience:  # stop
+                self.early_stop = True
+        else:
+            self.best_score = score
+            self.save_checkpoint(train_loss, model)
+            self.counter = 0
+
+    def save_checkpoint(self, train_loss, model):
+        '''Saves model when train loss decrease.'''
+        if self.verbose:
+            print(f'Train loss decreased ({self.train_loss_min:.6f} --> {train_loss:.6f}).  Saving model ...')
+        path = os.path.join(self.save_path, 'best_network.pth')
+        torch.save(model.state_dict(), path)
+        self.train_loss_min = train_loss
+
+
+def early_stop(args):
+    path = f"model_{args.model}_dataset_{args.dataset}_embed_size_{args.embed_size}_regloss_weight_decay_{args.regloss2_decay}_layers_{args.layer}_sigma_{args.sigma}_gamma2_{args.gamma2}_beta_class_{args.beta_class}"
+    if os.path.exists('./logs/' + path + '.log'):
+        os.remove('./logs/' + path + '.log')
+
+    early_stop = EarlyStopping(patience=args.patience, save_path=args.path + path + '.pt')
+    return early_stop
 
 
 class timer:

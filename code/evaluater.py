@@ -39,7 +39,7 @@ class Tester(object):
         # 对于yelp2018来说是二维数组  # [n_items, n_categories]  每个item对应多个category
         # 对于beauty来说是一维数组    # [n_items]
         self.cate = np.array(list(dataset.category_dic.values()))
-        self.aspect = np.array(list(dataset.item_aspect_dic.values()))  # item-aspect列表  按顺序
+        self.aspect = np.array(list(dataset.item_aspect_dic.values()))
 
     def test_one_batch(self, X):
         sorted_items = X[0].numpy()  # 推荐了100个
@@ -186,7 +186,7 @@ class Tester(object):
 
     # 看给一个user推荐的item列表的种类数的重叠程度
     def ILD(self, cate):
-        K = len(cate[0])  # 20
+        K = len(cate[0])  # top-k
         num = 0
         for u in range(len(cate)):  # 100
             sorted_cate = cate[u]  # 每个user的推荐item 列表对应的种类列表 对于yelp二维，对于beauty一维

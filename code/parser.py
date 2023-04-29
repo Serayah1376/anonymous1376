@@ -41,7 +41,7 @@ def parse_args():
                         help="path to save weights")
     parser.add_argument('--runs_path', type=str, default="./runs",
                         help="path to save results")
-    parser.add_argument('--topks', nargs='?', default="[20]",
+    parser.add_argument('--topks', nargs='?', default="[10, 20, 50]",
                         help="@k test list")
     parser.add_argument('--tensorboard', type=int, default=1,
                         help="enable tensorboard")
@@ -58,6 +58,7 @@ def parse_args():
     parser.add_argument('--sigma', default = 1.0, type = float, help = 'sigma for gaussian kernel')
     parser.add_argument('--gamma2', default = 2.0, type = float, help = 'gamma for gaussian kernel')
     parser.add_argument('--k', default = 20, type = int, help = 'neighbor number in each GNN aggregation(for diversity)')
-    parser.add_argument('--loss', default = 'au', type = str, help = 'loss function')
+    parser.add_argument('--loss function', default = 'au', type = str, help = 'loss function')
+    parser.add_argument('--patience', default = 10, type = int, help = 'early_stop patience')
     return parser.parse_args()
 

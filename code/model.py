@@ -211,9 +211,9 @@ class Model(nn.Module):
          userEmb0, posEmb0, negEmb0) = self.getEmbedding(users.long(), pos.long(), neg.long())
         # loss
         # regloss1
-        reg_loss = (1 / 2) * (userEmb0.norm(2).pow(2) +
+        """reg_loss = (1 / 2) * (userEmb0.norm(2).pow(2) +
                               posEmb0.norm(2).pow(2) +
-                              negEmb0.norm(2).pow(2)) / float(len(users))
+                              negEmb0.norm(2).pow(2)) / float(len(users))"""
 
         """pos_scores = torch.mul(users_emb, pos_emb)
         pos_scores = torch.sum(pos_scores, dim=1)
@@ -222,7 +222,7 @@ class Model(nn.Module):
 
         loss = torch.mean(torch.nn.functional.softplus(neg_scores - pos_scores))"""  # bpr loss
 
-        return users_emb, pos_emb, neg_emb, reg_loss  # , loss
+        return users_emb, pos_emb, neg_emb  # , reg_loss # , loss
 
 
 class GCNLayer(nn.Module):
@@ -284,10 +284,9 @@ class GCNLayer(nn.Module):
 
             # D^(-1/2)
             degs = graph.out_degrees(etype=etype).float().clamp(min=1)
-            norm = torch.pow(degs, -0.5).to(self.args.device)
+            norm = torch.pow(degs, -0.5)
             shp = norm.shape + (1,) * (feat_src.dim() - 1)  # feat_src.dim(): 2
             norm = torch.reshape(norm, shp)
-            print("out_degree:", norm)
             feat_src = feat_src * norm
 
             graph.nodes[src].data['h'] = feat_src
@@ -297,10 +296,9 @@ class GCNLayer(nn.Module):
             # norm
             rst = graph.nodes[dst].data['h']
             degs = graph.in_degrees(etype=etype).float().clamp(min=1)
-            norm = torch.pow(degs, -0.5).to(self.args.device)
+            norm = torch.pow(degs, -0.5)
             shp = norm.shape + (1,) * (feat_dst.dim() - 1)
             norm = torch.reshape(norm, shp)
-            print("in_degree:", norm)
             rst = rst * norm
 
             return rst
