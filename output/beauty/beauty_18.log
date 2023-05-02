@@ -1,0 +1,1833 @@
+nohup: ignoring input
+Cpp extension not loaded
+>>SEED: 2023
+loading [./datasets/beauty]
+82167 interactions for training
+16399 interactions for testing
+beauty Sparsity : 0.0020608405216870815
+beauty is ready to go
+loading adjacency matrix
+lgn is already to go(dropout:0)
+load and save to ./checkpoints/lgn-beauty-4-64.pth.tar
+===========config================
+dataset: beauty
+layer num: 4
+recdim: 64
+model: lgn
+testbatch 100
+topks [10, 20, 50]
+epochs 1000
+max_len 64
+regloss2_decay 1e-06
+head_num 1
+gamma 1
+gamma2(submodular) 2.0
+sigma(submodular) 1.0
+k(number of aggregated neighbors) 20
+loss function au
+===========end===================
+EPOCH[1/1000] loss-0.981-|Sample:1.14|use_time:15.95445728302002
+EPOCH[2/1000] loss-1.013-|Sample:1.22|use_time:16.415852785110474
+EPOCH[3/1000] loss-1.040-|Sample:1.13|use_time:15.925405025482178
+EPOCH[4/1000] loss-1.067-|Sample:1.23|use_time:16.054585456848145
+EPOCH[5/1000] loss-1.091-|Sample:1.16|use_time:16.051979303359985
+EPOCH[6/1000] loss-1.114-|Sample:1.13|use_time:15.864323854446411
+EPOCH[7/1000] loss-1.142-|Sample:1.22|use_time:15.930071353912354
+EPOCH[8/1000] loss-1.166-|Sample:1.14|use_time:15.914403676986694
+EPOCH[9/1000] loss-1.202-|Sample:1.19|use_time:16.063804626464844
+EPOCH[10/1000] loss-1.239-|Sample:1.16|use_time:15.836004734039307
+reg_loss2: tensor(0.7187, device='cuda:0', grad_fn=<MulBackward0>) au_loss: tensor(-1.9825, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[11/1000] loss-1.271-|Sample:1.13|use_time:15.760472297668457
+EPOCH[12/1000] loss-1.301-|Sample:1.13|use_time:16.200526475906372
+EPOCH[13/1000] loss-1.330-|Sample:1.15|use_time:15.761160373687744
+EPOCH[14/1000] loss-1.358-|Sample:1.15|use_time:15.869423151016235
+EPOCH[15/1000] loss-1.382-|Sample:1.13|use_time:15.903692960739136
+EPOCH[16/1000] loss-1.405-|Sample:1.13|use_time:15.901404619216919
+EPOCH[17/1000] loss-1.427-|Sample:1.21|use_time:16.177828550338745
+EPOCH[18/1000] loss-1.449-|Sample:1.13|use_time:15.906663656234741
+EPOCH[19/1000] loss-1.473-|Sample:1.13|use_time:15.843759059906006
+EPOCH[20/1000] loss-1.497-|Sample:1.13|use_time:15.916705131530762
+reg_loss2: tensor(0.5998, device='cuda:0', grad_fn=<MulBackward0>) au_loss: tensor(-2.0969, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[21/1000] loss-1.518-|Sample:1.20|use_time:16.057403564453125
+EPOCH[22/1000] loss-1.541-|Sample:1.14|use_time:15.883938789367676
+EPOCH[23/1000] loss-1.563-|Sample:1.15|use_time:15.905927181243896
+EPOCH[24/1000] loss-1.584-|Sample:1.15|use_time:15.984647274017334
+EPOCH[25/1000] loss-1.604-|Sample:1.21|use_time:16.110113382339478
+EPOCH[26/1000] loss-1.626-|Sample:1.16|use_time:15.860556840896606
+EPOCH[27/1000] loss-1.646-|Sample:1.14|use_time:15.790329217910767
+EPOCH[28/1000] loss-1.668-|Sample:1.13|use_time:16.153440237045288
+EPOCH[29/1000] loss-1.685-|Sample:1.21|use_time:15.95924711227417
+EPOCH[30/1000] loss-1.706-|Sample:1.16|use_time:15.899455785751343
+reg_loss2: tensor(0.5051, device='cuda:0', grad_fn=<MulBackward0>) au_loss: tensor(-2.2380, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[31/1000] loss-1.726-|Sample:1.13|use_time:16.039461612701416
+EPOCH[32/1000] loss-1.745-|Sample:1.14|use_time:15.900012969970703
+EPOCH[33/1000] loss-1.764-|Sample:1.22|use_time:15.958532810211182
+EPOCH[34/1000] loss-1.782-|Sample:1.17|use_time:15.933273792266846
+EPOCH[35/1000] loss-1.802-|Sample:1.14|use_time:16.154638051986694
+EPOCH[36/1000] loss-1.821-|Sample:1.15|use_time:16.03917384147644
+EPOCH[37/1000] loss-1.838-|Sample:1.22|use_time:16.123815536499023
+EPOCH[38/1000] loss-1.858-|Sample:1.18|use_time:15.88728380203247
+EPOCH[39/1000] loss-1.875-|Sample:1.14|use_time:16.149500370025635
+EPOCH[40/1000] loss-1.893-|Sample:1.13|use_time:15.833242177963257
+reg_loss2: tensor(0.4299, device='cuda:0', grad_fn=<MulBackward0>) au_loss: tensor(-2.3459, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[41/1000] loss-1.912-|Sample:1.21|use_time:15.971030473709106
+EPOCH[42/1000] loss-1.931-|Sample:1.19|use_time:16.156205892562866
+EPOCH[43/1000] loss-1.946-|Sample:1.14|use_time:15.848610401153564
+EPOCH[44/1000] loss-1.962-|Sample:1.15|use_time:15.939628601074219
+EPOCH[45/1000] loss-1.978-|Sample:1.19|use_time:16.158173084259033
+EPOCH[46/1000] loss-1.999-|Sample:1.18|use_time:15.957898616790771
+EPOCH[47/1000] loss-2.014-|Sample:1.13|use_time:15.79146146774292
+EPOCH[48/1000] loss-2.030-|Sample:1.13|use_time:15.930386066436768
+EPOCH[49/1000] loss-2.046-|Sample:1.13|use_time:16.23555326461792
+EPOCH[50/1000] loss-2.064-|Sample:1.16|use_time:15.848976135253906
+reg_loss2: tensor(0.3701, device='cuda:0', grad_fn=<MulBackward0>) au_loss: tensor(-2.4615, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[51/1000] loss-2.077-|Sample:1.14|use_time:15.927852153778076
+EPOCH[52/1000] loss-2.096-|Sample:1.13|use_time:15.944257259368896
+EPOCH[53/1000] loss-2.110-|Sample:1.14|use_time:16.133299112319946
+EPOCH[54/1000] loss-2.127-|Sample:1.19|use_time:15.795215606689453
+EPOCH[55/1000] loss-2.143-|Sample:1.13|use_time:15.774652481079102
+EPOCH[56/1000] loss-2.155-|Sample:1.13|use_time:15.95890998840332
+EPOCH[57/1000] loss-2.167-|Sample:1.13|use_time:15.853223323822021
+EPOCH[58/1000] loss-2.184-|Sample:1.21|use_time:15.91549563407898
+EPOCH[59/1000] loss-2.198-|Sample:1.15|use_time:16.063103437423706
+EPOCH[60/1000] loss-2.213-|Sample:1.14|use_time:15.789397954940796
+reg_loss2: tensor(0.3220, device='cuda:0', grad_fn=<MulBackward0>) au_loss: tensor(-2.5065, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[61/1000] loss-2.225-|Sample:1.13|use_time:15.885996103286743
+EPOCH[62/1000] loss-2.239-|Sample:1.21|use_time:15.93687105178833
+EPOCH[63/1000] loss-2.248-|Sample:1.15|use_time:15.981417417526245
+EPOCH[64/1000] loss-2.265-|Sample:1.16|use_time:15.870514631271362
+EPOCH[65/1000] loss-2.276-|Sample:1.14|use_time:15.858891487121582
+EPOCH[66/1000] loss-2.286-|Sample:1.21|use_time:15.947857141494751
+EPOCH[67/1000] loss-2.301-|Sample:1.14|use_time:16.015621185302734
+EPOCH[68/1000] loss-2.315-|Sample:1.14|use_time:15.772065162658691
+EPOCH[69/1000] loss-2.323-|Sample:1.13|use_time:15.7981858253479
+EPOCH[70/1000] loss-2.337-|Sample:1.20|use_time:17.1908597946167
+reg_loss2: tensor(0.2828, device='cuda:0', grad_fn=<MulBackward0>) au_loss: tensor(-2.6262, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[71/1000] loss-2.347-|Sample:1.23|use_time:16.485485076904297
+EPOCH[72/1000] loss-2.356-|Sample:1.15|use_time:15.926326274871826
+EPOCH[73/1000] loss-2.367-|Sample:1.24|use_time:16.197477102279663
+EPOCH[74/1000] loss-2.378-|Sample:1.16|use_time:16.210656881332397
+EPOCH[75/1000] loss-2.390-|Sample:1.26|use_time:16.33006763458252
+EPOCH[76/1000] loss-2.402-|Sample:1.25|use_time:16.532593727111816
+EPOCH[77/1000] loss-2.409-|Sample:1.25|use_time:16.34736132621765
+EPOCH[78/1000] loss-2.419-|Sample:1.25|use_time:16.20785617828369
+EPOCH[79/1000] loss-2.432-|Sample:1.25|use_time:16.10090923309326
+EPOCH[80/1000] loss-2.441-|Sample:1.23|use_time:16.107646703720093
+reg_loss2: tensor(0.2502, device='cuda:0', grad_fn=<MulBackward0>) au_loss: tensor(-2.7040, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[81/1000] loss-2.450-|Sample:1.23|use_time:16.211069583892822
+EPOCH[82/1000] loss-2.460-|Sample:1.22|use_time:15.869316101074219
+EPOCH[83/1000] loss-2.469-|Sample:1.13|use_time:15.792848587036133
+EPOCH[84/1000] loss-2.479-|Sample:1.22|use_time:16.23966407775879
+EPOCH[85/1000] loss-2.486-|Sample:1.18|use_time:16.020064115524292
+EPOCH[86/1000] loss-2.497-|Sample:1.20|use_time:16.264302492141724
+EPOCH[87/1000] loss-2.503-|Sample:1.28|use_time:16.530305862426758
+EPOCH[88/1000] loss-2.513-|Sample:1.23|use_time:16.104995489120483
+EPOCH[89/1000] loss-2.520-|Sample:1.25|use_time:16.286556720733643
+EPOCH[90/1000] loss-2.528-|Sample:1.25|use_time:16.021483421325684
+reg_loss2: tensor(0.2230, device='cuda:0', grad_fn=<MulBackward0>) au_loss: tensor(-2.7964, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[91/1000] loss-2.540-|Sample:1.24|use_time:16.276567697525024
+EPOCH[92/1000] loss-2.545-|Sample:1.23|use_time:16.015419721603394
+EPOCH[93/1000] loss-2.554-|Sample:1.15|use_time:16.0050151348114
+EPOCH[94/1000] loss-2.558-|Sample:1.25|use_time:16.012970447540283
+EPOCH[95/1000] loss-2.569-|Sample:1.21|use_time:16.073144674301147
+EPOCH[96/1000] loss-2.574-|Sample:1.16|use_time:15.903943300247192
+EPOCH[97/1000] loss-2.584-|Sample:1.21|use_time:15.922410011291504
+EPOCH[98/1000] loss-2.589-|Sample:1.15|use_time:16.026988983154297
+EPOCH[99/1000] loss-2.599-|Sample:1.21|use_time:16.60530948638916
+EPOCH[100/1000] loss-2.604-|Sample:1.16|use_time:16.933441162109375
+[TEST]
+/root/autodl-tmp/anonymous1376/code/evaluater.py:42: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray.
+  self.aspect = np.array(list(dataset.item_aspect_dic.values()))
+{'precision': array([0.01393258, 0.0108427 , 0.00709863]), 'recall': array([0.05640373, 0.08764452, 0.14143845]), 'ndcg': array([0.0368193 , 0.04657445, 0.06002098]), 'coverage': array([25.41585518, 29.46953808, 33.76204744]), 'Acoverage': array([ 545.89900125,  841.83270911, 1422.7741573 ]), 'ILD': array([0.77430434, 0.78036402, 0.79685414]), 'F1': array([0.10514801, 0.15758976, 0.24023597])}
+test time: 74.75066375732422
+reg_loss2: tensor(0.1999, device='cuda:0', grad_fn=<MulBackward0>) au_loss: tensor(-2.8453, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[101/1000] loss-2.610-|Sample:1.23|use_time:16.179749965667725
+EPOCH[102/1000] loss-2.618-|Sample:1.15|use_time:15.9348726272583
+EPOCH[103/1000] loss-2.625-|Sample:1.23|use_time:15.998143672943115
+EPOCH[104/1000] loss-2.633-|Sample:1.13|use_time:15.810319185256958
+EPOCH[105/1000] loss-2.638-|Sample:1.23|use_time:16.1559739112854
+EPOCH[106/1000] loss-2.643-|Sample:1.16|use_time:15.880285263061523
+EPOCH[107/1000] loss-2.650-|Sample:1.22|use_time:15.924749851226807
+EPOCH[108/1000] loss-2.656-|Sample:1.14|use_time:16.060858249664307
+EPOCH[109/1000] loss-2.664-|Sample:1.18|use_time:15.83730936050415
+EPOCH[110/1000] loss-2.668-|Sample:1.13|use_time:15.77531123161316
+reg_loss2: tensor(0.1802, device='cuda:0', grad_fn=<MulBackward0>) au_loss: tensor(-2.8201, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[111/1000] loss-2.674-|Sample:1.25|use_time:16.147570610046387
+EPOCH[112/1000] loss-2.678-|Sample:1.14|use_time:15.889045238494873
+EPOCH[113/1000] loss-2.685-|Sample:1.15|use_time:15.961286783218384
+EPOCH[114/1000] loss-2.690-|Sample:1.24|use_time:15.933157444000244
+EPOCH[115/1000] loss-2.696-|Sample:1.15|use_time:16.109123468399048
+EPOCH[116/1000] loss-2.702-|Sample:1.15|use_time:15.862175703048706
+EPOCH[117/1000] loss-2.706-|Sample:1.23|use_time:15.904355764389038
+EPOCH[118/1000] loss-2.713-|Sample:1.13|use_time:15.803983688354492
+EPOCH[119/1000] loss-2.715-|Sample:1.14|use_time:15.823630332946777
+EPOCH[120/1000] loss-2.720-|Sample:1.20|use_time:16.04301381111145
+reg_loss2: tensor(0.1633, device='cuda:0', grad_fn=<MulBackward0>) au_loss: tensor(-2.8733, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[121/1000] loss-2.727-|Sample:1.14|use_time:15.860036849975586
+EPOCH[122/1000] loss-2.732-|Sample:1.14|use_time:16.015486478805542
+EPOCH[123/1000] loss-2.735-|Sample:1.21|use_time:15.901363372802734
+EPOCH[124/1000] loss-2.741-|Sample:1.16|use_time:15.848814010620117
+EPOCH[125/1000] loss-2.747-|Sample:1.13|use_time:15.827561378479004
+EPOCH[126/1000] loss-2.752-|Sample:1.13|use_time:15.978854894638062
+EPOCH[127/1000] loss-2.755-|Sample:1.20|use_time:15.922564268112183
+EPOCH[128/1000] loss-2.761-|Sample:1.15|use_time:15.812174081802368
+EPOCH[129/1000] loss-2.763-|Sample:1.13|use_time:15.76512336730957
+EPOCH[130/1000] loss-2.766-|Sample:1.12|use_time:16.007844924926758
+reg_loss2: tensor(0.1487, device='cuda:0', grad_fn=<MulBackward0>) au_loss: tensor(-2.9311, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[131/1000] loss-2.773-|Sample:1.21|use_time:15.896605014801025
+EPOCH[132/1000] loss-2.774-|Sample:1.14|use_time:15.827168226242065
+EPOCH[133/1000] loss-2.778-|Sample:1.13|use_time:16.033339262008667
+EPOCH[134/1000] loss-2.784-|Sample:1.14|use_time:15.836893558502197
+EPOCH[135/1000] loss-2.787-|Sample:1.20|use_time:15.840956211090088
+EPOCH[136/1000] loss-2.790-|Sample:1.15|use_time:15.950905561447144
+EPOCH[137/1000] loss-2.794-|Sample:1.13|use_time:15.96850037574768
+EPOCH[138/1000] loss-2.801-|Sample:1.14|use_time:15.994523286819458
+EPOCH[139/1000] loss-2.803-|Sample:1.20|use_time:15.859078168869019
+EPOCH[140/1000] loss-2.806-|Sample:1.15|use_time:16.075825214385986
+reg_loss2: tensor(0.1360, device='cuda:0', grad_fn=<MulBackward0>) au_loss: tensor(-2.9670, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[141/1000] loss-2.810-|Sample:0.96|use_time:15.845219135284424
+EPOCH[142/1000] loss-2.812-|Sample:1.13|use_time:15.824692010879517
+EPOCH[143/1000] loss-2.816-|Sample:1.16|use_time:15.815186500549316
+EPOCH[144/1000] loss-2.817-|Sample:1.22|use_time:16.03739881515503
+EPOCH[145/1000] loss-2.821-|Sample:1.13|use_time:15.746654033660889
+EPOCH[146/1000] loss-2.826-|Sample:1.16|use_time:15.864392518997192
+EPOCH[147/1000] loss-2.832-|Sample:1.14|use_time:16.128167390823364
+EPOCH[148/1000] loss-2.831-|Sample:1.16|use_time:15.947277069091797
+loss: -2.8308990757639814, EarlyStopping counter: 1 out of 100
+EPOCH[149/1000] loss-2.834-|Sample:1.15|use_time:15.960283994674683
+EPOCH[150/1000] loss-2.836-|Sample:1.13|use_time:15.89521837234497
+reg_loss2: tensor(0.1250, device='cuda:0', grad_fn=<MulBackward0>) au_loss: tensor(-2.9514, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[151/1000] loss-2.839-|Sample:1.13|use_time:16.034337282180786
+EPOCH[152/1000] loss-2.846-|Sample:1.20|use_time:15.820623874664307
+EPOCH[153/1000] loss-2.845-|Sample:1.15|use_time:15.76773977279663
+loss: -2.84541512698662, EarlyStopping counter: 1 out of 100
+EPOCH[154/1000] loss-2.852-|Sample:1.12|use_time:15.990557670593262
+EPOCH[155/1000] loss-2.850-|Sample:0.95|use_time:15.894336223602295
+loss: -2.8504742645635837, EarlyStopping counter: 1 out of 100
+EPOCH[156/1000] loss-2.857-|Sample:1.19|use_time:15.928540706634521
+EPOCH[157/1000] loss-2.859-|Sample:1.17|use_time:15.988067150115967
+EPOCH[158/1000] loss-2.864-|Sample:1.13|use_time:16.11457657814026
+EPOCH[159/1000] loss-2.865-|Sample:1.13|use_time:15.93747878074646
+EPOCH[160/1000] loss-2.870-|Sample:1.17|use_time:15.780864477157593
+reg_loss2: tensor(0.1154, device='cuda:0', grad_fn=<MulBackward0>) au_loss: tensor(-3.0131, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[161/1000] loss-2.869-|Sample:1.19|use_time:16.52015995979309
+loss: -2.8689794831159636, EarlyStopping counter: 1 out of 100
+EPOCH[162/1000] loss-2.871-|Sample:1.25|use_time:17.18751811981201
+EPOCH[163/1000] loss-2.875-|Sample:1.23|use_time:17.098814725875854
+EPOCH[164/1000] loss-2.877-|Sample:1.23|use_time:17.071348905563354
+EPOCH[165/1000] loss-2.879-|Sample:1.23|use_time:16.79898691177368
+EPOCH[166/1000] loss-2.882-|Sample:1.23|use_time:15.859572649002075
+EPOCH[167/1000] loss-2.886-|Sample:1.22|use_time:15.861097812652588
+EPOCH[168/1000] loss-2.887-|Sample:1.21|use_time:16.008955478668213
+EPOCH[169/1000] loss-2.887-|Sample:0.95|use_time:15.784700632095337
+EPOCH[170/1000] loss-2.894-|Sample:1.21|use_time:15.815334796905518
+reg_loss2: tensor(0.1069, device='cuda:0', grad_fn=<MulBackward0>) au_loss: tensor(-2.9788, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[171/1000] loss-2.895-|Sample:1.21|use_time:15.837768077850342
+EPOCH[172/1000] loss-2.897-|Sample:1.14|use_time:15.92966914176941
+EPOCH[173/1000] loss-2.897-|Sample:1.23|use_time:15.998322486877441
+loss: -2.8965982751148505, EarlyStopping counter: 1 out of 100
+EPOCH[174/1000] loss-2.901-|Sample:1.12|use_time:15.721805334091187
+EPOCH[175/1000] loss-2.902-|Sample:1.17|use_time:15.99917221069336
+EPOCH[176/1000] loss-2.904-|Sample:1.12|use_time:15.730216264724731
+EPOCH[177/1000] loss-2.905-|Sample:1.13|use_time:15.760735273361206
+EPOCH[178/1000] loss-2.907-|Sample:1.20|use_time:15.808948993682861
+EPOCH[179/1000] loss-2.909-|Sample:1.15|use_time:15.95942234992981
+EPOCH[180/1000] loss-2.910-|Sample:1.13|use_time:15.768482685089111
+reg_loss2: tensor(0.0995, device='cuda:0', grad_fn=<MulBackward0>) au_loss: tensor(-3.0463, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[181/1000] loss-2.913-|Sample:1.16|use_time:15.798410177230835
+EPOCH[182/1000] loss-2.915-|Sample:1.19|use_time:16.024049282073975
+EPOCH[183/1000] loss-2.918-|Sample:0.96|use_time:15.747557163238525
+EPOCH[184/1000] loss-2.922-|Sample:1.14|use_time:15.771628618240356
+EPOCH[185/1000] loss-2.921-|Sample:1.20|use_time:15.86747932434082
+loss: -2.920727700721927, EarlyStopping counter: 1 out of 100
+EPOCH[186/1000] loss-2.923-|Sample:1.15|use_time:15.920491695404053
+EPOCH[187/1000] loss-2.924-|Sample:1.14|use_time:15.746832847595215
+EPOCH[188/1000] loss-2.927-|Sample:1.14|use_time:15.750860214233398
+EPOCH[189/1000] loss-2.928-|Sample:1.16|use_time:15.991775035858154
+EPOCH[190/1000] loss-2.933-|Sample:1.15|use_time:15.774368286132812
+reg_loss2: tensor(0.0929, device='cuda:0', grad_fn=<MulBackward0>) au_loss: tensor(-3.0444, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[191/1000] loss-2.932-|Sample:1.13|use_time:15.750218391418457
+loss: -2.9321492648706204, EarlyStopping counter: 1 out of 100
+EPOCH[192/1000] loss-2.934-|Sample:1.14|use_time:15.764678955078125
+EPOCH[193/1000] loss-2.933-|Sample:1.15|use_time:16.158002614974976
+loss: -2.93298213074847, EarlyStopping counter: 1 out of 100
+EPOCH[194/1000] loss-2.936-|Sample:1.16|use_time:15.741632223129272
+EPOCH[195/1000] loss-2.938-|Sample:1.15|use_time:15.734155893325806
+EPOCH[196/1000] loss-2.939-|Sample:1.13|use_time:15.902016401290894
+EPOCH[197/1000] loss-2.940-|Sample:0.94|use_time:15.750095129013062
+EPOCH[198/1000] loss-2.942-|Sample:1.21|use_time:15.801008939743042
+EPOCH[199/1000] loss-2.945-|Sample:1.17|use_time:15.814595699310303
+EPOCH[200/1000] loss-2.946-|Sample:1.13|use_time:15.915430784225464
+[TEST]
+{'precision': array([0.02298377, 0.01696629, 0.01054682]), 'recall': array([0.09753992, 0.14027652, 0.21325596]), 'ndcg': array([0.06600028, 0.07911177, 0.09734567]), 'coverage': array([24.59513109, 28.59875156, 33.54369538]), 'Acoverage': array([ 522.31785268,  795.39575531, 1336.69188514]), 'ILD': array([0.7563823 , 0.77156581, 0.7982476 ]), 'F1': array([0.17279669, 0.23739316, 0.33659014])}
+test time: 75.19960832595825
+reg_loss2: tensor(0.0871, device='cuda:0', grad_fn=<MulBackward0>) au_loss: tensor(-3.0409, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[201/1000] loss-2.947-|Sample:1.23|use_time:15.872649908065796
+EPOCH[202/1000] loss-2.948-|Sample:1.13|use_time:15.78987431526184
+EPOCH[203/1000] loss-2.948-|Sample:1.19|use_time:15.825607538223267
+loss: -2.9482675587258687, EarlyStopping counter: 1 out of 100
+EPOCH[204/1000] loss-2.952-|Sample:1.14|use_time:15.932207822799683
+EPOCH[205/1000] loss-2.949-|Sample:1.13|use_time:15.743758916854858
+loss: -2.9494787599982284, EarlyStopping counter: 1 out of 100
+EPOCH[206/1000] loss-2.954-|Sample:1.12|use_time:15.766665697097778
+EPOCH[207/1000] loss-2.953-|Sample:1.19|use_time:15.999361991882324
+loss: -2.952709436416626, EarlyStopping counter: 1 out of 100
+EPOCH[208/1000] loss-2.959-|Sample:1.15|use_time:15.767913103103638
+EPOCH[209/1000] loss-2.960-|Sample:1.13|use_time:15.728583812713623
+EPOCH[210/1000] loss-2.961-|Sample:1.12|use_time:15.970576524734497
+reg_loss2: tensor(0.0819, device='cuda:0', grad_fn=<MulBackward0>) au_loss: tensor(-3.0411, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[211/1000] loss-2.959-|Sample:1.14|use_time:15.821410894393921
+loss: -2.9591447144019893, EarlyStopping counter: 1 out of 100
+EPOCH[212/1000] loss-2.961-|Sample:1.22|use_time:15.871142625808716
+EPOCH[213/1000] loss-2.962-|Sample:1.14|use_time:15.789469957351685
+EPOCH[214/1000] loss-2.963-|Sample:1.23|use_time:16.66664719581604
+EPOCH[215/1000] loss-2.963-|Sample:1.14|use_time:16.952162742614746
+EPOCH[216/1000] loss-2.966-|Sample:1.23|use_time:17.023242235183716
+EPOCH[217/1000] loss-2.966-|Sample:1.12|use_time:16.89866614341736
+loss: -2.965975133384146, EarlyStopping counter: 1 out of 100
+EPOCH[218/1000] loss-2.967-|Sample:1.21|use_time:16.43214750289917
+EPOCH[219/1000] loss-2.970-|Sample:1.21|use_time:16.11986494064331
+EPOCH[220/1000] loss-2.969-|Sample:1.29|use_time:16.063997268676758
+loss: -2.9694221833857095, EarlyStopping counter: 1 out of 100
+reg_loss2: tensor(0.0773, device='cuda:0', grad_fn=<MulBackward0>) au_loss: tensor(-3.0496, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[221/1000] loss-2.972-|Sample:1.25|use_time:16.005779266357422
+EPOCH[222/1000] loss-2.974-|Sample:1.23|use_time:15.91638994216919
+EPOCH[223/1000] loss-2.974-|Sample:1.23|use_time:15.91104531288147
+EPOCH[224/1000] loss-2.978-|Sample:1.24|use_time:15.875981569290161
+EPOCH[225/1000] loss-2.976-|Sample:1.22|use_time:16.098429441452026
+loss: -2.9764392724851283, EarlyStopping counter: 1 out of 100
+EPOCH[226/1000] loss-2.979-|Sample:1.20|use_time:15.89480972290039
+EPOCH[227/1000] loss-2.978-|Sample:1.23|use_time:15.869842052459717
+loss: -2.9775069341426943, EarlyStopping counter: 1 out of 100
+EPOCH[228/1000] loss-2.980-|Sample:1.13|use_time:15.796761512756348
+EPOCH[229/1000] loss-2.984-|Sample:1.21|use_time:16.041909217834473
+EPOCH[230/1000] loss-2.982-|Sample:1.20|use_time:15.826162576675415
+loss: -2.9824088608346333, EarlyStopping counter: 1 out of 100
+reg_loss2: tensor(0.0732, device='cuda:0', grad_fn=<MulBackward0>) au_loss: tensor(-3.0355, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[231/1000] loss-2.980-|Sample:1.16|use_time:15.79902982711792
+loss: -2.980076941048227, EarlyStopping counter: 2 out of 100
+EPOCH[232/1000] loss-2.984-|Sample:1.13|use_time:16.029129028320312
+EPOCH[233/1000] loss-2.984-|Sample:1.16|use_time:15.764294624328613
+loss: -2.9836457938682743, EarlyStopping counter: 1 out of 100
+EPOCH[234/1000] loss-2.982-|Sample:1.12|use_time:15.778725624084473
+loss: -2.9822756429997885, EarlyStopping counter: 2 out of 100
+EPOCH[235/1000] loss-2.986-|Sample:1.17|use_time:15.820310831069946
+EPOCH[236/1000] loss-2.989-|Sample:1.18|use_time:15.967611074447632
+EPOCH[237/1000] loss-2.988-|Sample:1.13|use_time:15.772450685501099
+loss: -2.988123050550135, EarlyStopping counter: 1 out of 100
+EPOCH[238/1000] loss-2.989-|Sample:1.16|use_time:15.770821571350098
+loss: -2.988590583568666, EarlyStopping counter: 2 out of 100
+EPOCH[239/1000] loss-2.990-|Sample:1.18|use_time:16.09963369369507
+EPOCH[240/1000] loss-2.989-|Sample:0.98|use_time:16.60581922531128
+loss: -2.989407975499223, EarlyStopping counter: 1 out of 100
+reg_loss2: tensor(0.0694, device='cuda:0', grad_fn=<MulBackward0>) au_loss: tensor(-3.0166, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[241/1000] loss-2.990-|Sample:1.30|use_time:16.29637861251831
+loss: -2.990115910041623, EarlyStopping counter: 2 out of 100
+EPOCH[242/1000] loss-2.992-|Sample:1.26|use_time:16.52218508720398
+EPOCH[243/1000] loss-2.992-|Sample:1.23|use_time:17.423291444778442
+EPOCH[244/1000] loss-2.991-|Sample:1.25|use_time:16.403162956237793
+loss: -2.9913748241052396, EarlyStopping counter: 1 out of 100
+EPOCH[245/1000] loss-2.996-|Sample:1.22|use_time:15.908294916152954
+EPOCH[246/1000] loss-2.996-|Sample:1.25|use_time:16.079152584075928
+loss: -2.9955868255801317, EarlyStopping counter: 1 out of 100
+EPOCH[247/1000] loss-2.997-|Sample:1.20|use_time:16.455286502838135
+EPOCH[248/1000] loss-3.000-|Sample:1.22|use_time:16.98054051399231
+EPOCH[249/1000] loss-2.998-|Sample:1.15|use_time:16.9390287399292
+loss: -2.997991887534537, EarlyStopping counter: 1 out of 100
+EPOCH[250/1000] loss-2.999-|Sample:1.23|use_time:17.356677532196045
+loss: -2.9989115610355284, EarlyStopping counter: 2 out of 100
+reg_loss2: tensor(0.0661, device='cuda:0', grad_fn=<MulBackward0>) au_loss: tensor(-3.0738, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[251/1000] loss-3.000-|Sample:1.20|use_time:17.015207767486572
+EPOCH[252/1000] loss-3.000-|Sample:1.16|use_time:16.96478819847107
+loss: -2.9995175222071206, EarlyStopping counter: 1 out of 100
+EPOCH[253/1000] loss-3.001-|Sample:1.20|use_time:16.17911458015442
+EPOCH[254/1000] loss-3.000-|Sample:0.95|use_time:15.751433610916138
+loss: -2.9995375377375906, EarlyStopping counter: 1 out of 100
+EPOCH[255/1000] loss-3.002-|Sample:1.14|use_time:15.729506492614746
+EPOCH[256/1000] loss-3.005-|Sample:1.22|use_time:15.831907749176025
+EPOCH[257/1000] loss-3.004-|Sample:1.12|use_time:15.9341139793396
+loss: -3.0039737631634966, EarlyStopping counter: 1 out of 100
+EPOCH[258/1000] loss-3.004-|Sample:1.22|use_time:15.876874446868896
+loss: -3.0041147383247933, EarlyStopping counter: 2 out of 100
+EPOCH[259/1000] loss-3.006-|Sample:1.15|use_time:15.74563217163086
+EPOCH[260/1000] loss-3.005-|Sample:1.12|use_time:15.899828910827637
+loss: -3.0047273403260766, EarlyStopping counter: 1 out of 100
+reg_loss2: tensor(0.0630, device='cuda:0', grad_fn=<MulBackward0>) au_loss: tensor(-3.1019, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[261/1000] loss-3.006-|Sample:1.21|use_time:15.806565284729004
+loss: -3.0061105809560638, EarlyStopping counter: 2 out of 100
+EPOCH[262/1000] loss-3.008-|Sample:1.15|use_time:15.742218971252441
+EPOCH[263/1000] loss-3.008-|Sample:1.14|use_time:15.740418434143066
+EPOCH[264/1000] loss-3.011-|Sample:1.13|use_time:17.20730710029602
+EPOCH[265/1000] loss-3.007-|Sample:1.56|use_time:18.13207507133484
+loss: -3.0074993982547666, EarlyStopping counter: 1 out of 100
+EPOCH[266/1000] loss-3.010-|Sample:1.51|use_time:17.78197193145752
+loss: -3.0098997790638995, EarlyStopping counter: 2 out of 100
+EPOCH[267/1000] loss-3.009-|Sample:1.48|use_time:17.946737051010132
+loss: -3.009291474412127, EarlyStopping counter: 3 out of 100
+EPOCH[268/1000] loss-3.012-|Sample:1.33|use_time:16.20782995223999
+EPOCH[269/1000] loss-3.014-|Sample:1.20|use_time:16.349594354629517
+EPOCH[270/1000] loss-3.015-|Sample:1.26|use_time:16.171436548233032
+reg_loss2: tensor(0.0603, device='cuda:0', grad_fn=<MulBackward0>) au_loss: tensor(-3.1078, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[271/1000] loss-3.015-|Sample:1.23|use_time:16.143497228622437
+EPOCH[272/1000] loss-3.015-|Sample:1.23|use_time:16.705564737319946
+EPOCH[273/1000] loss-3.015-|Sample:1.23|use_time:17.14435315132141
+loss: -3.0150060479233907, EarlyStopping counter: 1 out of 100
+EPOCH[274/1000] loss-3.016-|Sample:1.24|use_time:17.491347312927246
+EPOCH[275/1000] loss-3.015-|Sample:1.13|use_time:16.939488172531128
+loss: -3.014995266751545, EarlyStopping counter: 1 out of 100
+EPOCH[276/1000] loss-3.017-|Sample:1.22|use_time:17.050879955291748
+EPOCH[277/1000] loss-3.018-|Sample:1.22|use_time:16.658930778503418
+EPOCH[278/1000] loss-3.019-|Sample:1.13|use_time:16.128157377243042
+EPOCH[279/1000] loss-3.017-|Sample:1.55|use_time:17.368610620498657
+loss: -3.017366851248392, EarlyStopping counter: 1 out of 100
+EPOCH[280/1000] loss-3.018-|Sample:1.17|use_time:15.824037313461304
+loss: -3.0179010600578495, EarlyStopping counter: 2 out of 100
+reg_loss2: tensor(0.0578, device='cuda:0', grad_fn=<MulBackward0>) au_loss: tensor(-3.0297, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[281/1000] loss-3.019-|Sample:1.19|use_time:15.960681915283203
+loss: -3.019009514552791, EarlyStopping counter: 3 out of 100
+EPOCH[282/1000] loss-3.021-|Sample:0.96|use_time:15.76243543624878
+EPOCH[283/1000] loss-3.020-|Sample:1.21|use_time:15.824046850204468
+loss: -3.020461506959869, EarlyStopping counter: 1 out of 100
+EPOCH[284/1000] loss-3.022-|Sample:1.12|use_time:15.727083683013916
+EPOCH[285/1000] loss-3.021-|Sample:1.18|use_time:15.94568133354187
+loss: -3.0211136515547587, EarlyStopping counter: 1 out of 100
+EPOCH[286/1000] loss-3.022-|Sample:1.16|use_time:15.76429295539856
+EPOCH[287/1000] loss-3.021-|Sample:1.12|use_time:15.758946418762207
+loss: -3.0213381778903123, EarlyStopping counter: 1 out of 100
+EPOCH[288/1000] loss-3.022-|Sample:1.17|use_time:16.081867456436157
+loss: -3.0221257733135687, EarlyStopping counter: 2 out of 100
+EPOCH[289/1000] loss-3.025-|Sample:1.14|use_time:15.724812269210815
+EPOCH[290/1000] loss-3.025-|Sample:1.13|use_time:15.708703994750977
+reg_loss2: tensor(0.0555, device='cuda:0', grad_fn=<MulBackward0>) au_loss: tensor(-3.1167, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[291/1000] loss-3.022-|Sample:1.13|use_time:15.735422372817993
+loss: -3.0223373203742794, EarlyStopping counter: 1 out of 100
+EPOCH[292/1000] loss-3.023-|Sample:1.18|use_time:15.961240530014038
+loss: -3.023476920476774, EarlyStopping counter: 2 out of 100
+EPOCH[293/1000] loss-3.024-|Sample:1.15|use_time:15.742175579071045
+loss: -3.023633939463918, EarlyStopping counter: 3 out of 100
+EPOCH[294/1000] loss-3.026-|Sample:1.13|use_time:15.763302326202393
+EPOCH[295/1000] loss-3.026-|Sample:1.12|use_time:15.88672947883606
+EPOCH[296/1000] loss-3.027-|Sample:0.96|use_time:15.79334282875061
+EPOCH[297/1000] loss-3.025-|Sample:1.19|use_time:15.769897937774658
+loss: -3.0251761645805546, EarlyStopping counter: 1 out of 100
+EPOCH[298/1000] loss-3.027-|Sample:1.13|use_time:15.70308780670166
+loss: -3.0269108574564862, EarlyStopping counter: 2 out of 100
+EPOCH[299/1000] loss-3.029-|Sample:1.13|use_time:15.880630731582642
+EPOCH[300/1000] loss-3.028-|Sample:1.14|use_time:15.738868951797485
+loss: -3.028342049296309, EarlyStopping counter: 1 out of 100
+[TEST]
+{'precision': array([0.02529338, 0.01855805, 0.0114382 ]), 'recall': array([0.10674123, 0.15203391, 0.23103829]), 'ndcg': array([0.07167426, 0.08570647, 0.10531729]), 'coverage': array([24.18701623, 28.41835206, 33.36379526]), 'Acoverage': array([ 511.89925094,  782.34257179, 1316.72646692]), 'ILD': array([0.74703565, 0.76640515, 0.7950518 ]), 'F1': array([0.18679238, 0.25373393, 0.35803369])}
+test time: 75.56588745117188
+reg_loss2: tensor(0.0534, device='cuda:0', grad_fn=<MulBackward0>) au_loss: tensor(-3.1230, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[301/1000] loss-3.031-|Sample:1.24|use_time:15.89276909828186
+EPOCH[302/1000] loss-3.030-|Sample:1.15|use_time:15.750137567520142
+loss: -3.0296315914247094, EarlyStopping counter: 1 out of 100
+EPOCH[303/1000] loss-3.029-|Sample:1.12|use_time:15.896738529205322
+loss: -3.0294387398696525, EarlyStopping counter: 2 out of 100
+EPOCH[304/1000] loss-3.031-|Sample:1.12|use_time:15.744192838668823
+loss: -3.030534784968306, EarlyStopping counter: 3 out of 100
+EPOCH[305/1000] loss-3.031-|Sample:1.13|use_time:15.755516290664673
+loss: -3.0306316933980804, EarlyStopping counter: 4 out of 100
+EPOCH[306/1000] loss-3.030-|Sample:1.21|use_time:16.019191026687622
+loss: -3.030082685191457, EarlyStopping counter: 5 out of 100
+EPOCH[307/1000] loss-3.032-|Sample:1.13|use_time:15.782243728637695
+EPOCH[308/1000] loss-3.035-|Sample:1.13|use_time:15.748377799987793
+EPOCH[309/1000] loss-3.032-|Sample:1.13|use_time:15.993781805038452
+loss: -3.0321442615695116, EarlyStopping counter: 1 out of 100
+EPOCH[310/1000] loss-3.035-|Sample:1.16|use_time:15.78239369392395
+reg_loss2: tensor(0.0514, device='cuda:0', grad_fn=<MulBackward0>) au_loss: tensor(-3.0708, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[311/1000] loss-3.032-|Sample:1.15|use_time:15.77296257019043
+loss: -3.0320278609671245, EarlyStopping counter: 1 out of 100
+EPOCH[312/1000] loss-3.036-|Sample:1.12|use_time:15.744038343429565
+EPOCH[313/1000] loss-3.034-|Sample:1.12|use_time:15.945069551467896
+loss: -3.0342933550113584, EarlyStopping counter: 1 out of 100
+EPOCH[314/1000] loss-3.036-|Sample:1.20|use_time:15.806150197982788
+loss: -3.0355525772746015, EarlyStopping counter: 2 out of 100
+EPOCH[315/1000] loss-3.035-|Sample:1.16|use_time:15.780332803726196
+loss: -3.0347452628903273, EarlyStopping counter: 3 out of 100
+EPOCH[316/1000] loss-3.037-|Sample:1.12|use_time:15.70731520652771
+EPOCH[317/1000] loss-3.035-|Sample:1.12|use_time:15.715954780578613
+loss: -3.0351015939945127, EarlyStopping counter: 1 out of 100
+EPOCH[318/1000] loss-3.036-|Sample:1.14|use_time:15.974266290664673
+loss: -3.0361944466102413, EarlyStopping counter: 2 out of 100
+EPOCH[319/1000] loss-3.038-|Sample:1.15|use_time:15.795071363449097
+EPOCH[320/1000] loss-3.039-|Sample:1.14|use_time:15.763738632202148
+reg_loss2: tensor(0.0497, device='cuda:0', grad_fn=<MulBackward0>) au_loss: tensor(-3.0876, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[321/1000] loss-3.038-|Sample:1.12|use_time:15.694910526275635
+loss: -3.0375056034181176, EarlyStopping counter: 1 out of 100
+EPOCH[322/1000] loss-3.036-|Sample:1.13|use_time:15.76343059539795
+loss: -3.0361797693299084, EarlyStopping counter: 2 out of 100
+EPOCH[323/1000] loss-3.040-|Sample:1.21|use_time:15.83489203453064
+EPOCH[324/1000] loss-3.040-|Sample:1.15|use_time:15.911556959152222
+loss: -3.0396692694687264, EarlyStopping counter: 1 out of 100
+EPOCH[325/1000] loss-3.039-|Sample:1.14|use_time:15.727663278579712
+loss: -3.038938615380264, EarlyStopping counter: 2 out of 100
+EPOCH[326/1000] loss-3.039-|Sample:1.13|use_time:15.752758979797363
+loss: -3.038943447717806, EarlyStopping counter: 3 out of 100
+EPOCH[327/1000] loss-3.039-|Sample:1.19|use_time:15.794637203216553
+loss: -3.038702237896803, EarlyStopping counter: 4 out of 100
+EPOCH[328/1000] loss-3.040-|Sample:1.15|use_time:15.918909311294556
+loss: -3.0399291166445104, EarlyStopping counter: 5 out of 100
+EPOCH[329/1000] loss-3.041-|Sample:1.13|use_time:15.759250402450562
+EPOCH[330/1000] loss-3.039-|Sample:1.13|use_time:15.758506536483765
+loss: -3.0391144636200695, EarlyStopping counter: 1 out of 100
+reg_loss2: tensor(0.0480, device='cuda:0', grad_fn=<MulBackward0>) au_loss: tensor(-3.0744, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[331/1000] loss-3.040-|Sample:1.19|use_time:16.045512437820435
+loss: -3.03961650336661, EarlyStopping counter: 2 out of 100
+EPOCH[332/1000] loss-3.041-|Sample:1.16|use_time:15.747180700302124
+EPOCH[333/1000] loss-3.044-|Sample:1.14|use_time:15.73804497718811
+EPOCH[334/1000] loss-3.045-|Sample:1.14|use_time:15.819278001785278
+EPOCH[335/1000] loss-3.043-|Sample:1.13|use_time:15.978324890136719
+loss: -3.0432871551048466, EarlyStopping counter: 1 out of 100
+EPOCH[336/1000] loss-3.042-|Sample:1.15|use_time:15.731123208999634
+loss: -3.0418479093691198, EarlyStopping counter: 2 out of 100
+EPOCH[337/1000] loss-3.045-|Sample:1.13|use_time:15.733114957809448
+loss: -3.0445156969675202, EarlyStopping counter: 3 out of 100
+EPOCH[338/1000] loss-3.044-|Sample:1.13|use_time:15.965166807174683
+loss: -3.0439521219672225, EarlyStopping counter: 4 out of 100
+EPOCH[339/1000] loss-3.046-|Sample:0.95|use_time:15.751109600067139
+EPOCH[340/1000] loss-3.044-|Sample:1.20|use_time:15.839937210083008
+loss: -3.0441297903293516, EarlyStopping counter: 1 out of 100
+reg_loss2: tensor(0.0465, device='cuda:0', grad_fn=<MulBackward0>) au_loss: tensor(-3.1315, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[341/1000] loss-3.046-|Sample:1.14|use_time:15.734851837158203
+EPOCH[342/1000] loss-3.046-|Sample:1.13|use_time:15.905759572982788
+EPOCH[343/1000] loss-3.046-|Sample:1.12|use_time:15.81209659576416
+loss: -3.0455275919379257, EarlyStopping counter: 1 out of 100
+EPOCH[344/1000] loss-3.046-|Sample:1.19|use_time:15.779078960418701
+loss: -3.0456704860780297, EarlyStopping counter: 2 out of 100
+EPOCH[345/1000] loss-3.046-|Sample:1.16|use_time:15.997868061065674
+loss: -3.045938410410067, EarlyStopping counter: 3 out of 100
+EPOCH[346/1000] loss-3.046-|Sample:1.13|use_time:15.827481031417847
+loss: -3.0458347099583323, EarlyStopping counter: 4 out of 100
+EPOCH[347/1000] loss-3.045-|Sample:1.12|use_time:15.784363985061646
+loss: -3.044971780079167, EarlyStopping counter: 5 out of 100
+EPOCH[348/1000] loss-3.048-|Sample:1.18|use_time:15.80245304107666
+EPOCH[349/1000] loss-3.046-|Sample:1.17|use_time:15.964014768600464
+loss: -3.046358980783602, EarlyStopping counter: 1 out of 100
+EPOCH[350/1000] loss-3.047-|Sample:1.13|use_time:15.727540969848633
+loss: -3.046519779577488, EarlyStopping counter: 2 out of 100
+reg_loss2: tensor(0.0451, device='cuda:0', grad_fn=<MulBackward0>) au_loss: tensor(-3.1208, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[351/1000] loss-3.049-|Sample:1.13|use_time:15.769141912460327
+EPOCH[352/1000] loss-3.049-|Sample:1.12|use_time:16.054231643676758
+EPOCH[353/1000] loss-3.048-|Sample:0.94|use_time:15.754388332366943
+loss: -3.0483938135751862, EarlyStopping counter: 1 out of 100
+EPOCH[354/1000] loss-3.051-|Sample:1.13|use_time:15.794628143310547
+EPOCH[355/1000] loss-3.049-|Sample:1.13|use_time:15.744259357452393
+loss: -3.049167778433823, EarlyStopping counter: 1 out of 100
+EPOCH[356/1000] loss-3.050-|Sample:1.12|use_time:15.963556051254272
+loss: -3.050050857590466, EarlyStopping counter: 2 out of 100
+EPOCH[357/1000] loss-3.050-|Sample:1.21|use_time:15.84281587600708
+loss: -3.0495608376293646, EarlyStopping counter: 3 out of 100
+EPOCH[358/1000] loss-3.048-|Sample:1.17|use_time:15.832859754562378
+loss: -3.0478039543803144, EarlyStopping counter: 4 out of 100
+EPOCH[359/1000] loss-3.050-|Sample:1.13|use_time:15.928880214691162
+loss: -3.0500927029586418, EarlyStopping counter: 5 out of 100
+EPOCH[360/1000] loss-3.050-|Sample:1.13|use_time:15.793011903762817
+loss: -3.0495495040242266, EarlyStopping counter: 6 out of 100
+reg_loss2: tensor(0.0438, device='cuda:0', grad_fn=<MulBackward0>) au_loss: tensor(-3.0961, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[361/1000] loss-3.051-|Sample:1.16|use_time:15.774704933166504
+loss: -3.050521740099279, EarlyStopping counter: 7 out of 100
+EPOCH[362/1000] loss-3.049-|Sample:1.19|use_time:15.851651430130005
+loss: -3.0493586237837627, EarlyStopping counter: 8 out of 100
+EPOCH[363/1000] loss-3.051-|Sample:1.13|use_time:15.910991668701172
+loss: -3.0506840333705996, EarlyStopping counter: 9 out of 100
+EPOCH[364/1000] loss-3.052-|Sample:1.13|use_time:15.748364686965942
+EPOCH[365/1000] loss-3.049-|Sample:1.15|use_time:15.759151220321655
+loss: -3.0487564017133013, EarlyStopping counter: 1 out of 100
+EPOCH[366/1000] loss-3.049-|Sample:1.21|use_time:15.987850904464722
+loss: -3.048946938863615, EarlyStopping counter: 2 out of 100
+EPOCH[367/1000] loss-3.054-|Sample:0.95|use_time:15.738375663757324
+EPOCH[368/1000] loss-3.052-|Sample:1.13|use_time:15.840876579284668
+loss: -3.052482930625357, EarlyStopping counter: 1 out of 100
+EPOCH[369/1000] loss-3.054-|Sample:1.15|use_time:15.958573579788208
+EPOCH[370/1000] loss-3.052-|Sample:1.20|use_time:16.02627968788147
+loss: -3.0521869019764227, EarlyStopping counter: 1 out of 100
+reg_loss2: tensor(0.0426, device='cuda:0', grad_fn=<MulBackward0>) au_loss: tensor(-3.1000, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[371/1000] loss-3.052-|Sample:1.15|use_time:15.729784727096558
+loss: -3.052052608350428, EarlyStopping counter: 2 out of 100
+EPOCH[372/1000] loss-3.052-|Sample:1.14|use_time:15.73035717010498
+loss: -3.051635149048596, EarlyStopping counter: 3 out of 100
+EPOCH[373/1000] loss-3.054-|Sample:1.13|use_time:15.91707730293274
+EPOCH[374/1000] loss-3.053-|Sample:1.20|use_time:15.834831714630127
+loss: -3.0533388533243317, EarlyStopping counter: 1 out of 100
+EPOCH[375/1000] loss-3.054-|Sample:1.16|use_time:15.751344442367554
+loss: -3.0538379099310897, EarlyStopping counter: 2 out of 100
+EPOCH[376/1000] loss-3.055-|Sample:1.14|use_time:15.71634840965271
+EPOCH[377/1000] loss-3.053-|Sample:1.14|use_time:15.93384075164795
+loss: -3.052635884866482, EarlyStopping counter: 1 out of 100
+EPOCH[378/1000] loss-3.055-|Sample:1.19|use_time:15.859253644943237
+EPOCH[379/1000] loss-3.054-|Sample:1.18|use_time:15.771228313446045
+loss: -3.0538188306296745, EarlyStopping counter: 1 out of 100
+EPOCH[380/1000] loss-3.054-|Sample:1.14|use_time:15.897270202636719
+loss: -3.053723073587185, EarlyStopping counter: 2 out of 100
+reg_loss2: tensor(0.0415, device='cuda:0', grad_fn=<MulBackward0>) au_loss: tensor(-3.0845, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[381/1000] loss-3.054-|Sample:0.96|use_time:15.743484020233154
+loss: -3.054175917695208, EarlyStopping counter: 3 out of 100
+EPOCH[382/1000] loss-3.053-|Sample:1.16|use_time:15.740063905715942
+loss: -3.0534304409492306, EarlyStopping counter: 4 out of 100
+EPOCH[383/1000] loss-3.055-|Sample:1.23|use_time:15.809745788574219
+loss: -3.0550445579900973, EarlyStopping counter: 5 out of 100
+EPOCH[384/1000] loss-3.055-|Sample:1.13|use_time:15.885363340377808
+loss: -3.054674916151093, EarlyStopping counter: 6 out of 100
+EPOCH[385/1000] loss-3.055-|Sample:1.14|use_time:15.722969770431519
+loss: -3.0548297893710252, EarlyStopping counter: 7 out of 100
+EPOCH[386/1000] loss-3.058-|Sample:1.14|use_time:15.884154319763184
+EPOCH[387/1000] loss-3.056-|Sample:1.20|use_time:16.01094079017639
+loss: -3.0556212227518964, EarlyStopping counter: 1 out of 100
+EPOCH[388/1000] loss-3.055-|Sample:1.13|use_time:15.71571683883667
+loss: -3.0547377888749288, EarlyStopping counter: 2 out of 100
+EPOCH[389/1000] loss-3.058-|Sample:1.13|use_time:15.750236511230469
+EPOCH[390/1000] loss-3.056-|Sample:1.12|use_time:15.747848510742188
+loss: -3.0564959339979216, EarlyStopping counter: 1 out of 100
+reg_loss2: tensor(0.0405, device='cuda:0', grad_fn=<MulBackward0>) au_loss: tensor(-3.0792, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[391/1000] loss-3.056-|Sample:1.19|use_time:15.959899425506592
+loss: -3.056322778143534, EarlyStopping counter: 2 out of 100
+EPOCH[392/1000] loss-3.057-|Sample:1.14|use_time:15.712630271911621
+loss: -3.0567263742772544, EarlyStopping counter: 3 out of 100
+EPOCH[393/1000] loss-3.056-|Sample:1.12|use_time:15.718656301498413
+loss: -3.0560047219439253, EarlyStopping counter: 4 out of 100
+EPOCH[394/1000] loss-3.057-|Sample:1.13|use_time:15.950073957443237
+loss: -3.056976260208502, EarlyStopping counter: 5 out of 100
+EPOCH[395/1000] loss-3.061-|Sample:0.95|use_time:15.779855251312256
+EPOCH[396/1000] loss-3.058-|Sample:1.16|use_time:15.76710033416748
+loss: -3.057643471694574, EarlyStopping counter: 1 out of 100
+EPOCH[397/1000] loss-3.059-|Sample:1.12|use_time:15.703290700912476
+loss: -3.0585730308439674, EarlyStopping counter: 2 out of 100
+EPOCH[398/1000] loss-3.059-|Sample:1.12|use_time:15.89470362663269
+loss: -3.0594843887701266, EarlyStopping counter: 3 out of 100
+EPOCH[399/1000] loss-3.060-|Sample:1.13|use_time:15.717905044555664
+loss: -3.0597277385432546, EarlyStopping counter: 4 out of 100
+EPOCH[400/1000] loss-3.059-|Sample:1.22|use_time:15.843752145767212
+loss: -3.058947650397696, EarlyStopping counter: 5 out of 100
+[TEST]
+{'precision': array([0.02588015, 0.01914482, 0.01177029]), 'recall': array([0.1092062 , 0.15799837, 0.23855745]), 'ndcg': array([0.07361672, 0.08852902, 0.10856602]), 'coverage': array([24.03283396, 28.40024969, 33.3443196 ]), 'Acoverage': array([ 507.61535581,  778.78813983, 1315.10436954]), 'ILD': array([0.74590096, 0.76554636, 0.79487508]), 'F1': array([0.19051883, 0.26193659, 0.36697775])}
+test time: 75.84038972854614
+reg_loss2: tensor(0.0395, device='cuda:0', grad_fn=<MulBackward0>) au_loss: tensor(-3.1009, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[401/1000] loss-3.060-|Sample:1.24|use_time:15.841946363449097
+loss: -3.059660958080757, EarlyStopping counter: 6 out of 100
+EPOCH[402/1000] loss-3.060-|Sample:1.18|use_time:15.9597008228302
+loss: -3.0603701021613143, EarlyStopping counter: 7 out of 100
+EPOCH[403/1000] loss-3.062-|Sample:1.13|use_time:15.715871334075928
+EPOCH[404/1000] loss-3.060-|Sample:1.13|use_time:15.742141723632812
+loss: -3.0596165831496074, EarlyStopping counter: 1 out of 100
+EPOCH[405/1000] loss-3.061-|Sample:1.14|use_time:15.948293447494507
+loss: -3.0612694170416854, EarlyStopping counter: 2 out of 100
+EPOCH[406/1000] loss-3.060-|Sample:1.21|use_time:15.81287145614624
+loss: -3.0603931182768287, EarlyStopping counter: 3 out of 100
+EPOCH[407/1000] loss-3.061-|Sample:1.16|use_time:15.781708717346191
+loss: -3.0611532257824408, EarlyStopping counter: 4 out of 100
+EPOCH[408/1000] loss-3.061-|Sample:1.16|use_time:15.934127807617188
+loss: -3.061152597753013, EarlyStopping counter: 5 out of 100
+EPOCH[409/1000] loss-3.061-|Sample:1.13|use_time:15.749831199645996
+loss: -3.061152027874458, EarlyStopping counter: 6 out of 100
+EPOCH[410/1000] loss-3.061-|Sample:1.20|use_time:15.797090768814087
+loss: -3.061213161887192, EarlyStopping counter: 7 out of 100
+reg_loss2: tensor(0.0386, device='cuda:0', grad_fn=<MulBackward0>) au_loss: tensor(-3.1153, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[411/1000] loss-3.062-|Sample:1.15|use_time:15.735759496688843
+EPOCH[412/1000] loss-3.061-|Sample:1.14|use_time:15.896111965179443
+loss: -3.0614042921764093, EarlyStopping counter: 1 out of 100
+EPOCH[413/1000] loss-3.061-|Sample:1.13|use_time:15.908186674118042
+loss: -3.0614647400088426, EarlyStopping counter: 2 out of 100
+EPOCH[414/1000] loss-3.060-|Sample:1.22|use_time:15.975378036499023
+loss: -3.0595746505551222, EarlyStopping counter: 3 out of 100
+EPOCH[415/1000] loss-3.062-|Sample:1.21|use_time:15.975901365280151
+EPOCH[416/1000] loss-3.063-|Sample:1.16|use_time:15.886557579040527
+EPOCH[417/1000] loss-3.063-|Sample:1.15|use_time:16.038649797439575
+EPOCH[418/1000] loss-3.063-|Sample:1.17|use_time:15.76850938796997
+loss: -3.062967910999205, EarlyStopping counter: 1 out of 100
+EPOCH[419/1000] loss-3.063-|Sample:1.22|use_time:15.81283950805664
+loss: -3.0631881806908585, EarlyStopping counter: 2 out of 100
+EPOCH[420/1000] loss-3.061-|Sample:1.15|use_time:15.74898076057434
+loss: -3.0606428762761557, EarlyStopping counter: 3 out of 100
+reg_loss2: tensor(0.0378, device='cuda:0', grad_fn=<MulBackward0>) au_loss: tensor(-3.0917, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[421/1000] loss-3.063-|Sample:1.13|use_time:15.908360481262207
+loss: -3.063228008223743, EarlyStopping counter: 4 out of 100
+EPOCH[422/1000] loss-3.061-|Sample:1.26|use_time:15.945180892944336
+loss: -3.0609959567465435, EarlyStopping counter: 5 out of 100
+EPOCH[423/1000] loss-3.063-|Sample:1.22|use_time:16.113889694213867
+loss: -3.063234957253061, EarlyStopping counter: 6 out of 100
+EPOCH[424/1000] loss-3.061-|Sample:1.23|use_time:15.877437114715576
+loss: -3.0609422951209835, EarlyStopping counter: 7 out of 100
+EPOCH[425/1000] loss-3.063-|Sample:1.24|use_time:15.843162298202515
+loss: -3.0631615475910468, EarlyStopping counter: 8 out of 100
+EPOCH[426/1000] loss-3.062-|Sample:1.23|use_time:15.876332759857178
+loss: -3.0620543491549608, EarlyStopping counter: 9 out of 100
+EPOCH[427/1000] loss-3.063-|Sample:1.22|use_time:15.996218204498291
+loss: -3.062751014058183, EarlyStopping counter: 10 out of 100
+EPOCH[428/1000] loss-3.064-|Sample:1.21|use_time:15.900304794311523
+EPOCH[429/1000] loss-3.065-|Sample:1.32|use_time:16.113920211791992
+EPOCH[430/1000] loss-3.064-|Sample:1.28|use_time:17.128264904022217
+loss: -3.0643264491383624, EarlyStopping counter: 1 out of 100
+reg_loss2: tensor(0.0370, device='cuda:0', grad_fn=<MulBackward0>) au_loss: tensor(-3.1019, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[431/1000] loss-3.065-|Sample:1.60|use_time:17.95492148399353
+loss: -3.064821656157331, EarlyStopping counter: 2 out of 100
+EPOCH[432/1000] loss-3.064-|Sample:1.60|use_time:17.92419457435608
+loss: -3.0635349924971416, EarlyStopping counter: 3 out of 100
+EPOCH[433/1000] loss-3.065-|Sample:1.59|use_time:17.882463932037354
+EPOCH[434/1000] loss-3.064-|Sample:1.60|use_time:18.188266277313232
+loss: -3.064265129042835, EarlyStopping counter: 1 out of 100
+EPOCH[435/1000] loss-3.064-|Sample:1.52|use_time:17.92686438560486
+loss: -3.063718766700931, EarlyStopping counter: 2 out of 100
+EPOCH[436/1000] loss-3.064-|Sample:1.31|use_time:15.90425419807434
+loss: -3.0642720838872397, EarlyStopping counter: 3 out of 100
+EPOCH[437/1000] loss-3.065-|Sample:1.13|use_time:15.99883246421814
+loss: -3.0648717763947277, EarlyStopping counter: 4 out of 100
+EPOCH[438/1000] loss-3.063-|Sample:0.94|use_time:15.760015964508057
+loss: -3.062618877829575, EarlyStopping counter: 5 out of 100
+EPOCH[439/1000] loss-3.066-|Sample:1.20|use_time:15.806039571762085
+EPOCH[440/1000] loss-3.067-|Sample:1.15|use_time:15.73034930229187
+reg_loss2: tensor(0.0362, device='cuda:0', grad_fn=<MulBackward0>) au_loss: tensor(-3.1182, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[441/1000] loss-3.066-|Sample:1.12|use_time:15.95285677909851
+loss: -3.0655779140751536, EarlyStopping counter: 1 out of 100
+EPOCH[442/1000] loss-3.066-|Sample:1.17|use_time:15.80822205543518
+loss: -3.0662583432546477, EarlyStopping counter: 2 out of 100
+EPOCH[443/1000] loss-3.065-|Sample:1.13|use_time:15.862271308898926
+loss: -3.0654839771549875, EarlyStopping counter: 3 out of 100
+EPOCH[444/1000] loss-3.065-|Sample:1.15|use_time:15.99432635307312
+loss: -3.065289253141822, EarlyStopping counter: 4 out of 100
+EPOCH[445/1000] loss-3.066-|Sample:1.13|use_time:15.745329856872559
+loss: -3.0658614751769275, EarlyStopping counter: 5 out of 100
+EPOCH[446/1000] loss-3.067-|Sample:1.13|use_time:15.739283800125122
+EPOCH[447/1000] loss-3.068-|Sample:1.13|use_time:15.766213178634644
+EPOCH[448/1000] loss-3.066-|Sample:1.23|use_time:15.98761510848999
+loss: -3.065788234152445, EarlyStopping counter: 1 out of 100
+EPOCH[449/1000] loss-3.069-|Sample:1.15|use_time:15.723706722259521
+EPOCH[450/1000] loss-3.067-|Sample:1.15|use_time:15.74065899848938
+loss: -3.0674071777157668, EarlyStopping counter: 1 out of 100
+reg_loss2: tensor(0.0355, device='cuda:0', grad_fn=<MulBackward0>) au_loss: tensor(-3.1269, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[451/1000] loss-3.068-|Sample:1.17|use_time:16.311981201171875
+loss: -3.067981062865839, EarlyStopping counter: 2 out of 100
+EPOCH[452/1000] loss-3.066-|Sample:0.96|use_time:16.864542722702026
+loss: -3.0662267208099365, EarlyStopping counter: 3 out of 100
+EPOCH[453/1000] loss-3.066-|Sample:1.14|use_time:15.851540327072144
+loss: -3.066100318257402, EarlyStopping counter: 4 out of 100
+EPOCH[454/1000] loss-3.069-|Sample:1.14|use_time:15.74165940284729
+EPOCH[455/1000] loss-3.069-|Sample:1.13|use_time:15.899510622024536
+loss: -3.069059046303354, EarlyStopping counter: 1 out of 100
+EPOCH[456/1000] loss-3.069-|Sample:1.21|use_time:15.799538850784302
+EPOCH[457/1000] loss-3.067-|Sample:1.15|use_time:15.737285614013672
+loss: -3.0670004123594703, EarlyStopping counter: 1 out of 100
+EPOCH[458/1000] loss-3.069-|Sample:1.12|use_time:15.870471239089966
+loss: -3.0687640876304814, EarlyStopping counter: 2 out of 100
+EPOCH[459/1000] loss-3.069-|Sample:1.17|use_time:15.86321496963501
+EPOCH[460/1000] loss-3.068-|Sample:1.13|use_time:15.715439558029175
+loss: -3.06847419971373, EarlyStopping counter: 1 out of 100
+reg_loss2: tensor(0.0349, device='cuda:0', grad_fn=<MulBackward0>) au_loss: tensor(-3.1150, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[461/1000] loss-3.066-|Sample:1.22|use_time:15.789480924606323
+loss: -3.0655454019220865, EarlyStopping counter: 2 out of 100
+EPOCH[462/1000] loss-3.070-|Sample:1.15|use_time:15.908718347549438
+EPOCH[463/1000] loss-3.067-|Sample:1.14|use_time:15.774020433425903
+loss: -3.0665072464361423, EarlyStopping counter: 1 out of 100
+EPOCH[464/1000] loss-3.069-|Sample:1.15|use_time:15.75241994857788
+loss: -3.069223171327172, EarlyStopping counter: 2 out of 100
+EPOCH[465/1000] loss-3.068-|Sample:1.20|use_time:16.00749921798706
+loss: -3.0678263175778273, EarlyStopping counter: 3 out of 100
+EPOCH[466/1000] loss-3.068-|Sample:0.95|use_time:15.702215909957886
+loss: -3.068140628861218, EarlyStopping counter: 4 out of 100
+EPOCH[467/1000] loss-3.067-|Sample:1.19|use_time:15.853376865386963
+loss: -3.067414336088227, EarlyStopping counter: 5 out of 100
+EPOCH[468/1000] loss-3.070-|Sample:1.12|use_time:15.744351148605347
+EPOCH[469/1000] loss-3.070-|Sample:1.18|use_time:15.963005304336548
+EPOCH[470/1000] loss-3.069-|Sample:1.15|use_time:15.727299690246582
+loss: -3.06945566433232, EarlyStopping counter: 1 out of 100
+reg_loss2: tensor(0.0343, device='cuda:0', grad_fn=<MulBackward0>) au_loss: tensor(-3.1340, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[471/1000] loss-3.072-|Sample:1.13|use_time:15.712989330291748
+EPOCH[472/1000] loss-3.069-|Sample:1.12|use_time:15.94632601737976
+loss: -3.069112324133152, EarlyStopping counter: 1 out of 100
+EPOCH[473/1000] loss-3.070-|Sample:1.13|use_time:15.729724645614624
+loss: -3.0700966962953893, EarlyStopping counter: 2 out of 100
+EPOCH[474/1000] loss-3.069-|Sample:1.21|use_time:15.810985326766968
+loss: -3.0692674590320124, EarlyStopping counter: 3 out of 100
+EPOCH[475/1000] loss-3.071-|Sample:1.12|use_time:15.835729360580444
+loss: -3.0708493663043512, EarlyStopping counter: 4 out of 100
+EPOCH[476/1000] loss-3.070-|Sample:1.12|use_time:15.894573211669922
+loss: -3.070069260713531, EarlyStopping counter: 5 out of 100
+EPOCH[477/1000] loss-3.069-|Sample:1.14|use_time:15.783319473266602
+loss: -3.068848702965713, EarlyStopping counter: 6 out of 100
+EPOCH[478/1000] loss-3.073-|Sample:1.20|use_time:15.895562648773193
+EPOCH[479/1000] loss-3.070-|Sample:1.17|use_time:15.9476318359375
+loss: -3.0699919258675923, EarlyStopping counter: 1 out of 100
+EPOCH[480/1000] loss-3.072-|Sample:0.95|use_time:15.725284337997437
+loss: -3.0722708178729548, EarlyStopping counter: 2 out of 100
+reg_loss2: tensor(0.0337, device='cuda:0', grad_fn=<MulBackward0>) au_loss: tensor(-3.0879, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[481/1000] loss-3.069-|Sample:1.12|use_time:15.721752882003784
+loss: -3.0694536406819415, EarlyStopping counter: 3 out of 100
+EPOCH[482/1000] loss-3.071-|Sample:1.20|use_time:15.794370174407959
+loss: -3.0714892759555723, EarlyStopping counter: 4 out of 100
+EPOCH[483/1000] loss-3.071-|Sample:1.14|use_time:15.930633306503296
+loss: -3.0714493902718147, EarlyStopping counter: 5 out of 100
+EPOCH[484/1000] loss-3.070-|Sample:1.13|use_time:15.719478845596313
+loss: -3.069808285410811, EarlyStopping counter: 6 out of 100
+EPOCH[485/1000] loss-3.071-|Sample:1.14|use_time:15.745453119277954
+loss: -3.0709013473696825, EarlyStopping counter: 7 out of 100
+EPOCH[486/1000] loss-3.070-|Sample:1.18|use_time:15.9709153175354
+loss: -3.070282732568136, EarlyStopping counter: 8 out of 100
+EPOCH[487/1000] loss-3.072-|Sample:1.15|use_time:15.728270769119263
+loss: -3.0722894784880848, EarlyStopping counter: 9 out of 100
+EPOCH[488/1000] loss-3.071-|Sample:1.13|use_time:15.710941791534424
+loss: -3.071292016564346, EarlyStopping counter: 10 out of 100
+EPOCH[489/1000] loss-3.073-|Sample:1.13|use_time:15.746314525604248
+loss: -3.072777544579855, EarlyStopping counter: 11 out of 100
+EPOCH[490/1000] loss-3.071-|Sample:1.14|use_time:16.03892421722412
+loss: -3.071334693490005, EarlyStopping counter: 12 out of 100
+reg_loss2: tensor(0.0331, device='cuda:0', grad_fn=<MulBackward0>) au_loss: tensor(-3.1188, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[491/1000] loss-3.069-|Sample:1.15|use_time:15.771218299865723
+loss: -3.0691939912191253, EarlyStopping counter: 13 out of 100
+EPOCH[492/1000] loss-3.074-|Sample:1.13|use_time:15.72879695892334
+EPOCH[493/1000] loss-3.072-|Sample:1.12|use_time:15.913172483444214
+loss: -3.071910625550805, EarlyStopping counter: 1 out of 100
+EPOCH[494/1000] loss-3.074-|Sample:0.94|use_time:15.715410947799683
+EPOCH[495/1000] loss-3.071-|Sample:1.21|use_time:15.848992347717285
+loss: -3.0708644855313185, EarlyStopping counter: 1 out of 100
+EPOCH[496/1000] loss-3.073-|Sample:1.15|use_time:15.754974126815796
+loss: -3.0725273097433696, EarlyStopping counter: 2 out of 100
+EPOCH[497/1000] loss-3.075-|Sample:1.12|use_time:15.923619031906128
+EPOCH[498/1000] loss-3.072-|Sample:1.13|use_time:15.786232471466064
+loss: -3.0721765553079, EarlyStopping counter: 1 out of 100
+EPOCH[499/1000] loss-3.072-|Sample:1.21|use_time:15.844427585601807
+loss: -3.0724454507595156, EarlyStopping counter: 2 out of 100
+EPOCH[500/1000] loss-3.071-|Sample:1.16|use_time:15.9282066822052
+loss: -3.0705661599229024, EarlyStopping counter: 3 out of 100
+[TEST]
+{'precision': array([0.02644195, 0.01921973, 0.01192759]), 'recall': array([0.11053054, 0.16044453, 0.24382006]), 'ndcg': array([0.07509969, 0.09007299, 0.11086995]), 'coverage': array([24.07677903, 28.32446941, 33.28926342]), 'Acoverage': array([ 508.20474407,  781.2525593 , 1326.00349563]), 'ILD': array([0.74374254, 0.76183915, 0.79169049]), 'F1': array([0.19245898, 0.26506579, 0.37282096])}
+test time: 75.679692029953
+reg_loss2: tensor(0.0326, device='cuda:0', grad_fn=<MulBackward0>) au_loss: tensor(-3.0966, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[501/1000] loss-3.074-|Sample:1.24|use_time:15.910054206848145
+loss: -3.0738844290012266, EarlyStopping counter: 4 out of 100
+EPOCH[502/1000] loss-3.071-|Sample:1.14|use_time:15.808552980422974
+loss: -3.0709789497096365, EarlyStopping counter: 5 out of 100
+EPOCH[503/1000] loss-3.071-|Sample:1.12|use_time:15.74280571937561
+loss: -3.0705551519626524, EarlyStopping counter: 6 out of 100
+EPOCH[504/1000] loss-3.072-|Sample:1.11|use_time:16.06778573989868
+loss: -3.0720238569306164, EarlyStopping counter: 7 out of 100
+EPOCH[505/1000] loss-3.071-|Sample:1.19|use_time:15.84507417678833
+loss: -3.0709934350920887, EarlyStopping counter: 8 out of 100
+EPOCH[506/1000] loss-3.073-|Sample:1.16|use_time:15.812061309814453
+loss: -3.073168981366041, EarlyStopping counter: 9 out of 100
+EPOCH[507/1000] loss-3.073-|Sample:1.12|use_time:15.960171937942505
+loss: -3.072508835211033, EarlyStopping counter: 10 out of 100
+EPOCH[508/1000] loss-3.073-|Sample:1.12|use_time:15.758262157440186
+loss: -3.0732745891664086, EarlyStopping counter: 11 out of 100
+EPOCH[509/1000] loss-3.071-|Sample:1.13|use_time:15.784563302993774
+loss: -3.0712643658242573, EarlyStopping counter: 12 out of 100
+EPOCH[510/1000] loss-3.072-|Sample:1.22|use_time:15.989068508148193
+loss: -3.0718263823811602, EarlyStopping counter: 13 out of 100
+reg_loss2: tensor(0.0321, device='cuda:0', grad_fn=<MulBackward0>) au_loss: tensor(-3.0925, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[511/1000] loss-3.074-|Sample:1.12|use_time:15.702189445495605
+loss: -3.0741140842437744, EarlyStopping counter: 14 out of 100
+EPOCH[512/1000] loss-3.072-|Sample:1.12|use_time:15.698733568191528
+loss: -3.0719079331653876, EarlyStopping counter: 15 out of 100
+EPOCH[513/1000] loss-3.076-|Sample:1.12|use_time:15.716369390487671
+EPOCH[514/1000] loss-3.073-|Sample:1.20|use_time:16.043821573257446
+loss: -3.073156490558531, EarlyStopping counter: 1 out of 100
+EPOCH[515/1000] loss-3.074-|Sample:1.13|use_time:15.752312660217285
+loss: -3.073903740906134, EarlyStopping counter: 2 out of 100
+EPOCH[516/1000] loss-3.074-|Sample:1.14|use_time:15.742071628570557
+loss: -3.0744930011470144, EarlyStopping counter: 3 out of 100
+EPOCH[517/1000] loss-3.075-|Sample:1.13|use_time:15.79563283920288
+loss: -3.0745524662296946, EarlyStopping counter: 4 out of 100
+EPOCH[518/1000] loss-3.074-|Sample:1.15|use_time:15.802032232284546
+loss: -3.073694787374357, EarlyStopping counter: 5 out of 100
+EPOCH[519/1000] loss-3.075-|Sample:1.20|use_time:15.988058090209961
+loss: -3.0751546417794575, EarlyStopping counter: 6 out of 100
+EPOCH[520/1000] loss-3.074-|Sample:1.13|use_time:15.748374938964844
+loss: -3.0740764373686256, EarlyStopping counter: 7 out of 100
+reg_loss2: tensor(0.0317, device='cuda:0', grad_fn=<MulBackward0>) au_loss: tensor(-3.1232, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[521/1000] loss-3.077-|Sample:1.13|use_time:15.738534927368164
+EPOCH[522/1000] loss-3.074-|Sample:1.12|use_time:15.762125492095947
+loss: -3.07403712737851, EarlyStopping counter: 1 out of 100
+EPOCH[523/1000] loss-3.077-|Sample:1.19|use_time:15.832946062088013
+EPOCH[524/1000] loss-3.075-|Sample:1.15|use_time:15.764861583709717
+loss: -3.074812435522312, EarlyStopping counter: 1 out of 100
+EPOCH[525/1000] loss-3.074-|Sample:1.12|use_time:15.91502070426941
+loss: -3.073650534560041, EarlyStopping counter: 2 out of 100
+EPOCH[526/1000] loss-3.073-|Sample:1.12|use_time:15.736048936843872
+loss: -3.0733115440461694, EarlyStopping counter: 3 out of 100
+EPOCH[527/1000] loss-3.075-|Sample:1.12|use_time:15.718305587768555
+loss: -3.075335095568401, EarlyStopping counter: 4 out of 100
+EPOCH[528/1000] loss-3.075-|Sample:1.21|use_time:15.9770667552948
+loss: -3.074654782690653, EarlyStopping counter: 5 out of 100
+EPOCH[529/1000] loss-3.075-|Sample:1.12|use_time:15.716151714324951
+loss: -3.0749612726816316, EarlyStopping counter: 6 out of 100
+EPOCH[530/1000] loss-3.072-|Sample:1.12|use_time:15.69329023361206
+loss: -3.0721935004722782, EarlyStopping counter: 7 out of 100
+reg_loss2: tensor(0.0312, device='cuda:0', grad_fn=<MulBackward0>) au_loss: tensor(-3.1635, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[531/1000] loss-3.078-|Sample:1.13|use_time:15.902771472930908
+EPOCH[532/1000] loss-3.075-|Sample:1.15|use_time:15.757530450820923
+loss: -3.074944158879722, EarlyStopping counter: 1 out of 100
+EPOCH[533/1000] loss-3.074-|Sample:1.18|use_time:15.804190635681152
+loss: -3.0743805489889007, EarlyStopping counter: 2 out of 100
+EPOCH[534/1000] loss-3.074-|Sample:1.13|use_time:15.706100225448608
+loss: -3.073700166330105, EarlyStopping counter: 3 out of 100
+EPOCH[535/1000] loss-3.077-|Sample:1.13|use_time:15.716788291931152
+loss: -3.077453944741226, EarlyStopping counter: 4 out of 100
+EPOCH[536/1000] loss-3.075-|Sample:1.13|use_time:15.967174291610718
+loss: -3.0750039844978145, EarlyStopping counter: 5 out of 100
+EPOCH[537/1000] loss-3.072-|Sample:1.16|use_time:15.748629331588745
+loss: -3.07233631320116, EarlyStopping counter: 6 out of 100
+EPOCH[538/1000] loss-3.074-|Sample:1.16|use_time:15.750375986099243
+loss: -3.0739349853701707, EarlyStopping counter: 7 out of 100
+EPOCH[539/1000] loss-3.078-|Sample:1.13|use_time:15.755457878112793
+loss: -3.0777513341205878, EarlyStopping counter: 8 out of 100
+EPOCH[540/1000] loss-3.077-|Sample:1.13|use_time:15.749644756317139
+loss: -3.077284667550064, EarlyStopping counter: 9 out of 100
+reg_loss2: tensor(0.0308, device='cuda:0', grad_fn=<MulBackward0>) au_loss: tensor(-3.1536, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[541/1000] loss-3.078-|Sample:1.20|use_time:15.822784900665283
+loss: -3.077590285277948, EarlyStopping counter: 10 out of 100
+EPOCH[542/1000] loss-3.076-|Sample:1.18|use_time:15.956305980682373
+loss: -3.07587641622962, EarlyStopping counter: 11 out of 100
+EPOCH[543/1000] loss-3.075-|Sample:1.14|use_time:15.737141847610474
+loss: -3.0747989387047, EarlyStopping counter: 12 out of 100
+EPOCH[544/1000] loss-3.077-|Sample:1.14|use_time:15.73497748374939
+loss: -3.0772314711314874, EarlyStopping counter: 13 out of 100
+EPOCH[545/1000] loss-3.075-|Sample:1.15|use_time:15.73641037940979
+loss: -3.0747574596870235, EarlyStopping counter: 14 out of 100
+EPOCH[546/1000] loss-3.075-|Sample:1.21|use_time:15.959174156188965
+loss: -3.0752762294397122, EarlyStopping counter: 15 out of 100
+EPOCH[547/1000] loss-3.076-|Sample:1.13|use_time:15.754453420639038
+loss: -3.0762910319537653, EarlyStopping counter: 16 out of 100
+EPOCH[548/1000] loss-3.077-|Sample:1.12|use_time:15.71755313873291
+loss: -3.0767141435204484, EarlyStopping counter: 17 out of 100
+EPOCH[549/1000] loss-3.075-|Sample:1.13|use_time:15.971245050430298
+loss: -3.0747669324642275, EarlyStopping counter: 18 out of 100
+EPOCH[550/1000] loss-3.077-|Sample:1.15|use_time:15.721100568771362
+loss: -3.077296594294106, EarlyStopping counter: 19 out of 100
+reg_loss2: tensor(0.0304, device='cuda:0', grad_fn=<MulBackward0>) au_loss: tensor(-3.0932, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[551/1000] loss-3.074-|Sample:1.14|use_time:15.764623403549194
+loss: -3.0743555906342297, EarlyStopping counter: 20 out of 100
+EPOCH[552/1000] loss-3.076-|Sample:1.11|use_time:15.686135292053223
+loss: -3.0756974976237226, EarlyStopping counter: 21 out of 100
+EPOCH[553/1000] loss-3.075-|Sample:1.12|use_time:15.888405799865723
+loss: -3.0748435462393413, EarlyStopping counter: 22 out of 100
+EPOCH[554/1000] loss-3.076-|Sample:1.20|use_time:15.793998003005981
+loss: -3.07599990542342, EarlyStopping counter: 23 out of 100
+EPOCH[555/1000] loss-3.077-|Sample:1.15|use_time:16.707194805145264
+loss: -3.0769085011831145, EarlyStopping counter: 24 out of 100
+EPOCH[556/1000] loss-3.079-|Sample:1.48|use_time:17.9446280002594
+EPOCH[557/1000] loss-3.078-|Sample:1.32|use_time:17.790284395217896
+loss: -3.077793069002105, EarlyStopping counter: 1 out of 100
+EPOCH[558/1000] loss-3.078-|Sample:1.58|use_time:17.844964504241943
+loss: -3.077962183370823, EarlyStopping counter: 2 out of 100
+EPOCH[559/1000] loss-3.074-|Sample:1.52|use_time:17.76628875732422
+loss: -3.073616452333404, EarlyStopping counter: 3 out of 100
+EPOCH[560/1000] loss-3.079-|Sample:1.49|use_time:17.947767972946167
+loss: -3.078664355161713, EarlyStopping counter: 4 out of 100
+reg_loss2: tensor(0.0301, device='cuda:0', grad_fn=<MulBackward0>) au_loss: tensor(-3.1277, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[561/1000] loss-3.076-|Sample:1.49|use_time:17.776169776916504
+loss: -3.0762505473160164, EarlyStopping counter: 5 out of 100
+EPOCH[562/1000] loss-3.078-|Sample:1.58|use_time:17.84917426109314
+loss: -3.0784700382046584, EarlyStopping counter: 6 out of 100
+EPOCH[563/1000] loss-3.077-|Sample:1.47|use_time:17.94870615005493
+loss: -3.0766926218823687, EarlyStopping counter: 7 out of 100
+EPOCH[564/1000] loss-3.077-|Sample:1.48|use_time:17.834929943084717
+loss: -3.07729314594734, EarlyStopping counter: 8 out of 100
+EPOCH[565/1000] loss-3.078-|Sample:1.54|use_time:17.861749410629272
+loss: -3.0777296612902387, EarlyStopping counter: 9 out of 100
+EPOCH[566/1000] loss-3.077-|Sample:1.53|use_time:17.843442916870117
+loss: -3.0766178456748405, EarlyStopping counter: 10 out of 100
+EPOCH[567/1000] loss-3.077-|Sample:1.52|use_time:18.00855565071106
+loss: -3.077001734477718, EarlyStopping counter: 11 out of 100
+EPOCH[568/1000] loss-3.078-|Sample:1.50|use_time:17.861709594726562
+loss: -3.077628083345367, EarlyStopping counter: 12 out of 100
+EPOCH[569/1000] loss-3.079-|Sample:1.59|use_time:17.88688063621521
+EPOCH[570/1000] loss-3.077-|Sample:1.50|use_time:17.97354769706726
+loss: -3.0768577936219006, EarlyStopping counter: 1 out of 100
+reg_loss2: tensor(0.0297, device='cuda:0', grad_fn=<MulBackward0>) au_loss: tensor(-3.1191, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[571/1000] loss-3.077-|Sample:1.31|use_time:18.250303745269775
+loss: -3.07715972458444, EarlyStopping counter: 2 out of 100
+EPOCH[572/1000] loss-3.077-|Sample:1.49|use_time:17.73989963531494
+loss: -3.076920451187506, EarlyStopping counter: 3 out of 100
+EPOCH[573/1000] loss-3.080-|Sample:1.58|use_time:17.833646297454834
+EPOCH[574/1000] loss-3.079-|Sample:1.47|use_time:17.879130363464355
+loss: -3.0789160554001973, EarlyStopping counter: 1 out of 100
+EPOCH[575/1000] loss-3.079-|Sample:1.49|use_time:17.79812264442444
+loss: -3.078714126493873, EarlyStopping counter: 2 out of 100
+EPOCH[576/1000] loss-3.075-|Sample:1.56|use_time:17.835656881332397
+loss: -3.0750288032903903, EarlyStopping counter: 3 out of 100
+EPOCH[577/1000] loss-3.079-|Sample:1.51|use_time:17.958478450775146
+loss: -3.0787382998117585, EarlyStopping counter: 4 out of 100
+EPOCH[578/1000] loss-3.078-|Sample:1.49|use_time:17.776991367340088
+loss: -3.0779135052750752, EarlyStopping counter: 5 out of 100
+EPOCH[579/1000] loss-3.077-|Sample:1.49|use_time:17.80727458000183
+loss: -3.077243496732014, EarlyStopping counter: 6 out of 100
+EPOCH[580/1000] loss-3.077-|Sample:1.57|use_time:17.903148889541626
+loss: -3.076984074057602, EarlyStopping counter: 7 out of 100
+reg_loss2: tensor(0.0294, device='cuda:0', grad_fn=<MulBackward0>) au_loss: tensor(-3.0765, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[581/1000] loss-3.079-|Sample:1.58|use_time:18.053608417510986
+loss: -3.078753163174885, EarlyStopping counter: 8 out of 100
+EPOCH[582/1000] loss-3.078-|Sample:1.49|use_time:17.79806137084961
+loss: -3.0784958339318997, EarlyStopping counter: 9 out of 100
+EPOCH[583/1000] loss-3.080-|Sample:1.58|use_time:17.86042356491089
+EPOCH[584/1000] loss-3.077-|Sample:1.48|use_time:18.088982582092285
+loss: -3.0770793775232828, EarlyStopping counter: 1 out of 100
+EPOCH[585/1000] loss-3.078-|Sample:1.31|use_time:17.806581020355225
+loss: -3.0778325185543154, EarlyStopping counter: 2 out of 100
+EPOCH[586/1000] loss-3.076-|Sample:1.49|use_time:17.751137733459473
+loss: -3.0764693341604095, EarlyStopping counter: 3 out of 100
+EPOCH[587/1000] loss-3.081-|Sample:1.58|use_time:17.826520681381226
+EPOCH[588/1000] loss-3.079-|Sample:1.48|use_time:18.03028392791748
+loss: -3.079209810349999, EarlyStopping counter: 1 out of 100
+EPOCH[589/1000] loss-3.078-|Sample:1.55|use_time:17.549179077148438
+loss: -3.07823038682705, EarlyStopping counter: 2 out of 100
+EPOCH[590/1000] loss-3.078-|Sample:1.23|use_time:15.874211072921753
+loss: -3.077589831701139, EarlyStopping counter: 3 out of 100
+reg_loss2: tensor(0.0290, device='cuda:0', grad_fn=<MulBackward0>) au_loss: tensor(-3.1043, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[591/1000] loss-3.079-|Sample:1.20|use_time:16.06166124343872
+loss: -3.078640961065525, EarlyStopping counter: 4 out of 100
+EPOCH[592/1000] loss-3.080-|Sample:1.16|use_time:15.80722427368164
+loss: -3.080268051566147, EarlyStopping counter: 5 out of 100
+EPOCH[593/1000] loss-3.077-|Sample:1.20|use_time:15.811016082763672
+loss: -3.076763879962084, EarlyStopping counter: 6 out of 100
+EPOCH[594/1000] loss-3.079-|Sample:1.21|use_time:15.840488910675049
+loss: -3.0792807544150005, EarlyStopping counter: 7 out of 100
+EPOCH[595/1000] loss-3.076-|Sample:1.15|use_time:15.974997282028198
+loss: -3.0764702238687653, EarlyStopping counter: 8 out of 100
+EPOCH[596/1000] loss-3.083-|Sample:1.12|use_time:15.776198148727417
+EPOCH[597/1000] loss-3.078-|Sample:1.20|use_time:15.810813426971436
+loss: -3.0776256817143137, EarlyStopping counter: 1 out of 100
+EPOCH[598/1000] loss-3.078-|Sample:1.14|use_time:15.90761399269104
+loss: -3.0778974149285294, EarlyStopping counter: 2 out of 100
+EPOCH[599/1000] loss-3.079-|Sample:0.94|use_time:15.768285512924194
+loss: -3.079478234779544, EarlyStopping counter: 3 out of 100
+EPOCH[600/1000] loss-3.079-|Sample:1.23|use_time:15.813344240188599
+loss: -3.079373388755612, EarlyStopping counter: 4 out of 100
+[TEST]
+{'precision': array([0.02627965, 0.01949438, 0.01195006]), 'recall': array([0.11013213, 0.16142692, 0.24588253]), 'ndcg': array([0.07617535, 0.09170705, 0.11251758]), 'coverage': array([24.25205993, 28.52122347, 33.53682896]), 'Acoverage': array([ 516.73745318,  792.9866417 , 1350.31523096]), 'ILD': array([0.74299348, 0.7609061 , 0.79117022]), 'F1': array([0.19182979, 0.2663479 , 0.37516883])}
+test time: 76.00871539115906
+reg_loss2: tensor(0.0287, device='cuda:0', grad_fn=<MulBackward0>) au_loss: tensor(-3.1086, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[601/1000] loss-3.081-|Sample:1.23|use_time:15.874871730804443
+loss: -3.0806364140859466, EarlyStopping counter: 5 out of 100
+EPOCH[602/1000] loss-3.082-|Sample:1.15|use_time:15.963149309158325
+loss: -3.081764290972454, EarlyStopping counter: 6 out of 100
+EPOCH[603/1000] loss-3.079-|Sample:1.13|use_time:15.774172306060791
+loss: -3.0794714078670595, EarlyStopping counter: 7 out of 100
+EPOCH[604/1000] loss-3.079-|Sample:1.14|use_time:15.784546375274658
+loss: -3.078593225013919, EarlyStopping counter: 8 out of 100
+EPOCH[605/1000] loss-3.078-|Sample:1.22|use_time:15.82821774482727
+loss: -3.0784859773589344, EarlyStopping counter: 9 out of 100
+EPOCH[606/1000] loss-3.079-|Sample:1.13|use_time:15.98107123374939
+loss: -3.0789467823214647, EarlyStopping counter: 10 out of 100
+EPOCH[607/1000] loss-3.079-|Sample:1.14|use_time:15.78370451927185
+loss: -3.079386844867613, EarlyStopping counter: 11 out of 100
+EPOCH[608/1000] loss-3.082-|Sample:1.18|use_time:15.808599472045898
+loss: -3.0817510849092065, EarlyStopping counter: 12 out of 100
+EPOCH[609/1000] loss-3.080-|Sample:1.18|use_time:15.985018968582153
+loss: -3.0804093116667213, EarlyStopping counter: 13 out of 100
+EPOCH[610/1000] loss-3.077-|Sample:1.13|use_time:15.88970685005188
+loss: -3.0773305078832114, EarlyStopping counter: 14 out of 100
+reg_loss2: tensor(0.0285, device='cuda:0', grad_fn=<MulBackward0>) au_loss: tensor(-3.0669, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[611/1000] loss-3.078-|Sample:1.12|use_time:15.733194351196289
+loss: -3.077977634057766, EarlyStopping counter: 15 out of 100
+EPOCH[612/1000] loss-3.080-|Sample:1.16|use_time:16.002110719680786
+loss: -3.080107287662785, EarlyStopping counter: 16 out of 100
+EPOCH[613/1000] loss-3.082-|Sample:1.15|use_time:15.731404781341553
+loss: -3.081798437165051, EarlyStopping counter: 17 out of 100
+EPOCH[614/1000] loss-3.080-|Sample:1.13|use_time:15.719531774520874
+loss: -3.0800872314267043, EarlyStopping counter: 18 out of 100
+EPOCH[615/1000] loss-3.079-|Sample:1.13|use_time:15.718183040618896
+loss: -3.078915677419523, EarlyStopping counter: 19 out of 100
+EPOCH[616/1000] loss-3.078-|Sample:1.12|use_time:15.976498126983643
+loss: -3.078344990567463, EarlyStopping counter: 20 out of 100
+EPOCH[617/1000] loss-3.081-|Sample:1.14|use_time:15.727520227432251
+loss: -3.0806811844430317, EarlyStopping counter: 21 out of 100
+EPOCH[618/1000] loss-3.079-|Sample:1.14|use_time:15.80640697479248
+loss: -3.078779726493649, EarlyStopping counter: 22 out of 100
+EPOCH[619/1000] loss-3.079-|Sample:1.13|use_time:15.770198106765747
+loss: -3.0787292340906656, EarlyStopping counter: 23 out of 100
+EPOCH[620/1000] loss-3.080-|Sample:1.12|use_time:15.818103075027466
+loss: -3.080377468248693, EarlyStopping counter: 24 out of 100
+reg_loss2: tensor(0.0282, device='cuda:0', grad_fn=<MulBackward0>) au_loss: tensor(-3.0988, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[621/1000] loss-3.081-|Sample:1.20|use_time:16.069618225097656
+loss: -3.081028333524378, EarlyStopping counter: 25 out of 100
+EPOCH[622/1000] loss-3.078-|Sample:1.14|use_time:15.800578594207764
+loss: -3.0783176945476995, EarlyStopping counter: 26 out of 100
+EPOCH[623/1000] loss-3.081-|Sample:1.13|use_time:15.852529048919678
+loss: -3.0807900428771973, EarlyStopping counter: 27 out of 100
+EPOCH[624/1000] loss-3.079-|Sample:1.13|use_time:15.725087404251099
+loss: -3.079410238963802, EarlyStopping counter: 28 out of 100
+EPOCH[625/1000] loss-3.080-|Sample:1.13|use_time:15.810511350631714
+loss: -3.0803224865983174, EarlyStopping counter: 29 out of 100
+EPOCH[626/1000] loss-3.078-|Sample:1.21|use_time:15.8492112159729
+loss: -3.0784714977915693, EarlyStopping counter: 30 out of 100
+EPOCH[627/1000] loss-3.081-|Sample:1.15|use_time:15.911013841629028
+loss: -3.0805263402985363, EarlyStopping counter: 31 out of 100
+EPOCH[628/1000] loss-3.081-|Sample:1.13|use_time:15.705240964889526
+loss: -3.080936751714567, EarlyStopping counter: 32 out of 100
+EPOCH[629/1000] loss-3.081-|Sample:1.13|use_time:15.782227039337158
+loss: -3.080806865924742, EarlyStopping counter: 33 out of 100
+EPOCH[630/1000] loss-3.081-|Sample:1.17|use_time:15.802455425262451
+loss: -3.0809079437721065, EarlyStopping counter: 34 out of 100
+reg_loss2: tensor(0.0279, device='cuda:0', grad_fn=<MulBackward0>) au_loss: tensor(-3.1416, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[631/1000] loss-3.082-|Sample:1.18|use_time:15.974693536758423
+loss: -3.082388854608303, EarlyStopping counter: 35 out of 100
+EPOCH[632/1000] loss-3.080-|Sample:1.13|use_time:15.76143503189087
+loss: -3.080428751503549, EarlyStopping counter: 36 out of 100
+EPOCH[633/1000] loss-3.078-|Sample:1.13|use_time:15.776786088943481
+loss: -3.078451313623568, EarlyStopping counter: 37 out of 100
+EPOCH[634/1000] loss-3.079-|Sample:1.14|use_time:16.063727378845215
+loss: -3.0785309803195116, EarlyStopping counter: 38 out of 100
+EPOCH[635/1000] loss-3.082-|Sample:1.15|use_time:15.748831272125244
+loss: -3.0823710371808306, EarlyStopping counter: 39 out of 100
+EPOCH[636/1000] loss-3.080-|Sample:1.14|use_time:15.743590593338013
+loss: -3.079857884383783, EarlyStopping counter: 40 out of 100
+EPOCH[637/1000] loss-3.080-|Sample:1.13|use_time:15.729527711868286
+loss: -3.080325068497076, EarlyStopping counter: 41 out of 100
+EPOCH[638/1000] loss-3.080-|Sample:1.19|use_time:15.95377492904663
+loss: -3.0800059365063177, EarlyStopping counter: 42 out of 100
+EPOCH[639/1000] loss-3.083-|Sample:1.21|use_time:15.76505970954895
+EPOCH[640/1000] loss-3.081-|Sample:1.13|use_time:15.683484315872192
+loss: -3.081238816424114, EarlyStopping counter: 1 out of 100
+reg_loss2: tensor(0.0277, device='cuda:0', grad_fn=<MulBackward0>) au_loss: tensor(-3.1323, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[641/1000] loss-3.081-|Sample:1.12|use_time:15.867528438568115
+loss: -3.0814890396304246, EarlyStopping counter: 2 out of 100
+EPOCH[642/1000] loss-3.082-|Sample:0.95|use_time:15.778220653533936
+loss: -3.0815608559585197, EarlyStopping counter: 3 out of 100
+EPOCH[643/1000] loss-3.081-|Sample:1.19|use_time:15.782631874084473
+loss: -3.081273765098758, EarlyStopping counter: 4 out of 100
+EPOCH[644/1000] loss-3.082-|Sample:1.15|use_time:15.726451396942139
+loss: -3.0815340716664386, EarlyStopping counter: 5 out of 100
+EPOCH[645/1000] loss-3.082-|Sample:1.16|use_time:16.20825457572937
+loss: -3.0824128941791815, EarlyStopping counter: 6 out of 100
+EPOCH[646/1000] loss-3.081-|Sample:1.29|use_time:16.022401571273804
+loss: -3.081380780150251, EarlyStopping counter: 7 out of 100
+EPOCH[647/1000] loss-3.080-|Sample:1.25|use_time:15.919925689697266
+loss: -3.0798236916704878, EarlyStopping counter: 8 out of 100
+EPOCH[648/1000] loss-3.083-|Sample:1.24|use_time:16.09600830078125
+loss: -3.0828515494742046, EarlyStopping counter: 9 out of 100
+EPOCH[649/1000] loss-3.082-|Sample:1.21|use_time:15.857188940048218
+loss: -3.0817355411808665, EarlyStopping counter: 10 out of 100
+EPOCH[650/1000] loss-3.080-|Sample:1.24|use_time:15.978354930877686
+loss: -3.0795214525083217, EarlyStopping counter: 11 out of 100
+reg_loss2: tensor(0.0275, device='cuda:0', grad_fn=<MulBackward0>) au_loss: tensor(-3.1030, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[651/1000] loss-3.082-|Sample:1.24|use_time:15.888157606124878
+loss: -3.0820963324570076, EarlyStopping counter: 12 out of 100
+EPOCH[652/1000] loss-3.083-|Sample:1.20|use_time:16.0291268825531
+EPOCH[653/1000] loss-3.080-|Sample:1.14|use_time:15.791691541671753
+loss: -3.0796715166510604, EarlyStopping counter: 1 out of 100
+EPOCH[654/1000] loss-3.082-|Sample:1.22|use_time:15.84558629989624
+loss: -3.0818307806805865, EarlyStopping counter: 2 out of 100
+EPOCH[655/1000] loss-3.083-|Sample:1.12|use_time:16.049394845962524
+loss: -3.0834014473891838, EarlyStopping counter: 3 out of 100
+EPOCH[656/1000] loss-3.084-|Sample:0.96|use_time:15.756619930267334
+EPOCH[657/1000] loss-3.082-|Sample:1.13|use_time:15.769145727157593
+loss: -3.0821507907495267, EarlyStopping counter: 1 out of 100
+EPOCH[658/1000] loss-3.082-|Sample:1.22|use_time:15.802249431610107
+loss: -3.0822715177768614, EarlyStopping counter: 2 out of 100
+EPOCH[659/1000] loss-3.080-|Sample:1.12|use_time:15.867835760116577
+loss: -3.07972724263261, EarlyStopping counter: 3 out of 100
+EPOCH[660/1000] loss-3.081-|Sample:1.15|use_time:15.767651796340942
+loss: -3.080770213429521, EarlyStopping counter: 4 out of 100
+reg_loss2: tensor(0.0272, device='cuda:0', grad_fn=<MulBackward0>) au_loss: tensor(-3.1134, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[661/1000] loss-3.084-|Sample:1.22|use_time:15.78758978843689
+loss: -3.0835238782370964, EarlyStopping counter: 5 out of 100
+EPOCH[662/1000] loss-3.084-|Sample:1.12|use_time:15.83132553100586
+loss: -3.084065664105299, EarlyStopping counter: 6 out of 100
+EPOCH[663/1000] loss-3.082-|Sample:1.12|use_time:15.686673164367676
+loss: -3.081710012947641, EarlyStopping counter: 7 out of 100
+EPOCH[664/1000] loss-3.083-|Sample:1.22|use_time:15.770501136779785
+loss: -3.082839762292257, EarlyStopping counter: 8 out of 100
+EPOCH[665/1000] loss-3.083-|Sample:1.14|use_time:15.693626403808594
+loss: -3.08304605832914, EarlyStopping counter: 9 out of 100
+EPOCH[666/1000] loss-3.083-|Sample:1.12|use_time:15.872483491897583
+loss: -3.0827264146107, EarlyStopping counter: 10 out of 100
+EPOCH[667/1000] loss-3.082-|Sample:1.14|use_time:15.726311445236206
+loss: -3.0816559268207087, EarlyStopping counter: 11 out of 100
+EPOCH[668/1000] loss-3.083-|Sample:1.21|use_time:15.764060735702515
+loss: -3.082982912296202, EarlyStopping counter: 12 out of 100
+EPOCH[669/1000] loss-3.083-|Sample:1.12|use_time:15.870111465454102
+loss: -3.082580659447647, EarlyStopping counter: 13 out of 100
+EPOCH[670/1000] loss-3.082-|Sample:0.95|use_time:15.704650640487671
+loss: -3.0816744827642673, EarlyStopping counter: 14 out of 100
+reg_loss2: tensor(0.0270, device='cuda:0', grad_fn=<MulBackward0>) au_loss: tensor(-3.0879, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[671/1000] loss-3.079-|Sample:1.12|use_time:15.703099012374878
+loss: -3.079183404038592, EarlyStopping counter: 15 out of 100
+EPOCH[672/1000] loss-3.081-|Sample:1.20|use_time:15.782143831253052
+loss: -3.081240624916263, EarlyStopping counter: 16 out of 100
+EPOCH[673/1000] loss-3.082-|Sample:1.15|use_time:15.907530069351196
+loss: -3.08161116227871, EarlyStopping counter: 17 out of 100
+EPOCH[674/1000] loss-3.082-|Sample:1.13|use_time:15.711921453475952
+loss: -3.0816421392487316, EarlyStopping counter: 18 out of 100
+EPOCH[675/1000] loss-3.082-|Sample:1.12|use_time:15.685914993286133
+loss: -3.0818172257121015, EarlyStopping counter: 19 out of 100
+EPOCH[676/1000] loss-3.082-|Sample:1.19|use_time:15.921236515045166
+loss: -3.0816464075228063, EarlyStopping counter: 20 out of 100
+EPOCH[677/1000] loss-3.084-|Sample:1.12|use_time:15.650931119918823
+EPOCH[678/1000] loss-3.082-|Sample:1.12|use_time:15.627579927444458
+loss: -3.0818673808400225, EarlyStopping counter: 1 out of 100
+EPOCH[679/1000] loss-3.081-|Sample:1.12|use_time:15.658169269561768
+loss: -3.080876798164554, EarlyStopping counter: 2 out of 100
+EPOCH[680/1000] loss-3.082-|Sample:1.13|use_time:15.924118995666504
+loss: -3.0822268695366093, EarlyStopping counter: 3 out of 100
+reg_loss2: tensor(0.0268, device='cuda:0', grad_fn=<MulBackward0>) au_loss: tensor(-3.1276, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[681/1000] loss-3.084-|Sample:1.15|use_time:15.659571409225464
+loss: -3.0836303466703834, EarlyStopping counter: 4 out of 100
+EPOCH[682/1000] loss-3.083-|Sample:1.11|use_time:15.641012191772461
+loss: -3.0832295417785645, EarlyStopping counter: 5 out of 100
+EPOCH[683/1000] loss-3.082-|Sample:1.12|use_time:15.822313070297241
+loss: -3.082321370520243, EarlyStopping counter: 6 out of 100
+EPOCH[684/1000] loss-3.083-|Sample:0.95|use_time:15.617027997970581
+loss: -3.082808727171363, EarlyStopping counter: 7 out of 100
+EPOCH[685/1000] loss-3.085-|Sample:1.21|use_time:15.716182708740234
+EPOCH[686/1000] loss-3.083-|Sample:1.16|use_time:15.645151138305664
+loss: -3.083165895648119, EarlyStopping counter: 1 out of 100
+EPOCH[687/1000] loss-3.085-|Sample:1.13|use_time:15.826861381530762
+EPOCH[688/1000] loss-3.084-|Sample:1.12|use_time:15.610424280166626
+loss: -3.084115708746561, EarlyStopping counter: 1 out of 100
+EPOCH[689/1000] loss-3.084-|Sample:1.14|use_time:15.66222333908081
+loss: -3.0838033048118034, EarlyStopping counter: 2 out of 100
+EPOCH[690/1000] loss-3.083-|Sample:1.20|use_time:15.905055284500122
+loss: -3.0828822589502103, EarlyStopping counter: 3 out of 100
+reg_loss2: tensor(0.0266, device='cuda:0', grad_fn=<MulBackward0>) au_loss: tensor(-3.0858, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[691/1000] loss-3.081-|Sample:1.13|use_time:15.636022090911865
+loss: -3.0805487632751465, EarlyStopping counter: 4 out of 100
+EPOCH[692/1000] loss-3.085-|Sample:1.13|use_time:15.65212082862854
+loss: -3.084762776770243, EarlyStopping counter: 5 out of 100
+EPOCH[693/1000] loss-3.083-|Sample:1.13|use_time:15.662478685379028
+loss: -3.0834001389945427, EarlyStopping counter: 6 out of 100
+EPOCH[694/1000] loss-3.085-|Sample:1.20|use_time:15.921535730361938
+loss: -3.0846350425627174, EarlyStopping counter: 7 out of 100
+EPOCH[695/1000] loss-3.081-|Sample:1.14|use_time:15.663838863372803
+loss: -3.0807714113375035, EarlyStopping counter: 8 out of 100
+EPOCH[696/1000] loss-3.084-|Sample:1.12|use_time:15.644352912902832
+loss: -3.0841888916201707, EarlyStopping counter: 9 out of 100
+EPOCH[697/1000] loss-3.083-|Sample:1.13|use_time:15.841781854629517
+loss: -3.0831298130314524, EarlyStopping counter: 10 out of 100
+EPOCH[698/1000] loss-3.085-|Sample:0.95|use_time:15.671347856521606
+loss: -3.0848444380411286, EarlyStopping counter: 11 out of 100
+EPOCH[699/1000] loss-3.084-|Sample:1.18|use_time:15.691970109939575
+loss: -3.0837895986510486, EarlyStopping counter: 12 out of 100
+EPOCH[700/1000] loss-3.084-|Sample:1.12|use_time:15.679888010025024
+loss: -3.084351650098475, EarlyStopping counter: 13 out of 100
+[TEST]
+{'precision': array([0.02731586, 0.01953808, 0.01198502]), 'recall': array([0.11475421, 0.16210431, 0.24464259]), 'ndcg': array([0.07821892, 0.09255682, 0.11313831]), 'coverage': array([24.19088639, 28.56566792, 33.61435705]), 'Acoverage': array([ 522.17765293,  807.36978777, 1377.7102372 ]), 'ILD': array([0.74102095, 0.75935541, 0.79004907]), 'F1': array([0.19873275, 0.26717345, 0.37359855])}
+test time: 75.8917555809021
+reg_loss2: tensor(0.0264, device='cuda:0', grad_fn=<MulBackward0>) au_loss: tensor(-3.1514, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[701/1000] loss-3.085-|Sample:1.22|use_time:15.928925037384033
+loss: -3.0849124629323077, EarlyStopping counter: 14 out of 100
+EPOCH[702/1000] loss-3.082-|Sample:1.14|use_time:15.640342473983765
+loss: -3.0824451446533203, EarlyStopping counter: 15 out of 100
+EPOCH[703/1000] loss-3.084-|Sample:1.15|use_time:15.697696208953857
+loss: -3.084360099420315, EarlyStopping counter: 16 out of 100
+EPOCH[704/1000] loss-3.083-|Sample:1.20|use_time:15.73250126838684
+loss: -3.08284151844862, EarlyStopping counter: 17 out of 100
+EPOCH[705/1000] loss-3.082-|Sample:1.20|use_time:15.941709756851196
+loss: -3.082148104179196, EarlyStopping counter: 18 out of 100
+EPOCH[706/1000] loss-3.083-|Sample:1.13|use_time:15.65956735610962
+loss: -3.0828653835668796, EarlyStopping counter: 19 out of 100
+EPOCH[707/1000] loss-3.085-|Sample:1.12|use_time:15.698250770568848
+loss: -3.0849725444142413, EarlyStopping counter: 20 out of 100
+EPOCH[708/1000] loss-3.085-|Sample:1.20|use_time:15.948671102523804
+EPOCH[709/1000] loss-3.085-|Sample:1.15|use_time:15.743100643157959
+EPOCH[710/1000] loss-3.084-|Sample:1.12|use_time:15.680208444595337
+loss: -3.0839501066905695, EarlyStopping counter: 1 out of 100
+reg_loss2: tensor(0.0263, device='cuda:0', grad_fn=<MulBackward0>) au_loss: tensor(-3.0988, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[711/1000] loss-3.084-|Sample:1.12|use_time:15.855810165405273
+loss: -3.0839680520499626, EarlyStopping counter: 2 out of 100
+EPOCH[712/1000] loss-3.084-|Sample:1.18|use_time:15.720256567001343
+loss: -3.083741025226872, EarlyStopping counter: 3 out of 100
+EPOCH[713/1000] loss-3.086-|Sample:1.17|use_time:15.691283941268921
+EPOCH[714/1000] loss-3.082-|Sample:1.13|use_time:15.662560224533081
+loss: -3.082481110968241, EarlyStopping counter: 1 out of 100
+EPOCH[715/1000] loss-3.083-|Sample:1.12|use_time:15.834594011306763
+loss: -3.0828914933088347, EarlyStopping counter: 2 out of 100
+EPOCH[716/1000] loss-3.085-|Sample:1.13|use_time:15.677633047103882
+loss: -3.0851493346981886, EarlyStopping counter: 3 out of 100
+EPOCH[717/1000] loss-3.083-|Sample:1.22|use_time:15.750813245773315
+loss: -3.0831100301044745, EarlyStopping counter: 4 out of 100
+EPOCH[718/1000] loss-3.085-|Sample:1.13|use_time:15.659042835235596
+loss: -3.0849923913071797, EarlyStopping counter: 5 out of 100
+EPOCH[719/1000] loss-3.084-|Sample:1.13|use_time:15.644219636917114
+loss: -3.0835413525744184, EarlyStopping counter: 6 out of 100
+EPOCH[720/1000] loss-3.083-|Sample:1.12|use_time:15.915822267532349
+loss: -3.083178962149271, EarlyStopping counter: 7 out of 100
+reg_loss2: tensor(0.0261, device='cuda:0', grad_fn=<MulBackward0>) au_loss: tensor(-3.1318, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[721/1000] loss-3.083-|Sample:1.13|use_time:15.628562211990356
+loss: -3.0832116138644334, EarlyStopping counter: 8 out of 100
+EPOCH[722/1000] loss-3.085-|Sample:1.15|use_time:15.666377305984497
+loss: -3.085057235345608, EarlyStopping counter: 9 out of 100
+EPOCH[723/1000] loss-3.084-|Sample:1.12|use_time:15.631601333618164
+loss: -3.0844184480062347, EarlyStopping counter: 10 out of 100
+EPOCH[724/1000] loss-3.085-|Sample:1.13|use_time:15.703034162521362
+loss: -3.0849390378812465, EarlyStopping counter: 11 out of 100
+EPOCH[725/1000] loss-3.083-|Sample:1.18|use_time:15.69112753868103
+loss: -3.0834965008061106, EarlyStopping counter: 12 out of 100
+EPOCH[726/1000] loss-3.085-|Sample:1.16|use_time:15.863022565841675
+loss: -3.0851170609637006, EarlyStopping counter: 13 out of 100
+EPOCH[727/1000] loss-3.083-|Sample:1.12|use_time:15.644408941268921
+loss: -3.082618969242747, EarlyStopping counter: 14 out of 100
+EPOCH[728/1000] loss-3.085-|Sample:1.13|use_time:15.655219793319702
+loss: -3.0851891913065095, EarlyStopping counter: 15 out of 100
+EPOCH[729/1000] loss-3.084-|Sample:1.13|use_time:15.666775226593018
+loss: -3.084482233698775, EarlyStopping counter: 16 out of 100
+EPOCH[730/1000] loss-3.084-|Sample:1.21|use_time:15.889291286468506
+loss: -3.0836394065763892, EarlyStopping counter: 17 out of 100
+reg_loss2: tensor(0.0259, device='cuda:0', grad_fn=<MulBackward0>) au_loss: tensor(-3.1023, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[731/1000] loss-3.084-|Sample:1.15|use_time:15.656849145889282
+loss: -3.0841015490089974, EarlyStopping counter: 18 out of 100
+EPOCH[732/1000] loss-3.084-|Sample:1.13|use_time:15.676872253417969
+loss: -3.083526553177252, EarlyStopping counter: 19 out of 100
+EPOCH[733/1000] loss-3.083-|Sample:1.13|use_time:15.908450365066528
+loss: -3.083376651856957, EarlyStopping counter: 20 out of 100
+EPOCH[734/1000] loss-3.084-|Sample:1.15|use_time:15.642344951629639
+loss: -3.0842943365980937, EarlyStopping counter: 21 out of 100
+EPOCH[735/1000] loss-3.084-|Sample:1.16|use_time:15.683465480804443
+loss: -3.0839151987215367, EarlyStopping counter: 22 out of 100
+EPOCH[736/1000] loss-3.084-|Sample:1.14|use_time:15.650458097457886
+loss: -3.0841335668796446, EarlyStopping counter: 23 out of 100
+EPOCH[737/1000] loss-3.083-|Sample:1.12|use_time:15.834699869155884
+loss: -3.0833311662441347, EarlyStopping counter: 24 out of 100
+EPOCH[738/1000] loss-3.084-|Sample:1.20|use_time:15.698829650878906
+loss: -3.0840940649916484, EarlyStopping counter: 25 out of 100
+EPOCH[739/1000] loss-3.086-|Sample:1.15|use_time:15.677639484405518
+loss: -3.0856819618039015, EarlyStopping counter: 26 out of 100
+EPOCH[740/1000] loss-3.085-|Sample:1.12|use_time:15.958646297454834
+loss: -3.0846372697411515, EarlyStopping counter: 27 out of 100
+reg_loss2: tensor(0.0258, device='cuda:0', grad_fn=<MulBackward0>) au_loss: tensor(-3.1148, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[741/1000] loss-3.085-|Sample:0.97|use_time:15.96092700958252
+loss: -3.084867512307516, EarlyStopping counter: 28 out of 100
+EPOCH[742/1000] loss-3.084-|Sample:1.28|use_time:15.862654209136963
+loss: -3.0844178141617196, EarlyStopping counter: 29 out of 100
+EPOCH[743/1000] loss-3.086-|Sample:1.22|use_time:15.797295093536377
+loss: -3.0857150787260474, EarlyStopping counter: 30 out of 100
+EPOCH[744/1000] loss-3.087-|Sample:1.24|use_time:16.152870178222656
+EPOCH[745/1000] loss-3.087-|Sample:1.21|use_time:15.781585693359375
+EPOCH[746/1000] loss-3.083-|Sample:1.22|use_time:15.825792789459229
+loss: -3.083329439163208, EarlyStopping counter: 1 out of 100
+EPOCH[747/1000] loss-3.085-|Sample:1.21|use_time:15.944981575012207
+loss: -3.084942044281378, EarlyStopping counter: 2 out of 100
+EPOCH[748/1000] loss-3.085-|Sample:1.14|use_time:15.71235990524292
+loss: -3.084932501723127, EarlyStopping counter: 3 out of 100
+EPOCH[749/1000] loss-3.086-|Sample:1.22|use_time:15.762099027633667
+loss: -3.0855280364431987, EarlyStopping counter: 4 out of 100
+EPOCH[750/1000] loss-3.085-|Sample:1.20|use_time:15.75883674621582
+loss: -3.0846686712125453, EarlyStopping counter: 5 out of 100
+reg_loss2: tensor(0.0256, device='cuda:0', grad_fn=<MulBackward0>) au_loss: tensor(-3.1130, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[751/1000] loss-3.085-|Sample:1.16|use_time:15.91626238822937
+loss: -3.0851188287502382, EarlyStopping counter: 6 out of 100
+EPOCH[752/1000] loss-3.086-|Sample:1.16|use_time:15.729467868804932
+loss: -3.085939942336664, EarlyStopping counter: 7 out of 100
+EPOCH[753/1000] loss-3.084-|Sample:1.19|use_time:15.73352575302124
+loss: -3.0838623802836347, EarlyStopping counter: 8 out of 100
+EPOCH[754/1000] loss-3.084-|Sample:1.12|use_time:15.943970203399658
+loss: -3.0839698489119365, EarlyStopping counter: 9 out of 100
+EPOCH[755/1000] loss-3.086-|Sample:0.97|use_time:15.677059888839722
+loss: -3.085573731399164, EarlyStopping counter: 10 out of 100
+EPOCH[756/1000] loss-3.086-|Sample:1.13|use_time:15.747785091400146
+loss: -3.0859269281712973, EarlyStopping counter: 11 out of 100
+EPOCH[757/1000] loss-3.086-|Sample:1.14|use_time:15.702494859695435
+loss: -3.0859241427444832, EarlyStopping counter: 12 out of 100
+EPOCH[758/1000] loss-3.085-|Sample:1.26|use_time:15.984150886535645
+loss: -3.084573466603349, EarlyStopping counter: 13 out of 100
+EPOCH[759/1000] loss-3.086-|Sample:1.12|use_time:15.672501564025879
+loss: -3.0856934640465714, EarlyStopping counter: 14 out of 100
+EPOCH[760/1000] loss-3.085-|Sample:1.14|use_time:15.708692789077759
+loss: -3.085293694240291, EarlyStopping counter: 15 out of 100
+reg_loss2: tensor(0.0255, device='cuda:0', grad_fn=<MulBackward0>) au_loss: tensor(-3.0912, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[761/1000] loss-3.084-|Sample:1.20|use_time:15.931310892105103
+loss: -3.0842093316520134, EarlyStopping counter: 16 out of 100
+EPOCH[762/1000] loss-3.085-|Sample:1.13|use_time:15.699824571609497
+loss: -3.0850084118726775, EarlyStopping counter: 17 out of 100
+EPOCH[763/1000] loss-3.086-|Sample:1.12|use_time:15.716570138931274
+loss: -3.0862036798058488, EarlyStopping counter: 18 out of 100
+EPOCH[764/1000] loss-3.086-|Sample:1.13|use_time:15.679319620132446
+loss: -3.086173092446676, EarlyStopping counter: 19 out of 100
+EPOCH[765/1000] loss-3.084-|Sample:1.21|use_time:15.946550846099854
+loss: -3.0840380947764325, EarlyStopping counter: 20 out of 100
+EPOCH[766/1000] loss-3.085-|Sample:1.12|use_time:15.662293434143066
+loss: -3.0845184558775367, EarlyStopping counter: 21 out of 100
+EPOCH[767/1000] loss-3.088-|Sample:1.13|use_time:15.654199600219727
+EPOCH[768/1000] loss-3.087-|Sample:1.14|use_time:15.931462287902832
+loss: -3.0865433681301955, EarlyStopping counter: 1 out of 100
+EPOCH[769/1000] loss-3.084-|Sample:0.94|use_time:15.659745693206787
+loss: -3.0842028769051155, EarlyStopping counter: 2 out of 100
+EPOCH[770/1000] loss-3.085-|Sample:1.12|use_time:15.633059978485107
+loss: -3.0850376036108993, EarlyStopping counter: 3 out of 100
+reg_loss2: tensor(0.0254, device='cuda:0', grad_fn=<MulBackward0>) au_loss: tensor(-3.1030, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[771/1000] loss-3.085-|Sample:1.12|use_time:15.640442132949829
+loss: -3.0845628191785113, EarlyStopping counter: 4 out of 100
+EPOCH[772/1000] loss-3.084-|Sample:1.12|use_time:15.839637279510498
+loss: -3.0842531018140837, EarlyStopping counter: 5 out of 100
+EPOCH[773/1000] loss-3.084-|Sample:1.20|use_time:15.710802555084229
+loss: -3.08394505337971, EarlyStopping counter: 6 out of 100
+EPOCH[774/1000] loss-3.084-|Sample:1.14|use_time:15.63678526878357
+loss: -3.0837485848403556, EarlyStopping counter: 7 out of 100
+EPOCH[775/1000] loss-3.085-|Sample:1.11|use_time:15.785225629806519
+loss: -3.0851189334218097, EarlyStopping counter: 8 out of 100
+EPOCH[776/1000] loss-3.084-|Sample:1.12|use_time:15.683763980865479
+loss: -3.0842925164757706, EarlyStopping counter: 9 out of 100
+EPOCH[777/1000] loss-3.085-|Sample:1.20|use_time:15.69353699684143
+loss: -3.0853246886555743, EarlyStopping counter: 10 out of 100
+EPOCH[778/1000] loss-3.084-|Sample:1.16|use_time:15.652864694595337
+loss: -3.084011508197319, EarlyStopping counter: 11 out of 100
+EPOCH[779/1000] loss-3.085-|Sample:1.12|use_time:15.811908721923828
+loss: -3.0851992688527923, EarlyStopping counter: 12 out of 100
+EPOCH[780/1000] loss-3.085-|Sample:1.14|use_time:15.669175386428833
+loss: -3.0854840976435964, EarlyStopping counter: 13 out of 100
+reg_loss2: tensor(0.0252, device='cuda:0', grad_fn=<MulBackward0>) au_loss: tensor(-3.0929, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[781/1000] loss-3.086-|Sample:1.14|use_time:15.6531822681427
+loss: -3.0857796145648493, EarlyStopping counter: 14 out of 100
+EPOCH[782/1000] loss-3.087-|Sample:1.20|use_time:15.880730152130127
+loss: -3.0873897133803947, EarlyStopping counter: 15 out of 100
+EPOCH[783/1000] loss-3.085-|Sample:0.95|use_time:15.612159967422485
+loss: -3.084823166451803, EarlyStopping counter: 16 out of 100
+EPOCH[784/1000] loss-3.086-|Sample:1.15|use_time:15.64663577079773
+loss: -3.0862681981993885, EarlyStopping counter: 17 out of 100
+EPOCH[785/1000] loss-3.086-|Sample:1.14|use_time:15.674264430999756
+loss: -3.0863780103078704, EarlyStopping counter: 18 out of 100
+EPOCH[786/1000] loss-3.087-|Sample:1.20|use_time:15.88522744178772
+loss: -3.0872319965827755, EarlyStopping counter: 19 out of 100
+EPOCH[787/1000] loss-3.087-|Sample:1.12|use_time:15.608675479888916
+loss: -3.086793591336506, EarlyStopping counter: 20 out of 100
+EPOCH[788/1000] loss-3.086-|Sample:1.12|use_time:15.632595539093018
+loss: -3.0855834542251213, EarlyStopping counter: 21 out of 100
+EPOCH[789/1000] loss-3.086-|Sample:1.12|use_time:15.829397678375244
+loss: -3.0856058539413826, EarlyStopping counter: 22 out of 100
+EPOCH[790/1000] loss-3.082-|Sample:1.19|use_time:15.724605798721313
+loss: -3.082449430372657, EarlyStopping counter: 23 out of 100
+reg_loss2: tensor(0.0251, device='cuda:0', grad_fn=<MulBackward0>) au_loss: tensor(-3.0809, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[791/1000] loss-3.084-|Sample:1.15|use_time:15.651648998260498
+loss: -3.0841294497978398, EarlyStopping counter: 24 out of 100
+EPOCH[792/1000] loss-3.086-|Sample:1.12|use_time:15.634346723556519
+loss: -3.0858182674501, EarlyStopping counter: 25 out of 100
+EPOCH[793/1000] loss-3.083-|Sample:1.12|use_time:15.82035207748413
+loss: -3.0832772254943848, EarlyStopping counter: 26 out of 100
+EPOCH[794/1000] loss-3.083-|Sample:1.18|use_time:15.709882259368896
+loss: -3.0825852010308243, EarlyStopping counter: 27 out of 100
+EPOCH[795/1000] loss-3.086-|Sample:1.17|use_time:15.676397800445557
+loss: -3.086451763060035, EarlyStopping counter: 28 out of 100
+EPOCH[796/1000] loss-3.085-|Sample:1.12|use_time:15.826939821243286
+loss: -3.0851513583485675, EarlyStopping counter: 29 out of 100
+EPOCH[797/1000] loss-3.085-|Sample:0.95|use_time:15.652104616165161
+loss: -3.0854046461058826, EarlyStopping counter: 30 out of 100
+EPOCH[798/1000] loss-3.087-|Sample:1.14|use_time:15.653774499893188
+loss: -3.0867414765241667, EarlyStopping counter: 31 out of 100
+EPOCH[799/1000] loss-3.088-|Sample:1.20|use_time:15.726232528686523
+loss: -3.087626864270466, EarlyStopping counter: 32 out of 100
+EPOCH[800/1000] loss-3.086-|Sample:1.14|use_time:15.80693531036377
+loss: -3.086123262963644, EarlyStopping counter: 33 out of 100
+[TEST]
+{'precision': array([0.02754057, 0.02005618, 0.01197004]), 'recall': array([0.11639146, 0.16565137, 0.24585267]), 'ndcg': array([0.07969055, 0.0947068 , 0.11440391]), 'coverage': array([24.36404494, 28.63620474, 33.7505618 ]), 'Acoverage': array([ 529.63695381,  819.1988764 , 1396.98214732]), 'ILD': array([0.73980025, 0.75810434, 0.78975128]), 'F1': array([0.2011382 , 0.27189228, 0.37497435])}
+test time: 75.74771046638489
+reg_loss2: tensor(0.0250, device='cuda:0', grad_fn=<MulBackward0>) au_loss: tensor(-3.0949, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[801/1000] loss-3.086-|Sample:1.22|use_time:15.786335706710815
+loss: -3.085624782050528, EarlyStopping counter: 34 out of 100
+EPOCH[802/1000] loss-3.088-|Sample:1.12|use_time:15.615989923477173
+loss: -3.088130683433719, EarlyStopping counter: 35 out of 100
+EPOCH[803/1000] loss-3.085-|Sample:1.12|use_time:15.649632692337036
+loss: -3.0849269948354583, EarlyStopping counter: 36 out of 100
+EPOCH[804/1000] loss-3.089-|Sample:1.11|use_time:15.83915090560913
+EPOCH[805/1000] loss-3.085-|Sample:1.19|use_time:15.721320152282715
+loss: -3.085093806429607, EarlyStopping counter: 1 out of 100
+EPOCH[806/1000] loss-3.087-|Sample:1.14|use_time:15.678342819213867
+loss: -3.086545856987558, EarlyStopping counter: 2 out of 100
+EPOCH[807/1000] loss-3.084-|Sample:1.13|use_time:15.643972873687744
+loss: -3.0844767268111064, EarlyStopping counter: 3 out of 100
+EPOCH[808/1000] loss-3.086-|Sample:1.12|use_time:15.825324058532715
+loss: -3.0860546042279497, EarlyStopping counter: 4 out of 100
+EPOCH[809/1000] loss-3.087-|Sample:1.16|use_time:15.691925048828125
+loss: -3.087498484588251, EarlyStopping counter: 5 out of 100
+EPOCH[810/1000] loss-3.086-|Sample:1.17|use_time:15.6748046875
+loss: -3.0855803373383313, EarlyStopping counter: 6 out of 100
+reg_loss2: tensor(0.0249, device='cuda:0', grad_fn=<MulBackward0>) au_loss: tensor(-3.1116, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[811/1000] loss-3.087-|Sample:1.12|use_time:15.77383542060852
+loss: -3.0870395346385675, EarlyStopping counter: 7 out of 100
+EPOCH[812/1000] loss-3.085-|Sample:0.95|use_time:15.653523921966553
+loss: -3.084967700446524, EarlyStopping counter: 8 out of 100
+EPOCH[813/1000] loss-3.086-|Sample:1.14|use_time:15.639109134674072
+loss: -3.085768891543877, EarlyStopping counter: 9 out of 100
+EPOCH[814/1000] loss-3.087-|Sample:1.19|use_time:15.690237045288086
+loss: -3.0869237853259577, EarlyStopping counter: 10 out of 100
+EPOCH[815/1000] loss-3.085-|Sample:1.14|use_time:15.851399898529053
+loss: -3.0851790090886557, EarlyStopping counter: 11 out of 100
+EPOCH[816/1000] loss-3.085-|Sample:1.12|use_time:15.620534896850586
+loss: -3.0854954138034727, EarlyStopping counter: 12 out of 100
+EPOCH[817/1000] loss-3.086-|Sample:1.11|use_time:15.643152475357056
+loss: -3.085998000168219, EarlyStopping counter: 13 out of 100
+EPOCH[818/1000] loss-3.088-|Sample:1.20|use_time:15.92008376121521
+loss: -3.0879167405570427, EarlyStopping counter: 14 out of 100
+EPOCH[819/1000] loss-3.085-|Sample:1.12|use_time:15.638461589813232
+loss: -3.085008592140384, EarlyStopping counter: 15 out of 100
+EPOCH[820/1000] loss-3.087-|Sample:1.11|use_time:15.626375198364258
+loss: -3.0868487823300246, EarlyStopping counter: 16 out of 100
+reg_loss2: tensor(0.0248, device='cuda:0', grad_fn=<MulBackward0>) au_loss: tensor(-3.1151, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[821/1000] loss-3.085-|Sample:1.12|use_time:15.657362937927246
+loss: -3.085438891154964, EarlyStopping counter: 17 out of 100
+EPOCH[822/1000] loss-3.087-|Sample:1.19|use_time:15.890707731246948
+loss: -3.0868615231862884, EarlyStopping counter: 18 out of 100
+EPOCH[823/1000] loss-3.086-|Sample:1.14|use_time:15.672166109085083
+loss: -3.085617571342282, EarlyStopping counter: 19 out of 100
+EPOCH[824/1000] loss-3.085-|Sample:1.12|use_time:15.655277729034424
+loss: -3.085073883940534, EarlyStopping counter: 20 out of 100
+EPOCH[825/1000] loss-3.086-|Sample:1.12|use_time:15.885200262069702
+loss: -3.086354656917293, EarlyStopping counter: 21 out of 100
+EPOCH[826/1000] loss-3.087-|Sample:0.95|use_time:15.674167156219482
+loss: -3.087453469997499, EarlyStopping counter: 22 out of 100
+EPOCH[827/1000] loss-3.088-|Sample:1.18|use_time:15.731251001358032
+loss: -3.087640535540697, EarlyStopping counter: 23 out of 100
+EPOCH[828/1000] loss-3.088-|Sample:1.12|use_time:15.65190076828003
+loss: -3.0882518756680373, EarlyStopping counter: 24 out of 100
+EPOCH[829/1000] loss-3.087-|Sample:1.11|use_time:15.809911489486694
+loss: -3.087008825162562, EarlyStopping counter: 25 out of 100
+EPOCH[830/1000] loss-3.086-|Sample:1.13|use_time:15.648443222045898
+loss: -3.0861673820309523, EarlyStopping counter: 26 out of 100
+reg_loss2: tensor(0.0247, device='cuda:0', grad_fn=<MulBackward0>) au_loss: tensor(-3.0996, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[831/1000] loss-3.086-|Sample:1.19|use_time:15.731996536254883
+loss: -3.0858824194931405, EarlyStopping counter: 27 out of 100
+EPOCH[832/1000] loss-3.087-|Sample:1.13|use_time:15.807901859283447
+loss: -3.0874041289817997, EarlyStopping counter: 28 out of 100
+EPOCH[833/1000] loss-3.086-|Sample:1.13|use_time:15.629629373550415
+loss: -3.085805619635233, EarlyStopping counter: 29 out of 100
+EPOCH[834/1000] loss-3.085-|Sample:1.13|use_time:15.654170513153076
+loss: -3.0849929204801234, EarlyStopping counter: 30 out of 100
+EPOCH[835/1000] loss-3.087-|Sample:1.20|use_time:15.71497631072998
+loss: -3.086686279715561, EarlyStopping counter: 31 out of 100
+EPOCH[836/1000] loss-3.084-|Sample:1.15|use_time:15.823940992355347
+loss: -3.0838392304211126, EarlyStopping counter: 32 out of 100
+EPOCH[837/1000] loss-3.087-|Sample:1.14|use_time:15.64063024520874
+loss: -3.0870549446199, EarlyStopping counter: 33 out of 100
+EPOCH[838/1000] loss-3.085-|Sample:1.13|use_time:15.649030447006226
+loss: -3.084797277683165, EarlyStopping counter: 34 out of 100
+EPOCH[839/1000] loss-3.085-|Sample:1.15|use_time:15.911402225494385
+loss: -3.0845826021054896, EarlyStopping counter: 35 out of 100
+EPOCH[840/1000] loss-3.086-|Sample:0.94|use_time:15.942614555358887
+loss: -3.085576150475479, EarlyStopping counter: 36 out of 100
+reg_loss2: tensor(0.0246, device='cuda:0', grad_fn=<MulBackward0>) au_loss: tensor(-3.0852, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[841/1000] loss-3.085-|Sample:1.12|use_time:16.351056337356567
+loss: -3.0847959925488726, EarlyStopping counter: 37 out of 100
+EPOCH[842/1000] loss-3.088-|Sample:1.12|use_time:15.62382435798645
+loss: -3.087675129495016, EarlyStopping counter: 38 out of 100
+EPOCH[843/1000] loss-3.086-|Sample:1.13|use_time:15.907460927963257
+loss: -3.0859529739472924, EarlyStopping counter: 39 out of 100
+EPOCH[844/1000] loss-3.086-|Sample:1.17|use_time:15.696505069732666
+loss: -3.086324244010739, EarlyStopping counter: 40 out of 100
+EPOCH[845/1000] loss-3.089-|Sample:1.13|use_time:15.659801483154297
+EPOCH[846/1000] loss-3.085-|Sample:1.12|use_time:15.843308925628662
+loss: -3.0852551053210004, EarlyStopping counter: 1 out of 100
+EPOCH[847/1000] loss-3.088-|Sample:1.12|use_time:15.69700002670288
+loss: -3.087677397379061, EarlyStopping counter: 2 out of 100
+EPOCH[848/1000] loss-3.087-|Sample:1.20|use_time:15.719542264938354
+loss: -3.0872399167316718, EarlyStopping counter: 3 out of 100
+EPOCH[849/1000] loss-3.086-|Sample:1.14|use_time:15.687814950942993
+loss: -3.085796687661148, EarlyStopping counter: 4 out of 100
+EPOCH[850/1000] loss-3.087-|Sample:1.11|use_time:16.35267996788025
+loss: -3.086828877286213, EarlyStopping counter: 5 out of 100
+reg_loss2: tensor(0.0245, device='cuda:0', grad_fn=<MulBackward0>) au_loss: tensor(-3.1017, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[851/1000] loss-3.087-|Sample:1.13|use_time:15.82917857170105
+loss: -3.0870272706194624, EarlyStopping counter: 6 out of 100
+EPOCH[852/1000] loss-3.086-|Sample:1.20|use_time:15.746900796890259
+loss: -3.0862104136769366, EarlyStopping counter: 7 out of 100
+EPOCH[853/1000] loss-3.085-|Sample:1.14|use_time:15.827099800109863
+loss: -3.0853331089019775, EarlyStopping counter: 8 out of 100
+EPOCH[854/1000] loss-3.088-|Sample:0.95|use_time:15.644736051559448
+loss: -3.0882256205488994, EarlyStopping counter: 9 out of 100
+EPOCH[855/1000] loss-3.088-|Sample:1.12|use_time:15.660849332809448
+loss: -3.0883147135013487, EarlyStopping counter: 10 out of 100
+EPOCH[856/1000] loss-3.086-|Sample:1.15|use_time:15.701444625854492
+loss: -3.0862098786889054, EarlyStopping counter: 11 out of 100
+EPOCH[857/1000] loss-3.087-|Sample:1.19|use_time:15.943071842193604
+loss: -3.086934258298176, EarlyStopping counter: 12 out of 100
+EPOCH[858/1000] loss-3.086-|Sample:1.14|use_time:15.63582968711853
+loss: -3.0861538852133403, EarlyStopping counter: 13 out of 100
+EPOCH[859/1000] loss-3.086-|Sample:1.12|use_time:15.660724639892578
+loss: -3.0859015743906903, EarlyStopping counter: 14 out of 100
+EPOCH[860/1000] loss-3.087-|Sample:1.12|use_time:15.925095319747925
+loss: -3.086559237503424, EarlyStopping counter: 15 out of 100
+reg_loss2: tensor(0.0244, device='cuda:0', grad_fn=<MulBackward0>) au_loss: tensor(-3.0704, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[861/1000] loss-3.086-|Sample:1.14|use_time:15.654005765914917
+loss: -3.0858397425674813, EarlyStopping counter: 16 out of 100
+EPOCH[862/1000] loss-3.086-|Sample:1.13|use_time:15.657192707061768
+loss: -3.0864069578124256, EarlyStopping counter: 17 out of 100
+EPOCH[863/1000] loss-3.086-|Sample:1.11|use_time:15.684166431427002
+loss: -3.0862592720403903, EarlyStopping counter: 18 out of 100
+EPOCH[864/1000] loss-3.086-|Sample:1.12|use_time:15.871041774749756
+loss: -3.086418239081778, EarlyStopping counter: 19 out of 100
+EPOCH[865/1000] loss-3.086-|Sample:1.18|use_time:15.697854995727539
+loss: -3.0862662966658427, EarlyStopping counter: 20 out of 100
+EPOCH[866/1000] loss-3.087-|Sample:1.14|use_time:15.663814067840576
+loss: -3.086680871684377, EarlyStopping counter: 21 out of 100
+EPOCH[867/1000] loss-3.088-|Sample:1.12|use_time:15.826678991317749
+loss: -3.0884813215674423, EarlyStopping counter: 22 out of 100
+EPOCH[868/1000] loss-3.086-|Sample:0.95|use_time:15.64790654182434
+loss: -3.0861801170721286, EarlyStopping counter: 23 out of 100
+EPOCH[869/1000] loss-3.088-|Sample:1.13|use_time:15.657271385192871
+loss: -3.0876303823982796, EarlyStopping counter: 24 out of 100
+EPOCH[870/1000] loss-3.086-|Sample:1.19|use_time:15.707138061523438
+loss: -3.0858283449963824, EarlyStopping counter: 25 out of 100
+reg_loss2: tensor(0.0243, device='cuda:0', grad_fn=<MulBackward0>) au_loss: tensor(-3.1185, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[871/1000] loss-3.086-|Sample:1.14|use_time:15.838040113449097
+loss: -3.0861277405808614, EarlyStopping counter: 26 out of 100
+EPOCH[872/1000] loss-3.089-|Sample:1.11|use_time:15.612100839614868
+loss: -3.088756642690519, EarlyStopping counter: 27 out of 100
+EPOCH[873/1000] loss-3.086-|Sample:1.12|use_time:15.67014193534851
+loss: -3.086492881542299, EarlyStopping counter: 28 out of 100
+EPOCH[874/1000] loss-3.089-|Sample:1.19|use_time:15.923981666564941
+loss: -3.0886287456605492, EarlyStopping counter: 29 out of 100
+EPOCH[875/1000] loss-3.087-|Sample:1.12|use_time:15.648293018341064
+loss: -3.0866641649385778, EarlyStopping counter: 30 out of 100
+EPOCH[876/1000] loss-3.086-|Sample:1.13|use_time:15.649113893508911
+loss: -3.08605537763456, EarlyStopping counter: 31 out of 100
+EPOCH[877/1000] loss-3.086-|Sample:1.12|use_time:15.655570268630981
+loss: -3.0863513306873602, EarlyStopping counter: 32 out of 100
+EPOCH[878/1000] loss-3.088-|Sample:1.15|use_time:15.881434202194214
+loss: -3.0878547400963017, EarlyStopping counter: 33 out of 100
+EPOCH[879/1000] loss-3.086-|Sample:1.14|use_time:15.663403272628784
+loss: -3.0855943633288874, EarlyStopping counter: 34 out of 100
+EPOCH[880/1000] loss-3.087-|Sample:1.12|use_time:15.654329299926758
+loss: -3.08737125629332, EarlyStopping counter: 35 out of 100
+reg_loss2: tensor(0.0242, device='cuda:0', grad_fn=<MulBackward0>) au_loss: tensor(-3.1198, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[881/1000] loss-3.087-|Sample:1.12|use_time:15.82584261894226
+loss: -3.0871815507004903, EarlyStopping counter: 36 out of 100
+EPOCH[882/1000] loss-3.088-|Sample:0.94|use_time:15.627513408660889
+loss: -3.0877995549178703, EarlyStopping counter: 37 out of 100
+EPOCH[883/1000] loss-3.087-|Sample:1.21|use_time:15.728590488433838
+loss: -3.087465920099398, EarlyStopping counter: 38 out of 100
+EPOCH[884/1000] loss-3.090-|Sample:1.14|use_time:15.636061429977417
+EPOCH[885/1000] loss-3.088-|Sample:1.12|use_time:15.810988187789917
+loss: -3.0876414252490534, EarlyStopping counter: 1 out of 100
+EPOCH[886/1000] loss-3.089-|Sample:1.13|use_time:15.720077753067017
+loss: -3.088683727310925, EarlyStopping counter: 2 out of 100
+EPOCH[887/1000] loss-3.086-|Sample:1.21|use_time:15.736543655395508
+loss: -3.086237099112534, EarlyStopping counter: 3 out of 100
+EPOCH[888/1000] loss-3.086-|Sample:1.18|use_time:15.855764627456665
+loss: -3.0857535920492034, EarlyStopping counter: 4 out of 100
+EPOCH[889/1000] loss-3.087-|Sample:1.12|use_time:15.678138971328735
+loss: -3.0873304634559444, EarlyStopping counter: 5 out of 100
+EPOCH[890/1000] loss-3.088-|Sample:1.12|use_time:15.637798547744751
+loss: -3.0878117084503174, EarlyStopping counter: 6 out of 100
+reg_loss2: tensor(0.0241, device='cuda:0', grad_fn=<MulBackward0>) au_loss: tensor(-3.1261, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[891/1000] loss-3.089-|Sample:1.18|use_time:15.67593264579773
+loss: -3.0886902402086958, EarlyStopping counter: 7 out of 100
+EPOCH[892/1000] loss-3.089-|Sample:1.17|use_time:15.910689115524292
+loss: -3.08900933730893, EarlyStopping counter: 8 out of 100
+EPOCH[893/1000] loss-3.089-|Sample:1.12|use_time:15.632566928863525
+loss: -3.0886322405280136, EarlyStopping counter: 9 out of 100
+EPOCH[894/1000] loss-3.088-|Sample:1.12|use_time:15.662935256958008
+loss: -3.088475541370671, EarlyStopping counter: 10 out of 100
+EPOCH[895/1000] loss-3.085-|Sample:1.15|use_time:15.917522192001343
+loss: -3.0845731235131986, EarlyStopping counter: 11 out of 100
+EPOCH[896/1000] loss-3.089-|Sample:0.95|use_time:15.626726388931274
+loss: -3.0889373930489143, EarlyStopping counter: 12 out of 100
+EPOCH[897/1000] loss-3.090-|Sample:1.12|use_time:15.625303268432617
+EPOCH[898/1000] loss-3.088-|Sample:1.12|use_time:15.6439688205719
+loss: -3.0881107434993837, EarlyStopping counter: 1 out of 100
+EPOCH[899/1000] loss-3.089-|Sample:1.12|use_time:15.858677864074707
+loss: -3.089391440880008, EarlyStopping counter: 2 out of 100
+EPOCH[900/1000] loss-3.090-|Sample:1.19|use_time:15.710689067840576
+loss: -3.089841266957725, EarlyStopping counter: 3 out of 100
+[TEST]
+{'precision': array([0.02781523, 0.02      , 0.01191261]), 'recall': array([0.11830046, 0.16496434, 0.24344151]), 'ndcg': array([0.08092361, 0.09523468, 0.11456709]), 'coverage': array([24.73845194, 28.83158552, 33.84669164]), 'Acoverage': array([ 540.13832709,  836.78576779, 1418.84469413]), 'ILD': array([0.74016091, 0.75717853, 0.78813035]), 'F1': array([0.20399608, 0.27090695, 0.37198308])}
+test time: 75.59144926071167
+reg_loss2: tensor(0.0240, device='cuda:0', grad_fn=<MulBackward0>) au_loss: tensor(-3.0819, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[901/1000] loss-3.086-|Sample:1.27|use_time:15.842308521270752
+loss: -3.0860582212122476, EarlyStopping counter: 4 out of 100
+EPOCH[902/1000] loss-3.087-|Sample:1.15|use_time:15.65127444267273
+loss: -3.0873114655657514, EarlyStopping counter: 5 out of 100
+EPOCH[903/1000] loss-3.088-|Sample:1.11|use_time:15.818724632263184
+loss: -3.088094397288997, EarlyStopping counter: 6 out of 100
+EPOCH[904/1000] loss-3.089-|Sample:1.12|use_time:15.657155275344849
+loss: -3.089323770709154, EarlyStopping counter: 7 out of 100
+EPOCH[905/1000] loss-3.085-|Sample:1.12|use_time:16.54643988609314
+loss: -3.084779157871153, EarlyStopping counter: 8 out of 100
+EPOCH[906/1000] loss-3.086-|Sample:1.19|use_time:17.055633068084717
+loss: -3.086019934677496, EarlyStopping counter: 9 out of 100
+EPOCH[907/1000] loss-3.088-|Sample:1.12|use_time:16.804758071899414
+loss: -3.0880592625315595, EarlyStopping counter: 10 out of 100
+EPOCH[908/1000] loss-3.089-|Sample:1.13|use_time:16.813741445541382
+loss: -3.0889061311396158, EarlyStopping counter: 11 out of 100
+EPOCH[909/1000] loss-3.089-|Sample:1.12|use_time:16.97791028022766
+loss: -3.08867322526327, EarlyStopping counter: 12 out of 100
+EPOCH[910/1000] loss-3.086-|Sample:1.20|use_time:16.860321760177612
+loss: -3.0859880505538566, EarlyStopping counter: 13 out of 100
+reg_loss2: tensor(0.0240, device='cuda:0', grad_fn=<MulBackward0>) au_loss: tensor(-3.1029, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[911/1000] loss-3.088-|Sample:1.15|use_time:16.827547550201416
+loss: -3.0884552350858363, EarlyStopping counter: 14 out of 100
+EPOCH[912/1000] loss-3.088-|Sample:1.11|use_time:16.776952266693115
+loss: -3.088029541620394, EarlyStopping counter: 15 out of 100
+EPOCH[913/1000] loss-3.088-|Sample:1.12|use_time:16.996514320373535
+loss: -3.0884970455634884, EarlyStopping counter: 16 out of 100
+EPOCH[914/1000] loss-3.089-|Sample:0.95|use_time:16.826289892196655
+loss: -3.088720449587194, EarlyStopping counter: 17 out of 100
+EPOCH[915/1000] loss-3.090-|Sample:1.22|use_time:16.912332773208618
+loss: -3.0903558556626485, EarlyStopping counter: 18 out of 100
+EPOCH[916/1000] loss-3.088-|Sample:1.13|use_time:16.804789543151855
+loss: -3.0876107913691824, EarlyStopping counter: 19 out of 100
+EPOCH[917/1000] loss-3.087-|Sample:1.16|use_time:16.83246922492981
+loss: -3.0871823880730607, EarlyStopping counter: 20 out of 100
+EPOCH[918/1000] loss-3.086-|Sample:1.12|use_time:16.977307319641113
+loss: -3.086471662288759, EarlyStopping counter: 21 out of 100
+EPOCH[919/1000] loss-3.087-|Sample:1.21|use_time:16.36691451072693
+loss: -3.086824661347924, EarlyStopping counter: 22 out of 100
+EPOCH[920/1000] loss-3.091-|Sample:1.14|use_time:15.693936347961426
+reg_loss2: tensor(0.0239, device='cuda:0', grad_fn=<MulBackward0>) au_loss: tensor(-3.1111, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[921/1000] loss-3.087-|Sample:1.11|use_time:15.818899393081665
+loss: -3.0866593733066465, EarlyStopping counter: 1 out of 100
+EPOCH[922/1000] loss-3.088-|Sample:0.95|use_time:15.65351939201355
+loss: -3.0881123193880406, EarlyStopping counter: 2 out of 100
+EPOCH[923/1000] loss-3.084-|Sample:1.12|use_time:15.664697408676147
+loss: -3.0838743302880265, EarlyStopping counter: 3 out of 100
+EPOCH[924/1000] loss-3.087-|Sample:1.20|use_time:15.732446432113647
+loss: -3.0872890309589667, EarlyStopping counter: 4 out of 100
+EPOCH[925/1000] loss-3.089-|Sample:1.13|use_time:15.81666898727417
+loss: -3.089126575283888, EarlyStopping counter: 5 out of 100
+EPOCH[926/1000] loss-3.088-|Sample:1.11|use_time:15.642489910125732
+loss: -3.0878385218178352, EarlyStopping counter: 6 out of 100
+EPOCH[927/1000] loss-3.088-|Sample:1.12|use_time:15.652893543243408
+loss: -3.088157874781911, EarlyStopping counter: 7 out of 100
+EPOCH[928/1000] loss-3.091-|Sample:1.20|use_time:15.916863441467285
+loss: -3.091033836690391, EarlyStopping counter: 8 out of 100
+EPOCH[929/1000] loss-3.087-|Sample:1.13|use_time:15.689136743545532
+loss: -3.0868034827999953, EarlyStopping counter: 9 out of 100
+EPOCH[930/1000] loss-3.089-|Sample:1.12|use_time:15.63692307472229
+loss: -3.089178672650965, EarlyStopping counter: 10 out of 100
+reg_loss2: tensor(0.0238, device='cuda:0', grad_fn=<MulBackward0>) au_loss: tensor(-3.0949, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[931/1000] loss-3.088-|Sample:1.11|use_time:15.661236763000488
+loss: -3.088336043241547, EarlyStopping counter: 11 out of 100
+EPOCH[932/1000] loss-3.087-|Sample:1.14|use_time:15.872699499130249
+loss: -3.086905095635391, EarlyStopping counter: 12 out of 100
+EPOCH[933/1000] loss-3.089-|Sample:1.14|use_time:15.927559852600098
+loss: -3.0890142917633057, EarlyStopping counter: 13 out of 100
+EPOCH[934/1000] loss-3.088-|Sample:1.13|use_time:16.634350776672363
+loss: -3.088099892546491, EarlyStopping counter: 14 out of 100
+EPOCH[935/1000] loss-3.087-|Sample:1.13|use_time:15.811508893966675
+loss: -3.087061253989615, EarlyStopping counter: 15 out of 100
+EPOCH[936/1000] loss-3.088-|Sample:0.96|use_time:15.721778154373169
+loss: -3.0877519584283597, EarlyStopping counter: 16 out of 100
+EPOCH[937/1000] loss-3.087-|Sample:1.21|use_time:15.739665269851685
+loss: -3.08740561182906, EarlyStopping counter: 17 out of 100
+EPOCH[938/1000] loss-3.087-|Sample:1.14|use_time:15.69568419456482
+loss: -3.0869681718872815, EarlyStopping counter: 18 out of 100
+EPOCH[939/1000] loss-3.089-|Sample:1.13|use_time:15.846960544586182
+loss: -3.0886822037580535, EarlyStopping counter: 19 out of 100
+EPOCH[940/1000] loss-3.089-|Sample:1.13|use_time:15.707659482955933
+loss: -3.0893402332212867, EarlyStopping counter: 20 out of 100
+reg_loss2: tensor(0.0237, device='cuda:0', grad_fn=<MulBackward0>) au_loss: tensor(-3.1378, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[941/1000] loss-3.089-|Sample:1.20|use_time:15.746287822723389
+loss: -3.0894402178322395, EarlyStopping counter: 21 out of 100
+EPOCH[942/1000] loss-3.088-|Sample:1.17|use_time:15.871050357818604
+loss: -3.088233709335327, EarlyStopping counter: 22 out of 100
+EPOCH[943/1000] loss-3.090-|Sample:1.13|use_time:15.659139156341553
+loss: -3.0898780939055652, EarlyStopping counter: 23 out of 100
+EPOCH[944/1000] loss-3.089-|Sample:1.13|use_time:15.718820810317993
+loss: -3.088838600530857, EarlyStopping counter: 24 out of 100
+EPOCH[945/1000] loss-3.088-|Sample:1.20|use_time:15.712656497955322
+loss: -3.088256289319294, EarlyStopping counter: 25 out of 100
+EPOCH[946/1000] loss-3.086-|Sample:1.14|use_time:15.84087586402893
+loss: -3.086118360845054, EarlyStopping counter: 26 out of 100
+EPOCH[947/1000] loss-3.088-|Sample:1.12|use_time:15.625895738601685
+loss: -3.088386209999643, EarlyStopping counter: 27 out of 100
+EPOCH[948/1000] loss-3.088-|Sample:1.12|use_time:15.664023399353027
+loss: -3.0881858046461894, EarlyStopping counter: 28 out of 100
+EPOCH[949/1000] loss-3.088-|Sample:1.12|use_time:15.930267572402954
+loss: -3.087979642356314, EarlyStopping counter: 29 out of 100
+EPOCH[950/1000] loss-3.088-|Sample:0.96|use_time:15.66450548171997
+loss: -3.0880905011805093, EarlyStopping counter: 30 out of 100
+reg_loss2: tensor(0.0237, device='cuda:0', grad_fn=<MulBackward0>) au_loss: tensor(-3.1199, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[951/1000] loss-3.089-|Sample:1.12|use_time:15.658831119537354
+loss: -3.088569676003805, EarlyStopping counter: 31 out of 100
+EPOCH[952/1000] loss-3.089-|Sample:1.13|use_time:15.624704122543335
+loss: -3.0886796044140326, EarlyStopping counter: 32 out of 100
+EPOCH[953/1000] loss-3.087-|Sample:1.12|use_time:15.845539331436157
+loss: -3.0869794589717214, EarlyStopping counter: 33 out of 100
+EPOCH[954/1000] loss-3.087-|Sample:1.20|use_time:15.698328495025635
+loss: -3.0869280187095085, EarlyStopping counter: 34 out of 100
+EPOCH[955/1000] loss-3.089-|Sample:1.14|use_time:15.643669128417969
+loss: -3.0894718577222124, EarlyStopping counter: 35 out of 100
+EPOCH[956/1000] loss-3.090-|Sample:1.12|use_time:15.808142900466919
+loss: -3.0898215131061835, EarlyStopping counter: 36 out of 100
+EPOCH[957/1000] loss-3.087-|Sample:1.12|use_time:15.638497352600098
+loss: -3.086560220253177, EarlyStopping counter: 37 out of 100
+EPOCH[958/1000] loss-3.088-|Sample:1.21|use_time:15.688385248184204
+loss: -3.0877776843745535, EarlyStopping counter: 38 out of 100
+EPOCH[959/1000] loss-3.086-|Sample:1.15|use_time:15.677621126174927
+loss: -3.085815423872413, EarlyStopping counter: 39 out of 100
+EPOCH[960/1000] loss-3.091-|Sample:1.12|use_time:15.834231615066528
+loss: -3.0905235220746294, EarlyStopping counter: 40 out of 100
+reg_loss2: tensor(0.0236, device='cuda:0', grad_fn=<MulBackward0>) au_loss: tensor(-3.0745, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[961/1000] loss-3.088-|Sample:1.13|use_time:15.696335554122925
+loss: -3.0878516232095112, EarlyStopping counter: 41 out of 100
+EPOCH[962/1000] loss-3.088-|Sample:1.19|use_time:15.720440149307251
+loss: -3.087992138978912, EarlyStopping counter: 42 out of 100
+EPOCH[963/1000] loss-3.091-|Sample:1.18|use_time:15.880780220031738
+loss: -3.091014408483738, EarlyStopping counter: 43 out of 100
+EPOCH[964/1000] loss-3.089-|Sample:0.95|use_time:15.644221067428589
+loss: -3.0894571455513558, EarlyStopping counter: 44 out of 100
+EPOCH[965/1000] loss-3.089-|Sample:1.12|use_time:15.64893364906311
+loss: -3.088990560392054, EarlyStopping counter: 45 out of 100
+EPOCH[966/1000] loss-3.087-|Sample:1.12|use_time:15.641985177993774
+loss: -3.0872449991179676, EarlyStopping counter: 46 out of 100
+EPOCH[967/1000] loss-3.090-|Sample:1.21|use_time:15.899114608764648
+loss: -3.090274775900492, EarlyStopping counter: 47 out of 100
+EPOCH[968/1000] loss-3.086-|Sample:1.12|use_time:15.63754415512085
+loss: -3.0856596842044737, EarlyStopping counter: 48 out of 100
+EPOCH[969/1000] loss-3.088-|Sample:1.12|use_time:15.621138572692871
+loss: -3.0880088457247106, EarlyStopping counter: 49 out of 100
+EPOCH[970/1000] loss-3.087-|Sample:1.11|use_time:15.858328104019165
+loss: -3.086899425925278, EarlyStopping counter: 50 out of 100
+reg_loss2: tensor(0.0236, device='cuda:0', grad_fn=<MulBackward0>) au_loss: tensor(-3.0994, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[971/1000] loss-3.087-|Sample:1.16|use_time:15.677090883255005
+loss: -3.0866459986058676, EarlyStopping counter: 51 out of 100
+EPOCH[972/1000] loss-3.088-|Sample:1.14|use_time:15.649611473083496
+loss: -3.08750482884849, EarlyStopping counter: 52 out of 100
+EPOCH[973/1000] loss-3.092-|Sample:1.12|use_time:15.635178565979004
+EPOCH[974/1000] loss-3.088-|Sample:1.11|use_time:15.904706478118896
+loss: -3.087808760201059, EarlyStopping counter: 1 out of 100
+EPOCH[975/1000] loss-3.087-|Sample:1.18|use_time:15.744680881500244
+loss: -3.087280645603087, EarlyStopping counter: 2 out of 100
+EPOCH[976/1000] loss-3.088-|Sample:1.17|use_time:15.702680110931396
+loss: -3.0881165178810677, EarlyStopping counter: 3 out of 100
+EPOCH[977/1000] loss-3.087-|Sample:1.13|use_time:15.827193260192871
+loss: -3.0867407787136916, EarlyStopping counter: 4 out of 100
+EPOCH[978/1000] loss-3.089-|Sample:0.95|use_time:15.648793458938599
+loss: -3.08938088068148, EarlyStopping counter: 5 out of 100
+EPOCH[979/1000] loss-3.090-|Sample:1.13|use_time:15.669595003128052
+loss: -3.0895628347629454, EarlyStopping counter: 6 out of 100
+EPOCH[980/1000] loss-3.086-|Sample:1.21|use_time:15.721791744232178
+loss: -3.0861054629814335, EarlyStopping counter: 7 out of 100
+reg_loss2: tensor(0.0235, device='cuda:0', grad_fn=<MulBackward0>) au_loss: tensor(-3.1061, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[981/1000] loss-3.088-|Sample:1.12|use_time:15.818871259689331
+loss: -3.087964459163387, EarlyStopping counter: 8 out of 100
+EPOCH[982/1000] loss-3.091-|Sample:1.13|use_time:15.645309448242188
+loss: -3.0906588682314244, EarlyStopping counter: 9 out of 100
+EPOCH[983/1000] loss-3.087-|Sample:1.13|use_time:15.672201871871948
+loss: -3.087311797025727, EarlyStopping counter: 10 out of 100
+EPOCH[984/1000] loss-3.087-|Sample:1.22|use_time:15.922369003295898
+loss: -3.0871486838270976, EarlyStopping counter: 11 out of 100
+EPOCH[985/1000] loss-3.089-|Sample:1.13|use_time:15.662228345870972
+loss: -3.0887147100960335, EarlyStopping counter: 12 out of 100
+EPOCH[986/1000] loss-3.089-|Sample:1.12|use_time:15.650915384292603
+loss: -3.089419457970596, EarlyStopping counter: 13 out of 100
+EPOCH[987/1000] loss-3.088-|Sample:1.13|use_time:15.678685426712036
+loss: -3.0875648114739396, EarlyStopping counter: 14 out of 100
+EPOCH[988/1000] loss-3.086-|Sample:1.23|use_time:15.9254891872406
+loss: -3.0864690803899997, EarlyStopping counter: 15 out of 100
+EPOCH[989/1000] loss-3.089-|Sample:1.13|use_time:15.62680697441101
+loss: -3.0891785156436082, EarlyStopping counter: 16 out of 100
+EPOCH[990/1000] loss-3.090-|Sample:1.13|use_time:15.644634485244751
+loss: -3.0904197634720223, EarlyStopping counter: 17 out of 100
+reg_loss2: tensor(0.0234, device='cuda:0', grad_fn=<MulBackward0>) au_loss: tensor(-3.1204, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[991/1000] loss-3.088-|Sample:1.12|use_time:15.858251571655273
+loss: -3.087639448119373, EarlyStopping counter: 18 out of 100
+EPOCH[992/1000] loss-3.089-|Sample:0.97|use_time:15.97182822227478
+loss: -3.0890179145626906, EarlyStopping counter: 19 out of 100
+EPOCH[993/1000] loss-3.089-|Sample:1.52|use_time:17.707290410995483
+loss: -3.088676138622005, EarlyStopping counter: 20 out of 100
+EPOCH[994/1000] loss-3.090-|Sample:1.51|use_time:17.696929693222046
+loss: -3.0902197477294178, EarlyStopping counter: 21 out of 100
+EPOCH[995/1000] loss-3.090-|Sample:1.48|use_time:17.866671085357666
+loss: -3.090227656248139, EarlyStopping counter: 22 out of 100
+EPOCH[996/1000] loss-3.086-|Sample:1.55|use_time:17.760891914367676
+loss: -3.085967087164158, EarlyStopping counter: 23 out of 100
+EPOCH[997/1000] loss-3.090-|Sample:1.51|use_time:17.726091861724854
+loss: -3.090109894915325, EarlyStopping counter: 24 out of 100
+EPOCH[998/1000] loss-3.089-|Sample:1.48|use_time:17.827427625656128
+loss: -3.0888449157156597, EarlyStopping counter: 25 out of 100
+EPOCH[999/1000] loss-3.087-|Sample:1.49|use_time:17.676111698150635
+loss: -3.0869691139314233, EarlyStopping counter: 26 out of 100
+EPOCH[1000/1000] loss-3.086-|Sample:1.56|use_time:17.750094175338745
+loss: -3.086260801408349, EarlyStopping counter: 27 out of 100
+[TEST]
+{'precision': array([0.02772784, 0.01993134, 0.01188764]), 'recall': array([0.11792449, 0.16506162, 0.24309036]), 'ndcg': array([0.08066521, 0.09511644, 0.11437244]), 'coverage': array([25.12172285, 29.24194757, 33.99026217]), 'Acoverage': array([ 545.45380774,  845.0474407 , 1437.58751561]), 'ILD': array([0.73692329, 0.75533938, 0.78782247]), 'F1': array([0.2033141 , 0.27092005, 0.37153878])}
+test time: 76.18706679344177
+reg_loss2: tensor(0.0234, device='cuda:0', grad_fn=<MulBackward0>) au_loss: tensor(-3.1165, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[1001/1000] loss-3.088-|Sample:1.59|use_time:17.82269835472107
+loss: -3.08797457741528, EarlyStopping counter: 28 out of 100
