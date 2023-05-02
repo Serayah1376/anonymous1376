@@ -25,18 +25,29 @@ def train(args, dataset, recommend_model, loss_class, epoch, neg_k=1, w=None):
     total_batch = len(users) // args.bpr_batch + 1
     aver_loss = 0.
 
+    aspect_emb = []
+    for u, i in zip(users, posItems):
+        inter = str(u) + '_' + str(i)
+        if inter in dataset.inter_aspect.keys():
+            aspect_emb.append(torch.tensor(dataset.inter_aspect[inter]))
+        else:
+            aspect_emb.append(torch.tensor([0 for i in range(args.recdim)]))
+    aspect_emb = torch.stack(aspect_emb).to(args.device)
+
     # test
     reg_loss1 = 0.
     reg_loss2 = 0.
     for (batch_i,
          (batch_users,
           batch_pos,
-          batch_neg)) in enumerate(utils.minibatch(users,
-                                                   posItems,
-                                                   negItems,
-                                                   batch_size=args.bpr_batch)):
+          batch_neg,
+          batch_aspect_emb)) in enumerate(utils.minibatch(users,
+                                                          posItems,
+                                                          negItems,
+                                                          aspect_emb,
+                                                          batch_size=args.bpr_batch)):
 
-        cri, reg_loss2, au_loss1 = bpr.stageOne(batch_users, batch_pos, batch_neg)
+        cri, reg_loss2, au_loss1 = bpr.stageOne(batch_users, batch_pos, batch_neg, batch_aspect_emb)
         aver_loss += cri
         if args.tensorboard:
             w.add_scalar(f'BPRLoss/BPR', cri, epoch * int(len(users) / args.bpr_batch) + batch_i)

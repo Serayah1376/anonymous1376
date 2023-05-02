@@ -54,7 +54,7 @@ class Tester(object):
             ndcg.append(self.NDCGatK_r(groundTrue, r, k))
             coverage.append(self.coverage(cate, k))
             Acoverage.append(self.coverage(aspect, k, is_cate=False))
-            ILD.append(self.ILD(cate))
+            ILD.append(self.ILD(cate, k))
         return {'recall': np.array(recall),
                 'precision': np.array(pre),
                 'ndcg': np.array(ndcg),
@@ -176,7 +176,7 @@ class Tester(object):
         num = 0
         for u in range(len(cate)):  # [0,100)
             tmp = cate[u]
-            for i in range(k):  # [0, 20)
+            for i in range(k):  # [0, 20) / 10 / 50
                 if is_cate:
                     cate_list.extend([tmp[i].tolist()])
                 else:
@@ -184,22 +184,20 @@ class Tester(object):
             num += np.unique(np.array(cate_list)).size  # 每个user top-k里面的推荐个数
         return num
 
-    # 看给一个user推荐的item列表的种类数的重叠程度
-    def ILD(self, cate):
-        K = len(cate[0])  # top-k
-        num = 0
+    # 看给一个user推荐的item列表的种类数的重叠程度, 仅对beauty  多种类别的还没想好怎么写？？？
+    # yelp： 每个item的种类类别先排序，然后计算两个item之间的余弦相似度？？？（参考下其他的写法） 或者yelp的种类按照一种
+    def ILD(self, cate, k):
+        tmp = 0
         for u in range(len(cate)):  # 100
             sorted_cate = cate[u]  # 每个user的推荐item 列表对应的种类列表 对于yelp二维，对于beauty一维
-            tmp = []
-            for i in sorted_cate:
-                tmp.extend([i.tolist()])  # 一个user涉及的所有种类
-            tmp2 = Counter(tmp)  # 返回字典，种类以及对应的个数
-            tmp3 = list(tmp2.values())
-            num += len(tmp3) - tmp3.count(0)
-        num = 2 * num / (K * (K - 1))
-        return num
+            for i in range(k):  # top-k
+                for j in range(i, k):
+                    if sorted_cate[i] != sorted_cate[j]:
+                        tmp += 1
+        tmp = 2 * tmp / (k * (k - 1))
+        return tmp
 
-    # accuracy and diversity trade-off
+    # accuracy and diversity trade-off (Recall and Diversity)
     def F1(self, Recall, ILD):
         result = 2 * Recall * ILD / (Recall + ILD)
         return result

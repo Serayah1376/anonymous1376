@@ -78,9 +78,12 @@ class Loader(BasicDataset):
         self.mode = self.mode_dict['train']
         self.n_user = 0  # Number of users
         self.m_item = 0  # Number of items
+        self.n_aspect = 0
 
         train_file = path + '/train.txt'
         test_file = path + '/test.txt'
+
+        train_aspect = path + '/beauty_interAspectID.json'
 
         user_aspect = path + '/user_aspect.json'
         item_aspect = path + '/item_aspect.json'
@@ -92,9 +95,12 @@ class Loader(BasicDataset):
         self.path = path
         trainUniqueUsers, trainItem, trainUser = [], [], []
         testUniqueUsers, testItem, testUser = [], [], []
+        trainAuser, trainAspect = [], []
         self.user_aspect_dic = dict()
         self.item_aspect_dic = dict()
-        self.aspect_emb = dict()
+        self.aspect_emb = dict()  # aspect2emb  (aspect：str)
+        self.aspectID2emb = dict()
+        self.inter_aspect = dict()
 
         self.traindataSize = 0
         self.testDataSize = 0
@@ -144,11 +150,34 @@ class Loader(BasicDataset):
         self.all_user = np.unique(np.append(self.trainUniqueUsers, self.testUniqueUsers))
         self.all_item = np.unique(np.append(self.trainItem, self.testItem))
 
+        with open(user_aspect) as f:
+            for l in f.readlines():
+                dic = json.loads(l)
+                aspects = dic["aspectID"]
+                uid = dic["userID"]
+                trainAuser.extend([uid] * len(aspects))  # correspond to the aspect
+                trainAspect.extend(aspects)
+                self.n_aspect = max(self.n_aspect, max(aspects))
+        self.n_aspect += 1
+        self.trainAuser = np.array(trainAuser)  # 和aspect对应的userID
+        self.trainAspect = np.array(trainAspect)  # 和上面user对应的aspectID
+
         # use sentence-transformer/all-MiniLM-L6-v2
-        with open(aspect_embedding) as f:
+        with open(aspect_embedding) as f:  # 是按照顺序来的
             for l in f.readlines():
                 dic = json.loads(l)
                 self.aspect_emb[dic['aspect']] = dic['embedding']
+                self.aspectID2emb[dic['aspectID']] = dic['embedding']
+
+        # 将所有的
+        with open(train_aspect) as f:
+            for l in f.readlines():
+                dic = json.loads(l)
+                aspect_emb_list = []
+                for i in dic["aspectID"]:
+                    aspect_emb_list.append(self.aspectID2emb[i])
+                aspect_emb_mean = np.mean(np.array(aspect_emb_list), axis=0).tolist()
+                self.inter_aspect[dic["user_item_ID"]] = aspect_emb_mean
 
         # {userID: [aspect_list]}
         with open(user_aspect) as f:
@@ -174,6 +203,10 @@ class Loader(BasicDataset):
         # (users,items), bipartite graph
         self.UserItemNet = csr_matrix((np.ones(len(self.trainUser)), (self.trainUser, self.trainItem)),
                                       shape=(self.n_user, self.m_item))
+
+        # (users,aspects), bipartite graph
+        self.UserAspectNet = csr_matrix((np.ones(len(self.trainAuser)), (self.trainAuser, self.trainAspect)),
+                                        shape=(self.n_user, self.n_aspect))
 
         # pre-calculate
         self._allPos = self.getUserPosItems(list(range(self.n_user)))  # 每个user交互过的item

@@ -11,6 +11,7 @@ import copy
 
 if __name__ == '__main__':
     args = parser.parse_args()
+    early_stop = utils.early_stop(args)
 
     utils.set_seed(args.seed)
     print(">>SEED:", args.seed)
@@ -20,11 +21,13 @@ if __name__ == '__main__':
     # Initialize the model
     Recmodel = utils.choose_model(args, dataset)
     Recmodel = Recmodel.to(args.device)
+    early_stop(999999.99, Recmodel)
     Recmodel.aspect_init()  # initialization pre_trained aspect
 
     bpr = utils.BPRLoss(args, Recmodel)
 
-    weight_file = utils.getFileName()  # 权重
+    # 现在先不管，等模型确定之后在弄
+    weight_file = utils.getFileName(args)  # 权重
     print(f"load and save to {weight_file}")
 
     if args.load:
@@ -47,16 +50,23 @@ if __name__ == '__main__':
 
     # train & test
     try:
-        for epoch in range(args.epochs):
-            start = time.time()
-            if epoch % 10 == 0:
+        for epoch in range(args.epochs + 1):
+            if epoch % 100 == 0 and epoch != 0:
+                test_start = time.time()
                 print("[TEST]")
                 tester = Tester(args, dataset, Recmodel, epoch, w, args.multicore)
                 tester.test()
-            output_information = trainer.train(args, dataset, Recmodel, bpr, epoch, neg_k=Neg_k, w=w)  # main
-            end = time.time()
-            print(f'EPOCH[{epoch + 1}/{args.epochs}] {output_information}use_time:{end - start}')
-            torch.save(Recmodel.state_dict(), weight_file)
+                test_end = time.time()
+                print("test time:", test_end - test_start)
+
+            train_start = time.time()
+            output_information, loss = trainer.train(args, dataset, Recmodel, bpr, epoch, neg_k=Neg_k, w=w)  # main
+            train_end = time.time()
+            print(f'EPOCH[{epoch + 1}/{args.epochs}] {output_information}use_time:{train_end - train_start}')
+            # torch.save(Recmodel.state_dict(), weight_file) # 模型确定之后再改
+            early_stop(loss, Recmodel)
+            if early_stop.early_stop:
+                break
     finally:
         if args.tensorboard:
             w.close()

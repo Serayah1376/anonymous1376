@@ -38,40 +38,45 @@ class BPRLoss:
         self.lr = args.lr  # learning rate
         self.opt = optim.Adam(recmodel.parameters(), lr=self.lr)
 
-    def alignment(self, x, y):
+    def alignment(self, x, y, aspect_emb):  # 正反馈交互  可以添加交互对应的aspect
+        # x = torch.cat(x, aspect_emb)
+        # y = torch.cat(y, aspect_emb)
         x, y = F.normalize(x, dim=-1), F.normalize(y, dim=-1)
         return (x - y).norm(p=2, dim=1).pow(2).mean()
 
     def uniformity(self, x):
         x = F.normalize(x, dim=-1)  # x = x / ||x||
-        return torch.pdist(x, p=2).pow(2).mul(-2).exp().mean().log()
+        return torch.pdist(x, p=2).pow(2).mul(-2).exp().mean().log()  # 矩阵中每行的欧式距离
 
     # input: the user/item embedding  form the model
-    def ali_uni_loss(self, user_e, item_e):  # [batch_size, dim]
-        align = self.alignment(user_e, item_e)
+    def ali_uni_loss(self, user_e, item_e, aspect_emb):  # [batch_size, dim]
+        align = self.alignment(user_e, item_e, aspect_emb)
         uniform = (self.uniformity(user_e) + self.uniformity(item_e)) / 2
         loss = align + args.gamma * uniform  # gama: [0.2, 0.5, 1, 2, 5, 10]
         return loss
 
-    def stageOne(self, users, pos, neg):
+    def AU_aspect(slef, ):
+        pass
+
+    def stageOne(self, users, pos, neg, aspect_emb):
         # [batch_size, emb_dim]
         users_emb, pos_emb, neg_emb = self.model.bpr_loss(users, pos, neg)
 
-        au_loss1 = self.ali_uni_loss(users_emb, pos_emb)
+        au_loss1 = self.ali_uni_loss(users_emb, pos_emb, aspect_emb)
 
         # MLP for dimensional transformation of aspect and attention
-        reg_loss2 = torch.tensor(0.).to(args.device)
+        reg_loss = torch.tensor(0.).to(args.device)
         for name, para in self.model.named_parameters():
             # if name != 'embedding_item' and name != 'embedding_user': # regloss1
-            reg_loss2 += para.pow(2).sum()
+            reg_loss += para.pow(2).sum()
 
-        reg_loss = reg_loss2 * self.args.regloss2_decay  # + reg_loss1 * self.args.regloss1_decay # regularization weight
+        reg_loss = reg_loss * self.args.regloss_decay  # + reg_loss1 * self.args.regloss1_decay # regularization weight
         loss = au_loss1 + reg_loss
 
         self.opt.zero_grad()
         loss.backward()  # retain_graph=True
         self.opt.step()
-        return loss.cpu().item(), reg_loss2, au_loss1
+        return loss.cpu().item(), reg_loss, au_loss1
 
 
 # negative sampling
@@ -206,14 +211,14 @@ def register(args):
     print("topks", args.topks)
     print("epochs", args.epochs)
     print("max_len", args.max_len)
-    print("regloss1_decay", args.regloss1_decay)
-    print("regloss2_decay", args.regloss2_decay)
+    # print("regloss1_decay", args.regloss1_decay)
+    print("regloss2_decay", args.regloss_decay)
     print("head_num", args.head_num)
     print("gamma", args.gamma)
     print("gamma2(submodular)", args.gamma2)
     print("sigma(submodular)", args.sigma)
     print("k(number of aggregated neighbors)", args.k)
-    print("loss function", args.loss)
+    print("loss function", args.loss_function)
     print('===========end===================')
 
 
@@ -261,17 +266,17 @@ class EarlyStopping:
         '''Saves model when train loss decrease.'''
         if self.verbose:
             print(f'Train loss decreased ({self.train_loss_min:.6f} --> {train_loss:.6f}).  Saving model ...')
-        path = os.path.join(self.save_path, 'best_network.pth')
-        torch.save(model.state_dict(), path)
+        # path = os.path.join(self.save_path, 'best_network.pth')
+        torch.save(model.state_dict(), self.save_path)
         self.train_loss_min = train_loss
 
 
 def early_stop(args):
-    path = f"model_{args.model}_dataset_{args.dataset}_embed_size_{args.embed_size}_regloss_weight_decay_{args.regloss2_decay}_layers_{args.layer}_sigma_{args.sigma}_gamma2_{args.gamma2}_beta_class_{args.beta_class}"
+    path = f"model_{args.model}_dataset_{args.dataset}_embed_size_{args.recdim}_regloss_weight_decay_{args.regloss_decay}_layers_{args.layer}_gmma_{args.gamma}_sigma_{args.sigma}_gamma2_{args.gamma2}.pt.tar"
     if os.path.exists('./logs/' + path + '.log'):
         os.remove('./logs/' + path + '.log')
 
-    early_stop = EarlyStopping(patience=args.patience, save_path=args.path + path + '.pt')
+    early_stop = EarlyStopping(patience=args.patience, save_path=os.path.join(args.path, path))
     return early_stop
 
 

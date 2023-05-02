@@ -22,9 +22,9 @@ def parse_args():
                         help="the layer num of lightGCN")
     parser.add_argument('--lr', type=float, default=0.001,
                         help="the learning rate")
-    parser.add_argument('--regloss1_decay', type=float, default=1e-4,
-                        help="the weight decay for l2 normalizaton of user/item weight")
-    parser.add_argument('--regloss2_decay', type=float, default=1e-6,
+    """parser.add_argument('--regloss1_decay', type=float, default=1e-4,
+                        help="the weight decay for l2 normalizaton of user/item weight")"""
+    parser.add_argument('--regloss_decay', type=float, default=1e-6,  # best: 1e-6
                         help="the weight decay for l2 normalizaton of the model")
     parser.add_argument('--au_loss', type=float, default=1, help='The weight 𝛾 of 𝑙_uniform')
     parser.add_argument('--dropout', type=int, default=0,
@@ -33,7 +33,7 @@ def parse_args():
                         help="the batch size for bpr loss training procedure")
     parser.add_argument('--a_fold', type=int, default=100,
                         help="the fold num used to split large adj matrix, like gowalla")
-    parser.add_argument('--testbatch', type=int, default=100,
+    parser.add_argument('--testbatch', type=int, default=100,  # 100
                         help="the batch size of users for testing")
     parser.add_argument('--dataset', type=str, default='beauty',
                         help="available datasets: [yelp2018, beauty]")
@@ -47,18 +47,18 @@ def parse_args():
                         help="enable tensorboard")
     parser.add_argument('--comment', type=str, default="lgn")
     parser.add_argument('--load', type=int, default=0)
-    parser.add_argument('--epochs', type=int, default=1000)
+    parser.add_argument('--epochs', type=int, default=2000)
     parser.add_argument('--multicore', type=int, default=0, help='whether we use multiprocessing or not in test')
     parser.add_argument('--pretrain', type=int, default=0, help='whether we use pretrained weight or not')  # 0
     parser.add_argument('--seed', type=int, default=2023, help='random seed')
     parser.add_argument('--model', type=str, default='lgn', help='rec-model, support [lgn, ...]')
     parser.add_argument('--max_len', type=int, default=64, help='Maximum length of aspect list')
-    parser.add_argument('--head_num', type=int, default=1, help='The number of heads of MultiheadAttention') # 1 best
-    parser.add_argument('--gamma', type=int, default=1, help='The weight 𝛾 of 𝑙_uniform')
+    parser.add_argument('--head_num', type=int, default=1, help='The number of heads of MultiheadAttention') # have little impact
+    parser.add_argument('--gamma', type=int, default=1, help='The weight 𝛾 of 𝑙_uniform')  # 1 best
     parser.add_argument('--sigma', default = 1.0, type = float, help = 'sigma for gaussian kernel')
     parser.add_argument('--gamma2', default = 2.0, type = float, help = 'gamma for gaussian kernel')
     parser.add_argument('--k', default = 20, type = int, help = 'neighbor number in each GNN aggregation(for diversity)')
-    parser.add_argument('--loss function', default = 'au', type = str, help = 'loss function')
-    parser.add_argument('--patience', default = 10, type = int, help = 'early_stop patience')
+    parser.add_argument('--loss_function', default = 'au', type = str, help = 'loss function')
+    parser.add_argument('--patience', default = 100, type = int, help = 'early_stop patience')  # 100
     return parser.parse_args()
 

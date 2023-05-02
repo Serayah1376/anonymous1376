@@ -32,11 +32,17 @@ class Model(nn.Module):
         self.user_aspect_dic = self.dataset.user_aspect_dic
         self.item_aspect_dic = self.dataset.item_aspect_dic
         self.aspect_emb_384 = self.dataset.aspect_emb  # [aspect, emb_384]
-        self.aspect_emb_64 = dict()
+        self.UserAspectNet = self.dataset.UserAspectNet  # user, aspect  bipartite graph
+        self.aspect_emb_64 = dict()  # 是按照aspect的ID顺序的
         self.user_aspect_emb = dict()
         self.item_aspect_emb = dict()
         self.user_padding_aspect = []  # user/item aspect padding
         self.item_padding_aspect = []
+
+        # aspect mask: 在选择新的aspect时，屏蔽到已经交互过的aspect
+        aspect_mask_pre = torch.tensor(self.UserAspectNet.toarray())
+        self.aspect_mask = torch.where(aspect_mask_pre == 0, aspect_mask_pre, float('-inf')).to(
+            self.args.device)  # 交互过的地方均为负无穷
 
         self.f = nn.Sigmoid()
         self.Graph = self.dataset.getSparseGraph()  # dgl.heterograph
@@ -82,9 +88,12 @@ class Model(nn.Module):
         user_embed = [self.embedding_user]
         item_embed = [self.embedding_item]
         h = {'user': self.embedding_user, 'item': self.embedding_item}
+
+        h_user = self.embedding_user
+        h_item = self.embedding_item
         for layer in self.layers:
-            h_item = layer(self.Graph, h, ('user', 'rate', 'item'))
-            h_user = layer(self.Graph, h, ('item', 'rated by', 'user'))
+            """h_item = layer(self.Graph, h, ('user', 'rate', 'item'))
+            h_user = layer(self.Graph, h, ('item', 'rated by', 'user'))"""
 
             user_aspect_emb = self.get_aspect_embedding(h_user, torch.tensor(self.all_user).to(self.args.device),
                                                         is_user=True)
@@ -100,23 +109,21 @@ class Model(nn.Module):
             item_embed.append(h_item)
 
         user_embed = torch.stack(user_embed, dim=1)
-        users = torch.mean(user_embed, dim=1)
+        user_embed = torch.mean(user_embed, dim=1)
 
         item_embed = torch.stack(item_embed, dim=1)
-        items = torch.mean(item_embed, dim=1)
+        item_embed = torch.mean(item_embed, dim=1)
 
-        """all_aspect_emb = torch.stack(all_aspect_emb, dim=1)
-        aspect_out = torch.mean(all_aspect_emb, dim=1)
-        user_aspect, item_aspect = torch.split(aspect_out, [self.num_users, self.num_items])"""
+        return user_embed, item_embed
 
-        return users, items
-
-    def getEmbedding(self, users, pos_items, neg_items):
-        all_users, all_items = self.computer()
+    def getEmbedding(self, users, pos_items, neg_items):  # users/pos_items: tensor
+        all_users, all_items = self.computer()  # 只传入本次需要计算的即可
 
         users_emb = all_users[users]
         pos_emb = all_items[pos_items]
         neg_emb = all_items[neg_items]
+
+        users_emb = self.aspect_diversity(users_emb, users)  # 只对该批次user加diversity
 
         users_emb_ego = self.embedding_user[users]
         pos_emb_ego = self.embedding_item[pos_items]
@@ -126,6 +133,9 @@ class Model(nn.Module):
     def getUsersRating(self, users, items):
         all_users, all_items = self.computer()
         users_emb = all_users[users]
+
+        users_emb = self.aspect_diversity(users_emb, users)  # add new aspects
+
         items_emb = all_items
 
         rating = self.f(torch.matmul(users_emb, items_emb.t()))
@@ -186,13 +196,13 @@ class Model(nn.Module):
 
             self.item_padding_aspect.append(padding_aspect)  # 按照顺序的
 
-        self.user_padding_aspect = torch.stack(self.user_padding_aspect).to(self.args.device)
+        self.user_padding_aspect = torch.stack(self.user_padding_aspect).to(self.args.device)  # [all_user_num, 64, 64]
         self.item_padding_aspect = torch.stack(self.item_padding_aspect).to(self.args.device)
 
     # 计算user/item对应的aspect embedding列表
     def get_aspect_embedding(self, emb, index, is_user=True):
         if is_user:
-            batch_pad_aspect = torch.index_select(self.user_padding_aspect, 0, index)
+            batch_pad_aspect = torch.index_select(self.user_padding_aspect, 0, index)  # [batch_size, 64, 64]
         else:
             batch_pad_aspect = torch.index_select(self.item_padding_aspect, 0, index)
 
@@ -224,7 +234,40 @@ class Model(nn.Module):
 
         return users_emb, pos_emb, neg_emb  # , reg_loss # , loss
 
+    # 与未交互过的aspect计算相似度，选出top-k个表示加入到user中
+    def aspect_diversity(self, user_emb, user_index):  # user_index: [batch_size]
+        # user_emb = all_user_emb[user_index]
+        # 计算相似度
+        aspect_emb = torch.tensor(list(self.aspect_emb_64.values())).to(self.args.device)  # 所有aspect嵌入
+        # output: [num_user, num_aspect]
+        dicts = torch.cdist(user_emb, aspect_emb)  # user_emb: [batch_user, dim]  [num_aspect, dim]
+        mask = torch.index_select(self.aspect_mask, 0, user_index)  # 选出user对应的aspect交互列表
+        masked_dicts = mask + dicts  # 将已交互过的aspect的分数设置为负无穷
+        _, sorted_index = torch.sort(masked_dicts, dim=1, descending=True)  # 得到排序后的Aaspect的编码
+        # 加入16个新的aspect 暂时这样写
+        sorted_index = sorted_index[:, :32]  # [batch_size, 16]
+        new_user_emb = []
+        for i in range(len(sorted_index)):
+            new_aspect_emb = torch.index_select(aspect_emb, 0, sorted_index[i])  # [16,dim]
+            new_aspect_emb = torch.mean(new_aspect_emb, 0)
+            new_user_emb.append((new_aspect_emb + user_emb[i]) / 2)
 
+        new_user_emb = torch.stack(new_user_emb).to(self.args.device)
+        return new_user_emb
+
+    def get_att_dis(target, behaviored):
+
+        attention_distribution = []
+
+        for i in range(behaviored.size(0)):
+            attention_score = torch.cosine_similarity(target, behaviored[i].view(1, -1))  # 计算每一个元素与给定元素的余弦相似度
+            attention_distribution.append(attention_score)
+        attention_distribution = torch.Tensor(attention_distribution)
+
+        return attention_distribution / torch.sum(attention_distribution, 0)
+
+
+# submodular的时候考虑上aspect
 class GCNLayer(nn.Module):
     def __init__(self, args):
         super(GCNLayer, self).__init__()
@@ -239,7 +282,7 @@ class GCNLayer(nn.Module):
         sims = torch.exp(-dists / (sigma * dists.mean(dim=-1).mean(dim=-1).reshape(-1, 1, 1)))
         return sims
 
-    # submodular
+    # submodular  接入了aspect的因素
     def submodular_selection_feature(self, nodes):
         device = nodes.mailbox['m'].device
         feature = nodes.mailbox['m']
