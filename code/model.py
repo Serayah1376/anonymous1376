@@ -33,7 +33,7 @@ class Model(nn.Module):
         self.item_aspect_dic = self.dataset.item_aspect_dic
         self.aspect_emb_384 = self.dataset.aspect_emb  # [aspect, emb_384]
         self.UserAspectNet = self.dataset.UserAspectNet  # user, aspect  bipartite graph
-        self.aspect_emb_64 = dict()  # 是按照aspect的ID顺序的
+        self.aspect_emb_64 = dict()
         self.user_aspect_emb = dict()
         self.item_aspect_emb = dict()
         self.user_padding_aspect = []  # user/item aspect padding
@@ -123,7 +123,7 @@ class Model(nn.Module):
         pos_emb = all_items[pos_items]
         neg_emb = all_items[neg_items]
 
-        users_emb = self.aspect_diversity(users_emb, users)  # 只对该批次user加diversity
+        # users_emb = self.aspect_diversity(users_emb, users)  #  只对该批次user加diversity
 
         users_emb_ego = self.embedding_user[users]
         pos_emb_ego = self.embedding_item[pos_items]
@@ -134,7 +134,8 @@ class Model(nn.Module):
         all_users, all_items = self.computer()
         users_emb = all_users[users]
 
-        users_emb = self.aspect_diversity(users_emb, users)  # add new aspects
+        # 测试期间是否加上diversity？？
+        # users_emb = self.aspect_diversity(users_emb, users)  # add new aspects
 
         items_emb = all_items
 
@@ -244,11 +245,11 @@ class Model(nn.Module):
         mask = torch.index_select(self.aspect_mask, 0, user_index)  # 选出user对应的aspect交互列表
         masked_dicts = mask + dicts  # 将已交互过的aspect的分数设置为负无穷
         _, sorted_index = torch.sort(masked_dicts, dim=1, descending=True)  # 得到排序后的Aaspect的编码
-        # 加入16个新的aspect 暂时这样写
-        sorted_index = sorted_index[:, :32]  # [batch_size, 16]
+        # 加入new_aspects个新的aspect 暂时这样写
+        sorted_index = sorted_index[:, : self.args.new_aspects]
         new_user_emb = []
         for i in range(len(sorted_index)):
-            new_aspect_emb = torch.index_select(aspect_emb, 0, sorted_index[i])  # [16,dim]
+            new_aspect_emb = torch.index_select(aspect_emb, 0, sorted_index[i])
             new_aspect_emb = torch.mean(new_aspect_emb, 0)
             new_user_emb.append((new_aspect_emb + user_emb[i]) / 2)
 

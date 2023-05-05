@@ -54,11 +54,12 @@ def parse_args():
     parser.add_argument('--model', type=str, default='lgn', help='rec-model, support [lgn, ...]')
     parser.add_argument('--max_len', type=int, default=64, help='Maximum length of aspect list')
     parser.add_argument('--head_num', type=int, default=1, help='The number of heads of MultiheadAttention') # have little impact
-    parser.add_argument('--gamma', type=int, default=1, help='The weight 𝛾 of 𝑙_uniform')  # 1 best
+    parser.add_argument('--gamma', type=int, default=0.5, help='The weight 𝛾 of 𝑙_uniform')  # 0.5 best
     parser.add_argument('--sigma', default = 1.0, type = float, help = 'sigma for gaussian kernel')
     parser.add_argument('--gamma2', default = 2.0, type = float, help = 'gamma for gaussian kernel')
     parser.add_argument('--k', default = 20, type = int, help = 'neighbor number in each GNN aggregation(for diversity)')
     parser.add_argument('--loss_function', default = 'au', type = str, help = 'loss function')
-    parser.add_argument('--patience', default = 100, type = int, help = 'early_stop patience')  # 100
+    parser.add_argument('--patience', default = 300, type = int, help = 'early_stop patience')  # 100
+    parser.add_argument('--new_aspects', default = 16, type = int, help = 'new aspects add to user')  # 100
     return parser.parse_args()
 

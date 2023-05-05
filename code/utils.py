@@ -38,9 +38,7 @@ class BPRLoss:
         self.lr = args.lr  # learning rate
         self.opt = optim.Adam(recmodel.parameters(), lr=self.lr)
 
-    def alignment(self, x, y, aspect_emb):  # 正反馈交互  可以添加交互对应的aspect
-        # x = torch.cat(x, aspect_emb)
-        # y = torch.cat(y, aspect_emb)
+    def alignment(self, x, y, aspect_emb):  # 正反馈交互  在这里面添加交互对应的aspect
         x, y = F.normalize(x, dim=-1), F.normalize(y, dim=-1)
         return (x - y).norm(p=2, dim=1).pow(2).mean()
 
@@ -50,13 +48,17 @@ class BPRLoss:
 
     # input: the user/item embedding  form the model
     def ali_uni_loss(self, user_e, item_e, aspect_emb):  # [batch_size, dim]
+        """user_e = torch.cat((user_e, aspect_emb), dim = 1)
+        item_e = torch.cat((item_e, aspect_emb), dim = 1)"""
+        user_e = user_e + aspect_emb
+        item_e = item_e + aspect_emb
         align = self.alignment(user_e, item_e, aspect_emb)
         uniform = (self.uniformity(user_e) + self.uniformity(item_e)) / 2
         loss = align + args.gamma * uniform  # gama: [0.2, 0.5, 1, 2, 5, 10]
         return loss
 
-    def AU_aspect(slef, ):
-        pass
+    def Aspect_condition_encoder(self, emb, aspect_emb):
+        new_emb = self.MLP()  # cat add  n layers dropout
 
     def stageOne(self, users, pos, neg, aspect_emb):
         # [batch_size, emb_dim]
