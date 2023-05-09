@@ -10,6 +10,7 @@ from collections import defaultdict
 import time as Time
 import torch.nn.functional as F
 import pandas as pd
+from torch import nn
 
 '''
 loss function、negative sampling、utils
@@ -38,7 +39,7 @@ class BPRLoss:
         self.lr = args.lr  # learning rate
         self.opt = optim.Adam(recmodel.parameters(), lr=self.lr)
 
-    def alignment(self, x, y, aspect_emb):  # 正反馈交互  在这里面添加交互对应的aspect
+    def alignment(self, x, y):  # 正反馈交互  在这里面添加交互对应的aspect
         x, y = F.normalize(x, dim=-1), F.normalize(y, dim=-1)
         return (x - y).norm(p=2, dim=1).pow(2).mean()
 
@@ -47,29 +48,21 @@ class BPRLoss:
         return torch.pdist(x, p=2).pow(2).mul(-2).exp().mean().log()  # 矩阵中每行的欧式距离
 
     # input: the user/item embedding  form the model
-    def ali_uni_loss(self, user_e, item_e, aspect_emb):  # [batch_size, dim]
-        """user_e = torch.cat((user_e, aspect_emb), dim = 1)
-        item_e = torch.cat((item_e, aspect_emb), dim = 1)"""
-        user_e = user_e + aspect_emb
-        item_e = item_e + aspect_emb
-        align = self.alignment(user_e, item_e, aspect_emb)
+    def ali_uni_loss(self, user_e, item_e):  # [batch_size, dim]
+        align = self.alignment(user_e, item_e)
         uniform = (self.uniformity(user_e) + self.uniformity(item_e)) / 2
         loss = align + args.gamma * uniform  # gama: [0.2, 0.5, 1, 2, 5, 10]
         return loss
 
-    def Aspect_condition_encoder(self, emb, aspect_emb):
-        new_emb = self.MLP()  # cat add  n layers dropout
-
     def stageOne(self, users, pos, neg, aspect_emb):
         # [batch_size, emb_dim]
-        users_emb, pos_emb, neg_emb = self.model.bpr_loss(users, pos, neg)
+        users_emb, pos_emb, neg_emb = self.model.bpr_loss(users, pos, neg, aspect_emb)
 
-        au_loss1 = self.ali_uni_loss(users_emb, pos_emb, aspect_emb)
+        au_loss1 = self.ali_uni_loss(users_emb, pos_emb)
 
         # MLP for dimensional transformation of aspect and attention
         reg_loss = torch.tensor(0.).to(args.device)
         for name, para in self.model.named_parameters():
-            # if name != 'embedding_item' and name != 'embedding_user': # regloss1
             reg_loss += para.pow(2).sum()
 
         reg_loss = reg_loss * self.args.regloss_decay  # + reg_loss1 * self.args.regloss1_decay # regularization weight
@@ -220,6 +213,7 @@ def register(args):
     print("gamma2(submodular)", args.gamma2)
     print("sigma(submodular)", args.sigma)
     print("k(number of aggregated neighbors)", args.k)
+    print("ADD new aspects", args.new_aspects)
     print("loss function", args.loss_function)
     print('===========end===================')
 

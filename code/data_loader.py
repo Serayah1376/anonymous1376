@@ -95,9 +95,13 @@ class Loader(BasicDataset):
         self.path = path
         trainUniqueUsers, trainItem, trainUser = [], [], []
         testUniqueUsers, testItem, testUser = [], [], []
-        trainAuser, trainAspect = [], []
+        trainAuser, trainUAspect = [], []
+        trainAitem, trainIAspect = [], []
         self.user_aspect_dic = dict()
         self.item_aspect_dic = dict()
+        # aspect trainable
+        self.user_aspect_ID_dic = dict()
+        self.item_aspect_ID_dic = dict()
         self.aspect_emb = dict()  # aspect2emb  (aspect：str)
         self.aspectID2emb = dict()
         self.inter_aspect = dict()
@@ -156,11 +160,21 @@ class Loader(BasicDataset):
                 aspects = dic["aspectID"]
                 uid = dic["userID"]
                 trainAuser.extend([uid] * len(aspects))  # correspond to the aspect
-                trainAspect.extend(aspects)
+                trainUAspect.extend(aspects)
                 self.n_aspect = max(self.n_aspect, max(aspects))
         self.n_aspect += 1
         self.trainAuser = np.array(trainAuser)  # 和aspect对应的userID
-        self.trainAspect = np.array(trainAspect)  # 和上面user对应的aspectID
+        self.trainUAspect = np.array(trainUAspect)  # 和上面user对应的aspectID
+
+        with open(item_aspect) as f:
+            for l in f.readlines():
+                dic = json.loads(l)
+                aspects = dic["aspectID"]
+                iid = dic["itemID"]
+                trainAitem.extend([iid] * len(aspects))  # correspond to the aspect
+                trainIAspect.extend(aspects)
+        self.trainAitem = np.array(trainAitem)  # 和aspect对应的itemID
+        self.trainIAspect = np.array(trainIAspect)  # 和上面item对应的aspectID
 
         # use sentence-transformer/all-MiniLM-L6-v2
         with open(aspect_embedding) as f:  # 是按照顺序来的
@@ -169,7 +183,7 @@ class Loader(BasicDataset):
                 self.aspect_emb[dic['aspect']] = dic['embedding']
                 self.aspectID2emb[dic['aspectID']] = dic['embedding']
 
-        # 将所有的
+        # user-item : aspect list
         with open(train_aspect) as f:
             for l in f.readlines():
                 dic = json.loads(l)
@@ -183,15 +197,17 @@ class Loader(BasicDataset):
         with open(user_aspect) as f:
             for l in f.readlines():
                 dic = json.loads(l)
-                self.user_aspect_dic[int(dic["userID"])] = dic["aspects"]
+                self.user_aspect_dic[int(dic["userID"])] = dic["aspects"]  # userID 与 aspect单词之间的对应关系
+                self.user_aspect_ID_dic[int(dic["userID"])] = dic["aspectID"]  # userID 与 aspectID 对应关系
 
-                # {itemID: [aspect_list]}
+        # {itemID: [aspect_list]}
         with open(item_aspect) as f:
             for l in f.readlines():
                 dic = json.loads(l)
-                self.item_aspect_dic[int(dic["itemID"])] = dic["aspects"]
+                self.item_aspect_dic[int(dic["itemID"])] = dic["aspects"]  # itemID 与 aspect单词 对应关系
+                self.item_aspect_ID_dic[int(dic["itemID"])] = dic["aspectID"]  # itemID 与 AspectID 对应关系
 
-                # shape: [n_aspect, aspect_emb]  value: {aspect: embedding}
+        # shape: [n_aspect, aspect_emb]  value: {aspect: embedding}
         self.user_aspect_embedding = dict()
         self.item_aspect_embedding = dict()
 
@@ -205,7 +221,7 @@ class Loader(BasicDataset):
                                       shape=(self.n_user, self.m_item))
 
         # (users,aspects), bipartite graph
-        self.UserAspectNet = csr_matrix((np.ones(len(self.trainAuser)), (self.trainAuser, self.trainAspect)),
+        self.UserAspectNet = csr_matrix((np.ones(len(self.trainAuser)), (self.trainAuser, self.trainUAspect)),
                                         shape=(self.n_user, self.n_aspect))
 
         # pre-calculate
@@ -287,6 +303,29 @@ class Loader(BasicDataset):
             category_tensor = torch.tensor(list(self.category_dic.values()), dtype=torch.long).unsqueeze(
                 1)  # [category, 1]
             self.Graph.ndata['category'] = {'item': category_tensor, 'user': torch.zeros(self.n_user, 1) - 1}
+
+        return self.Graph.to(self.args.device)
+
+    # for aspect graph
+    def getAspectSparseGraph(self):
+        print("loading adjacency matritrix")
+        if self.Graph is None:
+            # 加上aspect -> user  aspect -> item
+            graph_data = {
+                ('user', 'rate', 'item'): (torch.tensor(self.trainUser).long(), torch.tensor(self.trainItem).long()),
+                ('item', 'rated by', 'user'): (
+                torch.tensor(self.trainItem).long(), torch.tensor(self.trainUser).long()),
+                ('aspect', 'mentioned by au', 'user'): (
+                torch.tensor(self.trainUAspect).long(), torch.tensor(self.trainAuser).long()),
+                ('aspect', 'mentioned by ai', 'item'): (
+                torch.tensor(self.trainIAspect).long(), torch.tensor(self.trainAitem).long())
+            }
+            self.Graph = dgl.heterograph(graph_data)
+            # distinguish between user and item for submodular
+            category_tensor = torch.tensor(list(self.category_dic.values()), dtype=torch.long).unsqueeze(
+                1)  # [category, 1]
+            self.Graph.ndata['category'] = {'item': category_tensor, 'user': torch.zeros(self.n_user, 1) - 1,
+                                            "aspect": torch.zeros(self.n_aspect, 1) - 1}
 
         return self.Graph.to(self.args.device)
 

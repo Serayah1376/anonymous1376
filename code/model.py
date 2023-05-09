@@ -25,12 +25,17 @@ class Model(nn.Module):
         self.head_num = self.args.head_num
         self.num_users = self.dataset.n_users
         self.num_items = self.dataset.m_items
+        self.num_aspects = self.dataset.n_aspect
         self.all_user = self.dataset.all_user
         self.all_item = self.dataset.all_item
 
         # aspect init
-        self.user_aspect_dic = self.dataset.user_aspect_dic
-        self.item_aspect_dic = self.dataset.item_aspect_dic
+        self.user_aspect_dic = self.dataset.user_aspect_dic  # [userID, aspect]
+        self.item_aspect_dic = self.dataset.item_aspect_dic  # [itemID, aspect]
+        # trainable aspect
+        self.user_aspect_ID_dic = self.dataset.user_aspect_ID_dic  # [userID, aspectID]
+        self.item_aspect_ID_dic = self.dataset.item_aspect_ID_dic  # [itemID, aspectID]
+
         self.aspect_emb_384 = self.dataset.aspect_emb  # [aspect, emb_384]
         self.UserAspectNet = self.dataset.UserAspectNet  # user, aspect  bipartite graph
         self.aspect_emb_64 = dict()
@@ -45,7 +50,8 @@ class Model(nn.Module):
             self.args.device)  # 交互过的地方均为负无穷
 
         self.f = nn.Sigmoid()
-        self.Graph = self.dataset.getSparseGraph()  # dgl.heterograph
+        # self.Graph = self.dataset.getSparseGraph()   # dgl.heterograph
+        self.Graph = self.dataset.getAspectSparseGraph()  # 含有aspect的异构图
         print(f"lgn is already to go(dropout:{self.args.dropout})")
 
         self.layers = nn.ModuleList()
@@ -58,6 +64,9 @@ class Model(nn.Module):
         # user/item embedding weight init
         self.embedding_user = torch.nn.Parameter(torch.randn(self.num_users, self.latent_dim))
         self.embedding_item = torch.nn.Parameter(torch.randn(self.num_items, self.latent_dim))
+
+        # make aspect embedding changable
+        self.embedding_aspect = torch.nn.Parameter(torch.randn(self.num_aspects, self.latent_dim))
 
         # embedding init
         """if self.args.pretrain == 0:  # true
@@ -78,32 +87,44 @@ class Model(nn.Module):
         nn.init.xavier_normal_(self.aspect_MLP.weight)
         nn.init.constant_(self.aspect_MLP.bias, 0)
 
+        # Aspect_condition_encoder
+        """self.MLP = nn.Linear(self.args.recdim * 2, self.args.recdim, bias=True).to(self.args.device)
+        nn.init.xavier_normal_(self.MLP.weight)
+        nn.init.constant_(self.MLP.bias, 0)"""
+
     # aspect pre-train weight
     def aspect_init(self):
         self.get_ft_aspect_emb(self.aspect_emb_384)
         self.user_aspect_emb, self.item_aspect_emb = self.get_Pretrain_Aspect()
+        # self.user_aspect_emb, self.item_aspect_emb = self.get_trainable_Aspect()  # trainable aspect 没有建模在图中
         self.aspect_padding()
 
     def computer(self):
         user_embed = [self.embedding_user]
         item_embed = [self.embedding_item]
-        h = {'user': self.embedding_user, 'item': self.embedding_item}
+        # h = {'user':  self.embedding_user, 'item': self.embedding_item}
+        h = {'user': self.embedding_user, 'item': self.embedding_item, 'aspect': self.embedding_aspect}
 
-        h_user = self.embedding_user
-        h_item = self.embedding_item
+        """h_user = self.embedding_user
+        h_item = self.embedding_item"""
         for layer in self.layers:
-            """h_item = layer(self.Graph, h, ('user', 'rate', 'item'))
-            h_user = layer(self.Graph, h, ('item', 'rated by', 'user'))"""
+            h_item = layer(self.Graph, h, ('user', 'rate', 'item'))
+            h_user = layer(self.Graph, h, ('item', 'rated by', 'user'))
 
-            user_aspect_emb = self.get_aspect_embedding(h_user, torch.tensor(self.all_user).to(self.args.device),
-                                                        is_user=True)
-            item_aspect_emb = self.get_aspect_embedding(h_item, torch.tensor(self.all_item).to(self.args.device),
-                                                        is_user=False)
+            # add for aspect graph
+            h_item_aspect = layer(self.Graph, h, ('aspect', 'mentioned by ai', 'item'))
+            h_user_aspect = layer(self.Graph, h, ('aspect', 'mentioned by au', 'user'))
+            h_user = h_user + h_user_aspect
+            h_item = h_item + h_item_aspect
+
+            # 将aspect建模在图中，所以省略这部分
+            """user_aspect_emb = self.get_aspect_embedding(h_user, torch.tensor(self.all_user).to(self.args.device), is_user=True)
+            item_aspect_emb = self.get_aspect_embedding(h_item, torch.tensor(self.all_item).to(self.args.device), is_user=False) 
 
             h_user = (h_user + user_aspect_emb) / 2
-            h_item = (h_item + item_aspect_emb) / 2
+            h_item = (h_item + item_aspect_emb) / 2"""
 
-            h = {'user': h_user, 'item': h_item}
+            h = {'user': h_user, 'item': h_item, 'aspect': self.embedding_aspect}  # aspect 的嵌入虽然在layer中没有更新，但是自己更新了
 
             user_embed.append(h_user)
             item_embed.append(h_item)
@@ -134,7 +155,7 @@ class Model(nn.Module):
         all_users, all_items = self.computer()
         users_emb = all_users[users]
 
-        # 测试期间是否加上diversity？？
+        # 测试期间也需要加上
         # users_emb = self.aspect_diversity(users_emb, users)  # add new aspects
 
         items_emb = all_items
@@ -171,6 +192,31 @@ class Model(nn.Module):
                 a_vector_list = []
                 for a in self.item_aspect_dic[i]:
                     a_vector_list.append(torch.tensor(self.aspect_emb_64[a]))  # user 和 item 的aspect并不完全一样
+                if len(a_vector_list) != 0:
+                    vector_tensor = torch.stack(a_vector_list)
+                    item_aspect_embedding[i] = vector_tensor
+
+        return user_aspect_embedding, item_aspect_embedding
+
+    def get_trainable_Aspect(self):
+        user_aspect_embedding = dict()
+        item_aspect_embedding = dict()
+        for i in self.all_user:  # i: torch.tensor
+            i = int(i)
+            if i in self.user_aspect_ID_dic.keys():
+                a_vector_list = []
+                for a in self.user_aspect_ID_dic[i]:  # ID
+                    a_vector_list.append(torch.tensor(self.embedding_aspect[a]))
+                if len(a_vector_list) != 0:
+                    vector_tensor = torch.stack(a_vector_list)  # [n_aspects, 64]
+                    user_aspect_embedding[i] = vector_tensor
+
+        for i in self.all_item:  # i: torch.tensor
+            i = int(i)
+            if i in self.item_aspect_ID_dic.keys():
+                a_vector_list = []
+                for a in self.item_aspect_ID_dic[i]:
+                    a_vector_list.append(torch.tensor(self.embedding_aspect[a]))  # user 和 item 的aspect并不完全一样
                 if len(a_vector_list) != 0:
                     vector_tensor = torch.stack(a_vector_list)
                     item_aspect_embedding[i] = vector_tensor
@@ -217,9 +263,14 @@ class Model(nn.Module):
 
         return aspect_emb.to(self.args.device)
 
-    def bpr_loss(self, users, pos, neg):
+    def bpr_loss(self, users, pos, neg, aspect_emb):
         (users_emb, pos_emb, neg_emb,
          userEmb0, posEmb0, negEmb0) = self.getEmbedding(users.long(), pos.long(), neg.long())
+
+        # 在aspect的影响下计算
+        # u | aspect, i | aspect
+        users_emb = self.Aspect_condition_encoder(users_emb, aspect_emb)
+        pos_emb = self.Aspect_condition_encoder(pos_emb, aspect_emb)
         # loss
         # regloss1
         """reg_loss = (1 / 2) * (userEmb0.norm(2).pow(2) +
@@ -235,9 +286,17 @@ class Model(nn.Module):
 
         return users_emb, pos_emb, neg_emb  # , reg_loss # , loss
 
+    # 加上非线性层 RELU、sigmoid、tanh
+    def Aspect_condition_encoder(self, emb, aspect_emb):
+        # new_emb = self.MLP(emb + aspect_emb)  # 通过全连接网络得到条件嵌入
+        # new_emb = self.MLP(torch.cat((emb, aspect_emb), dim = 1))
+        # new_emb = torch.cat((emb, aspect_emb), dim = 1)
+        new_emb = emb + aspect_emb
+        return new_emb  # F.sigmoid(new_emb)
+
     # 与未交互过的aspect计算相似度，选出top-k个表示加入到user中
     def aspect_diversity(self, user_emb, user_index):  # user_index: [batch_size]
-        # user_emb = all_user_emb[user_index]
+        # user_emb =ls all_user_emb[user_index]
         # 计算相似度
         aspect_emb = torch.tensor(list(self.aspect_emb_64.values())).to(self.args.device)  # 所有aspect嵌入
         # output: [num_user, num_aspect]
@@ -245,7 +304,7 @@ class Model(nn.Module):
         mask = torch.index_select(self.aspect_mask, 0, user_index)  # 选出user对应的aspect交互列表
         masked_dicts = mask + dicts  # 将已交互过的aspect的分数设置为负无穷
         _, sorted_index = torch.sort(masked_dicts, dim=1, descending=True)  # 得到排序后的Aaspect的编码
-        # 加入new_aspects个新的aspect 暂时这样写
+        # 加入new_aspects个新的aspect
         sorted_index = sorted_index[:, : self.args.new_aspects]
         new_user_emb = []
         for i in range(len(sorted_index)):
@@ -255,17 +314,6 @@ class Model(nn.Module):
 
         new_user_emb = torch.stack(new_user_emb).to(self.args.device)
         return new_user_emb
-
-    def get_att_dis(target, behaviored):
-
-        attention_distribution = []
-
-        for i in range(behaviored.size(0)):
-            attention_score = torch.cosine_similarity(target, behaviored[i].view(1, -1))  # 计算每一个元素与给定元素的余弦相似度
-            attention_distribution.append(attention_score)
-        attention_distribution = torch.Tensor(attention_distribution)
-
-        return attention_distribution / torch.sum(attention_distribution, 0)
 
 
 # submodular的时候考虑上aspect
@@ -283,7 +331,7 @@ class GCNLayer(nn.Module):
         sims = torch.exp(-dists / (sigma * dists.mean(dim=-1).mean(dim=-1).reshape(-1, 1, 1)))
         return sims
 
-    # submodular  接入了aspect的因素
+    # submodular  加入了aspect的嵌入
     def submodular_selection_feature(self, nodes):
         device = nodes.mailbox['m'].device
         feature = nodes.mailbox['m']

@@ -53,7 +53,7 @@ def train(args, dataset, recommend_model, loss_class, epoch, neg_k=1, w=None):
             w.add_scalar(f'BPRLoss/BPR', cri, epoch * int(len(users) / args.bpr_batch) + batch_i)
 
     # loss
-    if epoch % 10 == 0 and epoch != 0:
+    if epoch % 100 == 0 and epoch != 0:
         print("reg_loss2:", reg_loss2, "au_loss:", au_loss1)  # "reg_loss1:", reg_loss1
 
     aver_loss = aver_loss / total_batch
