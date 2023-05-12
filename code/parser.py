@@ -16,9 +16,9 @@ def parse_args():
                         help="the batch size for bpr loss training procedure")
     parser.add_argument('--recdim', type=int, default=64,
                         help="the embedding size of lightGCN")
-    parser.add_argument('--aspect_LMdim', type=int, default=384,
+    parser.add_argument('--aspect_LMdim', type=int, default=768,  # 384
                         help="the embedding size of the pre-treated aspect")
-    parser.add_argument('--layer', type=int, default=4,
+    parser.add_argument('--layer', type=int, default=2,
                         help="the layer num of lightGCN")
     parser.add_argument('--lr', type=float, default=0.001,
                         help="the learning rate")
@@ -61,5 +61,11 @@ def parse_args():
     parser.add_argument('--loss_function', default = 'au', type = str, help = 'loss function')
     parser.add_argument('--patience', default = 300, type = int, help = 'early_stop patience')  # 100
     parser.add_argument('--new_aspects', default = 16, type = int, help = 'new aspects add to user')  # 100
+    # for Contrastive Learning
+    parser.add_argument('--eps', default = 0.2, type = int, help = 'the weight noise in XsimGCL')  # 0.2
+    parser.add_argument('--perturbed', default = False, type = bool, help = 'Add noise or not')  #
+    parser.add_argument('--layer_cl', default = 3, type = int, help = 'Layers for contrast') # layer_cl  1-layer
+    parser.add_argument('--cl_rate', default = 0.2, type = int, help = 'the weight of cl_loss') # 0.2
+    parser.add_argument('--temp', default = 0.15, type = int, help = 'the temperature of cl_loss') # -temp
     return parser.parse_args()
 

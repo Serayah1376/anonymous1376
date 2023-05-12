@@ -88,7 +88,8 @@ class Loader(BasicDataset):
         user_aspect = path + '/user_aspect.json'
         item_aspect = path + '/item_aspect.json'
 
-        aspect_embedding = path + '/aspect_all-MiniLM-L6-v2.json'
+        # aspect_embedding = path + '/aspect_all-MiniLM-L6-v2.json'
+        aspect_embedding = path + '/aspect_instructor.json'
 
         self.category_path = path + '/item_category.json'
 

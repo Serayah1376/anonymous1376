@@ -56,7 +56,7 @@ class BPRLoss:
 
     def stageOne(self, users, pos, neg, aspect_emb):
         # [batch_size, emb_dim]
-        users_emb, pos_emb, neg_emb = self.model.bpr_loss(users, pos, neg, aspect_emb)
+        users_emb, pos_emb, neg_emb, cl_loss = self.model.bpr_loss(users, pos, neg, aspect_emb)
 
         au_loss1 = self.ali_uni_loss(users_emb, pos_emb)
 
@@ -66,12 +66,12 @@ class BPRLoss:
             reg_loss += para.pow(2).sum()
 
         reg_loss = reg_loss * self.args.regloss_decay  # + reg_loss1 * self.args.regloss1_decay # regularization weight
-        loss = au_loss1 + reg_loss
+        loss = au_loss1 + reg_loss  # + cl_loss  # 加上对比损失
 
         self.opt.zero_grad()
         loss.backward()  # retain_graph=True
         self.opt.step()
-        return loss.cpu().item(), reg_loss, au_loss1
+        return loss.cpu().item(), reg_loss, au_loss1, cl_loss
 
 
 # negative sampling
