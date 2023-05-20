@@ -8,6 +8,7 @@ from .data_loader import BasicDataset
 from sklearn.metrics import roc_auc_score
 from collections import Counter
 import time
+from tkinter import _flatten
 
 CORES = multiprocessing.cpu_count() // 2
 
@@ -18,6 +19,8 @@ class Tester(object):
         self.u_batch_size = args.testbatch
         self.dataset: BasicDataset = dataset
         self.testDict: dict = dataset.testDict
+        self.num_aspect = dataset.n_aspect
+        self.num_category = dataset.category_num
         Recmodel: model.LightGCN
         # eval mode with no dropout
         self.Recmodel = Recmodel.eval()
@@ -39,7 +42,7 @@ class Tester(object):
         # 对于yelp2018来说是二维数组  # [n_items, n_categories]  每个item对应多个category
         # 对于beauty来说是一维数组    # [n_items]
         self.cate = np.array(list(dataset.category_dic.values()))
-        self.aspect = np.array(list(dataset.item_aspect_dic.values()))
+        self.aspect = np.array(list(dataset.item_aspect_ID_dic.values()))  # ID
 
     def test_one_batch(self, X):
         sorted_items = X[0].numpy()  # 推荐了100个
@@ -108,6 +111,7 @@ class Tester(object):
                 pre_results = []
                 for x in X:
                     pre_results.append(self.test_one_batch(x))
+
             scale = float(self.u_batch_size / len(users))
             for result in pre_results:
                 self.results['recall'] += result['recall']
@@ -121,6 +125,7 @@ class Tester(object):
             self.results['ndcg'] /= float(len(users))
             self.results['coverage'] /= float(len(users))
             self.results['Acoverage'] /= float(len(users))
+            self.results['Acoverage'] /= float(self.num_category)  # 除以总类别数, 平均每个类别中所涉及的aspect数
             self.results['ILD'] /= float(len(users))
             self.results['F1'] = self.F1(self.results['recall'], self.results['ILD'])
             if self.args.tensorboard:
@@ -176,11 +181,16 @@ class Tester(object):
         num = 0
         for u in range(len(cate)):  # [0,100)
             tmp = cate[u]
-            for i in range(k):  # [0, 20) / 10 / 50
-                if is_cate:
+            if is_cate:
+                cate_list.extend(tmp[:k])
+            else:
+                tmp2 = list(_flatten(tmp[:k]))  # -> 1维
+                cate_list.extend(tmp2)
+
+                """if is_cate:
                     cate_list.extend([tmp[i].tolist()])
                 else:
-                    cate_list.extend(tmp[i])
+                    cate_list.extend(tmp[i])"""
             num += np.unique(np.array(cate_list)).size  # 每个user top-k里面的推荐个数
         return num
 

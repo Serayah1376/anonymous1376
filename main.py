@@ -51,7 +51,7 @@ if __name__ == '__main__':
     # train & test
     try:
         for epoch in range(args.epochs + 1):
-            if epoch % 50 == 0 and epoch != 0:  # 50轮测试一次
+            if epoch % 50 == 0:  # and epoch != 0:  # 50轮测试一次
                 test_start = time.time()
                 print("[TEST]")
                 tester = Tester(args, dataset, Recmodel, epoch, w, args.multicore)

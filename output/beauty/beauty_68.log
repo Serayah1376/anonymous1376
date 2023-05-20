@@ -1,0 +1,2250 @@
+nohup: ignoring input
+Cpp extension not loaded
+>>SEED: 2023
+loading [./datasets/beauty]
+82167 interactions for training
+16399 interactions for testing
+beauty Sparsity : 0.0020608405216870815
+beauty is ready to go
+loading adjacency matrix
+lgn is already to go(dropout:0)
+dict.type: <class 'torch.Tensor'>
+dict.shape: torch.Size([8159, 22978])
+self.aspect_mask.shape torch.Size([8159, 22978])
+load and save to ./checkpoints/lgn-beauty-4-64.pth.tar
+===========config================
+dataset: beauty
+layer num: 4
+recdim: 64
+model: lgn
+testbatch 100
+topks [10, 20, 50]
+epochs 2000
+max_len 32
+regloss2_decay 1e-06
+head_num 1
+gamma 0.5
+gamma2(submodular) 2.0
+sigma(submodular) 1.0
+k(number of aggregated neighbors) 20
+ADD new aspects 8
+loss function au
+===========end===================
+[TEST]
+/root/autodl-tmp/anonymous1376/code/evaluater.py:45: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray.
+  self.aspect = np.array(list(dataset.item_aspect_ID_dic.values()))   # ID
+{'precision': array([0.00024969, 0.00026841, 0.00033708]), 'recall': array([0.00125092, 0.00253756, 0.00867773]), 'ndcg': array([0.00054241, 0.00092135, 0.00230327]), 'coverage': array([30.15917603, 33.59438202, 37.17578027]), 'Acoverage': array([ 91.38548156, 142.28326178, 240.56620688]), 'ILD': array([0.91319184, 0.91329259, 0.91319891]), 'F1': array([0.00249841, 0.00506105, 0.0171921 ])}
+test time: 87.03775000572205
+EPOCH[1/2000] loss2.375-|Sample:2.02|use_time:20.1546893119812
+EPOCH[2/2000] loss2.232-|Sample:1.08|use_time:18.67301654815674
+EPOCH[3/2000] loss2.092-|Sample:1.91|use_time:19.380691051483154
+EPOCH[4/2000] loss1.987-|Sample:1.66|use_time:19.67702841758728
+EPOCH[5/2000] loss1.887-|Sample:1.08|use_time:18.6647686958313
+EPOCH[6/2000] loss1.792-|Sample:1.90|use_time:19.887657165527344
+EPOCH[7/2000] loss1.700-|Sample:1.09|use_time:19.0882568359375
+EPOCH[8/2000] loss1.613-|Sample:1.12|use_time:19.44853687286377
+EPOCH[9/2000] loss1.529-|Sample:1.08|use_time:19.18737554550171
+EPOCH[10/2000] loss1.449-|Sample:1.07|use_time:18.55694079399109
+EPOCH[11/2000] loss1.373-|Sample:1.70|use_time:19.87087917327881
+EPOCH[12/2000] loss1.300-|Sample:1.07|use_time:18.72761821746826
+EPOCH[13/2000] loss1.230-|Sample:1.60|use_time:19.891226053237915
+EPOCH[14/2000] loss1.164-|Sample:1.07|use_time:19.40750765800476
+EPOCH[15/2000] loss1.101-|Sample:1.06|use_time:19.273788690567017
+EPOCH[16/2000] loss1.041-|Sample:1.07|use_time:18.72879958152771
+EPOCH[17/2000] loss0.976-|Sample:1.84|use_time:19.95149540901184
+EPOCH[18/2000] loss0.867-|Sample:1.11|use_time:18.870195865631104
+EPOCH[19/2000] loss0.768-|Sample:1.60|use_time:20.031474590301514
+EPOCH[20/2000] loss0.698-|Sample:1.06|use_time:19.082600593566895
+EPOCH[21/2000] loss0.638-|Sample:1.09|use_time:19.100385904312134
+EPOCH[22/2000] loss0.582-|Sample:1.07|use_time:18.497201442718506
+EPOCH[23/2000] loss0.523-|Sample:1.95|use_time:19.865144729614258
+EPOCH[24/2000] loss0.467-|Sample:1.07|use_time:18.632822275161743
+EPOCH[25/2000] loss0.408-|Sample:1.61|use_time:19.895442247390747
+EPOCH[26/2000] loss0.346-|Sample:1.06|use_time:18.928471326828003
+EPOCH[27/2000] loss0.291-|Sample:1.08|use_time:18.944178581237793
+EPOCH[28/2000] loss0.235-|Sample:1.08|use_time:18.61248803138733
+EPOCH[29/2000] loss0.188-|Sample:1.90|use_time:19.726139545440674
+EPOCH[30/2000] loss0.142-|Sample:1.06|use_time:18.580516815185547
+EPOCH[31/2000] loss0.099-|Sample:1.77|use_time:19.837047338485718
+EPOCH[32/2000] loss0.057-|Sample:1.07|use_time:18.941210746765137
+EPOCH[33/2000] loss0.019-|Sample:1.07|use_time:19.140934705734253
+EPOCH[34/2000] loss-0.018-|Sample:1.06|use_time:18.609885692596436
+EPOCH[35/2000] loss-0.051-|Sample:1.76|use_time:19.62769079208374
+EPOCH[36/2000] loss-0.084-|Sample:1.06|use_time:18.7474102973938
+EPOCH[37/2000] loss-0.114-|Sample:1.86|use_time:19.84393334388733
+EPOCH[38/2000] loss-0.142-|Sample:1.05|use_time:19.1723690032959
+EPOCH[39/2000] loss-0.167-|Sample:1.06|use_time:19.39353084564209
+EPOCH[40/2000] loss-0.194-|Sample:1.07|use_time:18.589776754379272
+EPOCH[41/2000] loss-0.220-|Sample:1.65|use_time:19.58050036430359
+EPOCH[42/2000] loss-0.242-|Sample:1.08|use_time:18.804111003875732
+EPOCH[43/2000] loss-0.263-|Sample:1.90|use_time:19.82838535308838
+EPOCH[44/2000] loss-0.283-|Sample:1.06|use_time:19.25080633163452
+EPOCH[45/2000] loss-0.302-|Sample:1.08|use_time:19.471597909927368
+EPOCH[46/2000] loss-0.323-|Sample:1.07|use_time:18.693739652633667
+EPOCH[47/2000] loss-0.340-|Sample:1.58|use_time:19.806748628616333
+EPOCH[48/2000] loss-0.358-|Sample:1.08|use_time:18.725505590438843
+EPOCH[49/2000] loss-0.376-|Sample:1.78|use_time:19.75594472885132
+EPOCH[50/2000] loss-0.393-|Sample:1.07|use_time:19.332093477249146
+[TEST]
+{'precision': array([0.00660424, 0.00619226, 0.00514357]), 'recall': array([0.02718393, 0.04883333, 0.10240015]), 'ndcg': array([0.01632625, 0.02312742, 0.03624055]), 'coverage': array([24.67041199, 28.46566792, 32.8247191 ]), 'Acoverage': array([111.48454067, 154.95847873, 230.68806675]), 'ILD': array([0.72725759, 0.73591629, 0.75010156]), 'F1': array([0.05240889, 0.09158906, 0.18020025])}
+test time: 178.4538037776947
+reg_loss2: tensor(0.2716, device='cuda:0', grad_fn=<MulBackward0>) au_loss: tensor(-0.7045, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[51/2000] loss-0.407-|Sample:1.08|use_time:19.708770275115967
+EPOCH[52/2000] loss-0.425-|Sample:1.10|use_time:18.58730149269104
+EPOCH[53/2000] loss-0.438-|Sample:1.86|use_time:19.176313877105713
+EPOCH[54/2000] loss-0.455-|Sample:1.59|use_time:19.680153846740723
+EPOCH[55/2000] loss-0.469-|Sample:1.08|use_time:18.636630535125732
+EPOCH[56/2000] loss-0.482-|Sample:1.77|use_time:19.63025426864624
+EPOCH[57/2000] loss-0.493-|Sample:1.09|use_time:18.571515798568726
+EPOCH[58/2000] loss-0.506-|Sample:1.94|use_time:19.49493956565857
+EPOCH[59/2000] loss-0.520-|Sample:1.69|use_time:19.10667324066162
+EPOCH[60/2000] loss-0.533-|Sample:1.60|use_time:20.024794578552246
+EPOCH[61/2000] loss-0.543-|Sample:1.66|use_time:19.048147201538086
+EPOCH[62/2000] loss-0.557-|Sample:1.60|use_time:19.080214738845825
+EPOCH[63/2000] loss-0.564-|Sample:1.08|use_time:19.566333293914795
+EPOCH[64/2000] loss-0.579-|Sample:1.09|use_time:18.609833002090454
+EPOCH[65/2000] loss-0.588-|Sample:1.61|use_time:19.204968214035034
+EPOCH[66/2000] loss-0.597-|Sample:1.68|use_time:20.109825372695923
+EPOCH[67/2000] loss-0.609-|Sample:1.07|use_time:18.636833429336548
+EPOCH[68/2000] loss-0.620-|Sample:1.60|use_time:19.828632354736328
+EPOCH[69/2000] loss-0.627-|Sample:1.08|use_time:18.698047399520874
+EPOCH[70/2000] loss-0.638-|Sample:1.76|use_time:19.241817951202393
+EPOCH[71/2000] loss-0.645-|Sample:1.57|use_time:19.10984492301941
+EPOCH[72/2000] loss-0.652-|Sample:1.87|use_time:19.876317977905273
+EPOCH[73/2000] loss-0.661-|Sample:1.58|use_time:18.937090158462524
+EPOCH[74/2000] loss-0.671-|Sample:1.60|use_time:19.363908529281616
+EPOCH[75/2000] loss-0.681-|Sample:1.08|use_time:19.308871269226074
+EPOCH[76/2000] loss-0.691-|Sample:1.06|use_time:18.69598698616028
+EPOCH[77/2000] loss-0.696-|Sample:1.58|use_time:19.279125452041626
+EPOCH[78/2000] loss-0.704-|Sample:1.94|use_time:20.186774969100952
+EPOCH[79/2000] loss-0.713-|Sample:1.07|use_time:18.48582434654236
+EPOCH[80/2000] loss-0.721-|Sample:1.64|use_time:19.915674209594727
+EPOCH[81/2000] loss-0.729-|Sample:1.04|use_time:18.56029200553894
+EPOCH[82/2000] loss-0.736-|Sample:1.60|use_time:19.10370182991028
+EPOCH[83/2000] loss-0.743-|Sample:1.73|use_time:19.210270881652832
+EPOCH[84/2000] loss-0.750-|Sample:1.82|use_time:19.801589250564575
+EPOCH[85/2000] loss-0.756-|Sample:1.63|use_time:19.16364860534668
+EPOCH[86/2000] loss-0.763-|Sample:1.88|use_time:19.40985870361328
+EPOCH[87/2000] loss-0.768-|Sample:1.09|use_time:18.982272624969482
+EPOCH[88/2000] loss-0.775-|Sample:1.06|use_time:18.61173105239868
+EPOCH[89/2000] loss-0.780-|Sample:1.93|use_time:19.32028603553772
+EPOCH[90/2000] loss-0.786-|Sample:1.67|use_time:19.39477229118347
+EPOCH[91/2000] loss-0.796-|Sample:1.08|use_time:18.40568447113037
+EPOCH[92/2000] loss-0.800-|Sample:1.93|use_time:19.847641706466675
+EPOCH[93/2000] loss-0.806-|Sample:1.08|use_time:18.482100009918213
+EPOCH[94/2000] loss-0.809-|Sample:1.64|use_time:19.138956308364868
+EPOCH[95/2000] loss-0.816-|Sample:1.93|use_time:19.387775897979736
+EPOCH[96/2000] loss-0.821-|Sample:1.63|use_time:19.55171012878418
+EPOCH[97/2000] loss-0.829-|Sample:1.72|use_time:19.383044242858887
+EPOCH[98/2000] loss-0.832-|Sample:1.79|use_time:19.121434450149536
+EPOCH[99/2000] loss-0.839-|Sample:1.05|use_time:19.20971703529358
+EPOCH[100/2000] loss-0.844-|Sample:1.09|use_time:18.74474549293518
+[TEST]
+{'precision': array([0.01701623, 0.01289638, 0.00834956]), 'recall': array([0.06900548, 0.10315761, 0.16631232]), 'ndcg': array([0.04521591, 0.0558145 , 0.07142505]), 'coverage': array([24.96429463, 29.04357054, 33.36866417]), 'Acoverage': array([131.19567309, 178.22486526, 255.77726318]), 'ILD': array([0.7602053 , 0.77256981, 0.78948539]), 'F1': array([0.12652592, 0.18201201, 0.27474672])}
+test time: 206.1597740650177
+reg_loss2: tensor(0.1304, device='cuda:0', grad_fn=<MulBackward0>) au_loss: tensor(-1.0063, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[101/2000] loss-0.846-|Sample:2.09|use_time:19.556711673736572
+EPOCH[102/2000] loss-0.853-|Sample:1.65|use_time:19.54619812965393
+EPOCH[103/2000] loss-0.858-|Sample:1.07|use_time:19.24817156791687
+EPOCH[104/2000] loss-0.865-|Sample:1.68|use_time:19.120989084243774
+EPOCH[105/2000] loss-0.866-|Sample:1.08|use_time:19.283644437789917
+EPOCH[106/2000] loss-0.871-|Sample:1.10|use_time:19.232192277908325
+EPOCH[107/2000] loss-0.877-|Sample:1.06|use_time:18.777446269989014
+EPOCH[108/2000] loss-0.881-|Sample:1.67|use_time:19.205260515213013
+EPOCH[109/2000] loss-0.885-|Sample:1.59|use_time:19.774763345718384
+EPOCH[110/2000] loss-0.890-|Sample:1.07|use_time:18.73778486251831
+EPOCH[111/2000] loss-0.894-|Sample:1.57|use_time:19.424595832824707
+EPOCH[112/2000] loss-0.895-|Sample:1.07|use_time:19.480799198150635
+EPOCH[113/2000] loss-0.902-|Sample:1.06|use_time:18.869947910308838
+EPOCH[114/2000] loss-0.905-|Sample:1.07|use_time:19.027281284332275
+EPOCH[115/2000] loss-0.909-|Sample:1.08|use_time:18.68833351135254
+EPOCH[116/2000] loss-0.913-|Sample:1.82|use_time:19.717695713043213
+EPOCH[117/2000] loss-0.916-|Sample:1.07|use_time:18.664337396621704
+EPOCH[118/2000] loss-0.922-|Sample:1.84|use_time:20.207231044769287
+EPOCH[119/2000] loss-0.922-|Sample:1.07|use_time:19.038232564926147
+loss: -0.9222086449948753, EarlyStopping counter: 1 out of 300
+EPOCH[120/2000] loss-0.926-|Sample:1.08|use_time:19.31114625930786
+EPOCH[121/2000] loss-0.932-|Sample:1.06|use_time:18.630761861801147
+EPOCH[122/2000] loss-0.935-|Sample:1.68|use_time:19.6294424533844
+EPOCH[123/2000] loss-0.937-|Sample:1.08|use_time:18.75423002243042
+EPOCH[124/2000] loss-0.941-|Sample:1.92|use_time:19.990615129470825
+EPOCH[125/2000] loss-0.945-|Sample:1.08|use_time:19.113757610321045
+EPOCH[126/2000] loss-0.949-|Sample:1.09|use_time:19.4543616771698
+EPOCH[127/2000] loss-0.952-|Sample:1.08|use_time:18.73749017715454
+EPOCH[128/2000] loss-0.955-|Sample:1.65|use_time:19.724068641662598
+EPOCH[129/2000] loss-0.957-|Sample:1.09|use_time:18.85295796394348
+EPOCH[130/2000] loss-0.959-|Sample:1.87|use_time:19.986979246139526
+EPOCH[131/2000] loss-0.964-|Sample:1.09|use_time:19.171631813049316
+EPOCH[132/2000] loss-0.964-|Sample:1.09|use_time:19.61433219909668
+EPOCH[133/2000] loss-0.968-|Sample:1.07|use_time:18.567264080047607
+EPOCH[134/2000] loss-0.972-|Sample:1.60|use_time:19.65670895576477
+EPOCH[135/2000] loss-0.973-|Sample:1.08|use_time:18.762895107269287
+EPOCH[136/2000] loss-0.977-|Sample:1.74|use_time:19.73170304298401
+EPOCH[137/2000] loss-0.980-|Sample:1.07|use_time:19.155442714691162
+EPOCH[138/2000] loss-0.984-|Sample:1.08|use_time:19.312806129455566
+EPOCH[139/2000] loss-0.985-|Sample:1.08|use_time:18.501331567764282
+EPOCH[140/2000] loss-0.988-|Sample:1.59|use_time:19.78120994567871
+EPOCH[141/2000] loss-0.991-|Sample:1.06|use_time:18.55093550682068
+EPOCH[142/2000] loss-0.992-|Sample:1.67|use_time:19.572361707687378
+EPOCH[143/2000] loss-0.995-|Sample:1.06|use_time:19.126638889312744
+EPOCH[144/2000] loss-0.996-|Sample:1.06|use_time:19.240129232406616
+EPOCH[145/2000] loss-0.998-|Sample:1.07|use_time:18.742253303527832
+EPOCH[146/2000] loss-1.002-|Sample:1.61|use_time:20.00526738166809
+EPOCH[147/2000] loss-1.007-|Sample:1.09|use_time:18.64986753463745
+EPOCH[148/2000] loss-1.005-|Sample:1.60|use_time:19.809276342391968
+loss: -1.0053239537448417, EarlyStopping counter: 1 out of 300
+EPOCH[149/2000] loss-1.008-|Sample:1.06|use_time:19.135420083999634
+EPOCH[150/2000] loss-1.009-|Sample:1.06|use_time:19.188350439071655
+[TEST]
+{'precision': array([0.02149813, 0.01589888, 0.01001748]), 'recall': array([0.09142434, 0.13287012, 0.2015634 ]), 'ndcg': array([0.06004878, 0.07277712, 0.09012934]), 'coverage': array([24.45692884, 28.69275905, 32.75555556]), 'Acoverage': array([135.51174447, 181.9579824 , 258.03066289]), 'ILD': array([0.75434041, 0.7652625 , 0.7862423 ]), 'F1': array([0.16308335, 0.22642651, 0.3208681 ])}
+test time: 204.81660747528076
+reg_loss2: tensor(0.0852, device='cuda:0', grad_fn=<MulBackward0>) au_loss: tensor(-1.0906, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[151/2000] loss-1.011-|Sample:1.07|use_time:19.04838991165161
+EPOCH[152/2000] loss-1.016-|Sample:1.54|use_time:19.549700021743774
+EPOCH[153/2000] loss-1.016-|Sample:1.09|use_time:18.682615280151367
+loss: -1.0156706847795627, EarlyStopping counter: 1 out of 300
+EPOCH[154/2000] loss-1.021-|Sample:1.74|use_time:19.629618883132935
+EPOCH[155/2000] loss-1.018-|Sample:1.07|use_time:18.622183799743652
+loss: -1.018424647610362, EarlyStopping counter: 1 out of 300
+EPOCH[156/2000] loss-1.024-|Sample:1.81|use_time:19.80816149711609
+EPOCH[157/2000] loss-1.026-|Sample:1.04|use_time:19.141334772109985
+EPOCH[158/2000] loss-1.030-|Sample:1.07|use_time:18.762940645217896
+EPOCH[159/2000] loss-1.031-|Sample:1.89|use_time:19.89260196685791
+EPOCH[160/2000] loss-1.034-|Sample:1.07|use_time:18.50245976448059
+EPOCH[161/2000] loss-1.033-|Sample:1.53|use_time:19.84483027458191
+loss: -1.0333804677172405, EarlyStopping counter: 1 out of 300
+EPOCH[162/2000] loss-1.035-|Sample:1.07|use_time:18.94783902168274
+EPOCH[163/2000] loss-1.038-|Sample:1.60|use_time:19.101310968399048
+EPOCH[164/2000] loss-1.040-|Sample:1.65|use_time:19.251694440841675
+EPOCH[165/2000] loss-1.041-|Sample:1.86|use_time:19.906493425369263
+EPOCH[166/2000] loss-1.044-|Sample:1.60|use_time:19.293747663497925
+EPOCH[167/2000] loss-1.046-|Sample:1.77|use_time:19.552822828292847
+EPOCH[168/2000] loss-1.047-|Sample:1.07|use_time:19.231235027313232
+EPOCH[169/2000] loss-1.046-|Sample:1.10|use_time:18.69500994682312
+loss: -1.0464805509985946, EarlyStopping counter: 1 out of 300
+EPOCH[170/2000] loss-1.052-|Sample:1.84|use_time:19.310072422027588
+EPOCH[171/2000] loss-1.053-|Sample:1.77|use_time:19.712806224822998
+EPOCH[172/2000] loss-1.054-|Sample:1.09|use_time:18.69490933418274
+EPOCH[173/2000] loss-1.054-|Sample:1.82|use_time:19.97283172607422
+loss: -1.0536948151704741, EarlyStopping counter: 1 out of 300
+EPOCH[174/2000] loss-1.058-|Sample:1.07|use_time:18.630068063735962
+EPOCH[175/2000] loss-1.057-|Sample:1.57|use_time:19.10308027267456
+loss: -1.0574003458023071, EarlyStopping counter: 1 out of 300
+EPOCH[176/2000] loss-1.059-|Sample:1.95|use_time:19.3480327129364
+EPOCH[177/2000] loss-1.059-|Sample:1.69|use_time:19.581608533859253
+loss: -1.0590135149839448, EarlyStopping counter: 1 out of 300
+EPOCH[178/2000] loss-1.061-|Sample:1.60|use_time:19.29307270050049
+EPOCH[179/2000] loss-1.063-|Sample:1.82|use_time:19.290820598602295
+EPOCH[180/2000] loss-1.065-|Sample:1.07|use_time:18.915465593338013
+EPOCH[181/2000] loss-1.066-|Sample:1.07|use_time:18.715901136398315
+EPOCH[182/2000] loss-1.068-|Sample:1.88|use_time:19.376123189926147
+EPOCH[183/2000] loss-1.070-|Sample:1.60|use_time:19.501603603363037
+EPOCH[184/2000] loss-1.074-|Sample:1.09|use_time:18.661423683166504
+EPOCH[185/2000] loss-1.072-|Sample:1.90|use_time:19.717334508895874
+loss: -1.0715983989762097, EarlyStopping counter: 1 out of 300
+EPOCH[186/2000] loss-1.073-|Sample:1.06|use_time:18.41105818748474
+loss: -1.0732102248726823, EarlyStopping counter: 2 out of 300
+EPOCH[187/2000] loss-1.074-|Sample:1.69|use_time:19.044821739196777
+EPOCH[188/2000] loss-1.077-|Sample:1.84|use_time:19.175808429718018
+EPOCH[189/2000] loss-1.077-|Sample:1.58|use_time:19.568710565567017
+EPOCH[190/2000] loss-1.082-|Sample:1.68|use_time:19.084182024002075
+EPOCH[191/2000] loss-1.080-|Sample:1.70|use_time:19.003403186798096
+loss: -1.0802323789131352, EarlyStopping counter: 1 out of 300
+EPOCH[192/2000] loss-1.082-|Sample:1.05|use_time:19.119510412216187
+loss: -1.0818975117148422, EarlyStopping counter: 2 out of 300
+EPOCH[193/2000] loss-1.081-|Sample:1.08|use_time:18.703229904174805
+loss: -1.0805411048051787, EarlyStopping counter: 3 out of 300
+EPOCH[194/2000] loss-1.083-|Sample:1.74|use_time:19.238220930099487
+EPOCH[195/2000] loss-1.084-|Sample:1.58|use_time:19.644763708114624
+EPOCH[196/2000] loss-1.085-|Sample:1.07|use_time:18.697771549224854
+EPOCH[197/2000] loss-1.086-|Sample:1.65|use_time:19.362499237060547
+EPOCH[198/2000] loss-1.088-|Sample:1.07|use_time:18.54762840270996
+EPOCH[199/2000] loss-1.090-|Sample:1.89|use_time:19.152467966079712
+EPOCH[200/2000] loss-1.090-|Sample:1.66|use_time:19.005314826965332
+[TEST]
+{'precision': array([0.02337079, 0.01741573, 0.01092884]), 'recall': array([0.10094586, 0.14582086, 0.22277286]), 'ndcg': array([0.06704572, 0.08085431, 0.10003248]), 'coverage': array([24.08264669, 28.43595506, 32.78764045]), 'Acoverage': array([136.37035109, 183.06601809, 258.99207698]), 'ILD': array([0.74697739, 0.76034496, 0.784032  ]), 'F1': array([0.17785637, 0.24471052, 0.34696108])}
+test time: 203.82744002342224
+reg_loss2: tensor(0.0601, device='cuda:0', grad_fn=<MulBackward0>) au_loss: tensor(-1.1642, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[201/2000] loss-1.092-|Sample:2.02|use_time:19.41108727455139
+EPOCH[202/2000] loss-1.092-|Sample:1.74|use_time:19.917897939682007
+loss: -1.0918921493902438, EarlyStopping counter: 1 out of 300
+EPOCH[203/2000] loss-1.092-|Sample:1.55|use_time:18.929105758666992
+EPOCH[204/2000] loss-1.095-|Sample:1.08|use_time:19.24526047706604
+EPOCH[205/2000] loss-1.093-|Sample:1.07|use_time:19.41652750968933
+loss: -1.0927318770711014, EarlyStopping counter: 1 out of 300
+EPOCH[206/2000] loss-1.097-|Sample:1.04|use_time:18.5446834564209
+EPOCH[207/2000] loss-1.095-|Sample:1.58|use_time:19.18265986442566
+loss: -1.095094416199661, EarlyStopping counter: 1 out of 300
+EPOCH[208/2000] loss-1.101-|Sample:1.88|use_time:19.880895137786865
+EPOCH[209/2000] loss-1.102-|Sample:1.06|use_time:18.64720630645752
+EPOCH[210/2000] loss-1.103-|Sample:1.60|use_time:19.96704888343811
+EPOCH[211/2000] loss-1.101-|Sample:1.06|use_time:19.240954875946045
+loss: -1.1010107616098916, EarlyStopping counter: 1 out of 300
+EPOCH[212/2000] loss-1.102-|Sample:1.07|use_time:19.09315776824951
+loss: -1.1024362604792526, EarlyStopping counter: 2 out of 300
+EPOCH[213/2000] loss-1.102-|Sample:1.07|use_time:19.347127199172974
+loss: -1.102415241846224, EarlyStopping counter: 3 out of 300
+EPOCH[214/2000] loss-1.104-|Sample:1.07|use_time:18.69744372367859
+EPOCH[215/2000] loss-1.103-|Sample:1.59|use_time:19.79976987838745
+loss: -1.1034708720881765, EarlyStopping counter: 1 out of 300
+EPOCH[216/2000] loss-1.106-|Sample:1.07|use_time:18.684457302093506
+EPOCH[217/2000] loss-1.105-|Sample:1.82|use_time:19.675447463989258
+loss: -1.105326829887018, EarlyStopping counter: 1 out of 300
+EPOCH[218/2000] loss-1.106-|Sample:1.05|use_time:18.90977382659912
+loss: -1.1057618187695015, EarlyStopping counter: 2 out of 300
+EPOCH[219/2000] loss-1.108-|Sample:1.08|use_time:19.335126399993896
+EPOCH[220/2000] loss-1.108-|Sample:1.08|use_time:18.51044011116028
+loss: -1.1079738052879893, EarlyStopping counter: 1 out of 300
+EPOCH[221/2000] loss-1.111-|Sample:1.56|use_time:19.606808185577393
+EPOCH[222/2000] loss-1.112-|Sample:1.07|use_time:18.738038063049316
+EPOCH[223/2000] loss-1.112-|Sample:1.74|use_time:19.680585384368896
+EPOCH[224/2000] loss-1.115-|Sample:1.05|use_time:19.046308755874634
+EPOCH[225/2000] loss-1.114-|Sample:1.08|use_time:19.39649534225464
+loss: -1.1136387266763828, EarlyStopping counter: 1 out of 300
+EPOCH[226/2000] loss-1.116-|Sample:1.05|use_time:18.46916103363037
+EPOCH[227/2000] loss-1.114-|Sample:1.55|use_time:19.724448442459106
+loss: -1.1141966988400716, EarlyStopping counter: 1 out of 300
+EPOCH[228/2000] loss-1.117-|Sample:1.08|use_time:18.674895524978638
+EPOCH[229/2000] loss-1.120-|Sample:1.67|use_time:19.629128217697144
+EPOCH[230/2000] loss-1.119-|Sample:1.09|use_time:19.251100301742554
+loss: -1.1186162524107026, EarlyStopping counter: 1 out of 300
+EPOCH[231/2000] loss-1.116-|Sample:1.07|use_time:19.243226528167725
+loss: -1.1162842977337721, EarlyStopping counter: 2 out of 300
+EPOCH[232/2000] loss-1.119-|Sample:1.08|use_time:18.533533096313477
+loss: -1.1194329930514824, EarlyStopping counter: 3 out of 300
+EPOCH[233/2000] loss-1.119-|Sample:1.60|use_time:19.79651379585266
+loss: -1.119107435389263, EarlyStopping counter: 4 out of 300
+EPOCH[234/2000] loss-1.117-|Sample:1.05|use_time:18.69419574737549
+loss: -1.1173988638854608, EarlyStopping counter: 5 out of 300
+EPOCH[235/2000] loss-1.121-|Sample:1.59|use_time:19.538679361343384
+EPOCH[236/2000] loss-1.123-|Sample:1.09|use_time:19.207738637924194
+EPOCH[237/2000] loss-1.123-|Sample:1.07|use_time:19.100141286849976
+loss: -1.1226920063902692, EarlyStopping counter: 1 out of 300
+EPOCH[238/2000] loss-1.123-|Sample:1.07|use_time:18.451894998550415
+loss: -1.122996103472826, EarlyStopping counter: 2 out of 300
+EPOCH[239/2000] loss-1.124-|Sample:1.68|use_time:19.842650651931763
+EPOCH[240/2000] loss-1.124-|Sample:1.08|use_time:18.47245955467224
+loss: -1.1237147174230435, EarlyStopping counter: 1 out of 300
+EPOCH[241/2000] loss-1.124-|Sample:1.55|use_time:19.78654384613037
+EPOCH[242/2000] loss-1.125-|Sample:1.07|use_time:19.148005485534668
+EPOCH[243/2000] loss-1.125-|Sample:1.07|use_time:19.061948537826538
+loss: -1.124868209769086, EarlyStopping counter: 1 out of 300
+EPOCH[244/2000] loss-1.124-|Sample:1.09|use_time:18.665812015533447
+loss: -1.124081626171019, EarlyStopping counter: 2 out of 300
+EPOCH[245/2000] loss-1.128-|Sample:1.79|use_time:19.816429138183594
+EPOCH[246/2000] loss-1.128-|Sample:1.06|use_time:18.571228981018066
+EPOCH[247/2000] loss-1.130-|Sample:1.55|use_time:19.879613399505615
+EPOCH[248/2000] loss-1.132-|Sample:1.07|use_time:19.147775888442993
+EPOCH[249/2000] loss-1.130-|Sample:1.05|use_time:19.06173539161682
+loss: -1.1300707997345343, EarlyStopping counter: 1 out of 300
+EPOCH[250/2000] loss-1.130-|Sample:1.06|use_time:18.68629002571106
+loss: -1.1304662082253434, EarlyStopping counter: 2 out of 300
+[TEST]
+{'precision': array([0.0243196 , 0.01822097, 0.01140325]), 'recall': array([0.1053248 , 0.15249777, 0.23441645]), 'ndcg': array([0.07078927, 0.08535118, 0.1056065 ]), 'coverage': array([24.18014981, 28.09350811, 32.65792759]), 'Acoverage': array([137.105484  , 183.98667519, 260.14596998]), 'ILD': array([0.74014704, 0.75525462, 0.7811663 ]), 'F1': array([0.18440789, 0.25375785, 0.36061706])}
+test time: 204.2751235961914
+reg_loss2: tensor(0.0452, device='cuda:0', grad_fn=<MulBackward0>) au_loss: tensor(-1.1767, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[251/2000] loss-1.132-|Sample:2.06|use_time:19.520215034484863
+loss: -1.1322227134937193, EarlyStopping counter: 3 out of 300
+EPOCH[252/2000] loss-1.132-|Sample:1.62|use_time:19.45853543281555
+loss: -1.1320099336345022, EarlyStopping counter: 4 out of 300
+EPOCH[253/2000] loss-1.132-|Sample:1.09|use_time:18.90302085876465
+loss: -1.13158118724823, EarlyStopping counter: 5 out of 300
+EPOCH[254/2000] loss-1.130-|Sample:1.83|use_time:19.96929621696472
+loss: -1.1302684807195895, EarlyStopping counter: 6 out of 300
+EPOCH[255/2000] loss-1.133-|Sample:1.08|use_time:19.172050714492798
+EPOCH[256/2000] loss-1.136-|Sample:1.06|use_time:19.03680920600891
+EPOCH[257/2000] loss-1.135-|Sample:1.07|use_time:19.31863260269165
+loss: -1.1347052702089635, EarlyStopping counter: 1 out of 300
+EPOCH[258/2000] loss-1.135-|Sample:1.07|use_time:18.28107786178589
+loss: -1.1351075928385665, EarlyStopping counter: 2 out of 300
+EPOCH[259/2000] loss-1.136-|Sample:1.55|use_time:19.740426540374756
+EPOCH[260/2000] loss-1.135-|Sample:1.08|use_time:18.637385845184326
+loss: -1.1345588782938516, EarlyStopping counter: 1 out of 300
+EPOCH[261/2000] loss-1.136-|Sample:1.65|use_time:19.674519538879395
+EPOCH[262/2000] loss-1.137-|Sample:1.06|use_time:19.335187196731567
+EPOCH[263/2000] loss-1.138-|Sample:1.08|use_time:19.33700728416443
+EPOCH[264/2000] loss-1.140-|Sample:1.07|use_time:18.6288058757782
+EPOCH[265/2000] loss-1.137-|Sample:1.67|use_time:19.983293771743774
+loss: -1.1365557123975056, EarlyStopping counter: 1 out of 300
+EPOCH[266/2000] loss-1.140-|Sample:1.06|use_time:18.617547035217285
+loss: -1.1395269079906185, EarlyStopping counter: 2 out of 300
+EPOCH[267/2000] loss-1.139-|Sample:1.56|use_time:19.927852392196655
+loss: -1.1385899811256222, EarlyStopping counter: 3 out of 300
+EPOCH[268/2000] loss-1.141-|Sample:1.09|use_time:19.053518772125244
+EPOCH[269/2000] loss-1.142-|Sample:1.06|use_time:18.951268672943115
+EPOCH[270/2000] loss-1.144-|Sample:1.05|use_time:18.552878618240356
+EPOCH[271/2000] loss-1.144-|Sample:1.76|use_time:19.83893370628357
+loss: -1.1436402448793737, EarlyStopping counter: 1 out of 300
+EPOCH[272/2000] loss-1.144-|Sample:1.07|use_time:18.394790410995483
+loss: -1.143691112355488, EarlyStopping counter: 2 out of 300
+EPOCH[273/2000] loss-1.143-|Sample:1.56|use_time:19.765751123428345
+loss: -1.1433462922166033, EarlyStopping counter: 3 out of 300
+EPOCH[274/2000] loss-1.144-|Sample:1.05|use_time:19.04819893836975
+EPOCH[275/2000] loss-1.143-|Sample:1.06|use_time:19.0116970539093
+loss: -1.1430997964812488, EarlyStopping counter: 1 out of 300
+EPOCH[276/2000] loss-1.145-|Sample:1.06|use_time:18.599249601364136
+EPOCH[277/2000] loss-1.146-|Sample:1.84|use_time:19.789491176605225
+EPOCH[278/2000] loss-1.147-|Sample:1.08|use_time:18.40709161758423
+EPOCH[279/2000] loss-1.145-|Sample:1.58|use_time:19.97980809211731
+loss: -1.1449798025735995, EarlyStopping counter: 1 out of 300
+EPOCH[280/2000] loss-1.145-|Sample:1.07|use_time:19.023505687713623
+loss: -1.1448877875397845, EarlyStopping counter: 2 out of 300
+EPOCH[281/2000] loss-1.146-|Sample:1.06|use_time:18.986400604248047
+loss: -1.1459300925092, EarlyStopping counter: 3 out of 300
+EPOCH[282/2000] loss-1.147-|Sample:1.07|use_time:18.5723078250885
+EPOCH[283/2000] loss-1.147-|Sample:1.87|use_time:19.859288930892944
+loss: -1.1468822810708024, EarlyStopping counter: 1 out of 300
+EPOCH[284/2000] loss-1.149-|Sample:1.05|use_time:18.391717433929443
+EPOCH[285/2000] loss-1.148-|Sample:1.62|use_time:19.907464742660522
+loss: -1.148121368594286, EarlyStopping counter: 1 out of 300
+EPOCH[286/2000] loss-1.149-|Sample:1.07|use_time:19.004615783691406
+loss: -1.1487068141379007, EarlyStopping counter: 2 out of 300
+EPOCH[287/2000] loss-1.148-|Sample:1.06|use_time:18.913761615753174
+loss: -1.1482340417257169, EarlyStopping counter: 3 out of 300
+EPOCH[288/2000] loss-1.148-|Sample:1.07|use_time:18.70667862892151
+loss: -1.1484715211682204, EarlyStopping counter: 4 out of 300
+EPOCH[289/2000] loss-1.151-|Sample:1.82|use_time:19.71957755088806
+EPOCH[290/2000] loss-1.151-|Sample:1.07|use_time:18.446938037872314
+EPOCH[291/2000] loss-1.148-|Sample:1.74|use_time:19.885112762451172
+loss: -1.1477125068990195, EarlyStopping counter: 1 out of 300
+EPOCH[292/2000] loss-1.149-|Sample:1.06|use_time:18.874964714050293
+loss: -1.1493670678720243, EarlyStopping counter: 2 out of 300
+EPOCH[293/2000] loss-1.150-|Sample:1.08|use_time:19.094672918319702
+loss: -1.1495227726494395, EarlyStopping counter: 3 out of 300
+EPOCH[294/2000] loss-1.151-|Sample:1.07|use_time:18.704014778137207
+EPOCH[295/2000] loss-1.151-|Sample:1.75|use_time:19.65800189971924
+loss: -1.1510968004784934, EarlyStopping counter: 1 out of 300
+EPOCH[296/2000] loss-1.152-|Sample:1.05|use_time:18.653379440307617
+EPOCH[297/2000] loss-1.150-|Sample:1.83|use_time:19.80887746810913
+loss: -1.1503298253547856, EarlyStopping counter: 1 out of 300
+EPOCH[298/2000] loss-1.152-|Sample:1.05|use_time:18.882986307144165
+loss: -1.1519196062553219, EarlyStopping counter: 2 out of 300
+EPOCH[299/2000] loss-1.154-|Sample:1.07|use_time:19.15879988670349
+EPOCH[300/2000] loss-1.153-|Sample:1.04|use_time:18.495875358581543
+loss: -1.1533120667062156, EarlyStopping counter: 1 out of 300
+[TEST]
+{'precision': array([0.0249563 , 0.01844569, 0.01164544]), 'recall': array([0.10764239, 0.15525333, 0.23959606]), 'ndcg': array([0.07205726, 0.08658467, 0.10754865]), 'coverage': array([23.96017478, 28.09662921, 32.64144819]), 'Acoverage': array([137.11385159, 183.34836333, 259.80846503]), 'ILD': array([0.73900125, 0.75458572, 0.78080471]), 'F1': array([0.18791345, 0.25752234, 0.36667501])}
+test time: 205.90335655212402
+reg_loss2: tensor(0.0359, device='cuda:0', grad_fn=<MulBackward0>) au_loss: tensor(-1.2289, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[301/2000] loss-1.155-|Sample:2.02|use_time:19.417008876800537
+EPOCH[302/2000] loss-1.154-|Sample:1.61|use_time:19.410755157470703
+loss: -1.154312194847479, EarlyStopping counter: 1 out of 300
+EPOCH[303/2000] loss-1.154-|Sample:1.07|use_time:18.586154460906982
+loss: -1.1542854425383777, EarlyStopping counter: 2 out of 300
+EPOCH[304/2000] loss-1.154-|Sample:1.86|use_time:19.843507528305054
+loss: -1.154273568130121, EarlyStopping counter: 3 out of 300
+EPOCH[305/2000] loss-1.155-|Sample:1.08|use_time:19.144946575164795
+EPOCH[306/2000] loss-1.154-|Sample:1.09|use_time:19.079081773757935
+loss: -1.153819278972905, EarlyStopping counter: 1 out of 300
+EPOCH[307/2000] loss-1.156-|Sample:1.09|use_time:19.122593879699707
+EPOCH[308/2000] loss-1.158-|Sample:1.07|use_time:18.60318946838379
+EPOCH[309/2000] loss-1.156-|Sample:1.76|use_time:19.8626651763916
+loss: -1.1560181786374348, EarlyStopping counter: 1 out of 300
+EPOCH[310/2000] loss-1.158-|Sample:1.07|use_time:18.54304313659668
+EPOCH[311/2000] loss-1.156-|Sample:1.57|use_time:19.87199091911316
+loss: -1.155752824573982, EarlyStopping counter: 1 out of 300
+EPOCH[312/2000] loss-1.159-|Sample:1.05|use_time:19.045703649520874
+EPOCH[313/2000] loss-1.159-|Sample:1.06|use_time:19.08728313446045
+loss: -1.1585882000806855, EarlyStopping counter: 1 out of 300
+EPOCH[314/2000] loss-1.159-|Sample:1.08|use_time:18.686452865600586
+loss: -1.1586513461136236, EarlyStopping counter: 2 out of 300
+EPOCH[315/2000] loss-1.157-|Sample:1.81|use_time:20.00561022758484
+loss: -1.1574468496369152, EarlyStopping counter: 3 out of 300
+EPOCH[316/2000] loss-1.159-|Sample:1.09|use_time:18.55807113647461
+EPOCH[317/2000] loss-1.158-|Sample:1.57|use_time:19.806328535079956
+loss: -1.1579045435277426, EarlyStopping counter: 1 out of 300
+EPOCH[318/2000] loss-1.159-|Sample:1.06|use_time:18.889266967773438
+loss: -1.1592967539298824, EarlyStopping counter: 2 out of 300
+EPOCH[319/2000] loss-1.161-|Sample:1.06|use_time:18.874730110168457
+EPOCH[320/2000] loss-1.162-|Sample:1.07|use_time:18.476664304733276
+EPOCH[321/2000] loss-1.160-|Sample:1.88|use_time:19.71228528022766
+loss: -1.1601790160667607, EarlyStopping counter: 1 out of 300
+EPOCH[322/2000] loss-1.159-|Sample:1.06|use_time:18.36265754699707
+loss: -1.1588797220369664, EarlyStopping counter: 2 out of 300
+EPOCH[323/2000] loss-1.162-|Sample:1.57|use_time:19.890697717666626
+EPOCH[324/2000] loss-1.162-|Sample:1.06|use_time:19.075929880142212
+loss: -1.1624948571367961, EarlyStopping counter: 1 out of 300
+EPOCH[325/2000] loss-1.161-|Sample:1.07|use_time:18.941666841506958
+loss: -1.1609744531352346, EarlyStopping counter: 2 out of 300
+EPOCH[326/2000] loss-1.161-|Sample:1.08|use_time:18.618149518966675
+loss: -1.1605039195316593, EarlyStopping counter: 3 out of 300
+EPOCH[327/2000] loss-1.161-|Sample:1.86|use_time:19.642953157424927
+loss: -1.1606482325530634, EarlyStopping counter: 4 out of 300
+EPOCH[328/2000] loss-1.162-|Sample:1.07|use_time:18.48114562034607
+loss: -1.1620337003614845, EarlyStopping counter: 5 out of 300
+EPOCH[329/2000] loss-1.163-|Sample:1.68|use_time:19.679447889328003
+EPOCH[330/2000] loss-1.161-|Sample:1.07|use_time:18.93447732925415
+loss: -1.1612243506966569, EarlyStopping counter: 1 out of 300
+EPOCH[331/2000] loss-1.162-|Sample:1.06|use_time:19.014941215515137
+loss: -1.1616702312376441, EarlyStopping counter: 2 out of 300
+EPOCH[332/2000] loss-1.163-|Sample:1.06|use_time:18.620951890945435
+loss: -1.1626046256321232, EarlyStopping counter: 3 out of 300
+EPOCH[333/2000] loss-1.165-|Sample:1.74|use_time:19.495085954666138
+EPOCH[334/2000] loss-1.166-|Sample:1.07|use_time:18.476696491241455
+EPOCH[335/2000] loss-1.165-|Sample:1.79|use_time:19.857676029205322
+loss: -1.1650712402855479, EarlyStopping counter: 1 out of 300
+EPOCH[336/2000] loss-1.164-|Sample:1.05|use_time:18.788390398025513
+loss: -1.1635904166756608, EarlyStopping counter: 2 out of 300
+EPOCH[337/2000] loss-1.165-|Sample:1.06|use_time:19.087191581726074
+loss: -1.165050457163555, EarlyStopping counter: 3 out of 300
+EPOCH[338/2000] loss-1.165-|Sample:1.07|use_time:18.679776191711426
+loss: -1.1654866672143704, EarlyStopping counter: 4 out of 300
+EPOCH[339/2000] loss-1.167-|Sample:1.68|use_time:19.43010973930359
+EPOCH[340/2000] loss-1.166-|Sample:1.08|use_time:18.53017520904541
+loss: -1.1656221791011532, EarlyStopping counter: 1 out of 300
+EPOCH[341/2000] loss-1.166-|Sample:1.83|use_time:19.805192470550537
+loss: -1.1664403589760386, EarlyStopping counter: 2 out of 300
+EPOCH[342/2000] loss-1.167-|Sample:1.08|use_time:19.001911878585815
+EPOCH[343/2000] loss-1.167-|Sample:1.08|use_time:19.232229709625244
+EPOCH[344/2000] loss-1.166-|Sample:1.07|use_time:18.55028772354126
+loss: -1.1660976351761236, EarlyStopping counter: 1 out of 300
+EPOCH[345/2000] loss-1.167-|Sample:1.63|use_time:19.44443368911743
+loss: -1.1668602402617292, EarlyStopping counter: 2 out of 300
+EPOCH[346/2000] loss-1.167-|Sample:1.06|use_time:18.529871940612793
+loss: -1.1667502711458904, EarlyStopping counter: 3 out of 300
+EPOCH[347/2000] loss-1.165-|Sample:1.88|use_time:19.73165202140808
+loss: -1.165378617077339, EarlyStopping counter: 4 out of 300
+EPOCH[348/2000] loss-1.169-|Sample:1.06|use_time:18.976245641708374
+EPOCH[349/2000] loss-1.167-|Sample:1.07|use_time:19.31014585494995
+loss: -1.1666274187041492, EarlyStopping counter: 1 out of 300
+EPOCH[350/2000] loss-1.166-|Sample:1.08|use_time:18.571555137634277
+loss: -1.1662688894969662, EarlyStopping counter: 2 out of 300
+[TEST]
+{'precision': array([0.0254432 , 0.01893258, 0.01185019]), 'recall': array([0.10977397, 0.15863751, 0.24314159]), 'ndcg': array([0.0729971 , 0.08795265, 0.10903939]), 'coverage': array([23.8423221 , 28.09151061, 32.72409488]), 'Acoverage': array([137.40780122, 183.97789653, 260.03164946]), 'ILD': array([0.73340824, 0.75075761, 0.77788346]), 'F1': array([0.19096498, 0.26192864, 0.37048224])}
+test time: 205.8194899559021
+reg_loss2: tensor(0.0298, device='cuda:0', grad_fn=<MulBackward0>) au_loss: tensor(-1.2176, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[351/2000] loss-1.169-|Sample:2.02|use_time:19.354294538497925
+EPOCH[352/2000] loss-1.169-|Sample:1.63|use_time:19.616979360580444
+EPOCH[353/2000] loss-1.168-|Sample:1.06|use_time:18.65353798866272
+loss: -1.1684421010133696, EarlyStopping counter: 1 out of 300
+EPOCH[354/2000] loss-1.170-|Sample:1.91|use_time:20.11963438987732
+EPOCH[355/2000] loss-1.169-|Sample:1.08|use_time:19.056991815567017
+loss: -1.169273472413784, EarlyStopping counter: 1 out of 300
+EPOCH[356/2000] loss-1.170-|Sample:1.06|use_time:19.28595280647278
+loss: -1.1702885918500947, EarlyStopping counter: 2 out of 300
+EPOCH[357/2000] loss-1.170-|Sample:1.05|use_time:19.399895429611206
+loss: -1.1701446422716466, EarlyStopping counter: 3 out of 300
+EPOCH[358/2000] loss-1.168-|Sample:1.05|use_time:18.437650203704834
+loss: -1.1675569284253005, EarlyStopping counter: 4 out of 300
+EPOCH[359/2000] loss-1.170-|Sample:1.60|use_time:19.87523365020752
+loss: -1.1696499498879038, EarlyStopping counter: 5 out of 300
+EPOCH[360/2000] loss-1.170-|Sample:1.06|use_time:18.597442388534546
+loss: -1.1696077381692283, EarlyStopping counter: 6 out of 300
+EPOCH[361/2000] loss-1.170-|Sample:1.56|use_time:19.57056450843811
+loss: -1.169980162527503, EarlyStopping counter: 7 out of 300
+EPOCH[362/2000] loss-1.169-|Sample:1.05|use_time:19.12068200111389
+loss: -1.1687904683555044, EarlyStopping counter: 8 out of 300
+EPOCH[363/2000] loss-1.170-|Sample:1.07|use_time:19.131514072418213
+loss: -1.1700784782084024, EarlyStopping counter: 9 out of 300
+EPOCH[364/2000] loss-1.171-|Sample:1.08|use_time:18.57859230041504
+EPOCH[365/2000] loss-1.168-|Sample:1.74|use_time:19.684861660003662
+loss: -1.1682029671785308, EarlyStopping counter: 1 out of 300
+EPOCH[366/2000] loss-1.168-|Sample:1.04|use_time:18.619564056396484
+loss: -1.168208427545501, EarlyStopping counter: 2 out of 300
+EPOCH[367/2000] loss-1.173-|Sample:1.54|use_time:19.73794960975647
+EPOCH[368/2000] loss-1.172-|Sample:1.06|use_time:19.099562168121338
+loss: -1.1716602401035587, EarlyStopping counter: 1 out of 300
+EPOCH[369/2000] loss-1.173-|Sample:1.06|use_time:19.063469886779785
+loss: -1.1725029567392862, EarlyStopping counter: 2 out of 300
+EPOCH[370/2000] loss-1.171-|Sample:1.05|use_time:18.621302127838135
+loss: -1.1714487918993322, EarlyStopping counter: 3 out of 300
+EPOCH[371/2000] loss-1.172-|Sample:1.88|use_time:19.9594144821167
+loss: -1.1717006753130657, EarlyStopping counter: 4 out of 300
+EPOCH[372/2000] loss-1.171-|Sample:1.05|use_time:18.7600257396698
+loss: -1.1708143077245572, EarlyStopping counter: 5 out of 300
+EPOCH[373/2000] loss-1.173-|Sample:1.57|use_time:20.03294801712036
+EPOCH[374/2000] loss-1.172-|Sample:1.05|use_time:18.93581748008728
+loss: -1.1718484134208866, EarlyStopping counter: 1 out of 300
+EPOCH[375/2000] loss-1.173-|Sample:1.05|use_time:18.898972511291504
+loss: -1.172564314632881, EarlyStopping counter: 2 out of 300
+EPOCH[376/2000] loss-1.173-|Sample:1.10|use_time:18.573973894119263
+EPOCH[377/2000] loss-1.171-|Sample:1.88|use_time:19.829455852508545
+loss: -1.1713024988407041, EarlyStopping counter: 1 out of 300
+EPOCH[378/2000] loss-1.174-|Sample:1.06|use_time:18.464011430740356
+EPOCH[379/2000] loss-1.172-|Sample:1.63|use_time:19.994832277297974
+loss: -1.1722269000076666, EarlyStopping counter: 1 out of 300
+EPOCH[380/2000] loss-1.171-|Sample:1.06|use_time:19.028976440429688
+loss: -1.1714013407870036, EarlyStopping counter: 2 out of 300
+EPOCH[381/2000] loss-1.173-|Sample:1.05|use_time:18.972491025924683
+loss: -1.1725087718265812, EarlyStopping counter: 3 out of 300
+EPOCH[382/2000] loss-1.171-|Sample:1.08|use_time:18.713118314743042
+loss: -1.1712373233423001, EarlyStopping counter: 4 out of 300
+EPOCH[383/2000] loss-1.173-|Sample:1.82|use_time:19.689488887786865
+loss: -1.1734032194788864, EarlyStopping counter: 5 out of 300
+EPOCH[384/2000] loss-1.173-|Sample:1.06|use_time:18.52108359336853
+loss: -1.1726937381232656, EarlyStopping counter: 6 out of 300
+EPOCH[385/2000] loss-1.173-|Sample:1.73|use_time:19.848953008651733
+loss: -1.1725574382921544, EarlyStopping counter: 7 out of 300
+EPOCH[386/2000] loss-1.176-|Sample:1.09|use_time:18.910003900527954
+EPOCH[387/2000] loss-1.174-|Sample:1.08|use_time:19.220918893814087
+loss: -1.1736434174747001, EarlyStopping counter: 1 out of 300
+EPOCH[388/2000] loss-1.173-|Sample:1.08|use_time:18.655800342559814
+loss: -1.172555025030927, EarlyStopping counter: 2 out of 300
+EPOCH[389/2000] loss-1.175-|Sample:1.71|use_time:19.657377004623413
+loss: -1.175416417238189, EarlyStopping counter: 3 out of 300
+EPOCH[390/2000] loss-1.174-|Sample:1.05|use_time:18.53247618675232
+loss: -1.1742155988041947, EarlyStopping counter: 4 out of 300
+EPOCH[391/2000] loss-1.174-|Sample:1.83|use_time:19.891186714172363
+loss: -1.1741171610064622, EarlyStopping counter: 5 out of 300
+EPOCH[392/2000] loss-1.174-|Sample:1.07|use_time:18.946200370788574
+loss: -1.1739602495984334, EarlyStopping counter: 6 out of 300
+EPOCH[393/2000] loss-1.173-|Sample:1.06|use_time:19.18119764328003
+loss: -1.1730337288321517, EarlyStopping counter: 7 out of 300
+EPOCH[394/2000] loss-1.174-|Sample:1.06|use_time:18.664565324783325
+loss: -1.174408214848216, EarlyStopping counter: 8 out of 300
+EPOCH[395/2000] loss-1.178-|Sample:1.65|use_time:19.5015389919281
+EPOCH[396/2000] loss-1.175-|Sample:1.08|use_time:18.607795238494873
+loss: -1.1750446412621476, EarlyStopping counter: 1 out of 300
+EPOCH[397/2000] loss-1.176-|Sample:1.91|use_time:19.903473615646362
+loss: -1.1755557990655667, EarlyStopping counter: 2 out of 300
+EPOCH[398/2000] loss-1.176-|Sample:1.07|use_time:19.055927991867065
+loss: -1.1764846952950083, EarlyStopping counter: 3 out of 300
+EPOCH[399/2000] loss-1.176-|Sample:1.07|use_time:19.22265934944153
+loss: -1.1764962004452217, EarlyStopping counter: 4 out of 300
+EPOCH[400/2000] loss-1.176-|Sample:1.06|use_time:18.593388319015503
+loss: -1.176349352045757, EarlyStopping counter: 5 out of 300
+[TEST]
+{'precision': array([0.02533084, 0.01916979, 0.0119176 ]), 'recall': array([0.10846546, 0.16162203, 0.2462705 ]), 'ndcg': array([0.07324328, 0.08934097, 0.11027316]), 'coverage': array([23.71510612, 27.93108614, 32.77877653]), 'Acoverage': array([137.62135745, 184.00211626, 260.46460826]), 'ILD': array([0.73523928, 0.75168999, 0.7789774 ]), 'F1': array([0.18904259, 0.26604197, 0.37422979])}
+test time: 207.89936232566833
+reg_loss2: tensor(0.0256, device='cuda:0', grad_fn=<MulBackward0>) au_loss: tensor(-1.2003, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[401/2000] loss-1.177-|Sample:2.03|use_time:19.554428100585938
+loss: -1.1765944288998116, EarlyStopping counter: 6 out of 300
+EPOCH[402/2000] loss-1.178-|Sample:1.85|use_time:19.718589067459106
+loss: -1.177918067792567, EarlyStopping counter: 7 out of 300
+EPOCH[403/2000] loss-1.179-|Sample:1.07|use_time:18.413598775863647
+EPOCH[404/2000] loss-1.177-|Sample:1.60|use_time:19.792323112487793
+loss: -1.1767192410259713, EarlyStopping counter: 1 out of 300
+EPOCH[405/2000] loss-1.178-|Sample:1.08|use_time:19.129863739013672
+loss: -1.1781798106868093, EarlyStopping counter: 2 out of 300
+EPOCH[406/2000] loss-1.177-|Sample:1.07|use_time:18.99115514755249
+loss: -1.176990229909013, EarlyStopping counter: 3 out of 300
+EPOCH[407/2000] loss-1.178-|Sample:1.06|use_time:19.36885905265808
+loss: -1.178219018912897, EarlyStopping counter: 4 out of 300
+EPOCH[408/2000] loss-1.178-|Sample:1.07|use_time:18.493446111679077
+loss: -1.1780751536532146, EarlyStopping counter: 5 out of 300
+EPOCH[409/2000] loss-1.178-|Sample:1.55|use_time:19.467349767684937
+loss: -1.1775315360325138, EarlyStopping counter: 6 out of 300
+EPOCH[410/2000] loss-1.178-|Sample:1.08|use_time:18.45671319961548
+loss: -1.1779625851933548, EarlyStopping counter: 7 out of 300
+EPOCH[411/2000] loss-1.179-|Sample:1.82|use_time:19.46434497833252
+loss: -1.1787103152856595, EarlyStopping counter: 8 out of 300
+EPOCH[412/2000] loss-1.178-|Sample:1.08|use_time:19.073597192764282
+loss: -1.178312987816043, EarlyStopping counter: 9 out of 300
+EPOCH[413/2000] loss-1.178-|Sample:1.08|use_time:19.465078115463257
+loss: -1.1777989573595, EarlyStopping counter: 10 out of 300
+EPOCH[414/2000] loss-1.177-|Sample:1.09|use_time:18.783572912216187
+loss: -1.1765348649606473, EarlyStopping counter: 11 out of 300
+EPOCH[415/2000] loss-1.178-|Sample:1.59|use_time:19.88267970085144
+loss: -1.1782983977620194, EarlyStopping counter: 12 out of 300
+EPOCH[416/2000] loss-1.179-|Sample:1.08|use_time:18.839842557907104
+EPOCH[417/2000] loss-1.179-|Sample:1.75|use_time:19.77492094039917
+EPOCH[418/2000] loss-1.179-|Sample:1.09|use_time:19.3259539604187
+loss: -1.1788846632329428, EarlyStopping counter: 1 out of 300
+EPOCH[419/2000] loss-1.179-|Sample:1.06|use_time:19.76394009590149
+loss: -1.1785849536337503, EarlyStopping counter: 2 out of 300
+EPOCH[420/2000] loss-1.176-|Sample:1.12|use_time:18.822986125946045
+loss: -1.1763014531717069, EarlyStopping counter: 3 out of 300
+EPOCH[421/2000] loss-1.179-|Sample:1.59|use_time:19.992813110351562
+loss: -1.179227244563219, EarlyStopping counter: 4 out of 300
+EPOCH[422/2000] loss-1.177-|Sample:1.08|use_time:18.538383722305298
+loss: -1.1766457557678223, EarlyStopping counter: 5 out of 300
+EPOCH[423/2000] loss-1.179-|Sample:1.64|use_time:19.548149824142456
+loss: -1.1789308292109792, EarlyStopping counter: 6 out of 300
+EPOCH[424/2000] loss-1.177-|Sample:1.06|use_time:19.282958984375
+loss: -1.1774413614738277, EarlyStopping counter: 7 out of 300
+EPOCH[425/2000] loss-1.179-|Sample:1.06|use_time:19.280812740325928
+loss: -1.1788650751113892, EarlyStopping counter: 8 out of 300
+EPOCH[426/2000] loss-1.177-|Sample:1.06|use_time:18.411510944366455
+loss: -1.1773081785295068, EarlyStopping counter: 9 out of 300
+EPOCH[427/2000] loss-1.179-|Sample:1.61|use_time:19.89004945755005
+loss: -1.178921871069001, EarlyStopping counter: 10 out of 300
+EPOCH[428/2000] loss-1.179-|Sample:1.07|use_time:18.844597339630127
+loss: -1.1794451533294306, EarlyStopping counter: 11 out of 300
+EPOCH[429/2000] loss-1.180-|Sample:1.59|use_time:19.56465482711792
+EPOCH[430/2000] loss-1.180-|Sample:1.05|use_time:19.215142726898193
+loss: -1.1797455025882255, EarlyStopping counter: 1 out of 300
+EPOCH[431/2000] loss-1.180-|Sample:1.06|use_time:19.061046600341797
+loss: -1.1800240946979057, EarlyStopping counter: 2 out of 300
+EPOCH[432/2000] loss-1.180-|Sample:1.06|use_time:18.40609574317932
+loss: -1.179521176873184, EarlyStopping counter: 3 out of 300
+EPOCH[433/2000] loss-1.181-|Sample:1.68|use_time:19.75262451171875
+EPOCH[434/2000] loss-1.180-|Sample:1.08|use_time:18.597481966018677
+loss: -1.1800219489306938, EarlyStopping counter: 1 out of 300
+EPOCH[435/2000] loss-1.179-|Sample:1.56|use_time:19.576947450637817
+loss: -1.1787837423929355, EarlyStopping counter: 2 out of 300
+EPOCH[436/2000] loss-1.180-|Sample:1.07|use_time:19.49115228652954
+loss: -1.1796232083948648, EarlyStopping counter: 3 out of 300
+EPOCH[437/2000] loss-1.180-|Sample:1.07|use_time:19.29876160621643
+loss: -1.1800372367951928, EarlyStopping counter: 4 out of 300
+EPOCH[438/2000] loss-1.178-|Sample:1.09|use_time:18.914746284484863
+loss: -1.1778761119377323, EarlyStopping counter: 5 out of 300
+EPOCH[439/2000] loss-1.181-|Sample:1.82|use_time:19.98577857017517
+loss: -1.180720436863783, EarlyStopping counter: 6 out of 300
+EPOCH[440/2000] loss-1.181-|Sample:1.07|use_time:18.64820957183838
+EPOCH[441/2000] loss-1.181-|Sample:1.57|use_time:19.964122772216797
+loss: -1.1805656654078787, EarlyStopping counter: 1 out of 300
+EPOCH[442/2000] loss-1.182-|Sample:1.07|use_time:19.086117267608643
+EPOCH[443/2000] loss-1.180-|Sample:1.07|use_time:19.1817409992218
+loss: -1.180337789582043, EarlyStopping counter: 1 out of 300
+EPOCH[444/2000] loss-1.181-|Sample:1.07|use_time:18.74519443511963
+loss: -1.1805707681469801, EarlyStopping counter: 2 out of 300
+EPOCH[445/2000] loss-1.181-|Sample:1.87|use_time:20.263381719589233
+loss: -1.180634047926926, EarlyStopping counter: 3 out of 300
+EPOCH[446/2000] loss-1.182-|Sample:1.08|use_time:18.641134023666382
+EPOCH[447/2000] loss-1.183-|Sample:1.56|use_time:19.983222723007202
+EPOCH[448/2000] loss-1.181-|Sample:1.08|use_time:19.131739139556885
+loss: -1.1809009197281628, EarlyStopping counter: 1 out of 300
+EPOCH[449/2000] loss-1.183-|Sample:1.07|use_time:19.0686936378479
+EPOCH[450/2000] loss-1.182-|Sample:1.09|use_time:18.595722675323486
+loss: -1.182148936318188, EarlyStopping counter: 1 out of 300
+[TEST]
+{'precision': array([0.02586767, 0.01944444, 0.01205493]), 'recall': array([0.11114572, 0.16203391, 0.24926092]), 'ndcg': array([0.07462319, 0.09022953, 0.11165607]), 'coverage': array([23.7906367 , 28.02946317, 32.82509363]), 'Acoverage': array([137.69791115, 184.52055967, 261.21510916]), 'ILD': array([0.73227632, 0.74834483, 0.77633356]), 'F1': array([0.19299798, 0.26638856, 0.37736088])}
+test time: 208.67671751976013
+reg_loss2: tensor(0.0228, device='cuda:0', grad_fn=<MulBackward0>) au_loss: tensor(-1.2278, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[451/2000] loss-1.183-|Sample:2.04|use_time:19.779035568237305
+loss: -1.1831556762137063, EarlyStopping counter: 2 out of 300
+EPOCH[452/2000] loss-1.181-|Sample:1.72|use_time:19.871602773666382
+loss: -1.1808177349044056, EarlyStopping counter: 3 out of 300
+EPOCH[453/2000] loss-1.181-|Sample:1.09|use_time:18.927031993865967
+loss: -1.1814286650680914, EarlyStopping counter: 4 out of 300
+EPOCH[454/2000] loss-1.184-|Sample:1.58|use_time:19.88091802597046
+EPOCH[455/2000] loss-1.184-|Sample:1.09|use_time:19.647114992141724
+EPOCH[456/2000] loss-1.184-|Sample:1.09|use_time:19.40802764892578
+EPOCH[457/2000] loss-1.182-|Sample:1.08|use_time:19.204972743988037
+loss: -1.181593202963108, EarlyStopping counter: 1 out of 300
+EPOCH[458/2000] loss-1.182-|Sample:1.09|use_time:18.765950202941895
+loss: -1.1823644667136959, EarlyStopping counter: 2 out of 300
+EPOCH[459/2000] loss-1.183-|Sample:1.71|use_time:19.94586706161499
+loss: -1.1832075002716809, EarlyStopping counter: 3 out of 300
+EPOCH[460/2000] loss-1.183-|Sample:1.05|use_time:18.726952075958252
+loss: -1.1831986119107503, EarlyStopping counter: 4 out of 300
+EPOCH[461/2000] loss-1.180-|Sample:1.58|use_time:19.78734517097473
+loss: -1.18021183479123, EarlyStopping counter: 5 out of 300
+EPOCH[462/2000] loss-1.183-|Sample:1.05|use_time:19.278651475906372
+loss: -1.1834354836766312, EarlyStopping counter: 6 out of 300
+EPOCH[463/2000] loss-1.181-|Sample:1.05|use_time:19.159065008163452
+loss: -1.1808389279900529, EarlyStopping counter: 7 out of 300
+EPOCH[464/2000] loss-1.183-|Sample:1.05|use_time:18.774189710617065
+loss: -1.1833644785532138, EarlyStopping counter: 8 out of 300
+EPOCH[465/2000] loss-1.182-|Sample:1.82|use_time:19.94518208503723
+loss: -1.1818925752872373, EarlyStopping counter: 9 out of 300
+EPOCH[466/2000] loss-1.182-|Sample:1.07|use_time:18.578916788101196
+loss: -1.1822880739118995, EarlyStopping counter: 10 out of 300
+EPOCH[467/2000] loss-1.181-|Sample:1.56|use_time:19.9557363986969
+loss: -1.1814775844899619, EarlyStopping counter: 11 out of 300
+EPOCH[468/2000] loss-1.184-|Sample:1.06|use_time:19.22071385383606
+loss: -1.1836994828247442, EarlyStopping counter: 12 out of 300
+EPOCH[469/2000] loss-1.184-|Sample:1.07|use_time:19.2080180644989
+EPOCH[470/2000] loss-1.183-|Sample:1.09|use_time:18.77996516227722
+loss: -1.18349733876019, EarlyStopping counter: 1 out of 300
+EPOCH[471/2000] loss-1.185-|Sample:1.82|use_time:19.966413974761963
+EPOCH[472/2000] loss-1.183-|Sample:1.07|use_time:18.63435173034668
+loss: -1.1828714027637388, EarlyStopping counter: 1 out of 300
+EPOCH[473/2000] loss-1.184-|Sample:1.58|use_time:19.9386625289917
+loss: -1.1840708720974806, EarlyStopping counter: 2 out of 300
+EPOCH[474/2000] loss-1.183-|Sample:1.06|use_time:19.329792022705078
+loss: -1.1829382966204387, EarlyStopping counter: 3 out of 300
+EPOCH[475/2000] loss-1.184-|Sample:1.06|use_time:19.14611315727234
+loss: -1.1841365215254993, EarlyStopping counter: 4 out of 300
+EPOCH[476/2000] loss-1.184-|Sample:1.07|use_time:18.906458377838135
+loss: -1.1839604116067655, EarlyStopping counter: 5 out of 300
+EPOCH[477/2000] loss-1.182-|Sample:1.87|use_time:19.825260162353516
+loss: -1.1823848427795782, EarlyStopping counter: 6 out of 300
+EPOCH[478/2000] loss-1.187-|Sample:1.04|use_time:18.46100115776062
+EPOCH[479/2000] loss-1.184-|Sample:1.57|use_time:19.88300323486328
+loss: -1.1836655692356388, EarlyStopping counter: 1 out of 300
+EPOCH[480/2000] loss-1.185-|Sample:1.06|use_time:19.131910800933838
+loss: -1.185307098598015, EarlyStopping counter: 2 out of 300
+EPOCH[481/2000] loss-1.183-|Sample:1.07|use_time:19.117796897888184
+loss: -1.1834190066267805, EarlyStopping counter: 3 out of 300
+EPOCH[482/2000] loss-1.184-|Sample:1.08|use_time:18.74531078338623
+loss: -1.1844146745960886, EarlyStopping counter: 4 out of 300
+EPOCH[483/2000] loss-1.184-|Sample:1.88|use_time:19.933144569396973
+loss: -1.184070168471918, EarlyStopping counter: 5 out of 300
+EPOCH[484/2000] loss-1.184-|Sample:1.06|use_time:18.537203550338745
+loss: -1.1835888682342157, EarlyStopping counter: 6 out of 300
+EPOCH[485/2000] loss-1.184-|Sample:1.61|use_time:20.132655143737793
+loss: -1.1840087495199063, EarlyStopping counter: 7 out of 300
+EPOCH[486/2000] loss-1.184-|Sample:1.06|use_time:19.112351655960083
+loss: -1.1836335310121862, EarlyStopping counter: 8 out of 300
+EPOCH[487/2000] loss-1.186-|Sample:1.03|use_time:19.174416303634644
+loss: -1.185827679750396, EarlyStopping counter: 9 out of 300
+EPOCH[488/2000] loss-1.184-|Sample:1.07|use_time:18.737552642822266
+loss: -1.183855207954965, EarlyStopping counter: 10 out of 300
+EPOCH[489/2000] loss-1.186-|Sample:1.81|use_time:19.797348737716675
+loss: -1.1860731258624937, EarlyStopping counter: 11 out of 300
+EPOCH[490/2000] loss-1.184-|Sample:1.07|use_time:18.694953203201294
+loss: -1.1839765484740095, EarlyStopping counter: 12 out of 300
+EPOCH[491/2000] loss-1.182-|Sample:1.73|use_time:20.019117832183838
+loss: -1.1820224581695185, EarlyStopping counter: 13 out of 300
+EPOCH[492/2000] loss-1.187-|Sample:1.08|use_time:19.105056285858154
+EPOCH[493/2000] loss-1.185-|Sample:1.05|use_time:19.16198492050171
+loss: -1.1846820552174637, EarlyStopping counter: 1 out of 300
+EPOCH[494/2000] loss-1.187-|Sample:1.06|use_time:18.79664635658264
+loss: -1.1871217896298665, EarlyStopping counter: 2 out of 300
+EPOCH[495/2000] loss-1.184-|Sample:1.76|use_time:19.851685047149658
+loss: -1.1841852781249256, EarlyStopping counter: 3 out of 300
+EPOCH[496/2000] loss-1.186-|Sample:1.05|use_time:18.815690755844116
+loss: -1.1856964245075132, EarlyStopping counter: 4 out of 300
+EPOCH[497/2000] loss-1.188-|Sample:1.77|use_time:20.030417442321777
+EPOCH[498/2000] loss-1.185-|Sample:1.05|use_time:19.15329337120056
+loss: -1.1848632882281047, EarlyStopping counter: 1 out of 300
+EPOCH[499/2000] loss-1.185-|Sample:1.05|use_time:19.272727251052856
+loss: -1.1854678479636587, EarlyStopping counter: 2 out of 300
+EPOCH[500/2000] loss-1.183-|Sample:1.08|use_time:18.72782564163208
+loss: -1.1833398458434314, EarlyStopping counter: 3 out of 300
+[TEST]
+{'precision': array([0.02621723, 0.01953184, 0.01212734]), 'recall': array([0.1122033 , 0.1635585 , 0.25039899]), 'ndcg': array([0.07504791, 0.09064769, 0.11214819]), 'coverage': array([23.80599251, 27.83945069, 32.80149813]), 'Acoverage': array([138.32683231, 184.61383941, 261.18645291]), 'ILD': array([0.73146345, 0.7480866 , 0.7763301 ]), 'F1': array([0.19456168, 0.26842885, 0.37866322])}
+test time: 208.74855399131775
+reg_loss2: tensor(0.0208, device='cuda:0', grad_fn=<MulBackward0>) au_loss: tensor(-1.1982, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[501/2000] loss-1.186-|Sample:2.07|use_time:19.693153619766235
+loss: -1.1858361930381962, EarlyStopping counter: 4 out of 300
+EPOCH[502/2000] loss-1.183-|Sample:1.83|use_time:19.79022479057312
+loss: -1.1828351544170845, EarlyStopping counter: 5 out of 300
+EPOCH[503/2000] loss-1.183-|Sample:1.06|use_time:18.581854104995728
+loss: -1.1833892537326347, EarlyStopping counter: 6 out of 300
+EPOCH[504/2000] loss-1.185-|Sample:1.57|use_time:19.77585482597351
+loss: -1.1845434700570456, EarlyStopping counter: 7 out of 300
+EPOCH[505/2000] loss-1.183-|Sample:1.04|use_time:19.185302734375
+loss: -1.1832481855299415, EarlyStopping counter: 8 out of 300
+EPOCH[506/2000] loss-1.186-|Sample:1.07|use_time:19.101171016693115
+loss: -1.1858818560111812, EarlyStopping counter: 9 out of 300
+EPOCH[507/2000] loss-1.185-|Sample:1.07|use_time:19.25567054748535
+loss: -1.184901987634054, EarlyStopping counter: 10 out of 300
+EPOCH[508/2000] loss-1.185-|Sample:1.07|use_time:18.65614938735962
+loss: -1.1851879096612699, EarlyStopping counter: 11 out of 300
+EPOCH[509/2000] loss-1.184-|Sample:1.66|use_time:19.71849012374878
+loss: -1.183861808079045, EarlyStopping counter: 12 out of 300
+EPOCH[510/2000] loss-1.185-|Sample:1.06|use_time:18.77345371246338
+loss: -1.18452556249572, EarlyStopping counter: 13 out of 300
+EPOCH[511/2000] loss-1.187-|Sample:1.87|use_time:19.87698197364807
+loss: -1.1865044018117392, EarlyStopping counter: 14 out of 300
+EPOCH[512/2000] loss-1.185-|Sample:1.06|use_time:19.060232400894165
+loss: -1.184518607651315, EarlyStopping counter: 15 out of 300
+EPOCH[513/2000] loss-1.188-|Sample:1.06|use_time:19.37703251838684
+loss: -1.187519495080157, EarlyStopping counter: 16 out of 300
+EPOCH[514/2000] loss-1.186-|Sample:1.07|use_time:18.58693766593933
+loss: -1.1858612764172438, EarlyStopping counter: 17 out of 300
+EPOCH[515/2000] loss-1.186-|Sample:1.61|use_time:19.567073822021484
+loss: -1.1861538043836268, EarlyStopping counter: 18 out of 300
+EPOCH[516/2000] loss-1.187-|Sample:1.05|use_time:18.690328121185303
+loss: -1.186658716783291, EarlyStopping counter: 19 out of 300
+EPOCH[517/2000] loss-1.187-|Sample:1.87|use_time:19.85279130935669
+loss: -1.1866442401234696, EarlyStopping counter: 20 out of 300
+EPOCH[518/2000] loss-1.185-|Sample:1.06|use_time:19.17935609817505
+loss: -1.1849457519810374, EarlyStopping counter: 21 out of 300
+EPOCH[519/2000] loss-1.187-|Sample:1.07|use_time:19.33684277534485
+loss: -1.1869018397680142, EarlyStopping counter: 22 out of 300
+EPOCH[520/2000] loss-1.186-|Sample:1.06|use_time:18.730931520462036
+loss: -1.186256344725446, EarlyStopping counter: 23 out of 300
+EPOCH[521/2000] loss-1.189-|Sample:1.56|use_time:19.644490718841553
+EPOCH[522/2000] loss-1.185-|Sample:1.06|use_time:18.602582931518555
+loss: -1.1854137618367264, EarlyStopping counter: 1 out of 300
+EPOCH[523/2000] loss-1.188-|Sample:1.86|use_time:19.767465353012085
+loss: -1.1882559497181961, EarlyStopping counter: 2 out of 300
+EPOCH[524/2000] loss-1.186-|Sample:1.06|use_time:19.198692560195923
+loss: -1.1862230969638359, EarlyStopping counter: 3 out of 300
+EPOCH[525/2000] loss-1.186-|Sample:1.07|use_time:19.40767002105713
+loss: -1.185877198126258, EarlyStopping counter: 4 out of 300
+EPOCH[526/2000] loss-1.184-|Sample:1.05|use_time:18.61814522743225
+loss: -1.1844319919260538, EarlyStopping counter: 5 out of 300
+EPOCH[527/2000] loss-1.187-|Sample:1.54|use_time:19.61797285079956
+loss: -1.1873546751534068, EarlyStopping counter: 6 out of 300
+EPOCH[528/2000] loss-1.188-|Sample:1.08|use_time:18.686583518981934
+loss: -1.1875099147238382, EarlyStopping counter: 7 out of 300
+EPOCH[529/2000] loss-1.187-|Sample:1.81|use_time:19.636218786239624
+loss: -1.186765548659534, EarlyStopping counter: 8 out of 300
+EPOCH[530/2000] loss-1.185-|Sample:1.03|use_time:18.962460041046143
+loss: -1.1846326996640462, EarlyStopping counter: 9 out of 300
+EPOCH[531/2000] loss-1.190-|Sample:1.04|use_time:19.29632878303528
+EPOCH[532/2000] loss-1.187-|Sample:1.07|use_time:18.649763107299805
+loss: -1.187247849092251, EarlyStopping counter: 1 out of 300
+EPOCH[533/2000] loss-1.186-|Sample:1.54|use_time:19.61497735977173
+loss: -1.1856407421391184, EarlyStopping counter: 2 out of 300
+EPOCH[534/2000] loss-1.185-|Sample:1.06|use_time:18.749853372573853
+loss: -1.1854579506850824, EarlyStopping counter: 3 out of 300
+EPOCH[535/2000] loss-1.189-|Sample:1.87|use_time:19.893853425979614
+loss: -1.189276430664993, EarlyStopping counter: 4 out of 300
+EPOCH[536/2000] loss-1.186-|Sample:1.06|use_time:19.05715560913086
+loss: -1.1861726888796178, EarlyStopping counter: 5 out of 300
+EPOCH[537/2000] loss-1.184-|Sample:1.06|use_time:19.46225619316101
+loss: -1.1840205948527267, EarlyStopping counter: 6 out of 300
+EPOCH[538/2000] loss-1.186-|Sample:1.06|use_time:18.610783338546753
+loss: -1.1857124625182733, EarlyStopping counter: 7 out of 300
+EPOCH[539/2000] loss-1.189-|Sample:1.58|use_time:19.58134412765503
+loss: -1.1885992230438605, EarlyStopping counter: 8 out of 300
+EPOCH[540/2000] loss-1.189-|Sample:1.05|use_time:18.638604640960693
+loss: -1.1892210245132446, EarlyStopping counter: 9 out of 300
+EPOCH[541/2000] loss-1.189-|Sample:1.81|use_time:19.833954095840454
+loss: -1.1886999025577452, EarlyStopping counter: 10 out of 300
+EPOCH[542/2000] loss-1.187-|Sample:1.06|use_time:19.13774824142456
+loss: -1.1874160563073508, EarlyStopping counter: 11 out of 300
+EPOCH[543/2000] loss-1.187-|Sample:1.06|use_time:19.543533325195312
+loss: -1.186569472638572, EarlyStopping counter: 12 out of 300
+EPOCH[544/2000] loss-1.188-|Sample:1.05|use_time:18.55217719078064
+loss: -1.1882615758151542, EarlyStopping counter: 13 out of 300
+EPOCH[545/2000] loss-1.187-|Sample:1.53|use_time:19.639148950576782
+loss: -1.186537742614746, EarlyStopping counter: 14 out of 300
+EPOCH[546/2000] loss-1.187-|Sample:1.09|use_time:18.78231406211853
+loss: -1.1873120621937077, EarlyStopping counter: 15 out of 300
+EPOCH[547/2000] loss-1.188-|Sample:1.78|use_time:19.63820767402649
+loss: -1.1879099985448325, EarlyStopping counter: 16 out of 300
+EPOCH[548/2000] loss-1.189-|Sample:1.08|use_time:19.11682915687561
+loss: -1.1885677139933517, EarlyStopping counter: 17 out of 300
+EPOCH[549/2000] loss-1.186-|Sample:1.04|use_time:19.24640417098999
+loss: -1.1860722041711576, EarlyStopping counter: 18 out of 300
+EPOCH[550/2000] loss-1.189-|Sample:1.08|use_time:18.691718101501465
+loss: -1.1886625522520484, EarlyStopping counter: 19 out of 300
+[TEST]
+{'precision': array([0.02630462, 0.01963171, 0.01213733]), 'recall': array([0.11216402, 0.16306289, 0.25158311]), 'ndcg': array([0.07525234, 0.09089318, 0.11262223]), 'coverage': array([23.80761548, 27.82521848, 32.81947566]), 'Acoverage': array([138.1044213 , 184.69503365, 261.64158521]), 'ILD': array([0.73125538, 0.74687167, 0.77541695]), 'F1': array([0.19449527, 0.2676831 , 0.37990613])}
+test time: 206.90466451644897
+reg_loss2: tensor(0.0194, device='cuda:0', grad_fn=<MulBackward0>) au_loss: tensor(-1.1910, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[551/2000] loss-1.186-|Sample:2.02|use_time:19.46769666671753
+loss: -1.1858856358179233, EarlyStopping counter: 20 out of 300
+EPOCH[552/2000] loss-1.187-|Sample:1.56|use_time:19.524839639663696
+loss: -1.1872596653496348, EarlyStopping counter: 21 out of 300
+EPOCH[553/2000] loss-1.186-|Sample:1.06|use_time:18.74627709388733
+loss: -1.1859088670916673, EarlyStopping counter: 22 out of 300
+EPOCH[554/2000] loss-1.187-|Sample:1.85|use_time:19.9211688041687
+loss: -1.187337543906235, EarlyStopping counter: 23 out of 300
+EPOCH[555/2000] loss-1.188-|Sample:1.07|use_time:19.27254891395569
+loss: -1.187941775089357, EarlyStopping counter: 24 out of 300
+EPOCH[556/2000] loss-1.190-|Sample:1.07|use_time:19.21021795272827
+EPOCH[557/2000] loss-1.189-|Sample:1.05|use_time:19.26601815223694
+loss: -1.188883388914713, EarlyStopping counter: 1 out of 300
+EPOCH[558/2000] loss-1.189-|Sample:1.08|use_time:18.737082719802856
+loss: -1.1889289995519126, EarlyStopping counter: 2 out of 300
+EPOCH[559/2000] loss-1.185-|Sample:1.67|use_time:19.786898374557495
+loss: -1.1845070763332088, EarlyStopping counter: 3 out of 300
+EPOCH[560/2000] loss-1.190-|Sample:1.09|use_time:18.659766912460327
+loss: -1.189670667415712, EarlyStopping counter: 4 out of 300
+EPOCH[561/2000] loss-1.187-|Sample:1.56|use_time:19.74524235725403
+loss: -1.1874081099905618, EarlyStopping counter: 5 out of 300
+EPOCH[562/2000] loss-1.189-|Sample:1.05|use_time:19.163888931274414
+loss: -1.1888980313045223, EarlyStopping counter: 6 out of 300
+EPOCH[563/2000] loss-1.188-|Sample:1.07|use_time:19.38546872138977
+loss: -1.1877240058852405, EarlyStopping counter: 7 out of 300
+EPOCH[564/2000] loss-1.189-|Sample:1.06|use_time:18.70332622528076
+loss: -1.188840357268729, EarlyStopping counter: 8 out of 300
+EPOCH[565/2000] loss-1.189-|Sample:1.73|use_time:19.871283054351807
+loss: -1.1887966452575311, EarlyStopping counter: 9 out of 300
+EPOCH[566/2000] loss-1.187-|Sample:1.08|use_time:18.506401538848877
+loss: -1.1874482980588588, EarlyStopping counter: 10 out of 300
+EPOCH[567/2000] loss-1.188-|Sample:1.59|use_time:19.82430648803711
+loss: -1.1881163033043467, EarlyStopping counter: 11 out of 300
+EPOCH[568/2000] loss-1.188-|Sample:1.06|use_time:19.42542004585266
+loss: -1.1883482118932212, EarlyStopping counter: 12 out of 300
+EPOCH[569/2000] loss-1.191-|Sample:1.05|use_time:19.054154634475708
+EPOCH[570/2000] loss-1.188-|Sample:1.09|use_time:18.80887269973755
+loss: -1.1879577026134585, EarlyStopping counter: 1 out of 300
+EPOCH[571/2000] loss-1.188-|Sample:1.81|use_time:19.923041105270386
+loss: -1.187719563158547, EarlyStopping counter: 2 out of 300
+EPOCH[572/2000] loss-1.188-|Sample:1.08|use_time:18.928077936172485
+loss: -1.1878559996442097, EarlyStopping counter: 3 out of 300
+EPOCH[573/2000] loss-1.191-|Sample:1.60|use_time:20.03072214126587
+loss: -1.1906673123196858, EarlyStopping counter: 4 out of 300
+EPOCH[574/2000] loss-1.190-|Sample:1.09|use_time:19.200589895248413
+loss: -1.189754811728873, EarlyStopping counter: 5 out of 300
+EPOCH[575/2000] loss-1.190-|Sample:1.07|use_time:19.313554763793945
+loss: -1.189748261033035, EarlyStopping counter: 6 out of 300
+EPOCH[576/2000] loss-1.186-|Sample:1.06|use_time:18.58257222175598
+loss: -1.1855442523956299, EarlyStopping counter: 7 out of 300
+EPOCH[577/2000] loss-1.190-|Sample:1.86|use_time:19.846797227859497
+loss: -1.189957816426347, EarlyStopping counter: 8 out of 300
+EPOCH[578/2000] loss-1.189-|Sample:1.05|use_time:18.52200698852539
+loss: -1.1889622880191337, EarlyStopping counter: 9 out of 300
+EPOCH[579/2000] loss-1.188-|Sample:1.59|use_time:20.167003870010376
+loss: -1.1875577903375394, EarlyStopping counter: 10 out of 300
+EPOCH[580/2000] loss-1.188-|Sample:1.09|use_time:19.37627935409546
+loss: -1.1877878322833921, EarlyStopping counter: 11 out of 300
+EPOCH[581/2000] loss-1.189-|Sample:1.07|use_time:19.362162828445435
+loss: -1.1890353226080173, EarlyStopping counter: 12 out of 300
+EPOCH[582/2000] loss-1.189-|Sample:1.09|use_time:18.888676404953003
+loss: -1.189157081813347, EarlyStopping counter: 13 out of 300
+EPOCH[583/2000] loss-1.190-|Sample:1.99|use_time:20.23050045967102
+loss: -1.1901697065772079, EarlyStopping counter: 14 out of 300
+EPOCH[584/2000] loss-1.187-|Sample:1.08|use_time:18.697340726852417
+loss: -1.1870912139008685, EarlyStopping counter: 15 out of 300
+EPOCH[585/2000] loss-1.188-|Sample:1.61|use_time:20.19268774986267
+loss: -1.188262715572264, EarlyStopping counter: 16 out of 300
+EPOCH[586/2000] loss-1.187-|Sample:1.10|use_time:19.285034656524658
+loss: -1.1872981554124413, EarlyStopping counter: 17 out of 300
+EPOCH[587/2000] loss-1.191-|Sample:1.09|use_time:19.297802209854126
+EPOCH[588/2000] loss-1.189-|Sample:1.06|use_time:18.623288869857788
+loss: -1.189397401925994, EarlyStopping counter: 1 out of 300
+EPOCH[589/2000] loss-1.189-|Sample:1.91|use_time:19.951087713241577
+loss: -1.1890066047994101, EarlyStopping counter: 2 out of 300
+EPOCH[590/2000] loss-1.188-|Sample:1.08|use_time:18.558013677597046
+loss: -1.1878725668279135, EarlyStopping counter: 3 out of 300
+EPOCH[591/2000] loss-1.189-|Sample:1.68|use_time:19.90888476371765
+loss: -1.1892896919715694, EarlyStopping counter: 4 out of 300
+EPOCH[592/2000] loss-1.191-|Sample:1.06|use_time:19.09740924835205
+loss: -1.1908998780134248, EarlyStopping counter: 5 out of 300
+EPOCH[593/2000] loss-1.187-|Sample:1.07|use_time:19.065824031829834
+loss: -1.187368962822891, EarlyStopping counter: 6 out of 300
+EPOCH[594/2000] loss-1.189-|Sample:1.06|use_time:18.6729838848114
+loss: -1.1893487412755082, EarlyStopping counter: 7 out of 300
+EPOCH[595/2000] loss-1.188-|Sample:1.81|use_time:19.692370653152466
+loss: -1.1875063907809373, EarlyStopping counter: 8 out of 300
+EPOCH[596/2000] loss-1.192-|Sample:1.07|use_time:18.60659646987915
+EPOCH[597/2000] loss-1.188-|Sample:1.75|use_time:19.898271799087524
+loss: -1.1879515793265365, EarlyStopping counter: 1 out of 300
+EPOCH[598/2000] loss-1.189-|Sample:1.06|use_time:19.19157361984253
+loss: -1.1886963204639713, EarlyStopping counter: 2 out of 300
+EPOCH[599/2000] loss-1.190-|Sample:1.05|use_time:19.169857025146484
+loss: -1.1895871569470662, EarlyStopping counter: 3 out of 300
+EPOCH[600/2000] loss-1.190-|Sample:1.07|use_time:18.745543718338013
+loss: -1.1895618584097885, EarlyStopping counter: 4 out of 300
+[TEST]
+{'precision': array([0.0264794 , 0.01968789, 0.01218727]), 'recall': array([0.11260582, 0.16371238, 0.25292531]), 'ndcg': array([0.07624404, 0.09177384, 0.11366975]), 'coverage': array([23.91260924, 27.98489388, 32.98476904]), 'Acoverage': array([138.40235377, 185.106906  , 262.5506836 ]), 'ILD': array([0.72892495, 0.74616203, 0.77404673]), 'F1': array([0.19507591, 0.2685117 , 0.38126843])}
+test time: 206.19598174095154
+reg_loss2: tensor(0.0183, device='cuda:0', grad_fn=<MulBackward0>) au_loss: tensor(-1.2189, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[601/2000] loss-1.191-|Sample:2.03|use_time:19.64655876159668
+loss: -1.1913794715230057, EarlyStopping counter: 5 out of 300
+EPOCH[602/2000] loss-1.192-|Sample:1.79|use_time:19.87815546989441
+loss: -1.1918775395649235, EarlyStopping counter: 6 out of 300
+EPOCH[603/2000] loss-1.189-|Sample:1.09|use_time:18.59979796409607
+loss: -1.1894081598374902, EarlyStopping counter: 7 out of 300
+EPOCH[604/2000] loss-1.189-|Sample:1.55|use_time:19.721264362335205
+loss: -1.1890179616648977, EarlyStopping counter: 8 out of 300
+EPOCH[605/2000] loss-1.189-|Sample:1.10|use_time:19.478176593780518
+loss: -1.1887090933032152, EarlyStopping counter: 9 out of 300
+EPOCH[606/2000] loss-1.189-|Sample:1.08|use_time:19.367915391921997
+loss: -1.1892937596251325, EarlyStopping counter: 10 out of 300
+EPOCH[607/2000] loss-1.189-|Sample:1.06|use_time:19.295761346817017
+loss: -1.1891206241235501, EarlyStopping counter: 11 out of 300
+EPOCH[608/2000] loss-1.192-|Sample:1.07|use_time:18.710883378982544
+loss: -1.1918004576752825, EarlyStopping counter: 12 out of 300
+EPOCH[609/2000] loss-1.190-|Sample:1.65|use_time:19.6673104763031
+loss: -1.1904368051668492, EarlyStopping counter: 13 out of 300
+EPOCH[610/2000] loss-1.188-|Sample:1.10|use_time:18.783935070037842
+loss: -1.1878367546128064, EarlyStopping counter: 14 out of 300
+EPOCH[611/2000] loss-1.188-|Sample:1.92|use_time:19.958017349243164
+loss: -1.1882696151733398, EarlyStopping counter: 15 out of 300
+EPOCH[612/2000] loss-1.190-|Sample:1.08|use_time:19.207719802856445
+loss: -1.1900997801524837, EarlyStopping counter: 16 out of 300
+EPOCH[613/2000] loss-1.191-|Sample:1.07|use_time:19.411121129989624
+loss: -1.190767855179019, EarlyStopping counter: 17 out of 300
+EPOCH[614/2000] loss-1.190-|Sample:1.05|use_time:18.756001710891724
+loss: -1.1896547864123088, EarlyStopping counter: 18 out of 300
+EPOCH[615/2000] loss-1.189-|Sample:1.65|use_time:19.774914264678955
+loss: -1.1892306833732418, EarlyStopping counter: 19 out of 300
+EPOCH[616/2000] loss-1.189-|Sample:1.04|use_time:18.68020510673523
+loss: -1.1889837137082728, EarlyStopping counter: 20 out of 300
+EPOCH[617/2000] loss-1.191-|Sample:1.92|use_time:19.905603647232056
+loss: -1.1908152801234548, EarlyStopping counter: 21 out of 300
+EPOCH[618/2000] loss-1.189-|Sample:1.07|use_time:19.11349868774414
+loss: -1.1892532284666852, EarlyStopping counter: 22 out of 300
+EPOCH[619/2000] loss-1.189-|Sample:1.06|use_time:19.26125192642212
+loss: -1.1885831617727511, EarlyStopping counter: 23 out of 300
+EPOCH[620/2000] loss-1.190-|Sample:1.05|use_time:18.571803331375122
+loss: -1.1902197076053154, EarlyStopping counter: 24 out of 300
+EPOCH[621/2000] loss-1.191-|Sample:1.62|use_time:19.588899850845337
+loss: -1.1914650114571177, EarlyStopping counter: 25 out of 300
+EPOCH[622/2000] loss-1.188-|Sample:1.10|use_time:18.821778535842896
+loss: -1.1883589523594553, EarlyStopping counter: 26 out of 300
+EPOCH[623/2000] loss-1.190-|Sample:1.84|use_time:20.079296588897705
+loss: -1.189822487714814, EarlyStopping counter: 27 out of 300
+EPOCH[624/2000] loss-1.189-|Sample:1.07|use_time:19.277567386627197
+loss: -1.1894402445816412, EarlyStopping counter: 28 out of 300
+EPOCH[625/2000] loss-1.190-|Sample:1.07|use_time:19.392407178878784
+loss: -1.189946331628939, EarlyStopping counter: 29 out of 300
+EPOCH[626/2000] loss-1.189-|Sample:1.08|use_time:18.564981937408447
+loss: -1.1887595304628698, EarlyStopping counter: 30 out of 300
+EPOCH[627/2000] loss-1.191-|Sample:1.63|use_time:19.55516505241394
+loss: -1.1905736487086227, EarlyStopping counter: 31 out of 300
+EPOCH[628/2000] loss-1.190-|Sample:1.06|use_time:18.825183629989624
+loss: -1.1900950234110763, EarlyStopping counter: 32 out of 300
+EPOCH[629/2000] loss-1.191-|Sample:1.86|use_time:19.98227882385254
+loss: -1.190942281629981, EarlyStopping counter: 33 out of 300
+EPOCH[630/2000] loss-1.191-|Sample:1.08|use_time:19.06700825691223
+loss: -1.1912120464371472, EarlyStopping counter: 34 out of 300
+EPOCH[631/2000] loss-1.192-|Sample:1.08|use_time:19.579663038253784
+loss: -1.1920087453795642, EarlyStopping counter: 35 out of 300
+EPOCH[632/2000] loss-1.190-|Sample:1.09|use_time:18.54673933982849
+loss: -1.1901029929882143, EarlyStopping counter: 36 out of 300
+EPOCH[633/2000] loss-1.188-|Sample:1.57|use_time:19.531301736831665
+loss: -1.1882937332478964, EarlyStopping counter: 37 out of 300
+EPOCH[634/2000] loss-1.189-|Sample:1.09|use_time:18.749587059020996
+loss: -1.188889387177258, EarlyStopping counter: 38 out of 300
+EPOCH[635/2000] loss-1.192-|Sample:1.72|use_time:19.70103359222412
+EPOCH[636/2000] loss-1.189-|Sample:1.06|use_time:19.244203567504883
+loss: -1.1894981657586448, EarlyStopping counter: 1 out of 300
+EPOCH[637/2000] loss-1.191-|Sample:1.07|use_time:19.493152618408203
+loss: -1.190736901469347, EarlyStopping counter: 2 out of 300
+EPOCH[638/2000] loss-1.190-|Sample:1.06|use_time:18.598369598388672
+loss: -1.1899960011970707, EarlyStopping counter: 3 out of 300
+EPOCH[639/2000] loss-1.193-|Sample:1.58|use_time:19.70088005065918
+EPOCH[640/2000] loss-1.191-|Sample:1.12|use_time:18.79246687889099
+loss: -1.191410085050071, EarlyStopping counter: 1 out of 300
+EPOCH[641/2000] loss-1.191-|Sample:1.68|use_time:19.5841383934021
+loss: -1.1908998024172899, EarlyStopping counter: 2 out of 300
+EPOCH[642/2000] loss-1.192-|Sample:1.06|use_time:19.178995370864868
+loss: -1.1915943244608438, EarlyStopping counter: 3 out of 300
+EPOCH[643/2000] loss-1.192-|Sample:1.06|use_time:19.43147087097168
+loss: -1.1915233745807554, EarlyStopping counter: 4 out of 300
+EPOCH[644/2000] loss-1.191-|Sample:1.08|use_time:18.57303214073181
+loss: -1.1912504550887317, EarlyStopping counter: 5 out of 300
+EPOCH[645/2000] loss-1.192-|Sample:1.55|use_time:19.814313411712646
+loss: -1.19179318590862, EarlyStopping counter: 6 out of 300
+EPOCH[646/2000] loss-1.190-|Sample:1.06|use_time:18.64822220802307
+loss: -1.1900082216030214, EarlyStopping counter: 7 out of 300
+EPOCH[647/2000] loss-1.189-|Sample:1.65|use_time:19.821388483047485
+loss: -1.1893218494043118, EarlyStopping counter: 8 out of 300
+EPOCH[648/2000] loss-1.192-|Sample:1.07|use_time:19.222719430923462
+loss: -1.1923998885038423, EarlyStopping counter: 9 out of 300
+EPOCH[649/2000] loss-1.191-|Sample:1.07|use_time:19.33492422103882
+loss: -1.191119397558817, EarlyStopping counter: 10 out of 300
+EPOCH[650/2000] loss-1.189-|Sample:1.06|use_time:18.517112493515015
+loss: -1.1891146403987234, EarlyStopping counter: 11 out of 300
+[TEST]
+{'precision': array([0.02696629, 0.01995006, 0.01218976]), 'recall': array([0.11550956, 0.16642553, 0.25141222]), 'ndcg': array([0.07685312, 0.09235794, 0.11335007]), 'coverage': array([23.91360799, 27.91535581, 33.08451935]), 'Acoverage': array([138.07524131, 184.71868701, 262.5776438 ]), 'ILD': array([0.73126647, 0.74603916, 0.77486397]), 'F1': array([0.19950557, 0.27214195, 0.37964492])}
+test time: 204.6167027950287
+reg_loss2: tensor(0.0176, device='cuda:0', grad_fn=<MulBackward0>) au_loss: tensor(-1.2027, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[651/2000] loss-1.192-|Sample:2.03|use_time:19.535227298736572
+loss: -1.1918823602722912, EarlyStopping counter: 12 out of 300
+EPOCH[652/2000] loss-1.193-|Sample:1.56|use_time:19.559258699417114
+loss: -1.1926184776352673, EarlyStopping counter: 13 out of 300
+EPOCH[653/2000] loss-1.189-|Sample:1.05|use_time:18.643428802490234
+loss: -1.1890475459215117, EarlyStopping counter: 14 out of 300
+EPOCH[654/2000] loss-1.191-|Sample:1.85|use_time:19.83373713493347
+loss: -1.1910829224237582, EarlyStopping counter: 15 out of 300
+EPOCH[655/2000] loss-1.193-|Sample:1.05|use_time:18.936182260513306
+EPOCH[656/2000] loss-1.194-|Sample:1.09|use_time:19.05154061317444
+EPOCH[657/2000] loss-1.192-|Sample:1.06|use_time:19.23328185081482
+loss: -1.1915411309498112, EarlyStopping counter: 1 out of 300
+EPOCH[658/2000] loss-1.191-|Sample:1.08|use_time:18.657849073410034
+loss: -1.1909785154389172, EarlyStopping counter: 2 out of 300
+EPOCH[659/2000] loss-1.189-|Sample:1.85|use_time:19.904849767684937
+loss: -1.1888490275638859, EarlyStopping counter: 3 out of 300
+EPOCH[660/2000] loss-1.191-|Sample:1.05|use_time:18.486995458602905
+loss: -1.190578611885629, EarlyStopping counter: 4 out of 300
+EPOCH[661/2000] loss-1.193-|Sample:1.59|use_time:20.013787269592285
+loss: -1.1926713164259748, EarlyStopping counter: 5 out of 300
+EPOCH[662/2000] loss-1.194-|Sample:1.05|use_time:19.05251955986023
+EPOCH[663/2000] loss-1.192-|Sample:1.07|use_time:19.059966564178467
+loss: -1.1915548603709152, EarlyStopping counter: 1 out of 300
+EPOCH[664/2000] loss-1.192-|Sample:1.08|use_time:18.799574375152588
+loss: -1.19179602367122, EarlyStopping counter: 2 out of 300
+EPOCH[665/2000] loss-1.192-|Sample:1.87|use_time:19.958735942840576
+loss: -1.1923681642951034, EarlyStopping counter: 3 out of 300
+EPOCH[666/2000] loss-1.191-|Sample:1.05|use_time:18.76771330833435
+loss: -1.1910873157222097, EarlyStopping counter: 4 out of 300
+EPOCH[667/2000] loss-1.191-|Sample:1.58|use_time:20.132654666900635
+loss: -1.1909974406405193, EarlyStopping counter: 5 out of 300
+EPOCH[668/2000] loss-1.192-|Sample:1.05|use_time:19.087026834487915
+loss: -1.1919952078563412, EarlyStopping counter: 6 out of 300
+EPOCH[669/2000] loss-1.192-|Sample:1.05|use_time:18.992406129837036
+loss: -1.1921283210196145, EarlyStopping counter: 7 out of 300
+EPOCH[670/2000] loss-1.190-|Sample:1.06|use_time:18.729297876358032
+loss: -1.190050631034665, EarlyStopping counter: 8 out of 300
+EPOCH[671/2000] loss-1.188-|Sample:1.88|use_time:19.89894437789917
+loss: -1.1882442817455385, EarlyStopping counter: 9 out of 300
+EPOCH[672/2000] loss-1.191-|Sample:1.06|use_time:18.731148719787598
+loss: -1.1910374193656734, EarlyStopping counter: 10 out of 300
+EPOCH[673/2000] loss-1.191-|Sample:1.67|use_time:19.954803228378296
+loss: -1.191092988339866, EarlyStopping counter: 11 out of 300
+EPOCH[674/2000] loss-1.191-|Sample:1.06|use_time:19.05736255645752
+loss: -1.190887087728919, EarlyStopping counter: 12 out of 300
+EPOCH[675/2000] loss-1.191-|Sample:1.08|use_time:19.075594425201416
+loss: -1.1907089716050683, EarlyStopping counter: 13 out of 300
+EPOCH[676/2000] loss-1.190-|Sample:1.07|use_time:18.61104106903076
+loss: -1.190406389352752, EarlyStopping counter: 14 out of 300
+EPOCH[677/2000] loss-1.193-|Sample:1.87|use_time:19.78776264190674
+loss: -1.192828579646785, EarlyStopping counter: 15 out of 300
+EPOCH[678/2000] loss-1.191-|Sample:1.05|use_time:18.68917489051819
+loss: -1.1906709874548562, EarlyStopping counter: 16 out of 300
+EPOCH[679/2000] loss-1.190-|Sample:1.73|use_time:20.10093593597412
+loss: -1.1898219381890647, EarlyStopping counter: 17 out of 300
+EPOCH[680/2000] loss-1.192-|Sample:1.06|use_time:19.179460525512695
+loss: -1.1917668464707165, EarlyStopping counter: 18 out of 300
+EPOCH[681/2000] loss-1.192-|Sample:1.07|use_time:19.202760696411133
+loss: -1.1923347624336802, EarlyStopping counter: 19 out of 300
+EPOCH[682/2000] loss-1.192-|Sample:1.05|use_time:18.68277359008789
+loss: -1.1923223123317812, EarlyStopping counter: 20 out of 300
+EPOCH[683/2000] loss-1.191-|Sample:1.77|use_time:19.759219646453857
+loss: -1.1912651236464338, EarlyStopping counter: 21 out of 300
+EPOCH[684/2000] loss-1.192-|Sample:1.08|use_time:18.690195083618164
+loss: -1.1915073511077137, EarlyStopping counter: 22 out of 300
+EPOCH[685/2000] loss-1.193-|Sample:1.83|use_time:20.096078157424927
+loss: -1.1934698006001914, EarlyStopping counter: 23 out of 300
+EPOCH[686/2000] loss-1.192-|Sample:1.06|use_time:19.25325107574463
+loss: -1.1921760512561332, EarlyStopping counter: 24 out of 300
+EPOCH[687/2000] loss-1.194-|Sample:1.06|use_time:19.16943383216858
+EPOCH[688/2000] loss-1.193-|Sample:1.05|use_time:18.80713701248169
+loss: -1.1927637152555512, EarlyStopping counter: 1 out of 300
+EPOCH[689/2000] loss-1.193-|Sample:1.70|use_time:19.586000680923462
+loss: -1.1926742588601462, EarlyStopping counter: 2 out of 300
+EPOCH[690/2000] loss-1.192-|Sample:1.06|use_time:18.613746881484985
+loss: -1.1921959911904685, EarlyStopping counter: 3 out of 300
+EPOCH[691/2000] loss-1.189-|Sample:1.82|use_time:20.140470504760742
+loss: -1.189102193204368, EarlyStopping counter: 4 out of 300
+EPOCH[692/2000] loss-1.194-|Sample:1.06|use_time:19.0061252117157
+loss: -1.1941804100827473, EarlyStopping counter: 5 out of 300
+EPOCH[693/2000] loss-1.192-|Sample:1.05|use_time:19.392897605895996
+loss: -1.1921880303359613, EarlyStopping counter: 6 out of 300
+EPOCH[694/2000] loss-1.193-|Sample:1.08|use_time:18.746017694473267
+loss: -1.1932895619694779, EarlyStopping counter: 7 out of 300
+EPOCH[695/2000] loss-1.190-|Sample:1.67|use_time:19.62721872329712
+loss: -1.1899750407149152, EarlyStopping counter: 8 out of 300
+EPOCH[696/2000] loss-1.193-|Sample:1.06|use_time:18.574369192123413
+loss: -1.1926604363976456, EarlyStopping counter: 9 out of 300
+EPOCH[697/2000] loss-1.192-|Sample:1.89|use_time:19.869489908218384
+loss: -1.19186273435267, EarlyStopping counter: 10 out of 300
+EPOCH[698/2000] loss-1.194-|Sample:1.06|use_time:19.025350093841553
+loss: -1.1936264038085938, EarlyStopping counter: 11 out of 300
+EPOCH[699/2000] loss-1.192-|Sample:1.09|use_time:19.396404266357422
+loss: -1.1921247767239083, EarlyStopping counter: 12 out of 300
+EPOCH[700/2000] loss-1.193-|Sample:1.08|use_time:18.887211561203003
+loss: -1.1930507683172458, EarlyStopping counter: 13 out of 300
+[TEST]
+{'precision': array([0.02674157, 0.01995006, 0.01221723]), 'recall': array([0.11476257, 0.16753201, 0.25271793]), 'ndcg': array([0.07715003, 0.09313753, 0.11418032]), 'coverage': array([23.91835206, 28.07815231, 33.14169788]), 'Acoverage': array([138.61177187, 185.48179714, 263.23021832]), 'ILD': array([0.72544042, 0.74151653, 0.77077072]), 'F1': array([0.19817452, 0.2733138 , 0.38063456])}
+test time: 202.95671820640564
+reg_loss2: tensor(0.0170, device='cuda:0', grad_fn=<MulBackward0>) au_loss: tensor(-1.2505, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[701/2000] loss-1.193-|Sample:2.01|use_time:19.785096168518066
+loss: -1.1930701994314425, EarlyStopping counter: 14 out of 300
+EPOCH[702/2000] loss-1.192-|Sample:1.79|use_time:20.01243567466736
+loss: -1.1916205563196323, EarlyStopping counter: 15 out of 300
+EPOCH[703/2000] loss-1.193-|Sample:1.05|use_time:18.689269542694092
+loss: -1.1931420535576054, EarlyStopping counter: 16 out of 300
+EPOCH[704/2000] loss-1.190-|Sample:1.57|use_time:19.79110622406006
+loss: -1.1904287687162074, EarlyStopping counter: 17 out of 300
+EPOCH[705/2000] loss-1.191-|Sample:1.09|use_time:19.554511785507202
+loss: -1.1911946244356109, EarlyStopping counter: 18 out of 300
+EPOCH[706/2000] loss-1.192-|Sample:1.05|use_time:19.067203283309937
+loss: -1.1918692268976352, EarlyStopping counter: 19 out of 300
+EPOCH[707/2000] loss-1.194-|Sample:1.06|use_time:19.121958255767822
+loss: -1.193867142607526, EarlyStopping counter: 20 out of 300
+EPOCH[708/2000] loss-1.194-|Sample:1.03|use_time:18.67667269706726
+loss: -1.1936383770733345, EarlyStopping counter: 21 out of 300
+EPOCH[709/2000] loss-1.193-|Sample:1.75|use_time:19.842175245285034
+loss: -1.1934219569694706, EarlyStopping counter: 22 out of 300
+EPOCH[710/2000] loss-1.192-|Sample:1.06|use_time:18.62561845779419
+loss: -1.1920014387223778, EarlyStopping counter: 23 out of 300
+EPOCH[711/2000] loss-1.192-|Sample:1.75|use_time:20.061600923538208
+loss: -1.192175152825146, EarlyStopping counter: 24 out of 300
+EPOCH[712/2000] loss-1.192-|Sample:1.09|use_time:18.9563946723938
+loss: -1.1923407461585067, EarlyStopping counter: 25 out of 300
+EPOCH[713/2000] loss-1.195-|Sample:1.07|use_time:19.20380926132202
+EPOCH[714/2000] loss-1.191-|Sample:1.07|use_time:18.76307463645935
+loss: -1.1908759780046416, EarlyStopping counter: 1 out of 300
+EPOCH[715/2000] loss-1.192-|Sample:1.72|use_time:19.634326934814453
+loss: -1.1915869480226098, EarlyStopping counter: 2 out of 300
+EPOCH[716/2000] loss-1.193-|Sample:1.08|use_time:18.688515424728394
+loss: -1.193304163653676, EarlyStopping counter: 3 out of 300
+EPOCH[717/2000] loss-1.192-|Sample:1.79|use_time:20.00752353668213
+loss: -1.1916256299832972, EarlyStopping counter: 4 out of 300
+EPOCH[718/2000] loss-1.194-|Sample:1.09|use_time:19.057276010513306
+loss: -1.1936189168837013, EarlyStopping counter: 5 out of 300
+EPOCH[719/2000] loss-1.192-|Sample:1.08|use_time:19.23322296142578
+loss: -1.1924137633021286, EarlyStopping counter: 6 out of 300
+EPOCH[720/2000] loss-1.191-|Sample:1.05|use_time:18.832258462905884
+loss: -1.1911104336017515, EarlyStopping counter: 7 out of 300
+EPOCH[721/2000] loss-1.192-|Sample:1.68|use_time:19.731722354888916
+loss: -1.1916938787553368, EarlyStopping counter: 8 out of 300
+EPOCH[722/2000] loss-1.194-|Sample:1.05|use_time:18.708516359329224
+loss: -1.1937704871340495, EarlyStopping counter: 9 out of 300
+EPOCH[723/2000] loss-1.193-|Sample:1.86|use_time:19.979166269302368
+loss: -1.1930589210696336, EarlyStopping counter: 10 out of 300
+EPOCH[724/2000] loss-1.194-|Sample:1.10|use_time:19.030552625656128
+loss: -1.1937812770285257, EarlyStopping counter: 11 out of 300
+EPOCH[725/2000] loss-1.191-|Sample:1.11|use_time:19.44815468788147
+loss: -1.1914344124677705, EarlyStopping counter: 12 out of 300
+EPOCH[726/2000] loss-1.194-|Sample:1.08|use_time:19.027485609054565
+loss: -1.1935416082056558, EarlyStopping counter: 13 out of 300
+EPOCH[727/2000] loss-1.191-|Sample:1.63|use_time:19.59471821784973
+loss: -1.1907692362622517, EarlyStopping counter: 14 out of 300
+EPOCH[728/2000] loss-1.194-|Sample:1.08|use_time:19.008678674697876
+loss: -1.194111498390756, EarlyStopping counter: 15 out of 300
+EPOCH[729/2000] loss-1.193-|Sample:1.91|use_time:20.09523892402649
+loss: -1.1928299200244066, EarlyStopping counter: 16 out of 300
+EPOCH[730/2000] loss-1.192-|Sample:1.10|use_time:19.15597152709961
+loss: -1.1915575324035272, EarlyStopping counter: 17 out of 300
+EPOCH[731/2000] loss-1.193-|Sample:1.08|use_time:19.497676610946655
+loss: -1.1925647520437472, EarlyStopping counter: 18 out of 300
+EPOCH[732/2000] loss-1.192-|Sample:1.08|use_time:18.78762149810791
+loss: -1.1923986324449865, EarlyStopping counter: 19 out of 300
+EPOCH[733/2000] loss-1.192-|Sample:1.65|use_time:19.543621063232422
+loss: -1.1920250915899508, EarlyStopping counter: 20 out of 300
+EPOCH[734/2000] loss-1.192-|Sample:1.09|use_time:18.62143301963806
+loss: -1.192338937666358, EarlyStopping counter: 21 out of 300
+EPOCH[735/2000] loss-1.192-|Sample:1.88|use_time:19.891847133636475
+loss: -1.1917871760159005, EarlyStopping counter: 22 out of 300
+EPOCH[736/2000] loss-1.193-|Sample:1.07|use_time:19.00517773628235
+loss: -1.1926247608370897, EarlyStopping counter: 23 out of 300
+EPOCH[737/2000] loss-1.192-|Sample:1.09|use_time:19.62155318260193
+loss: -1.1915851191776554, EarlyStopping counter: 24 out of 300
+EPOCH[738/2000] loss-1.192-|Sample:1.07|use_time:18.69170117378235
+loss: -1.192390296517349, EarlyStopping counter: 25 out of 300
+EPOCH[739/2000] loss-1.194-|Sample:1.58|use_time:19.52330994606018
+loss: -1.1936355945540638, EarlyStopping counter: 26 out of 300
+EPOCH[740/2000] loss-1.193-|Sample:1.05|use_time:18.761504411697388
+loss: -1.1926642220194748, EarlyStopping counter: 27 out of 300
+EPOCH[741/2000] loss-1.193-|Sample:1.82|use_time:19.83206558227539
+loss: -1.1933357919134744, EarlyStopping counter: 28 out of 300
+EPOCH[742/2000] loss-1.193-|Sample:1.08|use_time:19.121721267700195
+loss: -1.193009143922387, EarlyStopping counter: 29 out of 300
+EPOCH[743/2000] loss-1.194-|Sample:1.06|use_time:19.388422966003418
+loss: -1.1940793351429264, EarlyStopping counter: 30 out of 300
+EPOCH[744/2000] loss-1.195-|Sample:1.06|use_time:18.64998984336853
+loss: -1.1947683764667045, EarlyStopping counter: 31 out of 300
+EPOCH[745/2000] loss-1.195-|Sample:1.57|use_time:19.62370014190674
+EPOCH[746/2000] loss-1.192-|Sample:1.10|use_time:18.796165943145752
+loss: -1.1917576644478776, EarlyStopping counter: 1 out of 300
+EPOCH[747/2000] loss-1.194-|Sample:1.80|use_time:19.671088218688965
+loss: -1.1936352078507586, EarlyStopping counter: 2 out of 300
+EPOCH[748/2000] loss-1.193-|Sample:1.07|use_time:18.97722291946411
+loss: -1.1930855076487472, EarlyStopping counter: 3 out of 300
+EPOCH[749/2000] loss-1.194-|Sample:1.05|use_time:19.398188591003418
+loss: -1.1941960235921347, EarlyStopping counter: 4 out of 300
+EPOCH[750/2000] loss-1.193-|Sample:1.06|use_time:18.535377502441406
+loss: -1.193222066251243, EarlyStopping counter: 5 out of 300
+[TEST]
+{'precision': array([0.02681648, 0.01975655, 0.01228714]), 'recall': array([0.11455   , 0.16618313, 0.25372467]), 'ndcg': array([0.07722919, 0.09280731, 0.11449005]), 'coverage': array([24.18751561, 28.18052434, 33.32946317]), 'Acoverage': array([138.25938918, 185.44624402, 263.27854207]), 'ILD': array([0.72560965, 0.7420113 , 0.77221636]), 'F1': array([0.19786378, 0.27154926, 0.38195245])}
+test time: 200.42485928535461
+reg_loss2: tensor(0.0165, device='cuda:0', grad_fn=<MulBackward0>) au_loss: tensor(-1.2050, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[751/2000] loss-1.193-|Sample:2.03|use_time:19.65537142753601
+loss: -1.192614206453649, EarlyStopping counter: 6 out of 300
+EPOCH[752/2000] loss-1.195-|Sample:1.86|use_time:19.93792176246643
+loss: -1.1945538840642789, EarlyStopping counter: 7 out of 300
+EPOCH[753/2000] loss-1.192-|Sample:1.03|use_time:18.401880025863647
+loss: -1.1920492532776623, EarlyStopping counter: 8 out of 300
+EPOCH[754/2000] loss-1.192-|Sample:1.57|use_time:19.918521642684937
+loss: -1.1918305071388804, EarlyStopping counter: 9 out of 300
+EPOCH[755/2000] loss-1.194-|Sample:1.07|use_time:19.452258825302124
+loss: -1.1937371841291102, EarlyStopping counter: 10 out of 300
+EPOCH[756/2000] loss-1.194-|Sample:1.06|use_time:19.169466733932495
+loss: -1.1939111221127394, EarlyStopping counter: 11 out of 300
+EPOCH[757/2000] loss-1.194-|Sample:1.08|use_time:19.315349578857422
+loss: -1.1941520615321835, EarlyStopping counter: 12 out of 300
+EPOCH[758/2000] loss-1.193-|Sample:1.06|use_time:18.755107641220093
+loss: -1.1929526852398384, EarlyStopping counter: 13 out of 300
+EPOCH[759/2000] loss-1.193-|Sample:1.59|use_time:19.66499924659729
+loss: -1.193381774716261, EarlyStopping counter: 14 out of 300
+EPOCH[760/2000] loss-1.194-|Sample:1.06|use_time:18.86550498008728
+loss: -1.1936753116002896, EarlyStopping counter: 15 out of 300
+EPOCH[761/2000] loss-1.192-|Sample:1.85|use_time:19.912352323532104
+loss: -1.1922324837707892, EarlyStopping counter: 16 out of 300
+EPOCH[762/2000] loss-1.192-|Sample:1.05|use_time:19.307766437530518
+loss: -1.1922310183687908, EarlyStopping counter: 17 out of 300
+EPOCH[763/2000] loss-1.194-|Sample:1.06|use_time:19.53142213821411
+loss: -1.1938843145603086, EarlyStopping counter: 18 out of 300
+EPOCH[764/2000] loss-1.194-|Sample:1.09|use_time:18.62086844444275
+loss: -1.1938326475096912, EarlyStopping counter: 19 out of 300
+EPOCH[765/2000] loss-1.193-|Sample:1.57|use_time:19.581477165222168
+loss: -1.192577146902317, EarlyStopping counter: 20 out of 300
+EPOCH[766/2000] loss-1.192-|Sample:1.07|use_time:18.70186471939087
+loss: -1.1922417472048503, EarlyStopping counter: 21 out of 300
+EPOCH[767/2000] loss-1.196-|Sample:1.82|use_time:19.75699543952942
+EPOCH[768/2000] loss-1.195-|Sample:1.06|use_time:19.065091133117676
+loss: -1.1946346585343524, EarlyStopping counter: 1 out of 300
+EPOCH[769/2000] loss-1.193-|Sample:1.13|use_time:19.58397626876831
+loss: -1.1927192385603742, EarlyStopping counter: 2 out of 300
+EPOCH[770/2000] loss-1.193-|Sample:1.06|use_time:18.635458946228027
+loss: -1.193148499581872, EarlyStopping counter: 3 out of 300
+EPOCH[771/2000] loss-1.193-|Sample:1.55|use_time:19.747494220733643
+loss: -1.1927601738673885, EarlyStopping counter: 4 out of 300
+EPOCH[772/2000] loss-1.192-|Sample:1.06|use_time:18.72330331802368
+loss: -1.191823909922344, EarlyStopping counter: 5 out of 300
+EPOCH[773/2000] loss-1.192-|Sample:1.79|use_time:19.909680366516113
+loss: -1.1919735989919522, EarlyStopping counter: 6 out of 300
+EPOCH[774/2000] loss-1.192-|Sample:1.05|use_time:19.162782430648804
+loss: -1.1922204872456992, EarlyStopping counter: 7 out of 300
+EPOCH[775/2000] loss-1.193-|Sample:1.07|use_time:19.39712953567505
+loss: -1.192532190462438, EarlyStopping counter: 8 out of 300
+EPOCH[776/2000] loss-1.192-|Sample:1.06|use_time:18.584465265274048
+loss: -1.1922060367537708, EarlyStopping counter: 9 out of 300
+EPOCH[777/2000] loss-1.192-|Sample:1.55|use_time:19.706581354141235
+loss: -1.1924333659614004, EarlyStopping counter: 10 out of 300
+EPOCH[778/2000] loss-1.192-|Sample:1.08|use_time:18.81822657585144
+loss: -1.1918434660609176, EarlyStopping counter: 11 out of 300
+EPOCH[779/2000] loss-1.193-|Sample:1.68|use_time:19.615104913711548
+loss: -1.193471486975507, EarlyStopping counter: 12 out of 300
+EPOCH[780/2000] loss-1.193-|Sample:1.08|use_time:19.666016340255737
+loss: -1.1933153751419812, EarlyStopping counter: 13 out of 300
+EPOCH[781/2000] loss-1.194-|Sample:1.05|use_time:19.664991855621338
+loss: -1.1936447533165537, EarlyStopping counter: 14 out of 300
+EPOCH[782/2000] loss-1.195-|Sample:1.07|use_time:18.699398040771484
+loss: -1.1951932703576438, EarlyStopping counter: 15 out of 300
+EPOCH[783/2000] loss-1.193-|Sample:1.60|use_time:20.039857864379883
+loss: -1.1925056474964792, EarlyStopping counter: 16 out of 300
+EPOCH[784/2000] loss-1.194-|Sample:1.06|use_time:18.868813276290894
+loss: -1.1936213592203653, EarlyStopping counter: 17 out of 300
+EPOCH[785/2000] loss-1.194-|Sample:1.67|use_time:19.8109393119812
+loss: -1.1944910200630747, EarlyStopping counter: 18 out of 300
+EPOCH[786/2000] loss-1.195-|Sample:1.08|use_time:19.420093059539795
+loss: -1.1949832410347172, EarlyStopping counter: 19 out of 300
+EPOCH[787/2000] loss-1.195-|Sample:1.08|use_time:19.399839639663696
+loss: -1.194749529768781, EarlyStopping counter: 20 out of 300
+EPOCH[788/2000] loss-1.193-|Sample:1.07|use_time:18.575121641159058
+loss: -1.193208866003083, EarlyStopping counter: 21 out of 300
+EPOCH[789/2000] loss-1.193-|Sample:1.60|use_time:20.059978246688843
+loss: -1.1933232284173734, EarlyStopping counter: 22 out of 300
+EPOCH[790/2000] loss-1.190-|Sample:1.05|use_time:18.768310546875
+loss: -1.1901331093253158, EarlyStopping counter: 23 out of 300
+EPOCH[791/2000] loss-1.193-|Sample:1.61|use_time:19.79640245437622
+loss: -1.1925832236685403, EarlyStopping counter: 24 out of 300
+EPOCH[792/2000] loss-1.194-|Sample:1.06|use_time:19.339934825897217
+loss: -1.1936373594330578, EarlyStopping counter: 25 out of 300
+EPOCH[793/2000] loss-1.191-|Sample:1.07|use_time:19.27785301208496
+loss: -1.190835728877928, EarlyStopping counter: 26 out of 300
+EPOCH[794/2000] loss-1.191-|Sample:1.08|use_time:18.659502744674683
+loss: -1.1911827616575288, EarlyStopping counter: 27 out of 300
+EPOCH[795/2000] loss-1.195-|Sample:1.69|use_time:19.91076421737671
+loss: -1.1945414688529037, EarlyStopping counter: 28 out of 300
+EPOCH[796/2000] loss-1.193-|Sample:1.06|use_time:18.701249837875366
+loss: -1.193075624907889, EarlyStopping counter: 29 out of 300
+EPOCH[797/2000] loss-1.193-|Sample:1.57|use_time:19.829777717590332
+loss: -1.1932108751157435, EarlyStopping counter: 30 out of 300
+EPOCH[798/2000] loss-1.194-|Sample:1.06|use_time:19.026394605636597
+loss: -1.1944276094436646, EarlyStopping counter: 31 out of 300
+EPOCH[799/2000] loss-1.195-|Sample:1.08|use_time:19.259021759033203
+loss: -1.194760031816436, EarlyStopping counter: 32 out of 300
+EPOCH[800/2000] loss-1.194-|Sample:1.06|use_time:18.665786266326904
+loss: -1.1939992991889394, EarlyStopping counter: 33 out of 300
+[TEST]
+{'precision': array([0.0271161 , 0.02007491, 0.01218727]), 'recall': array([0.11535399, 0.16749992, 0.25197024]), 'ndcg': array([0.07820208, 0.09407523, 0.11485026]), 'coverage': array([24.0721598, 28.2505618, 33.1454432]), 'Acoverage': array([138.14684997, 185.02994732, 263.08751256]), 'ILD': array([0.72424192, 0.74057691, 0.77080619]), 'F1': array([0.19901049, 0.27320722, 0.37979017])}
+test time: 199.52653574943542
+reg_loss2: tensor(0.0162, device='cuda:0', grad_fn=<MulBackward0>) au_loss: tensor(-1.1954, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[801/2000] loss-1.194-|Sample:2.03|use_time:19.72832202911377
+loss: -1.193694606059935, EarlyStopping counter: 34 out of 300
+EPOCH[802/2000] loss-1.196-|Sample:1.56|use_time:19.799401998519897
+loss: -1.1955726233924306, EarlyStopping counter: 35 out of 300
+EPOCH[803/2000] loss-1.192-|Sample:1.05|use_time:19.187301874160767
+loss: -1.1920431619737206, EarlyStopping counter: 36 out of 300
+EPOCH[804/2000] loss-1.197-|Sample:1.65|use_time:19.919222831726074
+EPOCH[805/2000] loss-1.193-|Sample:1.07|use_time:19.027497053146362
+loss: -1.192578292474514, EarlyStopping counter: 1 out of 300
+EPOCH[806/2000] loss-1.194-|Sample:1.06|use_time:19.26535725593567
+loss: -1.1942182546708642, EarlyStopping counter: 2 out of 300
+EPOCH[807/2000] loss-1.192-|Sample:1.08|use_time:19.363423347473145
+loss: -1.1923241993276084, EarlyStopping counter: 3 out of 300
+EPOCH[808/2000] loss-1.195-|Sample:1.06|use_time:18.87138319015503
+loss: -1.194524660343077, EarlyStopping counter: 4 out of 300
+EPOCH[809/2000] loss-1.196-|Sample:1.60|use_time:19.770217180252075
+loss: -1.195725894555813, EarlyStopping counter: 5 out of 300
+EPOCH[810/2000] loss-1.193-|Sample:1.10|use_time:18.754775762557983
+loss: -1.1934275452683611, EarlyStopping counter: 6 out of 300
+EPOCH[811/2000] loss-1.195-|Sample:1.82|use_time:19.836525440216064
+loss: -1.1947403826364658, EarlyStopping counter: 7 out of 300
+EPOCH[812/2000] loss-1.193-|Sample:1.06|use_time:19.25584077835083
+loss: -1.1926415780695474, EarlyStopping counter: 8 out of 300
+EPOCH[813/2000] loss-1.193-|Sample:1.09|use_time:19.492899179458618
+loss: -1.1933886103513764, EarlyStopping counter: 9 out of 300
+EPOCH[814/2000] loss-1.195-|Sample:1.06|use_time:18.762556314468384
+loss: -1.1945302602721424, EarlyStopping counter: 10 out of 300
+EPOCH[815/2000] loss-1.193-|Sample:1.55|use_time:19.67255711555481
+loss: -1.1930218615183017, EarlyStopping counter: 11 out of 300
+EPOCH[816/2000] loss-1.193-|Sample:1.05|use_time:18.869176149368286
+loss: -1.193262358991111, EarlyStopping counter: 12 out of 300
+EPOCH[817/2000] loss-1.193-|Sample:1.69|use_time:19.762710332870483
+loss: -1.193319181116616, EarlyStopping counter: 13 out of 300
+EPOCH[818/2000] loss-1.196-|Sample:1.06|use_time:19.204359769821167
+loss: -1.1957069402787743, EarlyStopping counter: 14 out of 300
+EPOCH[819/2000] loss-1.193-|Sample:1.07|use_time:19.463649034500122
+loss: -1.192740550855311, EarlyStopping counter: 15 out of 300
+EPOCH[820/2000] loss-1.195-|Sample:1.06|use_time:18.64410090446472
+loss: -1.1950788149019567, EarlyStopping counter: 16 out of 300
+EPOCH[821/2000] loss-1.193-|Sample:1.58|use_time:19.84629464149475
+loss: -1.1926807019768693, EarlyStopping counter: 17 out of 300
+EPOCH[822/2000] loss-1.194-|Sample:1.07|use_time:18.651862382888794
+loss: -1.1936359114763213, EarlyStopping counter: 18 out of 300
+EPOCH[823/2000] loss-1.193-|Sample:1.69|use_time:19.686891078948975
+loss: -1.1931354621561563, EarlyStopping counter: 19 out of 300
+EPOCH[824/2000] loss-1.194-|Sample:1.09|use_time:19.36849331855774
+loss: -1.1937662304901495, EarlyStopping counter: 20 out of 300
+EPOCH[825/2000] loss-1.195-|Sample:1.07|use_time:19.364203691482544
+loss: -1.194818153613951, EarlyStopping counter: 21 out of 300
+EPOCH[826/2000] loss-1.195-|Sample:1.10|use_time:18.769965887069702
+loss: -1.1951016362120466, EarlyStopping counter: 22 out of 300
+EPOCH[827/2000] loss-1.195-|Sample:1.55|use_time:19.865514993667603
+loss: -1.195157751804445, EarlyStopping counter: 23 out of 300
+EPOCH[828/2000] loss-1.196-|Sample:1.05|use_time:18.76382541656494
+loss: -1.196349042217906, EarlyStopping counter: 24 out of 300
+EPOCH[829/2000] loss-1.194-|Sample:1.65|use_time:19.65973162651062
+loss: -1.1943755353369363, EarlyStopping counter: 25 out of 300
+EPOCH[830/2000] loss-1.194-|Sample:1.06|use_time:19.527477741241455
+loss: -1.1938206742449504, EarlyStopping counter: 26 out of 300
+EPOCH[831/2000] loss-1.193-|Sample:1.06|use_time:19.319140195846558
+loss: -1.192705651608909, EarlyStopping counter: 27 out of 300
+EPOCH[832/2000] loss-1.195-|Sample:1.08|use_time:18.661943197250366
+loss: -1.1951647793374411, EarlyStopping counter: 28 out of 300
+EPOCH[833/2000] loss-1.193-|Sample:1.62|use_time:20.072325706481934
+loss: -1.193218007320311, EarlyStopping counter: 29 out of 300
+EPOCH[834/2000] loss-1.192-|Sample:1.09|use_time:18.745575666427612
+loss: -1.1920915783905401, EarlyStopping counter: 30 out of 300
+EPOCH[835/2000] loss-1.194-|Sample:1.56|use_time:19.842854499816895
+loss: -1.193987538174885, EarlyStopping counter: 31 out of 300
+EPOCH[836/2000] loss-1.192-|Sample:1.09|use_time:19.20566987991333
+loss: -1.1915854186546513, EarlyStopping counter: 32 out of 300
+EPOCH[837/2000] loss-1.194-|Sample:1.06|use_time:19.29059934616089
+loss: -1.1944647009779767, EarlyStopping counter: 33 out of 300
+EPOCH[838/2000] loss-1.192-|Sample:1.06|use_time:18.81040859222412
+loss: -1.1919725580913265, EarlyStopping counter: 34 out of 300
+EPOCH[839/2000] loss-1.192-|Sample:1.77|use_time:20.02901005744934
+loss: -1.1924945581250075, EarlyStopping counter: 35 out of 300
+EPOCH[840/2000] loss-1.193-|Sample:1.06|use_time:18.701422452926636
+loss: -1.1931032727404338, EarlyStopping counter: 36 out of 300
+EPOCH[841/2000] loss-1.193-|Sample:1.57|use_time:20.057963132858276
+loss: -1.19289252816177, EarlyStopping counter: 37 out of 300
+EPOCH[842/2000] loss-1.195-|Sample:1.05|use_time:19.0876727104187
+loss: -1.194656383700487, EarlyStopping counter: 38 out of 300
+EPOCH[843/2000] loss-1.194-|Sample:1.06|use_time:19.145789861679077
+loss: -1.1941029240445393, EarlyStopping counter: 39 out of 300
+EPOCH[844/2000] loss-1.194-|Sample:1.06|use_time:18.580267429351807
+loss: -1.1939440791199847, EarlyStopping counter: 40 out of 300
+EPOCH[845/2000] loss-1.197-|Sample:1.84|use_time:19.91294002532959
+loss: -1.1966788332636764, EarlyStopping counter: 41 out of 300
+EPOCH[846/2000] loss-1.193-|Sample:1.08|use_time:18.762138605117798
+loss: -1.1927599034658292, EarlyStopping counter: 42 out of 300
+EPOCH[847/2000] loss-1.195-|Sample:1.59|use_time:19.989824533462524
+loss: -1.1952157514851267, EarlyStopping counter: 43 out of 300
+EPOCH[848/2000] loss-1.195-|Sample:1.07|use_time:19.130544662475586
+loss: -1.1946833889658859, EarlyStopping counter: 44 out of 300
+EPOCH[849/2000] loss-1.193-|Sample:1.08|use_time:19.157902240753174
+loss: -1.1929668740528385, EarlyStopping counter: 45 out of 300
+EPOCH[850/2000] loss-1.194-|Sample:1.08|use_time:18.652281999588013
+loss: -1.1940475934889259, EarlyStopping counter: 46 out of 300
+[TEST]
+{'precision': array([0.02750312, 0.02026217, 0.01218727]), 'recall': array([0.11638176, 0.16983104, 0.25251319]), 'ndcg': array([0.07860143, 0.09471631, 0.1150476 ]), 'coverage': array([24.12109863, 28.33033708, 33.27278402]), 'Acoverage': array([137.83146372, 184.90995707, 262.87415426]), 'ILD': array([0.72095159, 0.73817399, 0.76802344]), 'F1': array([0.20041149, 0.27613251, 0.38006681])}
+test time: 196.49080157279968
+reg_loss2: tensor(0.0159, device='cuda:0', grad_fn=<MulBackward0>) au_loss: tensor(-1.2019, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[851/2000] loss-1.194-|Sample:2.01|use_time:19.560561180114746
+loss: -1.1943433517363014, EarlyStopping counter: 47 out of 300
+EPOCH[852/2000] loss-1.194-|Sample:1.63|use_time:19.55298161506653
+loss: -1.1935690757704944, EarlyStopping counter: 48 out of 300
+EPOCH[853/2000] loss-1.192-|Sample:1.04|use_time:18.79611086845398
+loss: -1.1921798863062045, EarlyStopping counter: 49 out of 300
+EPOCH[854/2000] loss-1.195-|Sample:1.77|use_time:20.205342769622803
+loss: -1.1953248628755895, EarlyStopping counter: 50 out of 300
+EPOCH[855/2000] loss-1.196-|Sample:1.06|use_time:19.125304222106934
+loss: -1.1956589134728037, EarlyStopping counter: 51 out of 300
+EPOCH[856/2000] loss-1.193-|Sample:1.06|use_time:19.06848931312561
+loss: -1.193154462953893, EarlyStopping counter: 52 out of 300
+EPOCH[857/2000] loss-1.194-|Sample:1.08|use_time:19.0770366191864
+loss: -1.1943004131317139, EarlyStopping counter: 53 out of 300
+EPOCH[858/2000] loss-1.194-|Sample:1.07|use_time:18.695819854736328
+loss: -1.1935937608160623, EarlyStopping counter: 54 out of 300
+EPOCH[859/2000] loss-1.194-|Sample:1.82|use_time:19.890463829040527
+loss: -1.1935728061489943, EarlyStopping counter: 55 out of 300
+EPOCH[860/2000] loss-1.194-|Sample:1.08|use_time:18.6427104473114
+loss: -1.1941110971497326, EarlyStopping counter: 56 out of 300
+EPOCH[861/2000] loss-1.194-|Sample:1.59|use_time:19.786869287490845
+loss: -1.193734538264391, EarlyStopping counter: 57 out of 300
+EPOCH[862/2000] loss-1.194-|Sample:1.09|use_time:19.472099542617798
+loss: -1.1939201616659396, EarlyStopping counter: 58 out of 300
+EPOCH[863/2000] loss-1.193-|Sample:1.06|use_time:19.360671997070312
+loss: -1.1934948374585408, EarlyStopping counter: 59 out of 300
+EPOCH[864/2000] loss-1.194-|Sample:1.09|use_time:18.74064302444458
+loss: -1.1937017644323953, EarlyStopping counter: 60 out of 300
+EPOCH[865/2000] loss-1.194-|Sample:1.72|use_time:19.9503653049469
+loss: -1.193528620208182, EarlyStopping counter: 61 out of 300
+EPOCH[866/2000] loss-1.194-|Sample:1.08|use_time:18.748664617538452
+loss: -1.1942954354169892, EarlyStopping counter: 62 out of 300
+EPOCH[867/2000] loss-1.196-|Sample:1.59|use_time:19.843417167663574
+loss: -1.19617146398963, EarlyStopping counter: 63 out of 300
+EPOCH[868/2000] loss-1.194-|Sample:1.07|use_time:19.286075830459595
+loss: -1.1936638442481435, EarlyStopping counter: 64 out of 300
+EPOCH[869/2000] loss-1.195-|Sample:1.09|use_time:19.278972625732422
+loss: -1.195035919910524, EarlyStopping counter: 65 out of 300
+EPOCH[870/2000] loss-1.193-|Sample:1.11|use_time:18.828187227249146
+loss: -1.1932663510485393, EarlyStopping counter: 66 out of 300
+EPOCH[871/2000] loss-1.193-|Sample:1.73|use_time:19.7954843044281
+loss: -1.1934766333277633, EarlyStopping counter: 67 out of 300
+EPOCH[872/2000] loss-1.196-|Sample:1.06|use_time:18.947731494903564
+loss: -1.1956135209013776, EarlyStopping counter: 68 out of 300
+EPOCH[873/2000] loss-1.194-|Sample:1.55|use_time:19.907406330108643
+loss: -1.1939860407899066, EarlyStopping counter: 69 out of 300
+EPOCH[874/2000] loss-1.196-|Sample:1.07|use_time:19.279247283935547
+loss: -1.1962663633067434, EarlyStopping counter: 70 out of 300
+EPOCH[875/2000] loss-1.194-|Sample:1.06|use_time:19.15658473968506
+loss: -1.1939598350990108, EarlyStopping counter: 71 out of 300
+EPOCH[876/2000] loss-1.194-|Sample:1.05|use_time:18.722071409225464
+loss: -1.193957747482672, EarlyStopping counter: 72 out of 300
+EPOCH[877/2000] loss-1.194-|Sample:1.86|use_time:19.954057931900024
+loss: -1.193598095963641, EarlyStopping counter: 73 out of 300
+EPOCH[878/2000] loss-1.195-|Sample:1.05|use_time:18.56149125099182
+loss: -1.1948264604661523, EarlyStopping counter: 74 out of 300
+EPOCH[879/2000] loss-1.193-|Sample:1.56|use_time:19.94925594329834
+loss: -1.1927792880593278, EarlyStopping counter: 75 out of 300
+EPOCH[880/2000] loss-1.194-|Sample:1.06|use_time:19.207707405090332
+loss: -1.1943369144346656, EarlyStopping counter: 76 out of 300
+EPOCH[881/2000] loss-1.194-|Sample:1.07|use_time:19.06985592842102
+loss: -1.1938927231765375, EarlyStopping counter: 77 out of 300
+EPOCH[882/2000] loss-1.195-|Sample:1.09|use_time:18.833883047103882
+loss: -1.1951659627077056, EarlyStopping counter: 78 out of 300
+EPOCH[883/2000] loss-1.195-|Sample:1.90|use_time:20.061105489730835
+loss: -1.194655162532155, EarlyStopping counter: 79 out of 300
+EPOCH[884/2000] loss-1.197-|Sample:1.08|use_time:18.575997829437256
+EPOCH[885/2000] loss-1.194-|Sample:1.60|use_time:20.009930849075317
+loss: -1.1944516170315627, EarlyStopping counter: 1 out of 300
+EPOCH[886/2000] loss-1.196-|Sample:1.06|use_time:19.14079213142395
+loss: -1.195691219190272, EarlyStopping counter: 2 out of 300
+EPOCH[887/2000] loss-1.194-|Sample:1.06|use_time:19.404728412628174
+loss: -1.1939063624637882, EarlyStopping counter: 3 out of 300
+EPOCH[888/2000] loss-1.193-|Sample:1.09|use_time:18.69468927383423
+loss: -1.1929447825362043, EarlyStopping counter: 4 out of 300
+EPOCH[889/2000] loss-1.194-|Sample:1.90|use_time:19.950464248657227
+loss: -1.1944348753952398, EarlyStopping counter: 5 out of 300
+EPOCH[890/2000] loss-1.195-|Sample:1.07|use_time:18.52639627456665
+loss: -1.1949294572923241, EarlyStopping counter: 6 out of 300
+EPOCH[891/2000] loss-1.196-|Sample:1.56|use_time:19.905784606933594
+loss: -1.1956769227981567, EarlyStopping counter: 7 out of 300
+EPOCH[892/2000] loss-1.196-|Sample:1.06|use_time:19.444786071777344
+loss: -1.1958568590443308, EarlyStopping counter: 8 out of 300
+EPOCH[893/2000] loss-1.195-|Sample:1.06|use_time:19.126487731933594
+loss: -1.195099676527628, EarlyStopping counter: 9 out of 300
+EPOCH[894/2000] loss-1.195-|Sample:1.07|use_time:18.735224723815918
+loss: -1.194510000508006, EarlyStopping counter: 10 out of 300
+EPOCH[895/2000] loss-1.192-|Sample:1.90|use_time:19.8317391872406
+loss: -1.1921752196986501, EarlyStopping counter: 11 out of 300
+EPOCH[896/2000] loss-1.196-|Sample:1.06|use_time:18.662391901016235
+loss: -1.1960354403751652, EarlyStopping counter: 12 out of 300
+EPOCH[897/2000] loss-1.198-|Sample:1.63|use_time:19.908687591552734
+EPOCH[898/2000] loss-1.194-|Sample:1.05|use_time:19.005366563796997
+loss: -1.194440731188146, EarlyStopping counter: 1 out of 300
+EPOCH[899/2000] loss-1.197-|Sample:1.07|use_time:19.10991597175598
+loss: -1.1967043411440965, EarlyStopping counter: 2 out of 300
+EPOCH[900/2000] loss-1.197-|Sample:1.05|use_time:18.764590978622437
+loss: -1.196685413034951, EarlyStopping counter: 3 out of 300
+[TEST]
+{'precision': array([0.02742821, 0.01998752, 0.01218477]), 'recall': array([0.11656018, 0.16706773, 0.25243538]), 'ndcg': array([0.07875603, 0.09404817, 0.11508853]), 'coverage': array([24.57403246, 28.33345818, 33.20212235]), 'Acoverage': array([138.33001127, 185.10835541, 263.83918577]), 'ILD': array([0.72196421, 0.73773244, 0.76807552]), 'F1': array([0.20071517, 0.27243868, 0.37998504])}
+test time: 193.50623607635498
+reg_loss2: tensor(0.0157, device='cuda:0', grad_fn=<MulBackward0>) au_loss: tensor(-1.1785, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[901/2000] loss-1.193-|Sample:2.03|use_time:19.657757997512817
+loss: -1.1929134566609452, EarlyStopping counter: 4 out of 300
+EPOCH[902/2000] loss-1.195-|Sample:1.57|use_time:19.412071228027344
+loss: -1.1945187202314052, EarlyStopping counter: 5 out of 300
+EPOCH[903/2000] loss-1.196-|Sample:1.08|use_time:18.56469488143921
+loss: -1.1956175827398532, EarlyStopping counter: 6 out of 300
+EPOCH[904/2000] loss-1.196-|Sample:1.81|use_time:19.73890733718872
+loss: -1.1963221096410983, EarlyStopping counter: 7 out of 300
+EPOCH[905/2000] loss-1.192-|Sample:1.08|use_time:19.05156898498535
+loss: -1.1921457459286946, EarlyStopping counter: 8 out of 300
+EPOCH[906/2000] loss-1.193-|Sample:1.06|use_time:19.169382333755493
+loss: -1.1927784012585152, EarlyStopping counter: 9 out of 300
+EPOCH[907/2000] loss-1.195-|Sample:1.06|use_time:19.20976710319519
+loss: -1.1952113814470244, EarlyStopping counter: 10 out of 300
+EPOCH[908/2000] loss-1.196-|Sample:1.06|use_time:18.53321623802185
+loss: -1.1957348526977911, EarlyStopping counter: 11 out of 300
+EPOCH[909/2000] loss-1.196-|Sample:1.69|use_time:19.759252309799194
+loss: -1.1961112749285814, EarlyStopping counter: 12 out of 300
+EPOCH[910/2000] loss-1.192-|Sample:1.09|use_time:18.660008668899536
+loss: -1.1924665119589828, EarlyStopping counter: 13 out of 300
+EPOCH[911/2000] loss-1.195-|Sample:1.55|use_time:19.755138635635376
+loss: -1.1952332229149052, EarlyStopping counter: 14 out of 300
+EPOCH[912/2000] loss-1.195-|Sample:1.05|use_time:19.179210662841797
+loss: -1.1949985666972835, EarlyStopping counter: 15 out of 300
+EPOCH[913/2000] loss-1.196-|Sample:1.10|use_time:19.117906093597412
+loss: -1.19562285702403, EarlyStopping counter: 16 out of 300
+EPOCH[914/2000] loss-1.195-|Sample:1.05|use_time:18.729697227478027
+loss: -1.195432127975836, EarlyStopping counter: 17 out of 300
+EPOCH[915/2000] loss-1.197-|Sample:1.74|use_time:19.885937452316284
+loss: -1.1970137270485484, EarlyStopping counter: 18 out of 300
+EPOCH[916/2000] loss-1.194-|Sample:1.06|use_time:18.567986726760864
+loss: -1.193726385512003, EarlyStopping counter: 19 out of 300
+EPOCH[917/2000] loss-1.194-|Sample:1.54|use_time:19.922351837158203
+loss: -1.1939868578096715, EarlyStopping counter: 20 out of 300
+EPOCH[918/2000] loss-1.194-|Sample:1.07|use_time:19.14568066596985
+loss: -1.1935185746448795, EarlyStopping counter: 21 out of 300
+EPOCH[919/2000] loss-1.194-|Sample:1.08|use_time:19.05400276184082
+loss: -1.194321309647909, EarlyStopping counter: 22 out of 300
+EPOCH[920/2000] loss-1.198-|Sample:1.07|use_time:18.5894935131073
+loss: -1.1977442706503518, EarlyStopping counter: 23 out of 300
+EPOCH[921/2000] loss-1.193-|Sample:1.78|use_time:19.771621465682983
+loss: -1.193381361845063, EarlyStopping counter: 24 out of 300
+EPOCH[922/2000] loss-1.195-|Sample:1.07|use_time:18.555649518966675
+loss: -1.195487164869541, EarlyStopping counter: 25 out of 300
+EPOCH[923/2000] loss-1.191-|Sample:1.54|use_time:19.860256671905518
+loss: -1.1912877007228573, EarlyStopping counter: 26 out of 300
+EPOCH[924/2000] loss-1.194-|Sample:1.07|use_time:19.102759838104248
+loss: -1.194405139946356, EarlyStopping counter: 27 out of 300
+EPOCH[925/2000] loss-1.196-|Sample:1.05|use_time:18.973982334136963
+loss: -1.195647524624336, EarlyStopping counter: 28 out of 300
+EPOCH[926/2000] loss-1.195-|Sample:1.06|use_time:18.539446592330933
+loss: -1.1947919217551626, EarlyStopping counter: 29 out of 300
+EPOCH[927/2000] loss-1.196-|Sample:1.80|use_time:19.906084299087524
+loss: -1.1959125792107932, EarlyStopping counter: 30 out of 300
+EPOCH[928/2000] loss-1.197-|Sample:1.07|use_time:18.567933797836304
+loss: -1.1972290335631952, EarlyStopping counter: 31 out of 300
+EPOCH[929/2000] loss-1.194-|Sample:1.56|use_time:19.9777889251709
+loss: -1.193863159272729, EarlyStopping counter: 32 out of 300
+EPOCH[930/2000] loss-1.196-|Sample:1.08|use_time:19.04520583152771
+loss: -1.1963127938712514, EarlyStopping counter: 33 out of 300
+EPOCH[931/2000] loss-1.195-|Sample:1.06|use_time:19.00948214530945
+loss: -1.194960710478992, EarlyStopping counter: 34 out of 300
+EPOCH[932/2000] loss-1.194-|Sample:1.06|use_time:18.5238995552063
+loss: -1.1940371350544254, EarlyStopping counter: 35 out of 300
+EPOCH[933/2000] loss-1.196-|Sample:1.88|use_time:19.912871599197388
+loss: -1.1959767312538334, EarlyStopping counter: 36 out of 300
+EPOCH[934/2000] loss-1.195-|Sample:1.07|use_time:18.411142587661743
+loss: -1.1949607889826706, EarlyStopping counter: 37 out of 300
+EPOCH[935/2000] loss-1.194-|Sample:1.55|use_time:19.957942962646484
+loss: -1.1942786239996188, EarlyStopping counter: 38 out of 300
+EPOCH[936/2000] loss-1.195-|Sample:1.05|use_time:19.09471321105957
+loss: -1.1950315673176835, EarlyStopping counter: 39 out of 300
+EPOCH[937/2000] loss-1.194-|Sample:1.05|use_time:19.072991609573364
+loss: -1.1944959367193826, EarlyStopping counter: 40 out of 300
+EPOCH[938/2000] loss-1.193-|Sample:1.06|use_time:18.594916105270386
+loss: -1.1934768135954694, EarlyStopping counter: 41 out of 300
+EPOCH[939/2000] loss-1.195-|Sample:1.87|use_time:19.797356128692627
+loss: -1.1952801041486787, EarlyStopping counter: 42 out of 300
+EPOCH[940/2000] loss-1.196-|Sample:1.05|use_time:18.439444541931152
+loss: -1.1960532985082486, EarlyStopping counter: 43 out of 300
+EPOCH[941/2000] loss-1.196-|Sample:1.59|use_time:19.902182817459106
+loss: -1.1963792603190353, EarlyStopping counter: 44 out of 300
+EPOCH[942/2000] loss-1.195-|Sample:1.06|use_time:19.124269247055054
+loss: -1.1950210303795048, EarlyStopping counter: 45 out of 300
+EPOCH[943/2000] loss-1.196-|Sample:1.06|use_time:18.939804553985596
+loss: -1.1964073413755836, EarlyStopping counter: 46 out of 300
+EPOCH[944/2000] loss-1.196-|Sample:1.06|use_time:18.53497290611267
+loss: -1.1957886073647477, EarlyStopping counter: 47 out of 300
+EPOCH[945/2000] loss-1.195-|Sample:1.86|use_time:19.807623863220215
+loss: -1.1951435862517938, EarlyStopping counter: 48 out of 300
+EPOCH[946/2000] loss-1.193-|Sample:1.05|use_time:18.259374380111694
+loss: -1.192922435155729, EarlyStopping counter: 49 out of 300
+EPOCH[947/2000] loss-1.195-|Sample:1.56|use_time:20.002395391464233
+loss: -1.1953626434977462, EarlyStopping counter: 50 out of 300
+EPOCH[948/2000] loss-1.195-|Sample:1.07|use_time:19.165570974349976
+loss: -1.194690919503933, EarlyStopping counter: 51 out of 300
+EPOCH[949/2000] loss-1.195-|Sample:1.06|use_time:19.00700855255127
+loss: -1.1947809108873693, EarlyStopping counter: 52 out of 300
+EPOCH[950/2000] loss-1.195-|Sample:1.07|use_time:18.567161083221436
+loss: -1.1947990219767501, EarlyStopping counter: 53 out of 300
+[TEST]
+{'precision': array([0.02741573, 0.02003745, 0.01220724]), 'recall': array([0.11676342, 0.16700664, 0.25208751]), 'ndcg': array([0.07877763, 0.09404424, 0.11493254]), 'coverage': array([24.44382022, 28.44956305, 33.28851436]), 'Acoverage': array([137.57699522, 184.55959928, 262.92593709]), 'ILD': array([0.71967263, 0.73659439, 0.76812719]), 'F1': array([0.20092735, 0.27227979, 0.3795971 ])}
+test time: 192.285804271698
+reg_loss2: tensor(0.0155, device='cuda:0', grad_fn=<MulBackward0>) au_loss: tensor(-1.2199, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[951/2000] loss-1.195-|Sample:2.01|use_time:19.52406072616577
+loss: -1.1951025346430337, EarlyStopping counter: 54 out of 300
+EPOCH[952/2000] loss-1.195-|Sample:1.54|use_time:19.458678483963013
+loss: -1.1954380361045278, EarlyStopping counter: 55 out of 300
+EPOCH[953/2000] loss-1.193-|Sample:1.06|use_time:18.666812419891357
+loss: -1.1934837451795253, EarlyStopping counter: 56 out of 300
+EPOCH[954/2000] loss-1.194-|Sample:1.79|use_time:19.77278208732605
+loss: -1.1936083537776296, EarlyStopping counter: 57 out of 300
+EPOCH[955/2000] loss-1.196-|Sample:1.06|use_time:19.036133527755737
+loss: -1.1963751897579287, EarlyStopping counter: 58 out of 300
+EPOCH[956/2000] loss-1.197-|Sample:1.07|use_time:19.212968826293945
+loss: -1.1967146571089582, EarlyStopping counter: 59 out of 300
+EPOCH[957/2000] loss-1.194-|Sample:1.06|use_time:19.223406314849854
+loss: -1.1935442017345894, EarlyStopping counter: 60 out of 300
+EPOCH[958/2000] loss-1.195-|Sample:1.09|use_time:18.679759740829468
+loss: -1.1945646710512114, EarlyStopping counter: 61 out of 300
+EPOCH[959/2000] loss-1.193-|Sample:1.55|use_time:19.81275725364685
+loss: -1.1927541029162523, EarlyStopping counter: 62 out of 300
+EPOCH[960/2000] loss-1.198-|Sample:1.05|use_time:18.621849536895752
+loss: -1.1978328547826627, EarlyStopping counter: 63 out of 300
+EPOCH[961/2000] loss-1.195-|Sample:1.67|use_time:19.600342273712158
+loss: -1.1947561153551427, EarlyStopping counter: 64 out of 300
+EPOCH[962/2000] loss-1.195-|Sample:1.06|use_time:19.20418119430542
+loss: -1.1951276674503233, EarlyStopping counter: 65 out of 300
+EPOCH[963/2000] loss-1.198-|Sample:1.09|use_time:19.411975860595703
+loss: -1.1976583585506533, EarlyStopping counter: 66 out of 300
+EPOCH[964/2000] loss-1.196-|Sample:1.05|use_time:18.514647483825684
+loss: -1.196103846154562, EarlyStopping counter: 67 out of 300
+EPOCH[965/2000] loss-1.195-|Sample:1.56|use_time:19.888819217681885
+loss: -1.1952411924920432, EarlyStopping counter: 68 out of 300
+EPOCH[966/2000] loss-1.194-|Sample:1.06|use_time:18.849679946899414
+loss: -1.1942827788794912, EarlyStopping counter: 69 out of 300
+EPOCH[967/2000] loss-1.197-|Sample:1.63|use_time:19.722666263580322
+loss: -1.1973419451132052, EarlyStopping counter: 70 out of 300
+EPOCH[968/2000] loss-1.193-|Sample:1.06|use_time:19.33882737159729
+loss: -1.1927452930590001, EarlyStopping counter: 71 out of 300
+EPOCH[969/2000] loss-1.194-|Sample:1.07|use_time:19.207196474075317
+loss: -1.1942596377396002, EarlyStopping counter: 72 out of 300
+EPOCH[970/2000] loss-1.193-|Sample:1.07|use_time:18.629297971725464
+loss: -1.1933140667473399, EarlyStopping counter: 73 out of 300
+EPOCH[971/2000] loss-1.194-|Sample:1.55|use_time:19.693981647491455
+loss: -1.1935025628020124, EarlyStopping counter: 74 out of 300
+EPOCH[972/2000] loss-1.194-|Sample:1.06|use_time:18.72729992866516
+loss: -1.1943450759096843, EarlyStopping counter: 75 out of 300
+EPOCH[973/2000] loss-1.198-|Sample:1.62|use_time:19.589946031570435
+loss: -1.197780827196633, EarlyStopping counter: 76 out of 300
+EPOCH[974/2000] loss-1.195-|Sample:1.07|use_time:19.249751806259155
+loss: -1.19472216396797, EarlyStopping counter: 77 out of 300
+EPOCH[975/2000] loss-1.194-|Sample:1.08|use_time:19.28921365737915
+loss: -1.1942762979647008, EarlyStopping counter: 78 out of 300
+EPOCH[976/2000] loss-1.195-|Sample:1.05|use_time:18.56259250640869
+loss: -1.1946893174473832, EarlyStopping counter: 79 out of 300
+EPOCH[977/2000] loss-1.193-|Sample:1.63|use_time:19.991125106811523
+loss: -1.1933697171327544, EarlyStopping counter: 80 out of 300
+EPOCH[978/2000] loss-1.197-|Sample:1.04|use_time:18.539257526397705
+loss: -1.1966861777189302, EarlyStopping counter: 81 out of 300
+EPOCH[979/2000] loss-1.197-|Sample:1.56|use_time:19.456722736358643
+loss: -1.196537625498888, EarlyStopping counter: 82 out of 300
+EPOCH[980/2000] loss-1.194-|Sample:1.06|use_time:19.130995750427246
+loss: -1.1938531689527558, EarlyStopping counter: 83 out of 300
+EPOCH[981/2000] loss-1.195-|Sample:1.06|use_time:19.051519632339478
+loss: -1.1948217298926376, EarlyStopping counter: 84 out of 300
+EPOCH[982/2000] loss-1.197-|Sample:1.09|use_time:18.55783224105835
+loss: -1.1970553165528832, EarlyStopping counter: 85 out of 300
+EPOCH[983/2000] loss-1.194-|Sample:1.73|use_time:19.857754945755005
+loss: -1.1937228586615585, EarlyStopping counter: 86 out of 300
+EPOCH[984/2000] loss-1.194-|Sample:1.05|use_time:18.541940689086914
+loss: -1.1936273313150174, EarlyStopping counter: 87 out of 300
+EPOCH[985/2000] loss-1.196-|Sample:1.55|use_time:19.74838662147522
+loss: -1.19580294155493, EarlyStopping counter: 88 out of 300
+EPOCH[986/2000] loss-1.196-|Sample:1.05|use_time:19.12950038909912
+loss: -1.1960251651159146, EarlyStopping counter: 89 out of 300
+EPOCH[987/2000] loss-1.195-|Sample:1.05|use_time:19.075422763824463
+loss: -1.1952365665900997, EarlyStopping counter: 90 out of 300
+EPOCH[988/2000] loss-1.194-|Sample:1.05|use_time:18.54896354675293
+loss: -1.1936805190109625, EarlyStopping counter: 91 out of 300
+EPOCH[989/2000] loss-1.195-|Sample:1.67|use_time:20.378068685531616
+loss: -1.1948682854815227, EarlyStopping counter: 92 out of 300
+EPOCH[990/2000] loss-1.197-|Sample:1.06|use_time:18.78752565383911
+loss: -1.1966602685974865, EarlyStopping counter: 93 out of 300
+EPOCH[991/2000] loss-1.195-|Sample:1.58|use_time:19.89177370071411
+loss: -1.1946260551126993, EarlyStopping counter: 94 out of 300
+EPOCH[992/2000] loss-1.195-|Sample:1.11|use_time:19.379436492919922
+loss: -1.1952640254323075, EarlyStopping counter: 95 out of 300
+EPOCH[993/2000] loss-1.195-|Sample:1.05|use_time:19.19179344177246
+loss: -1.1954509543209542, EarlyStopping counter: 96 out of 300
+EPOCH[994/2000] loss-1.196-|Sample:1.05|use_time:18.78922986984253
+loss: -1.1964100395760886, EarlyStopping counter: 97 out of 300
+EPOCH[995/2000] loss-1.197-|Sample:1.79|use_time:20.08035635948181
+loss: -1.197091355556395, EarlyStopping counter: 98 out of 300
+EPOCH[996/2000] loss-1.193-|Sample:1.10|use_time:18.623990297317505
+loss: -1.192563955376788, EarlyStopping counter: 99 out of 300
+EPOCH[997/2000] loss-1.197-|Sample:1.57|use_time:19.94362187385559
+loss: -1.196644466097762, EarlyStopping counter: 100 out of 300
+EPOCH[998/2000] loss-1.196-|Sample:1.05|use_time:19.130566358566284
+loss: -1.1958146066200444, EarlyStopping counter: 101 out of 300
+EPOCH[999/2000] loss-1.193-|Sample:1.10|use_time:19.087173461914062
+loss: -1.1932243312277444, EarlyStopping counter: 102 out of 300
+EPOCH[1000/2000] loss-1.193-|Sample:1.05|use_time:18.7310893535614
+loss: -1.193127056447471, EarlyStopping counter: 103 out of 300
+[TEST]
+{'precision': array([0.02751561, 0.02010612, 0.0120799 ]), 'recall': array([0.11792271, 0.16676649, 0.25087252]), 'ndcg': array([0.0789566 , 0.09396713, 0.11449046]), 'coverage': array([24.4019975 , 28.61435705, 33.50212235]), 'Acoverage': array([137.45324442, 184.88141652, 263.76090558]), 'ILD': array([0.71937855, 0.73549379, 0.76708889]), 'F1': array([0.20262973, 0.27188545, 0.37809198])}
+test time: 190.8689615726471
+reg_loss2: tensor(0.0154, device='cuda:0', grad_fn=<MulBackward0>) au_loss: tensor(-1.2163, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[1001/2000] loss-1.194-|Sample:1.99|use_time:19.508859157562256
+loss: -1.194479878355817, EarlyStopping counter: 104 out of 300
+EPOCH[1002/2000] loss-1.195-|Sample:1.55|use_time:19.782406330108643
+loss: -1.195409068247167, EarlyStopping counter: 105 out of 300
+EPOCH[1003/2000] loss-1.196-|Sample:1.07|use_time:18.756824731826782
+loss: -1.1958727691231705, EarlyStopping counter: 106 out of 300
+EPOCH[1004/2000] loss-1.196-|Sample:1.80|use_time:19.92224431037903
+loss: -1.19573949895254, EarlyStopping counter: 107 out of 300
+EPOCH[1005/2000] loss-1.198-|Sample:1.07|use_time:19.320589303970337
+loss: -1.1976577712268364, EarlyStopping counter: 108 out of 300
+EPOCH[1006/2000] loss-1.194-|Sample:1.05|use_time:19.134609937667847
+loss: -1.1935717681559121, EarlyStopping counter: 109 out of 300
+EPOCH[1007/2000] loss-1.194-|Sample:1.08|use_time:19.510496854782104
+loss: -1.193563048432513, EarlyStopping counter: 110 out of 300
+EPOCH[1008/2000] loss-1.196-|Sample:1.06|use_time:18.769901514053345
+loss: -1.1957811262549423, EarlyStopping counter: 111 out of 300
+EPOCH[1009/2000] loss-1.198-|Sample:1.64|use_time:19.8047091960907
+loss: -1.197595171812104, EarlyStopping counter: 112 out of 300
+EPOCH[1010/2000] loss-1.196-|Sample:1.10|use_time:18.83306360244751
+loss: -1.1962182114763957, EarlyStopping counter: 113 out of 300
+EPOCH[1011/2000] loss-1.195-|Sample:1.91|use_time:20.113300561904907
+loss: -1.195232670481612, EarlyStopping counter: 114 out of 300
+EPOCH[1012/2000] loss-1.195-|Sample:1.06|use_time:19.527565002441406
+loss: -1.1947540364614346, EarlyStopping counter: 115 out of 300
+EPOCH[1013/2000] loss-1.193-|Sample:1.07|use_time:19.816739082336426
+loss: -1.1931774529015147, EarlyStopping counter: 116 out of 300
+EPOCH[1014/2000] loss-1.192-|Sample:1.07|use_time:18.700969457626343
+loss: -1.1923896743030082, EarlyStopping counter: 117 out of 300
+EPOCH[1015/2000] loss-1.194-|Sample:1.58|use_time:19.56428551673889
+loss: -1.1937025988974221, EarlyStopping counter: 118 out of 300
+EPOCH[1016/2000] loss-1.197-|Sample:1.06|use_time:18.75869107246399
+loss: -1.1972135857837956, EarlyStopping counter: 119 out of 300
+EPOCH[1017/2000] loss-1.196-|Sample:1.88|use_time:19.798327684402466
+loss: -1.1956081186852805, EarlyStopping counter: 120 out of 300
+EPOCH[1018/2000] loss-1.197-|Sample:1.08|use_time:19.148941040039062
+loss: -1.1971285604849093, EarlyStopping counter: 121 out of 300
+EPOCH[1019/2000] loss-1.195-|Sample:1.07|use_time:19.477354288101196
+loss: -1.194777282272897, EarlyStopping counter: 122 out of 300
+EPOCH[1020/2000] loss-1.195-|Sample:1.08|use_time:18.76150417327881
+loss: -1.194833104203387, EarlyStopping counter: 123 out of 300
+EPOCH[1021/2000] loss-1.195-|Sample:1.54|use_time:19.632850408554077
+loss: -1.1952550265847184, EarlyStopping counter: 124 out of 300
+EPOCH[1022/2000] loss-1.197-|Sample:1.06|use_time:18.804239511489868
+loss: -1.1971515271721818, EarlyStopping counter: 125 out of 300
+EPOCH[1023/2000] loss-1.195-|Sample:1.76|use_time:19.84906315803528
+loss: -1.1951056689750859, EarlyStopping counter: 126 out of 300
+EPOCH[1024/2000] loss-1.194-|Sample:1.04|use_time:19.12494206428528
+loss: -1.193816248963519, EarlyStopping counter: 127 out of 300
+EPOCH[1025/2000] loss-1.196-|Sample:1.06|use_time:19.397417783737183
+loss: -1.1963242815762032, EarlyStopping counter: 128 out of 300
+EPOCH[1026/2000] loss-1.196-|Sample:1.05|use_time:18.582942485809326
+loss: -1.1956787371053927, EarlyStopping counter: 129 out of 300
+EPOCH[1027/2000] loss-1.194-|Sample:1.55|use_time:19.753954648971558
+loss: -1.1939513363489291, EarlyStopping counter: 130 out of 300
+EPOCH[1028/2000] loss-1.196-|Sample:1.08|use_time:18.68484139442444
+loss: -1.1955269022685726, EarlyStopping counter: 131 out of 300
+EPOCH[1029/2000] loss-1.194-|Sample:1.69|use_time:19.693545818328857
+loss: -1.1942316090188376, EarlyStopping counter: 132 out of 300
+EPOCH[1030/2000] loss-1.196-|Sample:1.05|use_time:19.179038763046265
+loss: -1.1963425787483775, EarlyStopping counter: 133 out of 300
+EPOCH[1031/2000] loss-1.197-|Sample:1.06|use_time:19.417769193649292
+loss: -1.1966630016885154, EarlyStopping counter: 134 out of 300
+EPOCH[1032/2000] loss-1.197-|Sample:1.06|use_time:18.6147038936615
+loss: -1.1968246233172533, EarlyStopping counter: 135 out of 300
+EPOCH[1033/2000] loss-1.195-|Sample:1.55|use_time:19.961384057998657
+loss: -1.1947719614680221, EarlyStopping counter: 136 out of 300
+EPOCH[1034/2000] loss-1.195-|Sample:1.08|use_time:18.784537315368652
+loss: -1.1954782328954556, EarlyStopping counter: 137 out of 300
+EPOCH[1035/2000] loss-1.195-|Sample:1.66|use_time:19.583972930908203
+loss: -1.1954549027652275, EarlyStopping counter: 138 out of 300
+EPOCH[1036/2000] loss-1.197-|Sample:1.05|use_time:19.135343551635742
+loss: -1.1967017156321829, EarlyStopping counter: 139 out of 300
+EPOCH[1037/2000] loss-1.196-|Sample:1.05|use_time:19.502670764923096
+loss: -1.1959569686796607, EarlyStopping counter: 140 out of 300
+EPOCH[1038/2000] loss-1.192-|Sample:1.09|use_time:18.76817774772644
+loss: -1.192260939900468, EarlyStopping counter: 141 out of 300
+EPOCH[1039/2000] loss-1.197-|Sample:1.58|use_time:20.024901390075684
+loss: -1.1972656133698254, EarlyStopping counter: 142 out of 300
+EPOCH[1040/2000] loss-1.195-|Sample:1.08|use_time:18.8411967754364
+loss: -1.1952531541266092, EarlyStopping counter: 143 out of 300
+EPOCH[1041/2000] loss-1.195-|Sample:1.65|use_time:19.70792865753174
+loss: -1.19506222155036, EarlyStopping counter: 144 out of 300
+EPOCH[1042/2000] loss-1.198-|Sample:1.08|use_time:19.372480392456055
+loss: -1.1976724281543638, EarlyStopping counter: 145 out of 300
+EPOCH[1043/2000] loss-1.195-|Sample:1.07|use_time:19.422362327575684
+loss: -1.1953073943533548, EarlyStopping counter: 146 out of 300
+EPOCH[1044/2000] loss-1.196-|Sample:1.06|use_time:18.54131770133972
+loss: -1.1961742959371426, EarlyStopping counter: 147 out of 300
+EPOCH[1045/2000] loss-1.195-|Sample:1.59|use_time:19.821964740753174
+loss: -1.1949723203007767, EarlyStopping counter: 148 out of 300
+EPOCH[1046/2000] loss-1.195-|Sample:1.04|use_time:18.54178547859192
+loss: -1.1952816800373356, EarlyStopping counter: 149 out of 300
+EPOCH[1047/2000] loss-1.194-|Sample:1.63|use_time:19.507560968399048
+loss: -1.1938814593524467, EarlyStopping counter: 150 out of 300
+EPOCH[1048/2000] loss-1.195-|Sample:1.07|use_time:19.305335760116577
+loss: -1.1953898900892677, EarlyStopping counter: 151 out of 300
+EPOCH[1049/2000] loss-1.198-|Sample:1.06|use_time:19.343880653381348
+EPOCH[1050/2000] loss-1.198-|Sample:1.07|use_time:18.577269077301025
+[TEST]
+{'precision': array([0.0274407 , 0.02034956, 0.01219975]), 'recall': array([0.11630521, 0.16973664, 0.25294735]), 'ndcg': array([0.07925986, 0.09554629, 0.11593066]), 'coverage': array([24.59363296, 28.52084894, 33.62022472]), 'Acoverage': array([137.17166956, 183.91308425, 262.73407631]), 'ILD': array([0.7160799 , 0.73371115, 0.7661998 ]), 'F1': array([0.20010887, 0.27569422, 0.3803341 ])}
+test time: 190.36691880226135
+reg_loss2: tensor(0.0153, device='cuda:0', grad_fn=<MulBackward0>) au_loss: tensor(-1.2007, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[1051/2000] loss-1.194-|Sample:2.00|use_time:19.650588512420654
+loss: -1.1943492017141202, EarlyStopping counter: 1 out of 300
+EPOCH[1052/2000] loss-1.195-|Sample:1.79|use_time:20.026848554611206
+loss: -1.1951990621845896, EarlyStopping counter: 2 out of 300
+EPOCH[1053/2000] loss-1.195-|Sample:1.06|use_time:19.21326494216919
+loss: -1.1951272022433397, EarlyStopping counter: 3 out of 300
+EPOCH[1054/2000] loss-1.193-|Sample:1.09|use_time:18.67898964881897
+loss: -1.19349791363972, EarlyStopping counter: 4 out of 300
+EPOCH[1055/2000] loss-1.197-|Sample:1.63|use_time:19.99526834487915
+loss: -1.196973806474267, EarlyStopping counter: 5 out of 300
+EPOCH[1056/2000] loss-1.196-|Sample:1.05|use_time:19.007113456726074
+loss: -1.1962265706643826, EarlyStopping counter: 6 out of 300
+EPOCH[1057/2000] loss-1.194-|Sample:1.55|use_time:19.14499258995056
+loss: -1.1941046336802041, EarlyStopping counter: 7 out of 300
+EPOCH[1058/2000] loss-1.196-|Sample:1.67|use_time:19.974340677261353
+loss: -1.1963220369525072, EarlyStopping counter: 8 out of 300
+EPOCH[1059/2000] loss-1.196-|Sample:1.08|use_time:18.825175523757935
+loss: -1.1961907002984025, EarlyStopping counter: 9 out of 300
+EPOCH[1060/2000] loss-1.196-|Sample:1.53|use_time:19.70281958580017
+loss: -1.1962193832164858, EarlyStopping counter: 10 out of 300
+EPOCH[1061/2000] loss-1.196-|Sample:1.08|use_time:18.75713562965393
+loss: -1.1958660003615589, EarlyStopping counter: 11 out of 300
+EPOCH[1062/2000] loss-1.192-|Sample:1.83|use_time:19.353164196014404
+loss: -1.1922351936014688, EarlyStopping counter: 12 out of 300
+EPOCH[1063/2000] loss-1.196-|Sample:1.56|use_time:19.12673568725586
+loss: -1.1956607772082817, EarlyStopping counter: 13 out of 300
+EPOCH[1064/2000] loss-1.197-|Sample:1.73|use_time:19.798014402389526
+loss: -1.1971334102677136, EarlyStopping counter: 14 out of 300
+EPOCH[1065/2000] loss-1.198-|Sample:1.56|use_time:18.945703983306885
+loss: -1.1979950550125866, EarlyStopping counter: 15 out of 300
+EPOCH[1066/2000] loss-1.195-|Sample:1.60|use_time:19.210182905197144
+loss: -1.194921281279587, EarlyStopping counter: 16 out of 300
+EPOCH[1067/2000] loss-1.194-|Sample:1.07|use_time:19.577309608459473
+loss: -1.194470862062966, EarlyStopping counter: 17 out of 300
+EPOCH[1068/2000] loss-1.195-|Sample:1.58|use_time:19.15379571914673
+loss: -1.1954531466088645, EarlyStopping counter: 18 out of 300
+EPOCH[1069/2000] loss-1.195-|Sample:1.08|use_time:19.363770008087158
+loss: -1.1952950460154836, EarlyStopping counter: 19 out of 300
+EPOCH[1070/2000] loss-1.196-|Sample:1.06|use_time:18.850538969039917
+loss: -1.1964321630757029, EarlyStopping counter: 20 out of 300
+EPOCH[1071/2000] loss-1.196-|Sample:1.68|use_time:19.8220796585083
+loss: -1.1963274537063227, EarlyStopping counter: 21 out of 300
+EPOCH[1072/2000] loss-1.192-|Sample:1.05|use_time:18.6941659450531
+loss: -1.1924361775561076, EarlyStopping counter: 22 out of 300
+EPOCH[1073/2000] loss-1.195-|Sample:1.88|use_time:20.16800618171692
+loss: -1.1945741234756098, EarlyStopping counter: 23 out of 300
+EPOCH[1074/2000] loss-1.195-|Sample:1.07|use_time:18.816863536834717
+loss: -1.1947808207535162, EarlyStopping counter: 24 out of 300
+EPOCH[1075/2000] loss-1.198-|Sample:1.61|use_time:19.34609293937683
+loss: -1.1975090212938262, EarlyStopping counter: 25 out of 300
+EPOCH[1076/2000] loss-1.195-|Sample:1.89|use_time:19.932883739471436
+loss: -1.1951993354936925, EarlyStopping counter: 26 out of 300
+EPOCH[1077/2000] loss-1.196-|Sample:1.04|use_time:18.56704068183899
+loss: -1.1955621562352994, EarlyStopping counter: 27 out of 300
+EPOCH[1078/2000] loss-1.195-|Sample:1.56|use_time:20.004775524139404
+loss: -1.1947912123145126, EarlyStopping counter: 28 out of 300
+EPOCH[1079/2000] loss-1.194-|Sample:1.04|use_time:18.87396001815796
+loss: -1.19407622116368, EarlyStopping counter: 29 out of 300
+EPOCH[1080/2000] loss-1.195-|Sample:1.60|use_time:19.215480089187622
+loss: -1.1952008677691948, EarlyStopping counter: 30 out of 300
+EPOCH[1081/2000] loss-1.194-|Sample:1.61|use_time:19.35613250732422
+loss: -1.1938884112893082, EarlyStopping counter: 31 out of 300
+EPOCH[1082/2000] loss-1.197-|Sample:1.86|use_time:19.870551109313965
+loss: -1.1966777022291974, EarlyStopping counter: 32 out of 300
+EPOCH[1083/2000] loss-1.197-|Sample:1.57|use_time:19.140188455581665
+loss: -1.1969781328992146, EarlyStopping counter: 33 out of 300
+EPOCH[1084/2000] loss-1.194-|Sample:1.73|use_time:19.57368040084839
+loss: -1.1944006797744007, EarlyStopping counter: 34 out of 300
+EPOCH[1085/2000] loss-1.195-|Sample:1.05|use_time:19.160022735595703
+loss: -1.1952467662532156, EarlyStopping counter: 35 out of 300
+EPOCH[1086/2000] loss-1.195-|Sample:1.63|use_time:19.102445602416992
+loss: -1.1953089586118373, EarlyStopping counter: 36 out of 300
+EPOCH[1087/2000] loss-1.197-|Sample:1.07|use_time:19.385461807250977
+loss: -1.1974025179700154, EarlyStopping counter: 37 out of 300
+EPOCH[1088/2000] loss-1.195-|Sample:1.04|use_time:18.561487674713135
+loss: -1.1948977970495456, EarlyStopping counter: 38 out of 300
+EPOCH[1089/2000] loss-1.196-|Sample:1.58|use_time:19.8071551322937
+loss: -1.1957610787414923, EarlyStopping counter: 39 out of 300
+EPOCH[1090/2000] loss-1.197-|Sample:1.08|use_time:18.865147352218628
+loss: -1.1971953554851253, EarlyStopping counter: 40 out of 300
+EPOCH[1091/2000] loss-1.196-|Sample:1.76|use_time:19.879427194595337
+loss: -1.1962888706021193, EarlyStopping counter: 41 out of 300
+EPOCH[1092/2000] loss-1.195-|Sample:1.05|use_time:18.76394510269165
+loss: -1.1947365534014818, EarlyStopping counter: 42 out of 300
+EPOCH[1093/2000] loss-1.195-|Sample:1.80|use_time:19.348151445388794
+loss: -1.1950863105494802, EarlyStopping counter: 43 out of 300
+EPOCH[1094/2000] loss-1.194-|Sample:1.77|use_time:19.700361967086792
+loss: -1.1935518049612277, EarlyStopping counter: 44 out of 300
+EPOCH[1095/2000] loss-1.193-|Sample:1.05|use_time:18.765172004699707
+loss: -1.1928507845576217, EarlyStopping counter: 45 out of 300
+EPOCH[1096/2000] loss-1.197-|Sample:1.80|use_time:20.073530912399292
+loss: -1.197152605870875, EarlyStopping counter: 46 out of 300
+EPOCH[1097/2000] loss-1.196-|Sample:1.05|use_time:18.632869243621826
+loss: -1.1955367123208396, EarlyStopping counter: 47 out of 300
+EPOCH[1098/2000] loss-1.194-|Sample:1.55|use_time:19.232149839401245
+loss: -1.1939916261812535, EarlyStopping counter: 48 out of 300
+EPOCH[1099/2000] loss-1.196-|Sample:1.91|use_time:19.454153060913086
+loss: -1.1956544765611974, EarlyStopping counter: 49 out of 300
+EPOCH[1100/2000] loss-1.194-|Sample:1.63|use_time:19.657495498657227
+loss: -1.1943413513462717, EarlyStopping counter: 50 out of 300
+[TEST]
+{'precision': array([0.02735331, 0.01997503, 0.01213733]), 'recall': array([0.1161578 , 0.16751296, 0.25211808]), 'ndcg': array([0.07888325, 0.09441958, 0.11522147]), 'coverage': array([24.6164794 , 28.71073658, 33.53870162]), 'Acoverage': array([137.25413964, 184.53200268, 263.48269541]), 'ILD': array([0.71435151, 0.73379723, 0.7662048 ]), 'F1': array([0.19982316, 0.2727597 , 0.37939653])}
+test time: 186.71674704551697
+reg_loss2: tensor(0.0152, device='cuda:0', grad_fn=<MulBackward0>) au_loss: tensor(-1.2172, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[1101/2000] loss-1.195-|Sample:2.05|use_time:19.748338222503662
+loss: -1.1953370949117148, EarlyStopping counter: 51 out of 300
+EPOCH[1102/2000] loss-1.196-|Sample:1.06|use_time:19.511871576309204
+loss: -1.1964006598402814, EarlyStopping counter: 52 out of 300
+EPOCH[1103/2000] loss-1.196-|Sample:1.07|use_time:18.72147297859192
+loss: -1.1959551601875118, EarlyStopping counter: 53 out of 300
+EPOCH[1104/2000] loss-1.197-|Sample:1.63|use_time:19.71217393875122
+loss: -1.197186100773695, EarlyStopping counter: 54 out of 300
+EPOCH[1105/2000] loss-1.196-|Sample:1.04|use_time:18.72356152534485
+loss: -1.1958209305274776, EarlyStopping counter: 55 out of 300
+EPOCH[1106/2000] loss-1.196-|Sample:1.56|use_time:19.165220022201538
+loss: -1.195965275531862, EarlyStopping counter: 56 out of 300
+EPOCH[1107/2000] loss-1.194-|Sample:1.78|use_time:19.326558351516724
+loss: -1.1941283766816302, EarlyStopping counter: 57 out of 300
+EPOCH[1108/2000] loss-1.194-|Sample:1.76|use_time:19.8631591796875
+loss: -1.193901777267456, EarlyStopping counter: 58 out of 300
+EPOCH[1109/2000] loss-1.195-|Sample:1.61|use_time:19.314599990844727
+loss: -1.1954515765352947, EarlyStopping counter: 59 out of 300
+EPOCH[1110/2000] loss-1.196-|Sample:1.71|use_time:19.516849279403687
+loss: -1.195691672767081, EarlyStopping counter: 60 out of 300
+EPOCH[1111/2000] loss-1.196-|Sample:1.06|use_time:19.262970685958862
+loss: -1.195926811636948, EarlyStopping counter: 61 out of 300
+EPOCH[1112/2000] loss-1.194-|Sample:1.59|use_time:19.30159831047058
+loss: -1.1939397090818824, EarlyStopping counter: 62 out of 300
+EPOCH[1113/2000] loss-1.195-|Sample:1.05|use_time:19.62687397003174
+loss: -1.194703881333514, EarlyStopping counter: 63 out of 300
+EPOCH[1114/2000] loss-1.196-|Sample:1.07|use_time:18.74488067626953
+loss: -1.1957698798761136, EarlyStopping counter: 64 out of 300
+EPOCH[1115/2000] loss-1.194-|Sample:1.58|use_time:19.879817247390747
+loss: -1.1943486289280216, EarlyStopping counter: 65 out of 300
+EPOCH[1116/2000] loss-1.194-|Sample:1.07|use_time:18.785902976989746
+loss: -1.1936444131339468, EarlyStopping counter: 66 out of 300
+EPOCH[1117/2000] loss-1.196-|Sample:1.82|use_time:19.870845079421997
+loss: -1.1955539860376498, EarlyStopping counter: 67 out of 300
+EPOCH[1118/2000] loss-1.198-|Sample:1.09|use_time:18.73785638809204
+loss: -1.1976507727692767, EarlyStopping counter: 68 out of 300
+EPOCH[1119/2000] loss-1.197-|Sample:1.78|use_time:19.438563108444214
+loss: -1.1973914634890672, EarlyStopping counter: 69 out of 300
+EPOCH[1120/2000] loss-1.194-|Sample:1.78|use_time:19.784213542938232
+loss: -1.1937602438577792, EarlyStopping counter: 70 out of 300
+EPOCH[1121/2000] loss-1.196-|Sample:1.06|use_time:18.685137510299683
+loss: -1.1959740882966576, EarlyStopping counter: 71 out of 300
+EPOCH[1122/2000] loss-1.198-|Sample:1.74|use_time:19.94539213180542
+loss: -1.1977846913221406, EarlyStopping counter: 72 out of 300
+EPOCH[1123/2000] loss-1.195-|Sample:1.06|use_time:18.584044456481934
+loss: -1.1948783543051742, EarlyStopping counter: 73 out of 300
+EPOCH[1124/2000] loss-1.199-|Sample:1.57|use_time:19.159260272979736
+EPOCH[1125/2000] loss-1.195-|Sample:1.82|use_time:19.293587923049927
+loss: -1.1951336482676065, EarlyStopping counter: 1 out of 300
+EPOCH[1126/2000] loss-1.196-|Sample:1.70|use_time:19.825043439865112
+loss: -1.1957151977027334, EarlyStopping counter: 2 out of 300
+EPOCH[1127/2000] loss-1.194-|Sample:1.54|use_time:19.11012315750122
+loss: -1.193814754486084, EarlyStopping counter: 3 out of 300
+EPOCH[1128/2000] loss-1.195-|Sample:1.87|use_time:19.556087493896484
+loss: -1.1950352831584652, EarlyStopping counter: 4 out of 300
+EPOCH[1129/2000] loss-1.196-|Sample:1.05|use_time:19.097589015960693
+loss: -1.1959864337269852, EarlyStopping counter: 5 out of 300
+EPOCH[1130/2000] loss-1.197-|Sample:1.59|use_time:19.362022161483765
+loss: -1.1972911328804203, EarlyStopping counter: 6 out of 300
+EPOCH[1131/2000] loss-1.195-|Sample:1.04|use_time:19.331109285354614
+loss: -1.1953541331174897, EarlyStopping counter: 7 out of 300
+EPOCH[1132/2000] loss-1.198-|Sample:1.04|use_time:18.75215172767639
+loss: -1.1979327201843262, EarlyStopping counter: 8 out of 300
+EPOCH[1133/2000] loss-1.198-|Sample:1.57|use_time:19.859736680984497
+loss: -1.1975343867046078, EarlyStopping counter: 9 out of 300
+EPOCH[1134/2000] loss-1.196-|Sample:1.09|use_time:18.833075523376465
+loss: -1.1958337789628564, EarlyStopping counter: 10 out of 300
+EPOCH[1135/2000] loss-1.196-|Sample:1.67|use_time:19.72584056854248
+loss: -1.1959231772073886, EarlyStopping counter: 11 out of 300
+EPOCH[1136/2000] loss-1.193-|Sample:1.04|use_time:18.70988941192627
+loss: -1.1928268525658585, EarlyStopping counter: 12 out of 300
+EPOCH[1137/2000] loss-1.194-|Sample:1.91|use_time:19.408629417419434
+loss: -1.1944859783823898, EarlyStopping counter: 13 out of 300
+EPOCH[1138/2000] loss-1.198-|Sample:1.64|use_time:19.784860372543335
+loss: -1.1980276049637213, EarlyStopping counter: 14 out of 300
+EPOCH[1139/2000] loss-1.196-|Sample:1.05|use_time:18.76908826828003
+loss: -1.196330931128525, EarlyStopping counter: 15 out of 300
+EPOCH[1140/2000] loss-1.196-|Sample:1.83|use_time:19.849084615707397
+loss: -1.1958746735642596, EarlyStopping counter: 16 out of 300
+EPOCH[1141/2000] loss-1.194-|Sample:1.06|use_time:18.671053886413574
+loss: -1.193551895095081, EarlyStopping counter: 17 out of 300
+EPOCH[1142/2000] loss-1.195-|Sample:1.58|use_time:19.387898206710815
+loss: -1.1950784223835642, EarlyStopping counter: 18 out of 300
+EPOCH[1143/2000] loss-1.195-|Sample:1.86|use_time:19.53512978553772
+loss: -1.1954429789287289, EarlyStopping counter: 19 out of 300
+EPOCH[1144/2000] loss-1.197-|Sample:1.65|use_time:19.587435007095337
+loss: -1.1972208895334384, EarlyStopping counter: 20 out of 300
+EPOCH[1145/2000] loss-1.197-|Sample:1.61|use_time:19.241506814956665
+loss: -1.1968340931869135, EarlyStopping counter: 21 out of 300
+EPOCH[1146/2000] loss-1.194-|Sample:1.84|use_time:19.42362689971924
+loss: -1.1944200789056174, EarlyStopping counter: 22 out of 300
+EPOCH[1147/2000] loss-1.196-|Sample:1.06|use_time:18.953762531280518
+loss: -1.195681441120985, EarlyStopping counter: 23 out of 300
+EPOCH[1148/2000] loss-1.196-|Sample:1.70|use_time:19.45383334159851
+loss: -1.195947280744227, EarlyStopping counter: 24 out of 300
+EPOCH[1149/2000] loss-1.199-|Sample:1.06|use_time:19.2079861164093
+EPOCH[1150/2000] loss-1.200-|Sample:1.06|use_time:18.824622631072998
+[TEST]
+{'precision': array([0.0272784 , 0.01998752, 0.01212484]), 'recall': array([0.11629947, 0.16642031, 0.25130123]), 'ndcg': array([0.07952834, 0.09481811, 0.11566305]), 'coverage': array([24.56229713, 28.80774032, 33.4710362 ]), 'Acoverage': array([136.52322402, 184.16856978, 262.96714777]), 'ILD': array([0.7148703 , 0.73261055, 0.76457224]), 'F1': array([0.20005309, 0.27122823, 0.37827141])}
+test time: 187.1131272315979
+reg_loss2: tensor(0.0151, device='cuda:0', grad_fn=<MulBackward0>) au_loss: tensor(-1.2269, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[1151/2000] loss-1.194-|Sample:2.01|use_time:20.53800344467163
+loss: -1.1943234525075772, EarlyStopping counter: 1 out of 300
+EPOCH[1152/2000] loss-1.194-|Sample:1.07|use_time:18.732331037521362
+loss: -1.1944452466034308, EarlyStopping counter: 2 out of 300
+EPOCH[1153/2000] loss-1.198-|Sample:1.62|use_time:19.637259244918823
+loss: -1.197534953675619, EarlyStopping counter: 3 out of 300
+EPOCH[1154/2000] loss-1.196-|Sample:1.07|use_time:19.416796922683716
+loss: -1.195910599173569, EarlyStopping counter: 4 out of 300
+EPOCH[1155/2000] loss-1.195-|Sample:1.06|use_time:19.145166158676147
+loss: -1.1951882664750262, EarlyStopping counter: 5 out of 300
+EPOCH[1156/2000] loss-1.195-|Sample:1.06|use_time:19.09375810623169
+loss: -1.1954832018875494, EarlyStopping counter: 6 out of 300
+EPOCH[1157/2000] loss-1.197-|Sample:1.07|use_time:18.801084756851196
+loss: -1.1967286801919705, EarlyStopping counter: 7 out of 300
+EPOCH[1158/2000] loss-1.196-|Sample:1.85|use_time:20.150068283081055
+loss: -1.1958004003617821, EarlyStopping counter: 8 out of 300
+EPOCH[1159/2000] loss-1.196-|Sample:1.09|use_time:18.649163961410522
+loss: -1.1956411832716407, EarlyStopping counter: 9 out of 300
+EPOCH[1160/2000] loss-1.196-|Sample:1.58|use_time:20.095706462860107
+loss: -1.196368240728611, EarlyStopping counter: 10 out of 300
+EPOCH[1161/2000] loss-1.195-|Sample:1.05|use_time:19.15067172050476
+loss: -1.195142388343811, EarlyStopping counter: 11 out of 300
+EPOCH[1162/2000] loss-1.196-|Sample:1.03|use_time:19.051130294799805
+loss: -1.1961884934727738, EarlyStopping counter: 12 out of 300
+EPOCH[1163/2000] loss-1.195-|Sample:1.05|use_time:18.68175768852234
+loss: -1.1948655174999703, EarlyStopping counter: 13 out of 300
+EPOCH[1164/2000] loss-1.195-|Sample:1.92|use_time:19.964014768600464
+loss: -1.1947502566546928, EarlyStopping counter: 14 out of 300
+EPOCH[1165/2000] loss-1.194-|Sample:1.06|use_time:18.625600814819336
+loss: -1.1940905553538625, EarlyStopping counter: 15 out of 300
+EPOCH[1166/2000] loss-1.195-|Sample:1.60|use_time:20.13318371772766
+loss: -1.1948890918638648, EarlyStopping counter: 16 out of 300
+EPOCH[1167/2000] loss-1.196-|Sample:1.06|use_time:19.1384220123291
+loss: -1.1959430967889182, EarlyStopping counter: 17 out of 300
+EPOCH[1168/2000] loss-1.197-|Sample:1.07|use_time:19.059409618377686
+loss: -1.1973143612466208, EarlyStopping counter: 18 out of 300
+EPOCH[1169/2000] loss-1.196-|Sample:1.08|use_time:18.79318141937256
+loss: -1.1958418793794585, EarlyStopping counter: 19 out of 300
+EPOCH[1170/2000] loss-1.195-|Sample:1.89|use_time:19.983022928237915
+loss: -1.1946170504500226, EarlyStopping counter: 20 out of 300
+EPOCH[1171/2000] loss-1.197-|Sample:1.06|use_time:18.742390871047974
+loss: -1.1972490810766452, EarlyStopping counter: 21 out of 300
+EPOCH[1172/2000] loss-1.197-|Sample:1.72|use_time:20.15809965133667
+loss: -1.1966662726751187, EarlyStopping counter: 22 out of 300
+EPOCH[1173/2000] loss-1.196-|Sample:1.06|use_time:19.153101921081543
+loss: -1.1955446411923665, EarlyStopping counter: 23 out of 300
+EPOCH[1174/2000] loss-1.197-|Sample:1.06|use_time:19.197261571884155
+loss: -1.1965018016536062, EarlyStopping counter: 24 out of 300
+EPOCH[1175/2000] loss-1.195-|Sample:1.05|use_time:18.75730586051941
+loss: -1.1951885165237799, EarlyStopping counter: 25 out of 300
+EPOCH[1176/2000] loss-1.196-|Sample:1.77|use_time:19.870123386383057
+loss: -1.1955155802936088, EarlyStopping counter: 26 out of 300
+EPOCH[1177/2000] loss-1.194-|Sample:1.06|use_time:18.74729895591736
+loss: -1.1943636318532431, EarlyStopping counter: 27 out of 300
+EPOCH[1178/2000] loss-1.196-|Sample:1.82|use_time:19.989965200424194
+loss: -1.1956550057341413, EarlyStopping counter: 28 out of 300
+EPOCH[1179/2000] loss-1.198-|Sample:1.06|use_time:18.97778034210205
+loss: -1.197722068647059, EarlyStopping counter: 29 out of 300
+EPOCH[1180/2000] loss-1.196-|Sample:1.05|use_time:19.226122856140137
+loss: -1.1955057440734491, EarlyStopping counter: 30 out of 300
+EPOCH[1181/2000] loss-1.198-|Sample:1.08|use_time:18.692813634872437
+loss: -1.1976691862431967, EarlyStopping counter: 31 out of 300
+EPOCH[1182/2000] loss-1.196-|Sample:1.82|use_time:19.796358823776245
+loss: -1.1964320147909768, EarlyStopping counter: 32 out of 300
+EPOCH[1183/2000] loss-1.195-|Sample:1.04|use_time:18.715716123580933
+loss: -1.1948079946564465, EarlyStopping counter: 33 out of 300
+EPOCH[1184/2000] loss-1.198-|Sample:1.82|use_time:19.959108114242554
+loss: -1.1979338076056503, EarlyStopping counter: 34 out of 300
+EPOCH[1185/2000] loss-1.195-|Sample:1.09|use_time:18.976243019104004
+loss: -1.1948677824764717, EarlyStopping counter: 35 out of 300
+EPOCH[1186/2000] loss-1.194-|Sample:1.07|use_time:19.416064262390137
+loss: -1.1943425841447783, EarlyStopping counter: 36 out of 300
+EPOCH[1187/2000] loss-1.197-|Sample:1.09|use_time:18.705469131469727
+loss: -1.197318937720322, EarlyStopping counter: 37 out of 300
+EPOCH[1188/2000] loss-1.197-|Sample:1.78|use_time:19.720232248306274
+loss: -1.1969323536244834, EarlyStopping counter: 38 out of 300
+EPOCH[1189/2000] loss-1.196-|Sample:1.05|use_time:18.541738986968994
+loss: -1.1956046296329033, EarlyStopping counter: 39 out of 300
+EPOCH[1190/2000] loss-1.196-|Sample:1.88|use_time:19.918724298477173
+loss: -1.19645215243828, EarlyStopping counter: 40 out of 300
+EPOCH[1191/2000] loss-1.193-|Sample:1.07|use_time:19.029005765914917
+loss: -1.1934800613217238, EarlyStopping counter: 41 out of 300
+EPOCH[1192/2000] loss-1.198-|Sample:1.06|use_time:19.317596673965454
+loss: -1.1980408633627542, EarlyStopping counter: 42 out of 300
+EPOCH[1193/2000] loss-1.197-|Sample:1.05|use_time:18.593475580215454
+loss: -1.1969824913071423, EarlyStopping counter: 43 out of 300
+EPOCH[1194/2000] loss-1.195-|Sample:1.63|use_time:19.61392569541931
+loss: -1.1951924242624423, EarlyStopping counter: 44 out of 300
+EPOCH[1195/2000] loss-1.197-|Sample:1.05|use_time:18.513903856277466
+loss: -1.1973951299016068, EarlyStopping counter: 45 out of 300
+EPOCH[1196/2000] loss-1.195-|Sample:1.88|use_time:19.933858633041382
+loss: -1.1951016681950266, EarlyStopping counter: 46 out of 300
+EPOCH[1197/2000] loss-1.193-|Sample:1.05|use_time:19.084461212158203
+loss: -1.1929962286135045, EarlyStopping counter: 47 out of 300
+EPOCH[1198/2000] loss-1.196-|Sample:1.08|use_time:19.42511224746704
+loss: -1.195525445589205, EarlyStopping counter: 48 out of 300
+EPOCH[1199/2000] loss-1.195-|Sample:1.07|use_time:18.665228605270386
+loss: -1.194851526399938, EarlyStopping counter: 49 out of 300
+EPOCH[1200/2000] loss-1.194-|Sample:1.63|use_time:19.71059226989746
+loss: -1.194343255787361, EarlyStopping counter: 50 out of 300
+[TEST]
+{'precision': array([0.02734082, 0.02001873, 0.01208989]), 'recall': array([0.1160158 , 0.16660396, 0.24892296]), 'ndcg': array([0.07924529, 0.0945931 , 0.1149455 ]), 'coverage': array([24.73545568, 28.94881398, 33.55692884]), 'Acoverage': array([136.37263482, 183.85119211, 263.09006425]), 'ILD': array([0.71242059, 0.72929365, 0.76379811]), 'F1': array([0.19953746, 0.27124352, 0.37547729])}
+test time: 183.71936106681824
+reg_loss2: tensor(0.0150, device='cuda:0', grad_fn=<MulBackward0>) au_loss: tensor(-1.1860, device='cuda:0', grad_fn=<AddBackward0>)
+EPOCH[1201/2000] loss-1.195-|Sample:1.07|use_time:19.133272647857666
+loss: -1.194980353843875, EarlyStopping counter: 51 out of 300
+EPOCH[1202/2000] loss-1.197-|Sample:1.71|use_time:19.18033742904663
+loss: -1.1969894665043528, EarlyStopping counter: 52 out of 300
+EPOCH[1203/2000] loss-1.197-|Sample:1.78|use_time:19.677435398101807
+loss: -1.1970339228467244, EarlyStopping counter: 53 out of 300
+EPOCH[1204/2000] loss-1.196-|Sample:1.57|use_time:18.998969078063965
+loss: -1.195884893580181, EarlyStopping counter: 54 out of 300
+EPOCH[1205/2000] loss-1.195-|Sample:1.10|use_time:19.146972179412842
+loss: -1.1954006916139184, EarlyStopping counter: 55 out of 300
+EPOCH[1206/2000] loss-1.196-|Sample:1.07|use_time:18.69650101661682
+loss: -1.1961405306327633, EarlyStopping counter: 56 out of 300
+EPOCH[1207/2000] loss-1.197-|Sample:1.74|use_time:19.661051988601685
+loss: -1.1972719401848027, EarlyStopping counter: 57 out of 300
+EPOCH[1208/2000] loss-1.196-|Sample:1.57|use_time:19.026737689971924
+loss: -1.1955271087041714, EarlyStopping counter: 58 out of 300
+EPOCH[1209/2000] loss-1.195-|Sample:1.06|use_time:19.361523866653442
+loss: -1.1948874520092476, EarlyStopping counter: 59 out of 300

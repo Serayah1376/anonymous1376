@@ -86,10 +86,12 @@ class Loader(BasicDataset):
         train_aspect = path + '/beauty_interAspectID.json'
 
         user_aspect = path + '/user_aspect.json'
-        item_aspect = path + '/item_aspect.json'
+        item_aspect = path + '/item_aspect2.json'  # 2是完全正确的
 
         # aspect_embedding = path + '/aspect_all-MiniLM-L6-v2.json'
-        aspect_embedding = path + '/aspect_instructor.json'
+        # aspect_embedding = path + '/aspect_instructor_NULL.json'
+        # aspect_embedding = path + '/aspect_instructor.json'
+        aspect_embedding = path + '/aspect_instructor_Detail.json'
 
         self.category_path = path + '/item_category.json'
 
@@ -100,6 +102,7 @@ class Loader(BasicDataset):
         trainAitem, trainIAspect = [], []
         self.user_aspect_dic = dict()
         self.item_aspect_dic = dict()
+        self.user_new_aspect = []  # user未交互过的aspect的平均
         # aspect trainable
         self.user_aspect_ID_dic = dict()
         self.item_aspect_ID_dic = dict()

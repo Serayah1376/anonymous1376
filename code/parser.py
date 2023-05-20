@@ -52,7 +52,7 @@ def parse_args():
     parser.add_argument('--pretrain', type=int, default=0, help='whether we use pretrained weight or not')  # 0
     parser.add_argument('--seed', type=int, default=2023, help='random seed')
     parser.add_argument('--model', type=str, default='lgn', help='rec-model, support [lgn, ...]')
-    parser.add_argument('--max_len', type=int, default=64, help='Maximum length of aspect list')
+    parser.add_argument('--max_len', type=int, default=32, help='Maximum length of aspect list')  # 32较好
     parser.add_argument('--head_num', type=int, default=1, help='The number of heads of MultiheadAttention') # have little impact
     parser.add_argument('--gamma', type=int, default=0.5, help='The weight 𝛾 of 𝑙_uniform')  # 0.5 best
     parser.add_argument('--sigma', default = 1.0, type = float, help = 'sigma for gaussian kernel')
@@ -60,12 +60,13 @@ def parse_args():
     parser.add_argument('--k', default = 20, type = int, help = 'neighbor number in each GNN aggregation(for diversity)')
     parser.add_argument('--loss_function', default = 'au', type = str, help = 'loss function')
     parser.add_argument('--patience', default = 300, type = int, help = 'early_stop patience')  # 100
-    parser.add_argument('--new_aspects', default = 16, type = int, help = 'new aspects add to user')  # 100
+    parser.add_argument('--new_aspects', default = 8, type = int, help = 'new aspects add to user')  # 16  maybe 32 is best
+    parser.add_argument('--new_λ', default = 0.2, type = int, help = 'the weight of the new aspects add to user')  # new_λ
     # for Contrastive Learning
     parser.add_argument('--eps', default = 0.2, type = int, help = 'the weight noise in XsimGCL')  # 0.2
     parser.add_argument('--perturbed', default = False, type = bool, help = 'Add noise or not')  #
-    parser.add_argument('--layer_cl', default = 3, type = int, help = 'Layers for contrast') # layer_cl  1-layer
-    parser.add_argument('--cl_rate', default = 0.2, type = int, help = 'the weight of cl_loss') # 0.2
+    parser.add_argument('--layer_cl', default = 1, type = int, help = 'Layers for contrast') # layer_cl  1-layer
+    parser.add_argument('--cl_rate', default = 0.2, type = int, help = 'the weight of cl_loss') # 0.2  best
     parser.add_argument('--temp', default = 0.15, type = int, help = 'the temperature of cl_loss') # -temp
     return parser.parse_args()
 

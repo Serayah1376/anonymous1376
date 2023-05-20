@@ -47,14 +47,14 @@ def train(args, dataset, recommend_model, loss_class, epoch, neg_k=1, w=None):
                                                           aspect_emb,
                                                           batch_size=args.bpr_batch)):
 
-        cri, reg_loss2, au_loss1, cl_loss = bpr.stageOne(batch_users, batch_pos, batch_neg, batch_aspect_emb)
+        cri, reg_loss2, au_loss1 = bpr.stageOne(batch_users, batch_pos, batch_neg, batch_aspect_emb)
         aver_loss += cri
         if args.tensorboard:
             w.add_scalar(f'BPRLoss/BPR', cri, epoch * int(len(users) / args.bpr_batch) + batch_i)
 
     # loss
     if epoch % 50 == 0 and epoch != 0:
-        print("reg_loss2:", reg_loss2, "au_loss:", au_loss1, 'cl_loss:', cl_loss)  # "reg_loss1:", reg_loss1
+        print("reg_loss2:", reg_loss2, "au_loss:", au_loss1)  # "reg_loss1:", reg_loss1  'cl_loss:', cl_loss
 
     aver_loss = aver_loss / total_batch
     time_info = utils.timer.dict()
