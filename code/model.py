@@ -44,6 +44,9 @@ class Model(nn.Module):
         self.item_aspect_emb = dict()
         self.user_padding_aspect = []  # user/item aspect padding
         self.item_padding_aspect = []
+        self.new_λ = self.args.new_λ
+        self.train_add_newAspect = self.args.train_add_newAspect
+        self.test_add_newAspect = self.args.test_add_newAspect
 
         # aspect mask: 在选择新的aspect时，屏蔽到已经交互过的aspect
         aspect_mask_pre = torch.tensor(self.UserAspectNet.toarray())
@@ -85,6 +88,9 @@ class Model(nn.Module):
         nn.init.constant_(self.aspect_MLP.bias, 0)
 
         # for aspect_conditional_encoder
+        self.MLP = nn.Linear(in_features=self.args.recdim * 2, out_features=self.args.recdim, bias=True)
+        nn.init.xavier_normal_(self.MLP.weight)
+        nn.init.constant_(self.MLP.bias, 0)
         relu = nn.ReLU(inplace=True)
         # LeakyReLU = nn.LeakyReLU(negative_slope=5e-2)  搜一下看怎么设置
 
@@ -163,9 +169,9 @@ class Model(nn.Module):
         pos_emb = all_items[pos_items]
         neg_emb = all_items[neg_items]
 
-        users_emb_diversity = self.aspect_diversity(users_emb, users)  # 只对该批次user加diversity, 得到加入new aspect的user emb
-
-        # users_emb_diversity = self.aspect_diversity2(users_emb, users)  # 使用注意力机制进行新aspect的筛选
+        if self.train_add_newAspect:
+            # users_emb_diversity = self.aspect_diversity(users_emb, users)  # 只对该批次user加diversity, 得到加入new aspect的user emb
+            users_emb_diversity = self.aspect_diversity2(users_emb, users)  # 使用注意力机制进行新aspect的筛选
 
         """users_emb_ego = self.embedding_user[users]
         pos_emb_ego = self.embedding_item[pos_items]
@@ -178,8 +184,9 @@ class Model(nn.Module):
         users_emb = all_users[users]
 
         # 测试期间加不加需要测试一下
-        users_emb = self.aspect_diversity(users_emb, users)  # add new aspects  测试的时候不加了，直接用已经训练好的user_emb
-        # users_emb_diversity = self.aspect_diversity2(users_emb, users)  # 使用注意力机制进行新aspect的筛选
+        if self.test_add_newAspect:
+            # users_emb = self.aspect_diversity(users_emb, users)  # add new aspects  测试的时候不加了，直接用已经训练好的user_emb
+            users_emb = self.aspect_diversity2(users_emb, users)  # 使用注意力机制进行新aspect的筛选
 
         items_emb = all_items
 
@@ -230,9 +237,6 @@ class Model(nn.Module):
     def candidate_aspect(self):
         aspect_emb = torch.tensor(list(self.aspect_emb_64.values())).to(self.args.device)  # 所有aspect嵌入
         dicts = self.cos_sim(self.user_mean_aspect, aspect_emb)  # 计算user的表示与其他所有aspect表示的相似度 [num_user, num_aspects]
-        print("dict.type:", type(dicts))
-        print("dict.shape:", dicts.shape)  # 8119
-        print("self.aspect_mask.shape", self.aspect_mask.shape)
         masked_dicts = self.aspect_mask + dicts
         _, sorted_index = torch.sort(masked_dicts, dim=1, descending=True)
         sorted_index = sorted_index[:, : self.args.new_aspects]  # [num_user, num_aspects]
@@ -364,10 +368,10 @@ class Model(nn.Module):
 
     def Aspect_condition_encoder(self, emb, aspect_emb):
         # new_emb = self.MLP(emb + aspect_emb)
-        # new_emb = self.MLP(torch.cat((emb, aspect_emb), dim = 1))
+        # new_emb = self.MLP(torch.cat((emb, aspect_emb), dim=1))
         # new_emb = torch.cat((emb, aspect_emb), dim = 1)
         new_emb = emb + aspect_emb
-        return new_emb  # F.sigmoid(new_emb) relu(new_emb) 换成Relu
+        return new_emb # F.sigmoid(new_emb)  # new_emb # F.sigmoid(new_emb) relu(new_emb) 换成Relu
 
     # 与未交互过的aspect计算相似度，选出top-k个表示加入到user中
     def aspect_diversity(self, user_emb, user_index):  # user_index: [batch_size]
@@ -405,8 +409,9 @@ class Model(nn.Module):
                                             user_index)  # torch.Size([user_index, num_new_aspects, emb])
         # [n_user, num_new_aspects, 1]
         new_aspect_weight = nn.Softmax(dim=1)(
-            torch.matmul(user_emb, new_aspect_emb.transpose(1, 2))).squeeze().unsqueeze(dim=-1)
-        user_new_aspect = user_emb * (new_aspect_weight * new_aspect_emb).sum(dim=1) + user_emb
+            torch.matmul(torch.unsqueeze(user_emb, dim=1), new_aspect_emb.transpose(1, 2))).squeeze().unsqueeze(dim=-1)
+        user_new_aspect = self.new_λ * user_emb * (new_aspect_weight * new_aspect_emb).sum(dim=1) + user_emb
+        # user_new_aspect = self.new_λ  * (new_aspect_weight * new_aspect_emb).sum(dim=1) + user_emb
         return user_new_aspect
 
     # 计算两个二维向量每行之间的余弦相似度

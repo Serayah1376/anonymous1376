@@ -61,7 +61,9 @@ def parse_args():
     parser.add_argument('--loss_function', default = 'au', type = str, help = 'loss function')
     parser.add_argument('--patience', default = 300, type = int, help = 'early_stop patience')  # 100
     parser.add_argument('--new_aspects', default = 8, type = int, help = 'new aspects add to user')  # 16  maybe 32 is best
-    parser.add_argument('--new_λ', default = 0.2, type = int, help = 'the weight of the new aspects add to user')  # new_λ
+    parser.add_argument('--new_λ', default = 0.5, type = int, help = 'the weight of the new aspects add to user')  # new_λ
+    parser.add_argument('--train_add_newAspect', default = True, type = bool, help = 'whether add new aspects in training')  # new_λ
+    parser.add_argument('--test_add_newAspect', default = True, type = bool, help = 'whether add new aspects in testing')  # new_λ
     # for Contrastive Learning
     parser.add_argument('--eps', default = 0.2, type = int, help = 'the weight noise in XsimGCL')  # 0.2
     parser.add_argument('--perturbed', default = False, type = bool, help = 'Add noise or not')  #

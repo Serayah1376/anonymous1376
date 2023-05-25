@@ -213,7 +213,10 @@ def register(args):
     print("gamma2(submodular)", args.gamma2)
     print("sigma(submodular)", args.sigma)
     print("k(number of aggregated neighbors)", args.k)
-    print("ADD new aspects", args.new_aspects)
+    print("num of new aspects", args.new_aspects)
+    print("the weight of the new aspects add to user", args.new_λ)
+    print("whether add new aspects in training", args.train_add_newAspect)
+    print("whether add new aspects in testing", args.test_add_newAspect)
     print("loss function", args.loss_function)
     print('===========end===================')
 
